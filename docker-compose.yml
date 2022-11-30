@@ -1,0 +1,6 @@
+version: "3.3"
+services:
+  gt-fe-customer:
+    image: hiepnguyen6014/gt-fe-customer:latest
+    ports:
+      - "3000:3000"

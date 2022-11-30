@@ -1,0 +1,25 @@
+@import "~/styles/variables";
+
+.header-top-item {
+  display: flex;
+  align-items: center;
+  color: $white;
+  font-size: 1.4rem;
+
+  + .header-top-item {
+    padding-left: 0.8rem;
+    margin-left: 0.8rem;
+    border-left: 0.15rem solid $white;
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.top-right {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}

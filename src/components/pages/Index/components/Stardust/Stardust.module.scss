@@ -1,0 +1,14 @@
+@import "~/styles/mixins";
+
+.stardust-wrapper {
+  .stardust-wrapper-inner {
+    @include container;
+  }
+
+  .stardust-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+}

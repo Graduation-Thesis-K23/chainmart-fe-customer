@@ -1,0 +1,19 @@
+@import "~/styles/variables";
+
+.profile-wrapper {
+  display: flex;
+  height: 2.4rem;
+  cursor: pointer;
+
+  .auth-avatar {
+    display: inline-block;
+    width: 3.2rem;
+    height: 3.2rem;
+    border-radius: 50%;
+  }
+
+  .auth-username {
+    margin-left: 0.6rem;
+    color: $white;
+  }
+}

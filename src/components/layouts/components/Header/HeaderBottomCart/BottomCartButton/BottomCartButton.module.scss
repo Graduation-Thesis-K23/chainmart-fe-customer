@@ -1,0 +1,10 @@
+@import "~/styles/variables";
+
+.cart-header__btn {
+  color: $white !important;
+  background-color: $primary-color !important;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}

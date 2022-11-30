@@ -1,0 +1,30 @@
+{
+  "extends": [
+    "stylelint-config-standard-scss",
+    "stylelint-config-prettier-scss",
+    "stylelint-config-recommended-scss"
+  ],
+  "files": ["**/*.scss"],
+  "plugins": ["stylelint-prettier", "stylelint-scss"],
+  "rules": {
+    "prettier/prettier": [
+      true,
+      {
+        "singleQuote": false,
+        "endOfLine": "auto"
+      }
+    ],
+    "selector-class-pattern": null,
+    "color-function-notation": null,
+    "alpha-value-notation": null
+  },
+  "ignoreFiles": [
+    "node_modules/**/*",
+    "dist/**/*",
+    "build/**/*",
+    "coverage/**/*",
+    "docs/**/*",
+    "test/**/*",
+    "src/styles/**/*"
+  ]
+}

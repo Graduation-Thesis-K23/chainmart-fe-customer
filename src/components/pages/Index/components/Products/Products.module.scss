@@ -1,0 +1,35 @@
+@import "~/styles/variables";
+@import "~/styles/mixins";
+
+.products {
+  height: 113rem;
+  background-color: $background-color;
+
+  &-inner {
+    @include container;
+
+    position: relative;
+    height: 100%;
+  }
+
+  &-content {
+    position: absolute;
+    top: 1rem;
+    width: 100%;
+    background-color: $white;
+  }
+
+  &-all {
+    padding: 1rem;
+    text-align: center;
+
+    &-btn {
+      display: inline-block;
+      padding: 0.6rem 3rem;
+      color: white !important;
+      background-color: $primary-color;
+      border-radius: 0.2rem;
+      cursor: pointer;
+    }
+  }
+}

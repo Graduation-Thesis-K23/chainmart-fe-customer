@@ -3,7 +3,6 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 
 import { LocalesProvider } from "../hooks/useLocales";
-import "antd/dist/antd.css";
 import "~/styles/index.scss";
 
 function MyApp({ Component, pageProps }: AppProps) {

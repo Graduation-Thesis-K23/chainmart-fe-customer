@@ -12,11 +12,31 @@ import styles from "./BottomSearch.module.scss";
 const items = [
   {
     key: "1",
-    label: <TextLink href="search?keyword=123" text="123" />,
+    label: (
+      <TextLink
+        href={{
+          pathname: "/search",
+          query: {
+            q: "react",
+          },
+        }}
+        text="123"
+      />
+    ),
   },
   {
     key: "2",
-    label: <TextLink href="search?keyword=asd" text="asd" />,
+    label: (
+      <TextLink
+        href={{
+          pathname: "/search",
+          query: {
+            q: "react",
+          },
+        }}
+        text="asd"
+      />
+    ),
   },
 ];
 
@@ -29,6 +49,7 @@ const BottomSearch = () => {
         menu={{ items }}
         trigger={["click"]}
         placement="bottom"
+        overlayStyle={{ borderRadius: 0 }}
         getPopupContainer={() =>
           document.getElementById("header-search") as HTMLElement
         }

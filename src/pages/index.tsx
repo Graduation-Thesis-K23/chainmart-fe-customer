@@ -1,8 +1,13 @@
 import React from "react";
-import type { NextPage } from "next";
 
 import IndexScreen from "~pages/Index";
 
-const Index: NextPage = () => <IndexScreen />;
+const Index = () => <IndexScreen />;
+
+export const getStaticProps = async () => {
+  return {
+    props: {},
+  };
+};
 
 export default Index;

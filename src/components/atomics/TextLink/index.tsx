@@ -3,7 +3,7 @@ import React, { memo } from "react";
 import Link from "next/link";
 
 interface Props {
-  href: string;
+  href: string | object;
   text: string;
   blank?: boolean;
 }

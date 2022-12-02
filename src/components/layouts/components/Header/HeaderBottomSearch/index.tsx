@@ -13,29 +13,33 @@ const items = [
   {
     key: "1",
     label: (
-      <TextLink
-        href={{
-          pathname: "/search",
-          query: {
-            q: "react",
-          },
-        }}
-        text="123"
-      />
+      <div>
+        <TextLink
+          href={{
+            pathname: "/search",
+            query: {
+              q: "123",
+            },
+          }}
+          text="123"
+        />
+      </div>
     ),
   },
   {
     key: "2",
     label: (
-      <TextLink
-        href={{
-          pathname: "/search",
-          query: {
-            q: "react",
-          },
-        }}
-        text="asd"
-      />
+      <div>
+        <TextLink
+          href={{
+            pathname: "/search",
+            query: {
+              q: "asd",
+            },
+          }}
+          text="asd"
+        />
+      </div>
     ),
   },
 ];

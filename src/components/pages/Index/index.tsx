@@ -1,20 +1,21 @@
-import React from "react";
+import React, { Suspense } from "react";
+import dynamic from "next/dynamic";
 
 import MainLayout from "~/components/layouts/MainLayout";
-import Stardust from "./components/Stardust";
-import Category from "./components/Categories";
-import Products from "./components/Products";
+import Loading from "~/components/atomics/Loading";
 
-import styles from "./Index.module.scss";
+const Stardust = dynamic(() => import("./components/Stardust"));
+const Category = dynamic(() => import("./components/Categories"));
+const Products = dynamic(() => import("./components/Products"));
 
 const Index = () => {
   return (
     <MainLayout>
-      <div className={styles["index"]}>
+      <Suspense fallback={<Loading />}>
         <Stardust />
         <Category />
         <Products />
-      </div>
+      </Suspense>
     </MainLayout>
   );
 };

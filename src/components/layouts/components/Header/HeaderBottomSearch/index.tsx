@@ -17,7 +17,7 @@ const items = [
         href={{
           pathname: "/search",
           query: {
-            q: "react",
+            q: "123",
           },
         }}
         text="123"
@@ -31,7 +31,7 @@ const items = [
         href={{
           pathname: "/search",
           query: {
-            q: "react",
+            q: "asd",
           },
         }}
         text="asd"

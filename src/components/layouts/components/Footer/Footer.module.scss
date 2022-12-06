@@ -2,6 +2,8 @@
 @import "~/styles/variables";
 
 .footer {
+  border-top: 2px solid $background-color;
+
   &-inner {
     @include container;
 

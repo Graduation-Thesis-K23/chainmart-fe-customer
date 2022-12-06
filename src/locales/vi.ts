@@ -1,5 +1,7 @@
 export default {
   title: "Việt Nam",
+  home: "Trang chủ",
+  "404": "Trang bạn đang tìm không tồn tại.",
   // header
   "header.topLeft.0": "Miễn phí vận chuyển",
   "header.topLeft.1": "Miễn phí trả hàng",

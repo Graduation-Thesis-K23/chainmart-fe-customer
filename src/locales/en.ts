@@ -1,5 +1,7 @@
 export default {
   title: "English",
+  home: "Back Home",
+  "404": "Oops. The page you're looking for doesn't exist.",
   "header.topLeft.0": "Free Shipping",
   "header.topLeft.1": "Free Returns",
   "header.topLeft.2": "Gift Cards",

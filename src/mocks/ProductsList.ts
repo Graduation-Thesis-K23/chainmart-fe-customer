@@ -7,6 +7,7 @@ export default [
     star: 4.5,
     sold: 100,
     image: "/product.jpg",
+    label: "Mới",
     slug: "may-xay-da-nang-osaka-nl-shop-xay-sinh-to-nhat-ban-750ml-may-xay-osaka-xay-thit-ca-thuc-pham",
   },
   {
@@ -17,6 +18,7 @@ export default [
     star: 3.5,
     sold: 10,
     image: "/product.jpg",
+    label: "Mới",
     slug: "dep-nu-quai-ngang-cao-su-quai-ngang-de-sieu-deo-chong-nuoc-thoi-trang",
   },
   {
@@ -27,6 +29,7 @@ export default [
     star: 4,
     sold: 100,
     image: "/product.jpg",
+    label: "Mới",
     slug: "ao-khoac-ni-bomber-nam-nu-form-rong-thue-chu-k-sieu-chat-sieu-ngau-hot-trend-phong-cach-han-2022-ms3",
   },
   {

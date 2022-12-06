@@ -22,7 +22,7 @@ const ProductCard: React.FC<{
   const discountValue = discount(item.price, item.ignorePrice);
 
   return (
-    <Link href={"/" + item.slug}>
+    <Link href={"/[slug]"} as={"/" + item.slug}>
       <a className={styles["product-card"]}>
         {item.label && (
           <div className={styles["product-card-label"]}>

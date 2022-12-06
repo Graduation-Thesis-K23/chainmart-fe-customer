@@ -27,7 +27,7 @@ const CarouselComponent = () => {
       <Carousel ref={carousel} autoplay>
         {carouselList.map(({ id, src }) => (
           <Fragment key={id}>
-            <Image src={src} width="800" height="235" alt="carousel" />
+            <Image src={src} width="800" height="235" alt="carousel" priority />
           </Fragment>
         ))}
       </Carousel>

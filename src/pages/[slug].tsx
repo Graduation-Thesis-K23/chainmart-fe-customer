@@ -1,22 +1,50 @@
 import React from "react";
-import { useRouter } from "next/router";
+import { GetStaticPropsContext } from "next";
+import { ParsedUrlQuery } from "querystring";
 
-const Product = () => {
-  const router = useRouter();
-  const { slug } = router.query;
-  return <p>Post: {slug}</p>;
+import ProductList from "~/mocks/ProductsList";
+
+interface IParams extends ParsedUrlQuery {
+  slug: string;
+}
+
+interface IProduct {
+  id: number;
+  name: string;
+  slug: string;
+  price: number;
+  description: string;
+  image: string;
+}
+
+const Product: React.FC<{
+  product: IProduct;
+}> = ({ product }) => {
+  return <div>{product.name}</div>;
 };
 
-export const getStaticPaths = async () => {
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const { slug } = context.params as IParams;
+
+  // get product by slug
+  const product = ProductList.find((item) => item.slug === slug);
+
   return {
-    paths: [],
-    fallback: true,
+    props: { product },
+    revalidate: 10,
   };
 };
 
-export const getStaticProps = async () => {
+export const getStaticPaths = async () => {
+  const paths = ProductList.map((item) => {
+    return {
+      params: { slug: item.slug },
+    };
+  });
+
   return {
-    props: {},
+    paths,
+    fallback: false,
   };
 };
 

@@ -6,7 +6,7 @@ import { Rate } from "antd";
 // others
 import styles from "./ProductCard.module.scss";
 import { default as translate } from "~/hooks/useTranslate";
-import { convertPrice } from "~/helpers";
+import { convertPrice, discount } from "~/helpers";
 
 const ProductCard: React.FC<{
   id: number;
@@ -17,10 +17,28 @@ const ProductCard: React.FC<{
   sold: number;
   image: string;
   slug: string;
+  label?: string;
 }> = (item) => {
+  const discountValue = discount(item.price, item.ignorePrice);
+
   return (
     <Link href={"/" + item.slug}>
       <a className={styles["product-card"]}>
+        {item.label && (
+          <div className={styles["product-card-label"]}>
+            <span className={styles["product-card-label-text"]}>
+              {item.label}
+            </span>
+          </div>
+        )}
+        {discountValue > 0 && (
+          <div className={styles["product-card-discount"]}>
+            <span className={styles["product-card-discount-percent"]}>
+              {discountValue}%
+            </span>
+            <span className={styles["product-card-discount-text"]}>off</span>
+          </div>
+        )}
         <div className={styles["product-card-image"]}>
           <Image src={item.image} width={230} height={230} alt={item.slug} />
         </div>
@@ -30,9 +48,11 @@ const ProductCard: React.FC<{
             <span className={styles["product-card-body-prices-one"]}>
               {convertPrice(item.price)}đ
             </span>
-            <span className={styles["product-card-body-prices-two"]}>
-              {convertPrice(item.ignorePrice)}đ
-            </span>
+            {discountValue > 0 && (
+              <span className={styles["product-card-body-prices-two"]}>
+                {convertPrice(item.ignorePrice)}đ
+              </span>
+            )}
           </div>
         </div>
         <div className={styles["product-card-footer"]}>
@@ -44,11 +64,13 @@ const ProductCard: React.FC<{
               value={item.star}
             />
           </div>
-          <div className={styles["product-card-footer-sold"]}>
-            <span>
-              {item.sold} {translate("products.sold")}
-            </span>
-          </div>
+          {item.sold > 0 && (
+            <div className={styles["product-card-footer-sold"]}>
+              <span>
+                {item.sold} {translate("products.sold")}
+              </span>
+            </div>
+          )}
         </div>
       </a>
     </Link>

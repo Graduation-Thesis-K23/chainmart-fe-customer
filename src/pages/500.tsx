@@ -1,7 +1,7 @@
 import React from "react";
 
-const Page500 = () => {
-  return <h1>500</h1>;
-};
+import Page404Screen from "~pages/404";
+
+const Page500 = () => <Page404Screen />;
 
 export default Page500;

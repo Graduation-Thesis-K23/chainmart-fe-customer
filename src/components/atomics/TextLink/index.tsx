@@ -16,7 +16,6 @@ const TextLink = ({ href, text, blank }: Props) => {
           color: "inherit",
         }}
         target={blank ? "_blank" : "_self"}
-        rel="noopener noreferrer"
       >
         <span>{text}</span>
       </a>

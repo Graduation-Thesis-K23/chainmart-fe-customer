@@ -1,8 +1,15 @@
-// libs
 import React from "react";
 
+import Loading from "~/components/atomics/Loading";
+
 const Search = () => {
-  return <h1>Search</h1>;
+  return <Loading />;
+};
+
+export const getStaticProps = async () => {
+  return {
+    props: {},
+  };
 };
 
 export default Search;

@@ -1,5 +1,7 @@
 import React, { Component, ErrorInfo, ReactNode } from "react";
 
+import MainLayout from "~layouts/MainLayout";
+
 interface Props {
   children?: ReactNode;
 }
@@ -22,7 +24,17 @@ class ErrorBoundary extends Component<Props, State> {
   }
   render() {
     if (this.state.hasError) {
-      return <h1>Sorry.. there was an error</h1>;
+      return (
+        <MainLayout>
+          <p
+            style={{
+              textAlign: "center",
+            }}
+          >
+            Sorry, something went wrong!
+          </p>
+        </MainLayout>
+      );
     }
 
     return this.props.children;

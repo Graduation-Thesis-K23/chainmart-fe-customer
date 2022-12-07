@@ -10,7 +10,7 @@ const CategoriesList = () => {
   return (
     <div className={styles["categories-list"]}>
       {categoriesList.map(({ key, href, src, titleKey }) => (
-        <Link key={key} href={href}>
+        <Link key={key} href={href} prefetch={false}>
           <a className={styles["categories-list-item"]}>
             <div className={styles["categories-list-item-image"]}>
               <Image

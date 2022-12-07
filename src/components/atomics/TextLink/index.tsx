@@ -10,7 +10,7 @@ interface Props {
 
 const TextLink = ({ href, text, blank }: Props) => {
   return (
-    <Link href={href}>
+    <Link href={href} prefetch={false}>
       <a
         style={{
           color: "inherit",

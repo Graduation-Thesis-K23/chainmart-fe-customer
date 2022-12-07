@@ -11,7 +11,7 @@ const HotWords = () => {
       <div className={styles["hot-words-inner"]}>
         {hotWordList.map(({ id, text, href, icon }) => (
           <div key={id} className={styles["hot-words-item"]}>
-            <Link href={href}>
+            <Link href={href} prefetch={false}>
               <a className={styles["hot-words-item-link"]}>
                 <Image
                   src={icon}

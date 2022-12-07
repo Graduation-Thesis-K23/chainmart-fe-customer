@@ -31,7 +31,7 @@ const Page404 = () => {
           <div className={styles["number"]}>4</div>
         </div>
         <div className={styles["text"]}>{translate("404")}</div>
-        <Link href="/">
+        <Link href="/" prefetch={false}>
           <a className={styles["button"]}>{translate("home")}</a>
         </Link>
       </div>

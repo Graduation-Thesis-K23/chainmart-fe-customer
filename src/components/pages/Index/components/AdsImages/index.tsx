@@ -11,7 +11,7 @@ const AdsImages = () => (
       <ul className={styles["ads-images-list"]}>
         {AdsImagesList.map(({ key, src, href }) => (
           <li key={key} className={styles["ads-images-list-item"]}>
-            <Link href={href}>
+            <Link href={href} prefetch={false}>
               <a>
                 <Image src={src} alt="ads-image" width={388} height={97} />
               </a>

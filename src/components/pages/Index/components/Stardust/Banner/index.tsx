@@ -7,7 +7,7 @@ import styles from "./Banner.module.scss";
 const Banner = () => (
   <div className={styles["banner-wrapper"]}>
     <div className={styles["banner-top"]}>
-      <Link href="/banner.png" as="/banner.png">
+      <Link href="/banner.png" as="/banner.png" prefetch={false}>
         <a
           style={{
             display: "inline-block",
@@ -20,7 +20,7 @@ const Banner = () => (
       </Link>
     </div>
     <div className={styles["banner-bottom"]}>
-      <Link href="/banner.png" as="/banner.png">
+      <Link href="/banner.png" as="/banner.png" prefetch={false}>
         <a
           style={{
             display: "inline-block",

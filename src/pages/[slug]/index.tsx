@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { GetStaticPropsContext } from "next";
+import Head from "next/head";
 
 import ProductPage from "~pages/Product";
 
@@ -17,7 +18,19 @@ const Product: React.FC<{
     setProductDetail(product);
   }, [product, setProductDetail]);
 
-  return <ProductPage />;
+  return (
+    <>
+      <Head>
+        <title>{product.name}</title>
+        <meta name="title" content={product.name} />
+        <meta name="description" content={product.name} />
+        <meta property="og:title" content={product.name} />
+        <meta property="og:description" content={product.name} />
+        <meta property="og:image" content={product.images[0]} />
+      </Head>
+      <ProductPage />
+    </>
+  );
 };
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
@@ -27,7 +40,6 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   return {
     props: { product },
-    revalidate: 10,
   };
 };
 
@@ -36,7 +48,7 @@ export const getStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false,
+    fallback: "blocking",
   };
 };
 

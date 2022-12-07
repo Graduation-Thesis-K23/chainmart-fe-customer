@@ -1,6 +1,5 @@
 import React, { Suspense } from "react";
 import dynamic from "next/dynamic";
-import Head from "next/head";
 
 import MainLayout from "~/components/layouts/MainLayout";
 import Loading from "~/components/atomics/Loading";

@@ -1,7 +1,16 @@
 import React from "react";
 
+import useProductDetail from "~/contexts/ProductDetailContext";
+
 const ProductPage = () => {
-  return <div>a</div>;
+  const { productDetail } = useProductDetail();
+
+  return (
+    <div>
+      {productDetail.name}
+      {productDetail.price}
+    </div>
+  );
 };
 
 export default ProductPage;

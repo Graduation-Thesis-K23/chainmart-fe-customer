@@ -23,6 +23,6 @@
     },
     "types": ["node"]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/mocks/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/apis/mocks/**/*.ts"],
   "exclude": ["node_modules"]
 }

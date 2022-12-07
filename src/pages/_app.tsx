@@ -5,6 +5,7 @@ import Head from "next/head";
 import ErrorBoundary from "~/components/ErrorBoundary";
 
 import { LocalesProvider } from "../hooks/useLocales";
+import { ProductDetailProvider } from "~/contexts/ProductDetailContext";
 import "~/styles/index.scss";
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -39,11 +40,13 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
         <meta property="og:image" content="/banner1.png" />
       </Head>
-      <LocalesProvider>
-        <ErrorBoundary>
-          <Component {...pageProps} />
-        </ErrorBoundary>
-      </LocalesProvider>
+      <ErrorBoundary>
+        <LocalesProvider>
+          <ProductDetailProvider>
+            <Component {...pageProps} />
+          </ProductDetailProvider>
+        </LocalesProvider>
+      </ErrorBoundary>
     </>
   );
 }

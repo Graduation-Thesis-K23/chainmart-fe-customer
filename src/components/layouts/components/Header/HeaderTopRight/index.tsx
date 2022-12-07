@@ -1,6 +1,6 @@
 import React from "react";
+import Link from "next/link";
 
-import TextLink from "~/components/atomics/TextLink";
 import TopRightAuth from "./TopRightAuth";
 import TopRightLanguage from "./TopRightLanguage";
 import { LocationIcon } from "~/assets/icons";
@@ -13,11 +13,13 @@ const TopRight = () => {
     <div className={styles["top-right"]}>
       <div className={styles["header-top-item"]}>
         <LocationIcon />
-        <TextLink
-          href="/nearest"
-          text={translate("header.topRight.nearestStore")}
-          blank
-        />
+        <Link href="/nearest-store">
+          <a>
+            <span className={styles["header-top-item-text"]}>
+              {translate("header.topRight.nearestStore")}
+            </span>
+          </a>
+        </Link>
       </div>
       <TopRightLanguage />
       <TopRightAuth />

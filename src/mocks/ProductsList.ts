@@ -101,7 +101,7 @@ export default [
     sold: 100,
     image: "/product.jpg",
     slug: "hop-dung-but-hoa-tiet-ke-o-trang-den-don-gian-phong-cach-ins-cho-hoc-sinh-5",
-  } /* ,
+  },
   {
     id: 11,
     name: "Hộp Đựng Bút Họa Tiết Kẻ Ô Trắng Đen Đơn Giản Phong Cách Ins Cho Học Sinh",
@@ -151,5 +151,5 @@ export default [
     sold: 100,
     image: "/product.jpg",
     slug: "hop-dung-but-hoa-tiet-ke-o-trang-den-don-gian-phong-cach-ins-cho-hoc-sinh",
-  }, */,
+  },
 ];

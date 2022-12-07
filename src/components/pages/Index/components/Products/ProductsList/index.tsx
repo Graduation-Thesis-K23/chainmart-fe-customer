@@ -2,7 +2,7 @@ import React from "react";
 
 import ProductCard from "./ProductCard";
 
-import productsList from "~/mocks/ProductsList";
+import productsList from "~/apis/mocks/ProductsList";
 import styles from "./ProductsList.module.scss";
 
 const ProductsList = () => {

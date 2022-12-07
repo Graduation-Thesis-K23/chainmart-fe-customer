@@ -13,7 +13,6 @@ interface Locales {
 
 export const LocalesContext = createContext<Locales>({
   local: "en",
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   setLocal: () => {},
   locales: {},
 });

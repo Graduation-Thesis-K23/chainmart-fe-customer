@@ -3,7 +3,7 @@ import { Carousel } from "antd";
 import { CarouselRef } from "antd/lib/carousel";
 import Image from "next/image";
 
-import carouselList from "~/mocks/CarouselList";
+import carouselList from "~/apis/mocks/CarouselList";
 import styles from "./Carousel.module.scss";
 
 const CarouselComponent = () => {
@@ -27,7 +27,7 @@ const CarouselComponent = () => {
       <Carousel ref={carousel} autoplay>
         {carouselList.map(({ id, src }) => (
           <Fragment key={id}>
-            <Image src={src} width="800" height="235" alt="carousel" />
+            <Image src={src} width="800" height="235" alt="carousel" priority />
           </Fragment>
         ))}
       </Carousel>

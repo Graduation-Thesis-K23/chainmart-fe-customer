@@ -5,6 +5,7 @@
   grid-gap: 0.8rem;
   grid-template-columns: repeat(5, 1fr);
   background-color: $background-color;
+  list-style: none;
 
   &-item {
     position: relative;

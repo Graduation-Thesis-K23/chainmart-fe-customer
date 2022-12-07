@@ -6,6 +6,7 @@ import { LocalesContext } from "./useLocales";
 const useTranslate = (key: string) => {
   const [language, setLanguage] = useState<object>({});
   const { locales } = useContext(LocalesContext);
+
   useEffect(() => {
     setLanguage(locales);
   }, [locales]);

@@ -3,17 +3,21 @@
 .header-top-item {
   display: flex;
   align-items: center;
-  color: $white;
+  color: #fff;
   font-size: 1.4rem;
 
   + .header-top-item {
     padding-left: 0.8rem;
     margin-left: 0.8rem;
-    border-left: 0.15rem solid $white;
+    border-left: 0.15rem solid #fff;
   }
 
   &:hover {
     opacity: 0.8;
+  }
+
+  &-text {
+    color: #fff;
   }
 }
 

@@ -2,18 +2,18 @@ import React from "react";
 
 import ProductCard from "./ProductCard";
 
-import productsList from "~/mocks/ProductsList";
+import productsList from "~/apis/mocks/ProductsList";
 import styles from "./ProductsList.module.scss";
 
 const ProductsList = () => {
   return (
-    <div className={styles["products-list"]}>
+    <ul className={styles["products-list"]}>
       {productsList.map((item) => (
-        <div key={item.id} className={styles["products-list-item"]}>
+        <li key={item.id} className={styles["products-list-item"]}>
           <ProductCard {...item} />
-        </div>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 };
 

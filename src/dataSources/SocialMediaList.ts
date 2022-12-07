@@ -7,18 +7,18 @@ export default [
     key: 0,
     src: Facebook,
     text: "Facebook",
-    href: "https://www.facebook.com/",
+    href: "https://www.facebook.com",
   },
   {
     key: 1,
     src: Instagram,
     text: "Instagram",
-    href: "https://www.instagram.com/",
+    href: "https://www.instagram.com",
   },
   {
     key: 2,
     src: LinkedIn,
     text: "LinkedIn",
-    href: "https://www.linkedin.com/",
+    href: "https://www.linkedin.com",
   },
 ];

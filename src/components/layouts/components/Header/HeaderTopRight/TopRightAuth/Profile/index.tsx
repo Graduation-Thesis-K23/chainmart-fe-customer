@@ -10,11 +10,13 @@ import styles from "./Profile.module.scss";
 const items = [
   {
     key: "1",
-    label: <ProfileItem href="/profile" textKey="header.topRight.myAccount" />,
+    label: <ProfileItem href="/me" textKey="header.topRight.myAccount" />,
   },
   {
     key: "2",
-    label: <ProfileItem href="/purchase" textKey="header.topRight.myOrders" />,
+    label: (
+      <ProfileItem href="/me/my-orders" textKey="header.topRight.myOrders" />
+    ),
   },
   {
     key: "3",

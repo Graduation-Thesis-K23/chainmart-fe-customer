@@ -2,6 +2,7 @@ import React from "react";
 import Head from "next/head";
 
 import useProductDetail from "~/contexts/ProductDetailContext";
+import MainLayout from "~/components/layouts/MainLayout";
 
 const ProductPage = () => {
   const { productDetail } = useProductDetail();
@@ -18,7 +19,9 @@ const ProductPage = () => {
           <meta property="og:image" content={productDetail.images[0]} />
         )}
       </Head>
-      <div>{productDetail.name}</div>
+      <MainLayout>
+        <div>{productDetail.name}</div>
+      </MainLayout>
     </>
   );
 };

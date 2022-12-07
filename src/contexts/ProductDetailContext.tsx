@@ -1,21 +1,23 @@
 import React, { createContext, useContext, useMemo, useState } from "react";
 
-import { IProduct } from "~/shared/interfaces";
+import { IProductDetail } from "~/shared/interfaces";
 
 interface IProductContext {
-  productDetail: IProduct;
-  setProductDetail: (product: IProduct) => void;
+  productDetail: IProductDetail;
+  setProductDetail: (product: IProductDetail) => void;
 }
 
 const ProductDetailContext = createContext<IProductContext>({
-  productDetail: {} as IProduct,
+  productDetail: {} as IProductDetail,
   setProductDetail: () => {},
 });
 
 export const ProductDetailProvider: React.FC<{
   children: JSX.Element;
 }> = ({ children }) => {
-  const [productDetail, setProductDetail] = useState<IProduct>({} as IProduct);
+  const [productDetail, setProductDetail] = useState<IProductDetail>(
+    {} as IProductDetail
+  );
 
   const value: IProductContext = useMemo(
     () => ({ productDetail, setProductDetail }),

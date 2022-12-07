@@ -4,12 +4,12 @@ import { GetStaticPropsContext } from "next";
 import ProductPage from "~pages/Product";
 
 import { IParams } from "~/interfaces";
-import { IProduct } from "~/shared/interfaces";
+import { IProductDetail } from "~/shared/interfaces";
 import { getProducts, getProductDetail } from "~/apis/Home";
 import useProductDetail from "~/contexts/ProductDetailContext";
 
 const Product: React.FC<{
-  product: IProduct;
+  product: IProductDetail;
 }> = ({ product }) => {
   const { setProductDetail } = useProductDetail();
 

@@ -9,3 +9,14 @@ export interface IProduct {
   label?: number;
   slug: string;
 }
+
+export interface IProductDetail {
+  id: number;
+  name: string;
+  price: number;
+  ignorePrice: number;
+  star: number;
+  sold: number;
+  images: string[];
+  slug: string;
+}

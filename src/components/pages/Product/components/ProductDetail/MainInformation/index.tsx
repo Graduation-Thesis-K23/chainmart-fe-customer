@@ -9,25 +9,6 @@ import styles from "./MainInformation.module.scss";
 import useProductDetail from "~/contexts/ProductDetailContext";
 import { convertPrice, discount } from "~/helpers";
 
-const responsive = {
-  superLargeDesktop: {
-    breakpoint: { max: 4000, min: 3000 },
-    items: 6,
-  },
-  desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 6,
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 464 },
-    items: 6,
-  },
-  mobile: {
-    breakpoint: { max: 464, min: 0 },
-    items: 6,
-  },
-};
-
 const MainInformation = () => {
   const { name, image, images, star, price, sold, ignorePrice } =
     useProductDetail().productDetail;
@@ -61,7 +42,15 @@ const MainInformation = () => {
                 />
               </div>
               <div className={styles["main-information-left-controller"]}>
-                <Carousel responsive={responsive}>
+                <Carousel
+                  className={styles["main-information-left-controller-images"]}
+                  responsive={{
+                    desktop: {
+                      breakpoint: { max: 3000, min: 10 },
+                      items: 6,
+                    },
+                  }}
+                >
                   {images.map((i, index) => (
                     <ImageSlider
                       key={index}
@@ -84,7 +73,7 @@ const MainInformation = () => {
                 <span
                   className={styles["main-information-right-parameter-sold"]}
                 >
-                  {sold}
+                  {sold} đã bán
                 </span>
               </div>
               <Divider />

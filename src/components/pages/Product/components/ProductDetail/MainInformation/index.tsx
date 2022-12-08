@@ -1,8 +1,7 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
-import { Rate, Image as ImageAntd } from "antd";
+import { Rate, Image as ImageAntd, Divider } from "antd";
 import Carousel from "react-multi-carousel";
-import { CarouselRef } from "antd/lib/carousel";
 
 import ImageSlider from "./ImageSlider";
 
@@ -75,14 +74,65 @@ const MainInformation = () => {
             </div>
             <div className={styles["main-information-right"]}>
               <h1 className={styles["main-information-right-title"]}>{name}</h1>
+              <div className={styles["main-information-right-parameter"]}>
+                <Rate
+                  className={styles["main-information-right-parameter-star"]}
+                  allowHalf
+                  disabled
+                  value={star}
+                />
+                <span
+                  className={styles["main-information-right-parameter-sold"]}
+                >
+                  {sold}
+                </span>
+              </div>
+              <Divider />
+              <div className={styles["main-information-right-value"]}>
+                <span className={styles["main-information-right-value-price"]}>
+                  {convertPrice(price)} đ
+                </span>
+                <span
+                  className={
+                    styles["main-information-right-value-price-ignore"]
+                  }
+                >
+                  {convertPrice(ignorePrice)} đ
+                </span>
+                <span
+                  className={styles["main-information-right-value-discount"]}
+                >
+                  {discount(price, ignorePrice)}%
+                </span>
+              </div>
+              <Divider />
               <div>
-                <Rate allowHalf defaultValue={star} />
-                <span>{sold} đã bán</span>
+                <div>
+                  <span>Nhom mau</span>
+                </div>
+                <div>
+                  <span>Nhom mau</span>
+                </div>
               </div>
               <div>
-                <p>{convertPrice(price)}đ</p>
-                <p>{convertPrice(ignorePrice)}đ</p>
-                <p>{discount(price, ignorePrice)}%</p>
+                <div>
+                  <span>Nhom mau</span>
+                </div>
+                <div>
+                  <span>Nhom mau</span>
+                </div>
+              </div>
+              <div className={styles["main-information-right-checkout"]}>
+                <button
+                  className={styles["main-information-right-checkout-buy"]}
+                >
+                  Mua ngay
+                </button>
+                <button
+                  className={styles["main-information-right-checkout-cart"]}
+                >
+                  Them vao gio hang
+                </button>
               </div>
             </div>
           </div>

@@ -2,6 +2,7 @@
 
 .product-breadcrumb {
   height: 5.2rem;
+  background-color: $background-color;
 
   &-inner {
     @include container;

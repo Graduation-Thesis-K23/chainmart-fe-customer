@@ -6,6 +6,7 @@ import ErrorBoundary from "~/components/ErrorBoundary";
 
 import { LocalesProvider } from "../hooks/useLocales";
 import { ProductDetailProvider } from "~/contexts/ProductDetailContext";
+import "react-multi-carousel/lib/styles.css";
 import "~/styles/index.scss";
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -21,13 +22,13 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://chainmart.site" />
       </Head>
-      <ErrorBoundary>
-        <LocalesProvider>
-          <ProductDetailProvider>
+      <ProductDetailProvider>
+        <ErrorBoundary>
+          <LocalesProvider>
             <Component {...pageProps} />
-          </ProductDetailProvider>
-        </LocalesProvider>
-      </ErrorBoundary>
+          </LocalesProvider>
+        </ErrorBoundary>
+      </ProductDetailProvider>
     </>
   );
 }

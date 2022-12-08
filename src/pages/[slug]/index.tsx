@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
-import dynamic from "next/dynamic";
 import { GetStaticPropsContext } from "next";
 import Head from "next/head";
 
-const ProductPage = dynamic(() => import("~/components/pages/Product"));
+import ProductPage from "~/components/pages/Product";
 
 import { IParams } from "~/interfaces";
 import { IProductDetail } from "~/shared/interfaces";

@@ -1,14 +1,17 @@
 import React from "react";
 
-import useProductDetail from "~/contexts/ProductDetailContext";
-import MainLayout from "~/components/layouts/MainLayout";
+import MainLayout from "~layouts/MainLayout";
+
+import ProductBreadcrumb from "./components/Breadcrumb";
+import ProductDetail from "./components/ProductDetail";
 
 const ProductPage = () => {
-  const { productDetail } = useProductDetail();
-
   return (
     <MainLayout>
-      <div>{productDetail.name}</div>
+      <>
+        <ProductBreadcrumb />
+        <ProductDetail />
+      </>
     </MainLayout>
   );
 };

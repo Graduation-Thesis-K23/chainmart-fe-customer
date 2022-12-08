@@ -1,23 +1,21 @@
-import React, { Suspense } from "react";
-import dynamic from "next/dynamic";
+import React from "react";
 
-import MainLayout from "~/components/layouts/MainLayout";
-import Loading from "~/components/atomics/Loading";
+import MainLayout from "~layouts/MainLayout";
 
-const Stardust = dynamic(() => import("./components/Stardust"));
-const Category = dynamic(() => import("./components/Categories"));
-const Products = dynamic(() => import("./components/Products"));
-const AdsImages = dynamic(() => import("./components/AdsImages"));
+import Stardust from "./components/Stardust";
+import Category from "./components/Categories";
+import Products from "./components/Products";
+import AdsImages from "./components/AdsImages";
 
 const Index = () => {
   return (
     <MainLayout>
-      <Suspense fallback={<Loading />}>
+      <>
         <Stardust />
         <Category />
         <Products />
         <AdsImages />
-      </Suspense>
+      </>
     </MainLayout>
   );
 };

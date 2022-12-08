@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { GetStaticPropsContext } from "next";
 import Head from "next/head";
 
-import ProductPage from "~pages/Product";
+import ProductPage from "~/components/pages/Product";
 
 import { IParams } from "~/interfaces";
 import { IProductDetail } from "~/shared/interfaces";
@@ -26,7 +26,7 @@ const Product: React.FC<{
         <meta name="description" content={product.name} />
         <meta property="og:title" content={product.name} />
         <meta property="og:description" content={product.name} />
-        <meta property="og:image" content={product.images[0]} />
+        <meta property="og:image" content={product.image} />
       </Head>
       <ProductPage />
     </>

@@ -15,7 +15,7 @@ const Products = () => {
           <SectionHeader topicKey="products.header" />
           <ProductsList />
           <div className={styles["products-all"]}>
-            <Link href={"/products"}>
+            <Link href={"/products"} prefetch={false}>
               <a className={styles["products-all-btn"]}>
                 {translate("products.viewAll")}
               </a>

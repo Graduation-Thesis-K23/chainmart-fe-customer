@@ -15,7 +15,7 @@ interface Props {
 
 const BottomCartItem = ({ href, image, name, price }: Props) => (
   <div className={styles["cart-item-wrapper"]}>
-    <Link href={`/${href}`}>
+    <Link href={`/${href}`} prefetch={false}>
       <a>
         <div className={styles["cart-item-image"]}>
           <Image

@@ -13,7 +13,7 @@ const TopRight = () => {
     <div className={styles["top-right"]}>
       <div className={styles["header-top-item"]}>
         <LocationIcon />
-        <Link href="/nearest-store">
+        <Link href="/nearest-store" prefetch={false}>
           <a>
             <span className={styles["header-top-item-text"]}>
               {translate("header.topRight.nearestStore")}

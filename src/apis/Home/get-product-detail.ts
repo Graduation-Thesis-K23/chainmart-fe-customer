@@ -13,6 +13,7 @@ const getProductDetail = async (slug: string) => {
     star: number,
     sold: number,
     images: string[],
+    image: string,
     slug: string,
     ...
   }

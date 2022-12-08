@@ -11,7 +11,14 @@ export default [
       "/product-detail1.webp",
       "/product-detail2.webp",
       "/product-detail3.webp",
+      "/product-detail1.webp",
+      "/product-detail2.webp",
+      "/product-detail3.webp",
+      "/product-detail1.webp",
+      "/product-detail2.webp",
+      "/product-detail3.webp",
     ],
+    image: "/product.jpg",
     slug: "may-xay-da-nang-osaka-nl-shop-xay-sinh-to-nhat-ban-750ml-may-xay-osaka-xay-thit-ca-thuc-pham-1",
   },
   {
@@ -27,6 +34,7 @@ export default [
       "/product-detail2.webp",
       "/product-detail3.webp",
     ],
+    image: "/product.jpg",
     slug: "dep-nu-quai-ngang-cao-su-quai-ngang-de-sieu-deo-chong-nuoc-thoi-trang-2",
   },
   {
@@ -42,6 +50,7 @@ export default [
       "/product-detail2.webp",
       "/product-detail3.webp",
     ],
+    image: "/product.jpg",
     slug: "ao-khoac-ni-bomber-nam-nu-form-rong-thue-chu-k-sieu-chat-sieu-ngau-hot-trend-phong-cach-han-2022-ms3-3",
   },
   {
@@ -57,6 +66,7 @@ export default [
       "/product-detail2.webp",
       "/product-detail3.webp",
     ],
+    image: "/product.jpg",
     slug: "tui-deo-cheo-nam-nu-vai-canvas-ca-tinh-di-choi-gia-re-de-thuong-4",
   },
   {
@@ -72,6 +82,7 @@ export default [
       "/product-detail2.webp",
       "/product-detail3.webp",
     ],
+    image: "/product.jpg",
     slug: "set-2-nhan-doi-mau-trang-den-tuong-phan-don-gian-ca-tinh-5",
   },
   {
@@ -87,6 +98,7 @@ export default [
       "/product-detail2.webp",
       "/product-detail3.webp",
     ],
+    image: "/product.jpg",
     slug: "hop-dung-but-hoa-tiet-ke-o-trang-den-don-gian-phong-cach-ins-cho-hoc-sinh-1",
   },
   {
@@ -102,6 +114,7 @@ export default [
       "/product-detail2.webp",
       "/product-detail3.webp",
     ],
+    image: "/product.jpg",
     slug: "hop-dung-but-hoa-tiet-ke-o-trang-den-don-gian-phong-cach-ins-cho-hoc-sinh-2",
   },
   {
@@ -117,6 +130,7 @@ export default [
       "/product-detail2.webp",
       "/product-detail3.webp",
     ],
+    image: "/product.jpg",
     slug: "hop-dung-but-hoa-tiet-ke-o-trang-den-don-gian-phong-cach-ins-cho-hoc-sinh-3",
   },
   {
@@ -132,6 +146,7 @@ export default [
       "/product-detail2.webp",
       "/product-detail3.webp",
     ],
+    image: "/product.jpg",
     slug: "hop-dung-but-hoa-tiet-ke-o-trang-den-don-gian-phong-cach-ins-cho-hoc-sinh-4",
   },
   {
@@ -147,6 +162,7 @@ export default [
       "/product-detail2.webp",
       "/product-detail3.webp",
     ],
+    image: "/product.jpg",
     slug: "hop-dung-but-hoa-tiet-ke-o-trang-den-don-gian-phong-cach-ins-cho-hoc-sinh-5",
   },
   {
@@ -162,6 +178,7 @@ export default [
       "/product-detail2.webp",
       "/product-detail3.webp",
     ],
+    image: "/product.jpg",
     slug: "hop-dung-but-hoa-tiet-ke-o-trang-den-don-gian-phong-cach-ins-cho-hoc-sinh-6",
   },
   {
@@ -177,6 +194,7 @@ export default [
       "/product-detail2.webp",
       "/product-detail3.webp",
     ],
+    image: "/product.jpg",
     slug: "hop-dung-but-hoa-tiet-ke-o-trang-den-don-gian-phong-cach-ins-cho-hoc-sinh-7",
   },
   {
@@ -192,6 +210,7 @@ export default [
       "/product-detail2.webp",
       "/product-detail3.webp",
     ],
+    image: "/product.jpg",
     slug: "hop-dung-but-hoa-tiet-ke-o-trang-den-don-gian-phong-cach-ins-cho-hoc-sinh-8",
   },
   {
@@ -207,6 +226,7 @@ export default [
       "/product-detail2.webp",
       "/product-detail3.webp",
     ],
+    image: "/product.jpg",
     slug: "hop-dung-but-hoa-tiet-ke-o-trang-den-don-gian-phong-cach-ins-cho-hoc-sinh-9",
   },
   {
@@ -222,6 +242,7 @@ export default [
       "/product-detail2.webp",
       "/product-detail3.webp",
     ],
+    image: "/product.jpg",
     slug: "hop-dung-but-hoa-tiet-ke-o-trang-den-don-gian-phong-cach-ins-cho-hoc-sinh-10",
   },
 ];

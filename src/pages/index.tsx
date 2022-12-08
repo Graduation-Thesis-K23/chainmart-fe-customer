@@ -1,7 +1,9 @@
 import Head from "next/head";
-import React from "react";
+import React, { Suspense } from "react";
+import dynamic from "next/dynamic";
 
-import IndexScreen from "~pages/Index";
+import Loading from "~atomics/Loading";
+const IndexScreen = dynamic(() => import("~pages/Index"));
 
 const Index = () => (
   <>
@@ -25,7 +27,9 @@ const Index = () => (
       />
       <meta property="og:image" content="/banner1.png" />
     </Head>
-    <IndexScreen />
+    <Suspense fallback={<Loading />}>
+      <IndexScreen />
+    </Suspense>
   </>
 );
 

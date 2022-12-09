@@ -11,7 +11,7 @@ const HeaderTopLeft = () => {
     <ul className={styles["header-top-left"]}>
       {headerTopLeft.map(({ key, href, textKey }) => (
         <li key={key} className={styles["top-item"]}>
-          <Link href={href}>
+          <Link href={href} prefetch={false}>
             <a>
               <span className={styles["top-item-text"]}>
                 {translate(textKey)}

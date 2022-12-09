@@ -13,7 +13,7 @@ const SocialMedia = () => {
     <div className={styles["footer-social-media"]}>
       <Title text={translate("footer.socialMedia.title")} />
       {socialMediaList.map(({ key, href, src, text }) => (
-        <Link key={key} href={href}>
+        <Link key={key} href={href} prefetch={false}>
           <a className={styles["footer-social-media-item"]}>
             <Image src={src} alt="social-media" />
             <span className={styles["footer-social-media-item-text"]}>

@@ -18,5 +18,7 @@ export interface IProductDetail {
   star: number;
   sold: number;
   images: string[];
+  image: string;
   slug: string;
+  options: object;
 }

@@ -2,11 +2,12 @@ import React, { useEffect } from "react";
 import { GetStaticPropsContext } from "next";
 import Head from "next/head";
 
-import ProductPage from "~pages/Product";
+import ProductPage from "~/components/pages/Product";
 
 import { IParams } from "~/interfaces";
 import { IProductDetail } from "~/shared/interfaces";
-import { getProducts, getProductDetail } from "~/apis/Home";
+import { getProducts } from "~/apis/Home";
+import { getProductDetail } from "~/apis/Product";
 import useProductDetail from "~/contexts/ProductDetailContext";
 
 const Product: React.FC<{
@@ -26,7 +27,7 @@ const Product: React.FC<{
         <meta name="description" content={product.name} />
         <meta property="og:title" content={product.name} />
         <meta property="og:description" content={product.name} />
-        <meta property="og:image" content={product.images[0]} />
+        <meta property="og:image" content={product.image} />
       </Head>
       <ProductPage />
     </>
@@ -40,6 +41,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   return {
     props: { product },
+    revalidate: 10,
   };
 };
 

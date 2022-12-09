@@ -115,5 +115,24 @@
         cursor: pointer;
       }
     }
+
+    &-quantity {
+      display: flex;
+
+      &-title {
+        width: 8rem;
+
+        span {
+          color: #757575;
+          font-weight: 600;
+          line-height: 2.8rem;
+          text-transform: capitalize;
+        }
+      }
+
+      &-control {
+        flex: 1;
+      }
+    }
   }
 }

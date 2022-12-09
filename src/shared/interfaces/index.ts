@@ -20,4 +20,5 @@ export interface IProductDetail {
   images: string[];
   image: string;
   slug: string;
+  options: object;
 }

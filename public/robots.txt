@@ -1,0 +1,10 @@
+Sitemap: https://chainmart.site/api/sitemap
+
+User-agent: *
+Allow: /*
+Allow: /m/*
+Allow: /me
+
+Disallow: /api/*
+Disallow: /_next/*
+Disallow: /js

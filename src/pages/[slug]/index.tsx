@@ -6,7 +6,8 @@ import ProductPage from "~/components/pages/Product";
 
 import { IParams } from "~/interfaces";
 import { IProductDetail } from "~/shared/interfaces";
-import { getProducts, getProductDetail } from "~/apis/Home";
+import { getProducts } from "~/apis/Home";
+import { getProductDetail } from "~/apis/Product";
 import useProductDetail from "~/contexts/ProductDetailContext";
 
 const Product: React.FC<{

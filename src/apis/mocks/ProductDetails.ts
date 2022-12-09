@@ -20,6 +20,23 @@ export default [
     ],
     image: "/product.jpg",
     slug: "may-xay-da-nang-osaka-nl-shop-xay-sinh-to-nhat-ban-750ml-may-xay-osaka-xay-thit-ca-thuc-pham-1",
+    options: {
+      color: [
+        "den",
+        "trangggggggggggg",
+        "do",
+        "hong",
+        "den",
+        "trang",
+        "do",
+        "hong",
+        "den",
+        "trang",
+        "do",
+        "hong",
+      ],
+      size: ["M", "L", "XL"],
+    },
   },
   {
     id: 2,
@@ -36,6 +53,10 @@ export default [
     ],
     image: "/product.jpg",
     slug: "dep-nu-quai-ngang-cao-su-quai-ngang-de-sieu-deo-chong-nuoc-thoi-trang-2",
+    options: {
+      color: ["den", "trang", "do", "hong"],
+      size: ["M", "L", "XL"],
+    },
   },
   {
     id: 3,
@@ -52,6 +73,10 @@ export default [
     ],
     image: "/product.jpg",
     slug: "ao-khoac-ni-bomber-nam-nu-form-rong-thue-chu-k-sieu-chat-sieu-ngau-hot-trend-phong-cach-han-2022-ms3-3",
+    options: {
+      color: ["den", "trang", "do", "hong"],
+      size: ["M", "L", "XL"],
+    },
   },
   {
     id: 4,
@@ -68,6 +93,10 @@ export default [
     ],
     image: "/product.jpg",
     slug: "tui-deo-cheo-nam-nu-vai-canvas-ca-tinh-di-choi-gia-re-de-thuong-4",
+    options: {
+      color: ["den", "trang", "do", "hong"],
+      size: ["M", "L", "XL"],
+    },
   },
   {
     id: 5,
@@ -84,6 +113,10 @@ export default [
     ],
     image: "/product.jpg",
     slug: "set-2-nhan-doi-mau-trang-den-tuong-phan-don-gian-ca-tinh-5",
+    options: {
+      color: ["den", "trang", "do", "hong"],
+      size: ["M", "L", "XL"],
+    },
   },
   {
     id: 6,
@@ -100,6 +133,10 @@ export default [
     ],
     image: "/product.jpg",
     slug: "hop-dung-but-hoa-tiet-ke-o-trang-den-don-gian-phong-cach-ins-cho-hoc-sinh-1",
+    options: {
+      color: ["den", "trang", "do", "hong"],
+      size: ["M", "L", "XL"],
+    },
   },
   {
     id: 7,
@@ -116,6 +153,10 @@ export default [
     ],
     image: "/product.jpg",
     slug: "hop-dung-but-hoa-tiet-ke-o-trang-den-don-gian-phong-cach-ins-cho-hoc-sinh-2",
+    options: {
+      color: ["den", "trang", "do", "hong"],
+      size: ["M", "L", "XL"],
+    },
   },
   {
     id: 8,
@@ -132,6 +173,10 @@ export default [
     ],
     image: "/product.jpg",
     slug: "hop-dung-but-hoa-tiet-ke-o-trang-den-don-gian-phong-cach-ins-cho-hoc-sinh-3",
+    options: {
+      color: ["den", "trang", "do", "hong"],
+      size: ["M", "L", "XL"],
+    },
   },
   {
     id: 9,
@@ -148,6 +193,10 @@ export default [
     ],
     image: "/product.jpg",
     slug: "hop-dung-but-hoa-tiet-ke-o-trang-den-don-gian-phong-cach-ins-cho-hoc-sinh-4",
+    options: {
+      color: ["den", "trang", "do", "hong"],
+      size: ["M", "L", "XL"],
+    },
   },
   {
     id: 10,
@@ -164,6 +213,10 @@ export default [
     ],
     image: "/product.jpg",
     slug: "hop-dung-but-hoa-tiet-ke-o-trang-den-don-gian-phong-cach-ins-cho-hoc-sinh-5",
+    options: {
+      color: ["den", "trang", "do", "hong"],
+      size: ["M", "L", "XL"],
+    },
   },
   {
     id: 11,
@@ -180,6 +233,10 @@ export default [
     ],
     image: "/product.jpg",
     slug: "hop-dung-but-hoa-tiet-ke-o-trang-den-don-gian-phong-cach-ins-cho-hoc-sinh-6",
+    options: {
+      color: ["den", "trang", "do", "hong"],
+      size: ["M", "L", "XL"],
+    },
   },
   {
     id: 12,
@@ -196,6 +253,10 @@ export default [
     ],
     image: "/product.jpg",
     slug: "hop-dung-but-hoa-tiet-ke-o-trang-den-don-gian-phong-cach-ins-cho-hoc-sinh-7",
+    options: {
+      color: ["den", "trang", "do", "hong"],
+      size: ["M", "L", "XL"],
+    },
   },
   {
     id: 13,
@@ -212,6 +273,10 @@ export default [
     ],
     image: "/product.jpg",
     slug: "hop-dung-but-hoa-tiet-ke-o-trang-den-don-gian-phong-cach-ins-cho-hoc-sinh-8",
+    options: {
+      color: ["den", "trang", "do", "hong"],
+      size: ["M", "L", "XL"],
+    },
   },
   {
     id: 14,
@@ -228,6 +293,10 @@ export default [
     ],
     image: "/product.jpg",
     slug: "hop-dung-but-hoa-tiet-ke-o-trang-den-don-gian-phong-cach-ins-cho-hoc-sinh-9",
+    options: {
+      color: ["den", "trang", "do", "hong"],
+      size: ["M", "L", "XL"],
+    },
   },
   {
     id: 15,
@@ -244,5 +313,9 @@ export default [
     ],
     image: "/product.jpg",
     slug: "hop-dung-but-hoa-tiet-ke-o-trang-den-don-gian-phong-cach-ins-cho-hoc-sinh-10",
+    options: {
+      color: ["den", "trang", "do", "hong"],
+      size: ["M", "L", "XL"],
+    },
   },
 ];

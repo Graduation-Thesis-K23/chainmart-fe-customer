@@ -4,14 +4,18 @@ import { Rate, Image as ImageAntd, Divider } from "antd";
 import Carousel from "react-multi-carousel";
 
 import ImageSlider from "./ImageSlider";
+import Optional from "./Optional";
 
 import styles from "./MainInformation.module.scss";
 import useProductDetail from "~/contexts/ProductDetailContext";
 import { convertPrice, discount } from "~/helpers";
+import useTranslate from "~/hooks/useTranslate";
 
 const MainInformation = () => {
-  const { name, image, images, star, price, sold, ignorePrice } =
+  const { name, image, images, star, price, sold, ignorePrice, options } =
     useProductDetail().productDetail;
+
+  const soldText = useTranslate("products.sold");
 
   const [imageShow, setImageShow] = useState<string>(image);
   const [visible, setVisible] = useState<boolean>(false);
@@ -73,10 +77,9 @@ const MainInformation = () => {
                 <span
                   className={styles["main-information-right-parameter-sold"]}
                 >
-                  {sold} đã bán
+                  {sold + " " + soldText}
                 </span>
               </div>
-              <Divider />
               <div className={styles["main-information-right-value"]}>
                 <span className={styles["main-information-right-value-price"]}>
                   {convertPrice(price)} đ
@@ -95,20 +98,20 @@ const MainInformation = () => {
                 </span>
               </div>
               <Divider />
-              <div>
-                <div>
-                  <span>Nhom mau</span>
+              <Optional options={options} />
+              <Divider />
+              <div className={styles["main-information-right-quantity"]}>
+                <div
+                  className={styles["main-information-right-quantity-title"]}
+                >
+                  <span>Số lượng</span>
                 </div>
-                <div>
-                  <span>Nhom mau</span>
-                </div>
-              </div>
-              <div>
-                <div>
-                  <span>Nhom mau</span>
-                </div>
-                <div>
-                  <span>Nhom mau</span>
+                <div
+                  className={styles["main-information-right-quantity-control"]}
+                >
+                  <button>-</button>
+                  <span>1</span>
+                  <button>+</button>
                 </div>
               </div>
               <div className={styles["main-information-right-checkout"]}>

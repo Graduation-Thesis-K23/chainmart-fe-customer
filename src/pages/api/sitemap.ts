@@ -18,7 +18,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     // Create each URL row
     posts.forEach((post) => {
       smStream.write({
-        url: `/post/${post.slug}`,
+        url: `/${post.slug}`,
         changefreq: "daily",
         priority: 0.9,
       });

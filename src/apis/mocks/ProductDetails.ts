@@ -21,21 +21,15 @@ export default [
     image: "/product.jpg",
     slug: "may-xay-da-nang-osaka-nl-shop-xay-sinh-to-nhat-ban-750ml-may-xay-osaka-xay-thit-ca-thuc-pham-1",
     options: {
-      color: [
-        "den",
-        "trangggggggggggg",
-        "do",
-        "hong",
-        "den",
-        "trang",
-        "do",
-        "hong",
-        "den",
-        "trang",
-        "do",
-        "hong",
-      ],
+      color: ["Pink", "Black", "Yellow", "White", "Orange"],
       size: ["M", "L", "XL"],
+    },
+    maxQuantity: 5,
+    specifications: {
+      category: "Socks",
+      brand: "g2",
+      material: "cotton",
+      length: "12cm",
     },
   },
   {
@@ -57,6 +51,13 @@ export default [
       color: ["den", "trang", "do", "hong"],
       size: ["M", "L", "XL"],
     },
+    maxQuantity: 5,
+    specifications: {
+      category: "Socks",
+      brand: "g2",
+      material: "cotton",
+      length: "12cm",
+    },
   },
   {
     id: 3,
@@ -76,6 +77,13 @@ export default [
     options: {
       color: ["den", "trang", "do", "hong"],
       size: ["M", "L", "XL"],
+    },
+    maxQuantity: 5,
+    specifications: {
+      category: "Socks",
+      brand: "g2",
+      material: "cotton",
+      length: "12cm",
     },
   },
   {
@@ -97,6 +105,13 @@ export default [
       color: ["den", "trang", "do", "hong"],
       size: ["M", "L", "XL"],
     },
+    maxQuantity: 5,
+    specifications: {
+      category: "Socks",
+      brand: "g2",
+      material: "cotton",
+      length: "12cm",
+    },
   },
   {
     id: 5,
@@ -116,6 +131,13 @@ export default [
     options: {
       color: ["den", "trang", "do", "hong"],
       size: ["M", "L", "XL"],
+    },
+    maxQuantity: 5,
+    specifications: {
+      category: "Socks",
+      brand: "g2",
+      material: "cotton",
+      length: "12cm",
     },
   },
   {
@@ -137,6 +159,13 @@ export default [
       color: ["den", "trang", "do", "hong"],
       size: ["M", "L", "XL"],
     },
+    maxQuantity: 5,
+    specifications: {
+      category: "Socks",
+      brand: "g2",
+      material: "cotton",
+      length: "12cm",
+    },
   },
   {
     id: 7,
@@ -156,6 +185,13 @@ export default [
     options: {
       color: ["den", "trang", "do", "hong"],
       size: ["M", "L", "XL"],
+    },
+    maxQuantity: 5,
+    specifications: {
+      category: "Socks",
+      brand: "g2",
+      material: "cotton",
+      length: "12cm",
     },
   },
   {
@@ -177,6 +213,13 @@ export default [
       color: ["den", "trang", "do", "hong"],
       size: ["M", "L", "XL"],
     },
+    maxQuantity: 5,
+    specifications: {
+      category: "Socks",
+      brand: "g2",
+      material: "cotton",
+      length: "12cm",
+    },
   },
   {
     id: 9,
@@ -196,6 +239,13 @@ export default [
     options: {
       color: ["den", "trang", "do", "hong"],
       size: ["M", "L", "XL"],
+    },
+    maxQuantity: 5,
+    specifications: {
+      category: "Socks",
+      brand: "g2",
+      material: "cotton",
+      length: "12cm",
     },
   },
   {
@@ -217,6 +267,13 @@ export default [
       color: ["den", "trang", "do", "hong"],
       size: ["M", "L", "XL"],
     },
+    maxQuantity: 5,
+    specifications: {
+      category: "Socks",
+      brand: "g2",
+      material: "cotton",
+      length: "12cm",
+    },
   },
   {
     id: 11,
@@ -236,6 +293,13 @@ export default [
     options: {
       color: ["den", "trang", "do", "hong"],
       size: ["M", "L", "XL"],
+    },
+    maxQuantity: 5,
+    specifications: {
+      category: "Socks",
+      brand: "g2",
+      material: "cotton",
+      length: "12cm",
     },
   },
   {
@@ -257,6 +321,13 @@ export default [
       color: ["den", "trang", "do", "hong"],
       size: ["M", "L", "XL"],
     },
+    maxQuantity: 5,
+    specifications: {
+      category: "Socks",
+      brand: "g2",
+      material: "cotton",
+      length: "12cm",
+    },
   },
   {
     id: 13,
@@ -276,6 +347,13 @@ export default [
     options: {
       color: ["den", "trang", "do", "hong"],
       size: ["M", "L", "XL"],
+    },
+    maxQuantity: 5,
+    specifications: {
+      category: "Socks",
+      brand: "g2",
+      material: "cotton",
+      length: "12cm",
     },
   },
   {
@@ -297,6 +375,13 @@ export default [
       color: ["den", "trang", "do", "hong"],
       size: ["M", "L", "XL"],
     },
+    maxQuantity: 5,
+    specifications: {
+      category: "Socks",
+      brand: "g2",
+      material: "cotton",
+      length: "12cm",
+    },
   },
   {
     id: 15,
@@ -316,6 +401,13 @@ export default [
     options: {
       color: ["den", "trang", "do", "hong"],
       size: ["M", "L", "XL"],
+    },
+    maxQuantity: 5,
+    specifications: {
+      category: "Socks",
+      brand: "g2",
+      material: "cotton",
+      length: "12cm",
     },
   },
 ];

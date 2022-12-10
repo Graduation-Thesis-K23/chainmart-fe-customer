@@ -67,4 +67,7 @@ export default {
   // product-detail
   "product.buyNow": "buy now",
   "product.addToCart": "add to cart",
+  "product.addToCartSuccess": "Item has been added to your shopping cart",
+  "product.specifications": "Product Specifications",
+  "product.description": "Product Description",
 };

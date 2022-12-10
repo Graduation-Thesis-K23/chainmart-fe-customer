@@ -21,4 +21,6 @@ export interface IProductDetail {
   image: string;
   slug: string;
   options: object;
+  maxQuantity: number;
+  specifications: { [key: string]: string };
 }

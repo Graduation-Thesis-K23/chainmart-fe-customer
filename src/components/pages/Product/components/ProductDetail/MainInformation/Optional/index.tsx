@@ -1,11 +1,29 @@
-import React from "react";
+import React, { memo } from "react";
+import classNames from "classnames";
 
 import styles from "./Optional.module.scss";
 
 const Optional: React.FC<{
   options: object;
-}> = ({ options }) => {
+  select: { [key: string]: string };
+  setSelect: React.Dispatch<
+    React.SetStateAction<{
+      [key: string]: string;
+    }>
+  >;
+}> = ({ options, select, setSelect }) => {
   const optional = Object.entries(options);
+
+  const handleSelect = (key: string, value: string) => {
+    const obj = { ...select };
+    obj[key] = value;
+
+    setSelect(obj);
+  };
+
+  const checkSelected = (key: string, value: string) => {
+    return select[key] === value;
+  };
 
   return (
     <>
@@ -19,7 +37,11 @@ const Optional: React.FC<{
               {Array.from(title[1]).map((option, index) => (
                 <div
                   key={index}
-                  className={styles["options-select-option-item"]}
+                  className={classNames(styles["options-select-option-item"], {
+                    [styles["options-select-option-item--selected"]]:
+                      checkSelected(title[0], String(option)),
+                  })}
+                  onClick={() => handleSelect(title[0], String(option))}
                 >
                   <span>{String(option)}</span>
                 </div>
@@ -32,4 +54,4 @@ const Optional: React.FC<{
   );
 };
 
-export default Optional;
+export default memo(Optional);

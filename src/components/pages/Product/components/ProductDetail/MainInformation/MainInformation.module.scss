@@ -19,53 +19,6 @@
     margin-left: 2rem;
     margin-right: 1rem;
 
-    &-title {
-      margin: 0;
-      font-size: 2.4rem;
-      font-weight: 600;
-      word-break: keep-all;
-    }
-
-    &-parameter {
-      display: flex;
-      align-items: center;
-
-      &-star {
-        height: 2.4rem;
-        font-size: 1.4rem !important;
-      }
-
-      &-sold {
-        height: 2.4rem;
-        margin-left: 1.4rem;
-        font-size: 1.3rem;
-        font-weight: 600;
-        line-height: 2.4rem;
-      }
-    }
-
-    &-value {
-      &-price {
-        display: block;
-        font-size: 3rem;
-        font-weight: 600;
-        color: $primary-color;
-      }
-
-      &-price-ignore {
-        display: inline-block;
-        font-size: 1.6rem;
-        font-weight: 300;
-        color: #9e9e9e;
-        text-decoration: line-through;
-      }
-
-      &-discount {
-        margin-left: 1rem;
-        font-size: 1.6rem;
-      }
-    }
-
     &-checkout {
       height: 4.4rem;
       margin-top: 1rem;
@@ -93,47 +46,23 @@
         }
       }
     }
+  }
 
-    &-quantity {
-      display: flex;
+  .description {
+    &-inner {
+      @include container;
 
-      &-title {
-        display: flex;
-        align-items: center;
-        width: 8rem;
+      margin-top: 1rem;
+      padding: 1rem;
+      background-color: #fff;
+    }
 
-        span {
-          color: #757575;
-          font-weight: 600;
-          line-height: 2.8rem;
-          text-transform: capitalize;
-        }
-      }
-
-      &-control {
-        flex: 1;
-        height: 3.4;
-
-        &-sub,
-        &-add {
-          width: 3.4rem;
-          height: 3.4rem;
-          font-size: 1.8rem;
-          border-radius: 0.2rem;
-          cursor: pointer;
-
-          &:hover {
-            background-color: #757575;
-            color: white;
-          }
-        }
-
-        &-value {
-          display: inline-block;
-          width: 4rem;
-          text-align: center;
-        }
-      }
+    &-title {
+      padding: 1rem;
+      margin: 1rem;
+      background-color: $background-color;
+      font-size: 2rem;
+      font-weight: 600;
     }
   }
 }

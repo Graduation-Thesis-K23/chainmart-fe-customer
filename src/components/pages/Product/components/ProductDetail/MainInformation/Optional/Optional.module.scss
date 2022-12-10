@@ -42,6 +42,10 @@
       border-radius: 0.3rem;
       cursor: pointer;
 
+      &--selected {
+        border: 2px solid $primary-color;
+      }
+
       + .options-select-option-item,
       &:first-child {
         margin-right: 1rem;

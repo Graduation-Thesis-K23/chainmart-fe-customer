@@ -68,4 +68,7 @@ export default {
   // product-detail
   "product.buyNow": "mua ngay",
   "product.addToCart": "thêm vào giỏ hàng",
+  "product.addToCartSuccess": "Sản phẩm đã được thêm vào giỏ hàng",
+  "product.specifications": "Thông số sản phẩm",
+  "product.description": "Miêu tả sản phẩm",
 };

@@ -1,0 +1,46 @@
+.quantity {
+  display: flex;
+
+  &-title {
+    display: flex;
+    align-items: center;
+    width: 8rem;
+
+    span {
+      color: #757575;
+      font-weight: 600;
+      line-height: 2.8rem;
+      text-transform: capitalize;
+    }
+  }
+
+  &-control {
+    flex: 1;
+    height: 3.4;
+    user-select: none;
+
+    &-sub,
+    &-add {
+      width: 3.4rem;
+      height: 3.4rem;
+      font-size: 1.8rem;
+      border-radius: 0.2rem;
+      cursor: pointer;
+
+      &:hover:not(&--disable) {
+        background-color: #757575;
+        color: white;
+      }
+
+      &--disable {
+        cursor: not-allowed;
+      }
+    }
+
+    &-value {
+      display: inline-block;
+      width: 4rem;
+      text-align: center;
+    }
+  }
+}

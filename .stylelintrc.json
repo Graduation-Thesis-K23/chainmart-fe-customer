@@ -16,7 +16,9 @@
     ],
     "selector-class-pattern": null,
     "color-function-notation": null,
-    "alpha-value-notation": null
+    "alpha-value-notation": null,
+    "property-no-vendor-prefix": null,
+    "value-no-vendor-prefix": null
   },
   "ignoreFiles": [
     "node_modules/**/*",

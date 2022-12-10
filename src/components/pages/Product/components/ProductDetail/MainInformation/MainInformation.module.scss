@@ -14,34 +14,6 @@
     background-color: #fff;
   }
 
-  &-left {
-    width: 45rem;
-    -webkit-user-select: none; /* Safari */
-    -ms-user-select: none; /* IE 10 and IE 11 */
-    user-select: none; /* Standard syntax */
-
-    &-image {
-      width: 100%;
-      height: 45rem;
-      margin-bottom: 0.6rem;
-      border: 2px solid #eee;
-      cursor: zoom-in;
-      cursor: -webkit-zoom-out;
-      cursor: -moz-zoom-out;
-    }
-
-    &-controller {
-      position: relative;
-      display: flex;
-      width: 100%;
-      height: 8rem;
-
-      &-images {
-        width: 100%;
-      }
-    }
-  }
-
   &-right {
     flex: 1;
     margin-left: 2rem;
@@ -96,23 +68,29 @@
 
     &-checkout {
       height: 4.4rem;
-      margin-top: 0.4rem;
+      margin-top: 1rem;
 
-      &-buy {
-        width: 26rem;
-        height: 100%;
-        color: #fff;
-        background-color: $primary-color;
-        cursor: pointer;
-      }
-
+      &-buy,
       &-cart {
         width: 26rem;
         height: 100%;
-        margin-left: 2rem;
         color: #fff;
-        background-color: rgb(230, 157, 61);
+        text-transform: capitalize;
         cursor: pointer;
+      }
+
+      &-buy {
+        background-color: $primary-color;
+      }
+
+      &-cart {
+        margin-left: 2rem;
+        background-color: rgb(230, 157, 61);
+
+        &:active {
+          transition: transform 0.6 ease-in-out;
+          transform: translateY(-4%);
+        }
       }
     }
 
@@ -120,6 +98,8 @@
       display: flex;
 
       &-title {
+        display: flex;
+        align-items: center;
         width: 8rem;
 
         span {
@@ -132,6 +112,27 @@
 
       &-control {
         flex: 1;
+        height: 3.4;
+
+        &-sub,
+        &-add {
+          width: 3.4rem;
+          height: 3.4rem;
+          font-size: 1.8rem;
+          border-radius: 0.2rem;
+          cursor: pointer;
+
+          &:hover {
+            background-color: #757575;
+            color: white;
+          }
+        }
+
+        &-value {
+          display: inline-block;
+          width: 4rem;
+          text-align: center;
+        }
       }
     }
   }

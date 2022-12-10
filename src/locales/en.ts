@@ -64,4 +64,7 @@ export default {
   "products.header": "Top Products",
   "products.viewAll": "View All",
   "products.sold": "sold",
+  // product-detail
+  "product.buyNow": "buy now",
+  "product.addToCart": "add to cart",
 };

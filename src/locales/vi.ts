@@ -65,4 +65,7 @@ export default {
   "products.header": "Top sản phẩm",
   "products.viewAll": "Xem tất cả",
   "products.sold": "Đã bán",
+  // product-detail
+  "product.buyNow": "mua ngay",
+  "product.addToCart": "thêm vào giỏ hàng",
 };

@@ -1,70 +1,41 @@
 import React, { useState } from "react";
-import Image from "next/image";
-import { Rate, Image as ImageAntd, Divider } from "antd";
-import Carousel from "react-multi-carousel";
+import { Rate, Divider } from "antd";
 
-import ImageSlider from "./ImageSlider";
 import Optional from "./Optional";
+import Images from "./Images";
 
 import styles from "./MainInformation.module.scss";
 import useProductDetail from "~/contexts/ProductDetailContext";
 import { convertPrice, discount } from "~/helpers";
 import useTranslate from "~/hooks/useTranslate";
+import { INCREASE, DECREASE } from "~/constants";
 
 const MainInformation = () => {
   const { name, image, images, star, price, sold, ignorePrice, options } =
     useProductDetail().productDetail;
 
   const soldText = useTranslate("products.sold");
+  const buyNowText = useTranslate("product.buyNow");
+  const addToCartText = useTranslate("product.addToCart");
 
-  const [imageShow, setImageShow] = useState<string>(image);
-  const [visible, setVisible] = useState<boolean>(false);
+  const [quantity, setQuantity] = useState(1);
+
+  const handleChangeQuantity = (action: string) => {
+    if (action === INCREASE) {
+      setQuantity((prev) => prev + 1);
+    } else if (action === DECREASE && quantity != 1) {
+      setQuantity((prev) => prev - 1);
+    } else {
+      console.log("disable -");
+    }
+  };
 
   return (
     <>
       {image && (
         <div className={styles["main-information"]}>
           <div className={styles["main-information-inner"]}>
-            <div className={styles["main-information-left"]}>
-              <div className={styles["main-information-left-image"]}>
-                <Image
-                  src={imageShow || image}
-                  alt={name}
-                  width={450}
-                  height={450}
-                  objectFit="contain"
-                  onClick={() => setVisible(true)}
-                />
-                <ImageAntd
-                  preview={{
-                    visible,
-                    src: imageShow || image,
-                    onVisibleChange: (value) => {
-                      setVisible(value);
-                    },
-                  }}
-                />
-              </div>
-              <div className={styles["main-information-left-controller"]}>
-                <Carousel
-                  className={styles["main-information-left-controller-images"]}
-                  responsive={{
-                    desktop: {
-                      breakpoint: { max: 3000, min: 10 },
-                      items: 6,
-                    },
-                  }}
-                >
-                  {images.map((i, index) => (
-                    <ImageSlider
-                      key={index}
-                      src={i}
-                      onMouseEnter={() => setImageShow(i)}
-                    />
-                  ))}
-                </Carousel>
-              </div>
-            </div>
+            <Images image={image} images={images} />
             <div className={styles["main-information-right"]}>
               <h1 className={styles["main-information-right-title"]}>{name}</h1>
               <div className={styles["main-information-right-parameter"]}>
@@ -109,21 +80,41 @@ const MainInformation = () => {
                 <div
                   className={styles["main-information-right-quantity-control"]}
                 >
-                  <button>-</button>
-                  <span>1</span>
-                  <button>+</button>
+                  <button
+                    className={
+                      styles["main-information-right-quantity-control-sub"]
+                    }
+                    onClick={() => handleChangeQuantity(DECREASE)}
+                  >
+                    -
+                  </button>
+                  <span
+                    className={
+                      styles["main-information-right-quantity-control-value"]
+                    }
+                  >
+                    {quantity}
+                  </span>
+                  <button
+                    className={
+                      styles["main-information-right-quantity-control-add"]
+                    }
+                    onClick={() => handleChangeQuantity(INCREASE)}
+                  >
+                    +
+                  </button>
                 </div>
               </div>
               <div className={styles["main-information-right-checkout"]}>
                 <button
                   className={styles["main-information-right-checkout-buy"]}
                 >
-                  Mua ngay
+                  {buyNowText}
                 </button>
                 <button
                   className={styles["main-information-right-checkout-cart"]}
                 >
-                  Them vao gio hang
+                  {addToCartText}
                 </button>
               </div>
             </div>

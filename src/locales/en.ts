@@ -70,4 +70,5 @@ export default {
   "product.addToCartSuccess": "Item has been added to your shopping cart",
   "product.specifications": "Product Specifications",
   "product.description": "Product Description",
+  "product.familiar": "Product Familiar",
 };

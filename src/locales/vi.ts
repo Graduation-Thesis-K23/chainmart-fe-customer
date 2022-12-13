@@ -71,4 +71,5 @@ export default {
   "product.addToCartSuccess": "Sản phẩm đã được thêm vào giỏ hàng",
   "product.specifications": "Thông số sản phẩm",
   "product.description": "Miêu tả sản phẩm",
+  "product.familiar": "Sản phẩm tương tự",
 };

@@ -6,6 +6,7 @@ import Images from "./Images";
 import Parameter from "./Parameter";
 import Quantity from "./Quantity";
 import Specifications from "./Specifications";
+import Description from "./Description";
 
 import styles from "./MainInformation.module.scss";
 import useProductDetail from "~/contexts/ProductDetailContext";
@@ -23,6 +24,7 @@ const MainInformation = () => {
     options,
     maxQuantity,
     specifications,
+    description,
   } = useProductDetail().productDetail;
 
   const [messageApi, contextHolder] = message.useMessage();
@@ -94,7 +96,7 @@ const MainInformation = () => {
             <div className={styles["description-title"]}>
               {productDescription}
             </div>
-            <div>s</div>
+            <Description description={description} />
           </div>
         </div>
       )}

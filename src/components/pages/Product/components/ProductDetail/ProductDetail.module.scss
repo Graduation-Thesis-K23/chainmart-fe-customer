@@ -1,0 +1,12 @@
+@import "~/styles/mixins";
+
+.stakeholder {
+  padding-top: 1rem;
+  background-color: $background-color;
+
+  &-inner {
+    @include container;
+
+    display: flex;
+  }
+}

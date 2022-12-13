@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 import styles from "./Specifications.module.scss";
 
@@ -19,4 +19,4 @@ const Specifications: React.FC<{
   );
 };
 
-export default Specifications;
+export default memo(Specifications);

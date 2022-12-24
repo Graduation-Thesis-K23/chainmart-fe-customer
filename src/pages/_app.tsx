@@ -1,6 +1,7 @@
-import React from "react";
-import type { AppProps } from "next/app";
+import React, { ReactElement, ReactNode } from "react";
 import Head from "next/head";
+import type { AppProps } from "next/app";
+import type { NextPage } from "next/types";
 
 import ErrorBoundary from "~/components/ErrorBoundary";
 
@@ -9,10 +10,21 @@ import { ProductDetailProvider } from "~/contexts/ProductDetailContext";
 import "react-multi-carousel/lib/styles.css";
 import "~/styles/index.scss";
 
-function MyApp({ Component, pageProps }: AppProps) {
+export type NextPageWithLayout<P = unknown, IP = P> = NextPage<P, IP> & {
+  getLayout?: (page: ReactElement) => ReactNode;
+};
+
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout;
+};
+
+const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
+  const getLayout = Component.getLayout ?? ((page) => page);
+
   return (
     <>
       <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="keywords" content="chainmart" />
         <meta name="robots" content="index, follow" />
         <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
@@ -25,12 +37,12 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ProductDetailProvider>
         <ErrorBoundary>
           <LocalesProvider>
-            <Component {...pageProps} />
+            <>{getLayout(<Component {...pageProps} />)}</>
           </LocalesProvider>
         </ErrorBoundary>
       </ProductDetailProvider>
     </>
   );
-}
+};
 
 export default MyApp;

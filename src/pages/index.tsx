@@ -1,11 +1,13 @@
 import Head from "next/head";
-import React, { Suspense } from "react";
+import React, { ReactElement, Suspense } from "react";
 import dynamic from "next/dynamic";
+import type { NextPageWithLayout } from "./_app";
 
+import MainLayout from "~layouts/MainLayout";
 import Loading from "~atomics/Loading";
 const IndexScreen = dynamic(() => import("~pages/Index"));
 
-const Index = () => (
+const Index: NextPageWithLayout = () => (
   <>
     <Head>
       <title>Chainmart Việt Nam | Hệ thống siêu thị hàng đầu Việt Nam</title>
@@ -32,5 +34,7 @@ const Index = () => (
     </Suspense>
   </>
 );
+
+Index.getLayout = (page: ReactElement) => <MainLayout>{page}</MainLayout>;
 
 export default Index;

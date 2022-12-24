@@ -3,14 +3,16 @@ import { GetStaticPropsContext } from "next";
 import Head from "next/head";
 
 import ProductPage from "~/components/pages/Product";
+import MainLayout from "~layouts/MainLayout";
 
 import { IParams } from "~/interfaces";
 import { IProductDetail } from "~/shared/interfaces";
 import { getProducts } from "~/apis/Home";
 import { getProductDetail } from "~/apis/Product";
 import useProductDetail from "~/contexts/ProductDetailContext";
+import { NextPageWithLayout } from "../_app";
 
-const Product: React.FC<{
+const Product: NextPageWithLayout<{
   product: IProductDetail;
 }> = ({ product }) => {
   const { setProductDetail } = useProductDetail();
@@ -33,6 +35,8 @@ const Product: React.FC<{
     </>
   );
 };
+
+Product.getLayout = (page) => <MainLayout>{page}</MainLayout>;
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const { slug } = context.params as IParams;

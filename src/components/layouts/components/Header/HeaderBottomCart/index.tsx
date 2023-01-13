@@ -31,8 +31,10 @@ const BottomCart = () => (
       arrow={{ pointAtCenter: true }}
       getPopupContainer={() => document.getElementById("cart") as HTMLElement}
     >
-      <Badge count={1} offset={[-2, 4]} size="small" title="">
-        <CartIcon />
+      <Badge count={1} offset={[-10, 12]} size="small" title="">
+        <div className={styles["header-bottom-cart-button"]}>
+          <CartIcon />
+        </div>
       </Badge>
     </Dropdown>
   </div>

@@ -38,7 +38,7 @@ export default {
   "footer.aboutUs.shopMall": "Shop Mall",
   "footer.payment.title": "Phương thức thanh toán",
   "footer.socialMedia.title": "Theo dõi chúng tôi",
-  "footer.download.title": "Tải ứng dụng",
+  "footer.download.title": "Ngôn ngữ",
   // categories
   "categories.header": "Danh mục",
   "categories.list.menClothing": "Thời trang nam",

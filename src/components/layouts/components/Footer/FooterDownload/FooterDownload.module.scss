@@ -1,3 +1,9 @@
 .footer-download {
   width: 25rem;
+
+  &-flag {
+    display: inline-block;
+    margin-right: 10px;
+    cursor: pointer;
+  }
 }

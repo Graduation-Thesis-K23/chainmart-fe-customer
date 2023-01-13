@@ -37,7 +37,7 @@ export default {
   "footer.aboutUs.shopMall": "Shop Mall",
   "footer.payment.title": "Payment",
   "footer.socialMedia.title": "Follow Us",
-  "footer.download.title": "App Download",
+  "footer.download.title": "Languages",
   // categories
   "categories.header": "Categories",
   "categories.list.menClothing": "Men Clothing",

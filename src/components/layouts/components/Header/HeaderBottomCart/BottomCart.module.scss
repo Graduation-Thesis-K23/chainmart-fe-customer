@@ -4,9 +4,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 10rem;
-  height: 100%;
   cursor: pointer;
+
+  &-button {
+    border-radius: 6px;
+    padding: 10px 14px;
+
+    &:hover {
+      background-color: rgb(255, 255, 255, 0.24);
+    }
+  }
 }
 
 .cart-header {

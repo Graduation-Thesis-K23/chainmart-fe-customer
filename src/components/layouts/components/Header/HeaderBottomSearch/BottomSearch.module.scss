@@ -13,6 +13,9 @@
   }
 
   .search-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 6rem;
     height: 3.4rem;
     background-color: $primary-color;

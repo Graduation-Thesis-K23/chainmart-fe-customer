@@ -71,4 +71,6 @@ export default {
   "product.specifications": "Product Specifications",
   "product.description": "Product Description",
   "product.familiar": "Product Familiar",
+  // product-rating
+  "product.ratingHeader": "Product Rating",
 };

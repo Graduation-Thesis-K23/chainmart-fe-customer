@@ -2,6 +2,7 @@ import React, { useEffect, useState, memo } from "react";
 
 import RatingItem from "./RatingItem";
 import RatingHeader from "./RatingHeader";
+import RatingFilter from "./RatingFilter";
 
 import styles from "./Rating.module.scss";
 import useProductDetail from "~/contexts/ProductDetailContext";
@@ -25,6 +26,7 @@ const Rating = () => {
   return (
     <div className={styles["rating"]}>
       <RatingHeader />
+      <RatingFilter />
       <ul className={styles["rating-list"]}>
         {comments.map((comment) => (
           <RatingItem key={comment.id} comment={comment} />

@@ -39,15 +39,17 @@ const RatingItem: React.FC<{
         )}
         {comment.images && (
           <div className={styles["rating-item-info-image"]}>
-            {comment.images.map((image) => (
-              <Image
-                key={image.id}
-                src={image.src}
-                alt="comment-image"
-                width={72}
-                height={72}
-              />
-            ))}
+            <Image.PreviewGroup>
+              {comment.images.map((image) => (
+                <Image
+                  key={image.id}
+                  src={image.src}
+                  alt="comment-image"
+                  width={72}
+                  height={72}
+                />
+              ))}
+            </Image.PreviewGroup>
           </div>
         )}
         <Divider />

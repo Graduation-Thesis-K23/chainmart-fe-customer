@@ -13,7 +13,7 @@ export default [
     images: [
       {
         id: 1,
-        src: "/product.jpg",
+        src: "/category.png",
       },
       {
         id: 2,

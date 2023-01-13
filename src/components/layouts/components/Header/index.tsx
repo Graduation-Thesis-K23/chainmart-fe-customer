@@ -1,10 +1,10 @@
 // libs
 import React from "react";
-import { Row, Col } from "antd";
 
 import HeaderBottomLogo from "./HeaderBottomLogo";
 import HeaderBottomCart from "./HeaderBottomCart";
 import HeaderBottomSearch from "./HeaderBottomSearch";
+import TopRightAuth from "./HeaderTopRight/TopRightAuth";
 // others
 import styles from "./Header.module.scss";
 
@@ -15,7 +15,10 @@ const Header = () => {
         <div className={styles["header-bottom"]}>
           <HeaderBottomLogo />
           <HeaderBottomSearch />
-          <HeaderBottomCart />
+          <div className={styles["header-bottom-right"]}>
+            <HeaderBottomCart />
+            <TopRightAuth />
+          </div>
         </div>
       </div>
     </div>

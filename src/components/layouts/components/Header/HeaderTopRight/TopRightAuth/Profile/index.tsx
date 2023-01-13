@@ -25,19 +25,16 @@ const items = [
 ];
 
 const Profile = () => {
-  const username = "hiepnguyen6014";
-
   return (
     <Dropdown menu={{ items }} placement="bottomRight" arrow>
       <div className={styles["profile-wrapper"]}>
         <Image
           className={styles["auth-avatar"]}
           src="/avt.webp"
-          width={24}
-          height={24}
+          width={32}
+          height={32}
           alt="avatar"
         />
-        <span className={styles["auth-username"]}>{username}</span>
       </div>
     </Dropdown>
   );

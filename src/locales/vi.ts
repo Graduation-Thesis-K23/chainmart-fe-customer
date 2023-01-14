@@ -72,6 +72,7 @@ export default {
   "product.specifications": "Thông số sản phẩm",
   "product.description": "Miêu tả sản phẩm",
   "product.familiar": "Sản phẩm tương tự",
+  "product.notSelect": "Bạn chưa chọn loại sản phẩm",
   // product-rating
   "product.ratingHeader": "Đánh giá sản phẩm",
 };

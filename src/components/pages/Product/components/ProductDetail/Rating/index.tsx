@@ -21,8 +21,6 @@ const Rating = () => {
     }
   }, [id]);
 
-  console.log(comments);
-
   return (
     <div className={styles["rating"]}>
       <RatingHeader />

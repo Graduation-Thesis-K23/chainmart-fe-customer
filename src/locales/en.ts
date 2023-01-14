@@ -64,6 +64,7 @@ export default {
   "products.header": "Top Products",
   "products.viewAll": "View All",
   "products.sold": "sold",
+
   // product-detail
   "product.buyNow": "buy now",
   "product.addToCart": "add to cart",
@@ -71,6 +72,7 @@ export default {
   "product.specifications": "Product Specifications",
   "product.description": "Product Description",
   "product.familiar": "Product Familiar",
+  "product.notSelect": "Didn't choice classify",
   // product-rating
   "product.ratingHeader": "Product Rating",
 };

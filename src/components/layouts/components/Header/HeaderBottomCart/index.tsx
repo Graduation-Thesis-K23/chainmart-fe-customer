@@ -1,6 +1,6 @@
 // libs
 import React from "react";
-import { Badge, Dropdown } from "antd";
+import { Badge, Popover } from "antd";
 // components
 import { CartIcon } from "~/assets/icons";
 import BottomCartList from "./BottomCartList";
@@ -9,7 +9,15 @@ import BottomCartButton from "./BottomCartButton";
 // others
 import styles from "./BottomCart.module.scss";
 
-const items = [
+const content = (
+  <div>
+    <div className={styles["cart-header"]}>
+      <BottomCartLabel />
+      <BottomCartButton />
+    </div>
+    <BottomCartList />
+  </div>
+); /*  [s
   {
     key: "1",
     label: (
@@ -21,14 +29,13 @@ const items = [
     children: BottomCartList,
     type: "group",
   },
-];
+]; */
 
 const BottomCart = () => (
   <div className={styles["header-bottom-cart"]} id="cart">
-    <Dropdown
-      menu={{ items }}
+    <Popover
+      content={content}
       placement="bottomRight"
-      arrow={{ pointAtCenter: true }}
       getPopupContainer={() => document.getElementById("cart") as HTMLElement}
     >
       <Badge count={1} offset={[-10, 12]} size="small" title="">
@@ -36,7 +43,7 @@ const BottomCart = () => (
           <CartIcon />
         </div>
       </Badge>
-    </Dropdown>
+    </Popover>
   </div>
 );
 

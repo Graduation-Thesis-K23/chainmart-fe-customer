@@ -35,3 +35,14 @@ export interface IProductDetail {
   description: string;
   familiar: Array<FamiliarProduct>;
 }
+
+export interface ICart {
+  id: number;
+  name: string;
+  price: number;
+  image: string;
+  slug: string;
+  maxQuantity: number;
+  quantity: number;
+  classify: string;
+}

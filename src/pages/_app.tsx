@@ -6,7 +6,7 @@ import type { NextPage } from "next/types";
 import ErrorBoundary from "~/components/ErrorBoundary";
 
 import { LocalesProvider } from "../hooks/useLocales";
-import { ProductDetailProvider } from "~/contexts/ProductDetailContext";
+import { ProductDetailContext, CartContext } from "~/contexts";
 import "react-multi-carousel/lib/styles.css";
 import "~/styles/index.scss";
 
@@ -34,13 +34,15 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://chainmart.site" />
       </Head>
-      <ProductDetailProvider>
-        <ErrorBoundary>
-          <LocalesProvider>
-            <>{getLayout(<Component {...pageProps} />)}</>
-          </LocalesProvider>
-        </ErrorBoundary>
-      </ProductDetailProvider>
+      <ProductDetailContext.ProductDetailProvider>
+        <CartContext.CartProvider>
+          <ErrorBoundary>
+            <LocalesProvider>
+              <>{getLayout(<Component {...pageProps} />)}</>
+            </LocalesProvider>
+          </ErrorBoundary>
+        </CartContext.CartProvider>
+      </ProductDetailContext.ProductDetailProvider>
     </>
   );
 };

@@ -4,7 +4,7 @@ import { IProductDetail } from "~/shared/interfaces";
 
 interface IProductContext {
   productDetail: IProductDetail;
-  setProductDetail: (product: IProductDetail) => void;
+  setProductDetail: React.Dispatch<React.SetStateAction<IProductDetail>>;
 }
 
 const ProductDetailContext = createContext<IProductContext>({

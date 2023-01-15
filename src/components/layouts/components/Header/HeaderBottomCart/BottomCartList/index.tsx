@@ -2,28 +2,22 @@
 import React from "react";
 // components
 import BottomCartItem from "./Item";
+import useCart from "~/contexts/CartContext";
 
 const BottomCartList = () => {
+  const { cart } = useCart();
+
   return (
     <>
-      <BottomCartItem
-        href="0"
-        image="/avt.webp"
-        name="COMBO Giá treo màn hình NB-F80 + Kẹp Laptop 10-17.3NCH"
-        price={100000}
-      />
-      <BottomCartItem
-        href="1"
-        image="/avt.webp"
-        name="COMBO Giá treo màn hình NB-F80 + Kẹp Laptop 10-17.3NCH + Kẹp Laptop 10-17.3NCH"
-        price={230000000}
-      />
-      <BottomCartItem
-        href="2"
-        image="/avt.webp"
-        name="COMBO Giá treo màn hình"
-        price={1009009}
-      />
+      {cart.map((product) => (
+        <BottomCartItem
+          key={product.id}
+          href={"/" + product.slug}
+          image={product.image}
+          name={product.name}
+          price={product.price}
+        />
+      ))}
     </>
   );
 };

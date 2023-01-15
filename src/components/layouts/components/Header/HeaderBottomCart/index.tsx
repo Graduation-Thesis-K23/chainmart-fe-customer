@@ -1,5 +1,5 @@
 // libs
-import React from "react";
+import React, { memo, useMemo } from "react";
 import { Badge, Popover } from "antd";
 // components
 import { CartIcon } from "~/assets/icons";
@@ -8,6 +8,7 @@ import BottomCartLabel from "./BottomCartLabel";
 import BottomCartButton from "./BottomCartButton";
 // others
 import styles from "./BottomCart.module.scss";
+import useCart from "~/contexts/CartContext";
 
 const content = (
   <div>
@@ -17,34 +18,32 @@ const content = (
     </div>
     <BottomCartList />
   </div>
-); /*  [s
-  {
-    key: "1",
-    label: (
-      <div className={styles["cart-header"]}>
-        <BottomCartLabel />
-        <BottomCartButton />
-      </div>
-    ),
-    children: BottomCartList,
-    type: "group",
-  },
-]; */
-
-const BottomCart = () => (
-  <div className={styles["header-bottom-cart"]} id="cart">
-    <Popover
-      content={content}
-      placement="bottomRight"
-      getPopupContainer={() => document.getElementById("cart") as HTMLElement}
-    >
-      <Badge count={1} offset={[-10, 12]} size="small" title="">
-        <div className={styles["header-bottom-cart-button"]}>
-          <CartIcon />
-        </div>
-      </Badge>
-    </Popover>
-  </div>
 );
 
-export default BottomCart;
+const BottomCart = () => {
+  const { cart } = useCart();
+
+  const count = useMemo(() => {
+    return cart.reduce((prev, current) => {
+      return prev + current.quantity;
+    }, 0);
+  }, [cart]);
+
+  return (
+    <div className={styles["header-bottom-cart"]} id="cart">
+      <Popover
+        content={content}
+        placement="bottomRight"
+        getPopupContainer={() => document.getElementById("cart") as HTMLElement}
+      >
+        <Badge count={count} offset={[-16, 14]} size="small" title="">
+          <div className={styles["header-bottom-cart-button"]}>
+            <CartIcon />
+          </div>
+        </Badge>
+      </Popover>
+    </div>
+  );
+};
+
+export default memo(BottomCart);

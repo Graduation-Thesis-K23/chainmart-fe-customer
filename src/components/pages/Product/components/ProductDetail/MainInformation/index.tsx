@@ -73,7 +73,8 @@ const MainInformation = () => {
       classify: classify.trim(),
     };
 
-    const temp = cart;
+    const temp: ICart[] = [];
+    cart.forEach((val) => temp.push(Object.assign({}, val)));
 
     const isExist = temp.find(
       (product) =>
@@ -148,6 +149,7 @@ const MainInformation = () => {
             mask={false}
             closable={false}
             centered
+            width={250}
           >
             <p>Some contents...</p>
             <p>Some contents...</p>

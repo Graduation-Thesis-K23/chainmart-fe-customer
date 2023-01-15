@@ -47,13 +47,14 @@ const Images: React.FC<{
             },
           }}
         >
-          {images.map((i, index) => (
-            <ImageSlider
-              key={index}
-              src={i}
-              onMouseEnter={() => setImageShow(i)}
-            />
-          ))}
+          {images &&
+            images.map((i, index) => (
+              <ImageSlider
+                key={index}
+                src={i}
+                onMouseEnter={() => setImageShow(i)}
+              />
+            ))}
         </Carousel>
       </div>
     </div>

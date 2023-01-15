@@ -1,20 +1,27 @@
+import facebookIcon from "~/assets/icons/facebook.svg";
+import instagramIcon from "~/assets/icons/instagram.svg";
+import youtubeIcon from "~/assets/icons/youtube.svg";
+import emailIcon from "~/assets/icons/email.svg";
+
 export default [
   {
     key: 0,
-    textKey: "header.topLeft.0",
     href: "/m/free-shipping",
-    icon: "icon-home",
+    icon: facebookIcon,
   },
   {
     key: 1,
-    textKey: "header.topLeft.1",
     href: "/m/free-returns",
-    icon: "icon-home",
+    icon: instagramIcon,
   },
   {
     key: 2,
-    textKey: "header.topLeft.2",
     href: "/m/gift-cards",
-    icon: "icon-home",
+    icon: youtubeIcon,
+  },
+  {
+    key: 3,
+    href: "/m/gift-cards",
+    icon: emailIcon,
   },
 ];

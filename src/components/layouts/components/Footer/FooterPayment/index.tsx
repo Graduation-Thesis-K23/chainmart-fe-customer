@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 
-import Title from "~layouts/atomics/Title";
+import Title from "~/components/atomics/Title";
 
 import paymentList from "~/dataSources/PaymentList";
 import { default as translate } from "~/hooks/useTranslate";

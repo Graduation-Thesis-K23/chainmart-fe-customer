@@ -1,10 +1,17 @@
 @import "~/styles/variables";
 
+.header_language {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
 .top-right-language-wrapper {
   display: flex;
   align-items: center;
   margin-left: 1.2rem;
   color: #fff;
+  height: 100%;
   font-size: 1.4rem;
   cursor: pointer;
 

@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import Image from "next/image";
 
-import Title from "~layouts/atomics/Title";
-import vietnamFlag from "~/assets/languages/vietnam-flag-icon.svg";
-import unitedFlag from "~/assets/languages/united-kingdom-flag-icon.svg";
+import Title from "~/components/atomics/Title";
+import vietnamFlag from "~/assets/languages/vietnam.svg";
+import unitedFlag from "~/assets/languages/english.svg";
 
 import { default as translate } from "~/hooks/useTranslate";
 import styles from "./FooterDownload.module.scss";

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { GetStaticPropsContext } from "next";
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 import ProductPage from "~/components/pages/Product";
 import MainLayout from "~layouts/MainLayout";
@@ -12,11 +13,13 @@ import { getProductDetail } from "~/apis/Product";
 import useProductDetail from "~/contexts/ProductDetailContext";
 import { NextPageWithLayout } from "../_app";
 
+import Loading from "~atomics/Loading";
+
 const Product: NextPageWithLayout<{
   product: IProductDetail;
 }> = ({ product }) => {
   const { setProductDetail } = useProductDetail();
-
+  const router = useRouter();
   useEffect(() => {
     setProductDetail(product);
   }, [product, setProductDetail]);
@@ -24,14 +27,14 @@ const Product: NextPageWithLayout<{
   return (
     <>
       <Head>
-        <title>{product.name}</title>
-        <meta name="title" content={product.name} />
-        <meta name="description" content={product.name} />
-        <meta property="og:title" content={product.name} />
-        <meta property="og:description" content={product.name} />
-        <meta property="og:image" content={product.image} />
+        <title>{product?.name}</title>
+        <meta name="title" content={product?.name} />
+        <meta name="description" content={product?.name} />
+        <meta property="og:title" content={product?.name} />
+        <meta property="og:description" content={product?.name} />
+        <meta property="og:image" content={product?.image} />
       </Head>
-      <ProductPage />
+      {router.isFallback ? <Loading /> : <ProductPage />}
     </>
   );
 };
@@ -45,7 +48,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   return {
     props: { product },
-    revalidate: 10,
+    revalidate: 1,
   };
 };
 
@@ -54,7 +57,7 @@ export const getStaticPaths = async () => {
 
   return {
     paths,
-    fallback: "blocking",
+    fallback: false, //  false for dev
   };
 };
 

@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-import Title from "~layouts/atomics/Title";
+import Title from "~/components/atomics/Title";
 
 import socialMediaList from "~/dataSources/SocialMediaList";
 import styles from "./FooterSocialMedia.module.scss";

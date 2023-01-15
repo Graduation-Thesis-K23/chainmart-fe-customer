@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Divider, message, Modal } from "antd";
+import { Divider, Modal } from "antd";
 
 import Optional from "./Optional";
 import Images from "./Images";
@@ -15,25 +15,9 @@ import useCart from "~/contexts/CartContext";
 import { ICart } from "~/shared/interfaces";
 
 const MainInformation = () => {
-  const {
-    name,
-    image,
-    images,
-    star,
-    price,
-    sold,
-    ignorePrice,
-    options,
-    maxQuantity,
-    specifications,
-    description,
-    id,
-    slug,
-  } = useProductDetail().productDetail;
+  const { productDetail } = useProductDetail();
 
   const { cart, setCart } = useCart();
-
-  const [messageApi, contextHolder] = message.useMessage();
 
   const buyNowText = useTranslate("product.buyNow");
   const addToCartText = useTranslate("product.addToCart");
@@ -49,7 +33,7 @@ const MainInformation = () => {
   const handleAddToCart = () => {
     let classify = "";
 
-    const optionsKey = Object.keys(options);
+    const optionsKey = Object.keys(productDetail.options);
     for (const optionKey in optionsKey) {
       const key: number = +optionKey.trim();
 
@@ -63,18 +47,17 @@ const MainInformation = () => {
     }
 
     const itemCart: ICart = {
-      id,
-      name,
-      slug,
-      price,
-      image,
-      maxQuantity,
+      id: productDetail.id,
+      name: productDetail.name,
+      slug: productDetail.slug,
+      price: productDetail.price,
+      image: productDetail.image,
+      maxQuantity: productDetail.maxQuantity,
       quantity,
       classify: classify.trim(),
     };
 
-    const temp: ICart[] = [];
-    cart.forEach((val) => temp.push(Object.assign({}, val)));
+    const temp: ICart[] = [...cart];
 
     const isExist = temp.find(
       (product) =>
@@ -102,28 +85,27 @@ const MainInformation = () => {
 
   return (
     <>
-      {contextHolder}
-      {image && (
+      {productDetail.name && (
         <div className={styles["main-information"]}>
           <div className={styles["main-information-inner"]}>
-            <Images image={image} images={images} />
+            <Images image={productDetail.image} images={productDetail.images} />
             <div className={styles["main-information-right"]}>
               <Parameter
-                name={name}
-                star={star}
-                sold={sold}
-                price={price}
-                ignorePrice={ignorePrice}
+                name={productDetail.name}
+                star={productDetail.star}
+                sold={productDetail.sold}
+                price={productDetail.price}
+                ignorePrice={productDetail.ignorePrice}
               />
               <Divider />
               <Optional
-                options={options}
+                options={productDetail.options}
                 select={select}
                 setSelect={setSelect}
               />
               <Divider />
               <Quantity
-                maxQuantity={maxQuantity}
+                maxQuantity={productDetail.maxQuantity}
                 quantity={quantity}
                 setQuantity={setQuantity}
               />
@@ -159,11 +141,11 @@ const MainInformation = () => {
             <div className={styles["description-title"]}>
               {productSpecifications}
             </div>
-            <Specifications specifications={specifications} />
+            <Specifications specifications={productDetail.specifications} />
             <div className={styles["description-title"]}>
               {productDescription}
             </div>
-            <Description description={description} />
+            <Description description={productDetail.description} />
           </div>
         </div>
       )}

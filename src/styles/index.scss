@@ -68,11 +68,15 @@ a[href] {
 @font-face {
   font-family: "Nunito";
   font-style: normal;
-  src: url("../assets/fonts/Nunito-VariableFont_wght.ttf");
+  src: local("Arial") url("../assets/fonts/Nunito-VariableFont_wght.ttf")
+    format("ttf");
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Nunito";
   font-style: italic;
-  src: url("../assets/fonts/Nunito-Italic-VariableFont_wght.ttf");
+  src: local("Arial") url("../assets/fonts/Nunito-Italic-VariableFont_wght.ttf")
+    format("ttf");
+  font-display: swap;
 }

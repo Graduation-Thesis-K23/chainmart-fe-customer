@@ -1,6 +1,6 @@
 import React from "react";
 
-import Title from "~layouts/atomics/Title";
+import Title from "~/components/atomics/Title";
 import TextLink from "~/components/atomics/TextLink";
 
 import aboutUsList from "~/dataSources/AboutUsList";

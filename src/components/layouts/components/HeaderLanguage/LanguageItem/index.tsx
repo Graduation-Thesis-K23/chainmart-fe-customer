@@ -1,16 +1,22 @@
-// libs
 import React, { memo, useContext } from "react";
-// hooks
+
 import { LocalesContext } from "~/hooks/useLocales";
 
-interface Props {
+const TopRightLanguageItem: React.FC<{
   languageKey: string;
   text: string;
-}
-
-const TopRightLanguageItem = ({ languageKey, text }: Props) => {
+}> = ({ languageKey, text }) => {
   const { setLocal } = useContext(LocalesContext);
-  return <div onClick={() => setLocal(languageKey)}>{text}</div>;
+  return (
+    <div
+      style={{
+        width: "80px",
+      }}
+      onClick={() => setLocal(languageKey)}
+    >
+      {text}
+    </div>
+  );
 };
 
 export default memo(TopRightLanguageItem);

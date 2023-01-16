@@ -52,7 +52,6 @@
     &_right {
       display: flex;
       align-items: center;
-      justify-content: flex-end;
       float: right;
       height: 100%;
     }
@@ -75,6 +74,12 @@
 }
 
 @media (max-width: 1200px) {
+  .container {
+    padding-right: 16px;
+  }
+}
+
+@media (max-width: 576px) {
   .container {
     padding-right: 16px;
   }

@@ -38,7 +38,8 @@ const Header = () => {
           </ul>
 
           <div className={styles["header_top_right"]}>
-            <HeaderLanguage /> <div className="hor-divider" />
+            <HeaderLanguage />
+            <div className="hor-divider" />
             {logged ? <HeaderUser /> : <HeaderLogin />}
           </div>
         </div>

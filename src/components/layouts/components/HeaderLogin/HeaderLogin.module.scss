@@ -1,3 +1,33 @@
+@import "~/styles/variables";
+
 .header-login {
   display: block;
+  margin-left: 12px;
+
+  .login {
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    margin-right: 10px;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  .logout {
+    font-weight: 600;
+    font-size: 14px;
+    background-color: $primary-color;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 2px solid #fff;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      background-color: #fff;
+      color: $primary-color;
+    }
+  }
 }

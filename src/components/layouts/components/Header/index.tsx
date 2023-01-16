@@ -1,13 +1,16 @@
 import React, { memo } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import classNames from "classnames";
 
-import HeaderBottomLogo from "./HeaderBottomLogo";
-import HeaderBottomCart from "./HeaderBottomCart";
-import HeaderBottomSearch from "./HeaderBottomSearch";
+import HeaderBottomCart from "../HeaderCart";
+import HeaderBottomSearch from "../HeaderSearch";
 import HeaderUser from "../HeaderUser";
 import HeaderLanguage from "../HeaderLanguage";
 import HeaderLogin from "../HeaderLogin";
+
+import logo from "~/assets/images/logo.png";
+import logoSquare from "~/assets/images/logo-square.png";
 
 import styles from "./Header.module.scss";
 import headerTopLeft from "~/dataSources/HeaderTopLeft";
@@ -36,7 +39,6 @@ const Header = () => {
               </li>
             ))}
           </ul>
-
           <div className={styles["header_top_right"]}>
             <HeaderLanguage />
             <div className="hor-divider" />
@@ -44,11 +46,37 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <div className={styles["header-bottom"]}>
+      <div className={styles["header_bot"]}>
         <div className={styles["container"]}>
-          <HeaderBottomLogo />
-          <HeaderBottomSearch />
-          <div className={styles["header-bottom-right"]}>
+          <div className={styles["header_bot_inner"]}>
+            <Link href="/">
+              <a
+                className={classNames(
+                  styles["header_bot_logo_rectangle"],
+                  styles["header_bot_logo"]
+                )}
+                aria-label="Trang chủ"
+              >
+                <Image src={logo} width={161} height={51} alt="logo" />
+              </a>
+            </Link>
+            <Link href="/">
+              <a
+                className={classNames(
+                  styles["header_bot_logo_square"],
+                  styles["header_bot_logo"]
+                )}
+                aria-label="Trang chủ"
+              >
+                <Image
+                  src={logoSquare}
+                  width={48}
+                  height={51}
+                  alt="logo-square"
+                />
+              </a>
+            </Link>
+            <HeaderBottomSearch />
             <HeaderBottomCart />
           </div>
         </div>

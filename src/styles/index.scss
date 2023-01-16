@@ -18,6 +18,7 @@ body {
   text-rendering: optimizespeed;
   color: $text-color;
   overflow-y: overlay;
+  scroll-behavior: smooth;
 }
 
 // Scrollbar CSS

@@ -57,18 +57,29 @@
     }
   }
 
-  &_bottom {
-    height: $header-bottom-height;
+  &_bot {
+    height: $header-bot-height;
 
-    &_middle {
+    &_inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
       height: 100%;
     }
 
-    &_right {
-      display: flex;
+    &_logo {
+      display: inline-block;
+      height: 51px;
+      margin-left: 4px;
+
+      &_square {
+        display: none;
+        width: 48px;
+      }
+
+      &_rectangle {
+        width: 161px;
+      }
     }
   }
 }
@@ -76,6 +87,16 @@
 @media (max-width: 1200px) {
   .container {
     padding-right: 16px;
+  }
+}
+
+@media (max-width: 992px) {
+  .header_bot_logo_rectangle {
+    display: none;
+  }
+
+  .header_bot_logo_square {
+    display: inline-block;
   }
 }
 

@@ -1,8 +1,6 @@
 @import "~/styles/mixins";
 
 .stardust-wrapper {
-  padding-top: 1.2rem;
-
   .stardust-wrapper-inner {
     @include container;
   }

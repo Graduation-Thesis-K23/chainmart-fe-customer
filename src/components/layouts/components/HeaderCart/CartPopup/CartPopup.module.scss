@@ -1,3 +1,19 @@
+@import "~/styles/variables";
+
+.cart-header__btn {
+  color: #fff !important;
+  background-color: $primary-color !important;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.cart-header {
+  width: 300px;
+  min-height: 220px;
+}
+
 .cart-item-wrapper {
   a {
     display: flex;

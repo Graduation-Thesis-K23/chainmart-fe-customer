@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import classNames from "classnames";
@@ -17,9 +17,37 @@ import headerTopLeft from "~/dataSources/HeaderTopLeft";
 
 const Header = () => {
   const logged = true;
+  const [shadow, setShadow] = useState(false);
+
+  const toggleVisible = useCallback(() => {
+    const scrolled = document.documentElement.scrollTop;
+
+    if (scrolled > 0 && !shadow) {
+      setShadow(true);
+      return;
+    }
+
+    if (scrolled === 0 && shadow) {
+      setShadow(false);
+      return;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [shadow]);
+
+  useEffect(() => {
+    window.addEventListener("scroll", toggleVisible);
+
+    return () => {
+      window.removeEventListener("scroll", toggleVisible);
+    };
+  }, [toggleVisible]);
 
   return (
-    <header className={styles["header"]}>
+    <header
+      className={classNames(styles["header"], {
+        [styles["header-shadow"]]: shadow,
+      })}
+    >
       <div className={styles["header_top"]}>
         <div className={styles["container"]}>
           <ul className={styles["header_top_left"]}>

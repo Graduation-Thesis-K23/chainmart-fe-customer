@@ -5,13 +5,16 @@ import Image from "next/image";
 import HeaderBottomLogo from "./HeaderBottomLogo";
 import HeaderBottomCart from "./HeaderBottomCart";
 import HeaderBottomSearch from "./HeaderBottomSearch";
-import HeaderLogin from "../HeaderLogin";
+import HeaderUser from "../HeaderUser";
 import HeaderLanguage from "../HeaderLanguage";
+import HeaderLogin from "../HeaderLogin";
 
 import styles from "./Header.module.scss";
 import headerTopLeft from "~/dataSources/HeaderTopLeft";
 
 const Header = () => {
+  const logged = true;
+
   return (
     <header className={styles["header"]}>
       <div className={styles["header_top"]}>
@@ -33,17 +36,20 @@ const Header = () => {
               </li>
             ))}
           </ul>
+
           <div className={styles["header_top_right"]}>
-            <HeaderLanguage />
-            <HeaderLogin />
+            <HeaderLanguage /> <div className="hor-divider" />
+            {logged ? <HeaderUser /> : <HeaderLogin />}
           </div>
         </div>
       </div>
       <div className={styles["header-bottom"]}>
-        <HeaderBottomLogo />
-        <HeaderBottomSearch />
-        <div className={styles["header-bottom-right"]}>
-          <HeaderBottomCart />
+        <div className={styles["container"]}>
+          <HeaderBottomLogo />
+          <HeaderBottomSearch />
+          <div className={styles["header-bottom-right"]}>
+            <HeaderBottomCart />
+          </div>
         </div>
       </div>
     </header>

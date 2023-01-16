@@ -80,3 +80,10 @@ a[href] {
     format("ttf");
   font-display: swap;
 }
+
+// scss
+.hor-divider {
+  height: 50%;
+  width: 2px;
+  background-color: #fff;
+}

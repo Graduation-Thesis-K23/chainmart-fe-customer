@@ -30,9 +30,9 @@ const HeaderLanguage = () => {
           document.getElementById("language") as HTMLElement
         }
       >
-        <div className={styles["top-right-language-wrapper"]}>
+        <div className={styles["header_language_wrapper"]}>
           <LanguageIcon />
-          <span className={styles["language-text"]}>
+          <span className={styles["header_language_text"]}>
             {useLanguage("title")}
           </span>
           <ExpandIcon />

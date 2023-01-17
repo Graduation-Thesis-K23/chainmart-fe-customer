@@ -1,5 +1,5 @@
 // libs
-import React from "react";
+import React, { memo } from "react";
 // components
 import Carousel from "./Carousel";
 import Banner from "./Banner";
@@ -19,4 +19,4 @@ const Stardust = () => (
   </div>
 );
 
-export default Stardust;
+export default memo(Stardust);

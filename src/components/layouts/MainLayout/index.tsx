@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { memo, ReactElement } from "react";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -15,4 +15,4 @@ const MainLayout: React.FC<{
   </div>
 );
 
-export default MainLayout;
+export default memo(MainLayout);

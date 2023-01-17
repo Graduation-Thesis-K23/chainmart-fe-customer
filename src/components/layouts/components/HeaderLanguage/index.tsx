@@ -1,12 +1,9 @@
-// libs
-import React from "react";
-// components
-import { LanguageIcon, ExpandIcon } from "~/assets/icons";
+import React, { memo } from "react";
 import { Dropdown } from "antd";
+
+import { LanguageIcon, ExpandIcon } from "~/assets/icons";
 import LanguageItem from "./LanguageItem";
-// hooks
 import useLanguage from "~/hooks/useTranslate";
-// others
 import styles from "./HeaderLanguage.module.scss";
 
 const items = [
@@ -42,4 +39,4 @@ const HeaderLanguage = () => {
   );
 };
 
-export default HeaderLanguage;
+export default memo(HeaderLanguage);

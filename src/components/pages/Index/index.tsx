@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 import Stardust from "./components/Stardust";
 import Category from "./components/Categories";
@@ -16,4 +16,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default memo(Index);

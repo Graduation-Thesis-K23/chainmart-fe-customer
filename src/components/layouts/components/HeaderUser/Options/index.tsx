@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import Link from "next/link";
 
 import { default as translate } from "~/hooks/useTranslate";
@@ -16,4 +16,4 @@ const Options: React.FC<{
   );
 };
 
-export default Options;
+export default memo(Options);

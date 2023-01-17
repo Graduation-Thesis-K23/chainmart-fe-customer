@@ -2,6 +2,7 @@
 @import "./variables";
 
 * {
+  font-family: $font-family !important;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -12,7 +13,6 @@ html {
 }
 
 body {
-  font-family: $font-family;
   font-size: 1.6rem;
   line-height: 1.5;
   text-rendering: optimizespeed;
@@ -87,4 +87,10 @@ a[href] {
   height: 50%;
   width: 2px;
   background-color: #fff;
+}
+
+.ver-divider {
+  width: 100%;
+  height: 1px;
+  background-color: antiquewhite;
 }

@@ -18,7 +18,7 @@ export default {
   // search
   "search.lookingFor": "Bạn muốn tìm gì?",
   // footer
-  "footer.customerService.title": "Chăm sóc khách hàng",
+  "footer.customer_services": "Dịch vụ khách hàng",
   "footer.customerService.helpCenter": "Trung tâm trợ giúp",
   "footer.customerService.howToBuy": "Hướng dẫn mua hàng",
   "footer.customerService.howToSell": "Hướng dẫn bán hàng",
@@ -27,7 +27,7 @@ export default {
   "footer.customerService.return": "Chính sách đổi trả",
   "footer.customerService.refund": "Chính sách hoàn tiền",
   "footer.customerService.contactUs": "Liên hệ với chúng tôi",
-  "footer.aboutUs.title": "Về chúng tôi",
+  "footer.about_us": "Về chúng tôi",
   "footer.aboutUs.shopCareers": "Tuyển dụng",
   "footer.aboutUs.shopPolicies": "Chính sách của cửa hàng",
   "footer.aboutUs.privacyPolicy": "Chính sách bảo mật",
@@ -36,9 +36,13 @@ export default {
   "footer.aboutUs.flashDeals": "Flash Deals",
   "footer.aboutUs.warrantyPolicy": "Chính sách bảo hành",
   "footer.aboutUs.shopMall": "Shop Mall",
-  "footer.payment.title": "Phương thức thanh toán",
+  "footer.support_center": "Hỗ trợ khách hàng",
   "footer.socialMedia.title": "Theo dõi chúng tôi",
   "footer.download.title": "Ngôn ngữ",
+  "footer.subscribe": "Nhận thông báo",
+  "footer.subscribeButton": "Đăng ký",
+  "footer.location":
+    "Địa chỉ: 19 Nguyễn Hữu Thọ, P. Tân Phong, Quận 7, Thành phố Hồ Chí Minh",
   // categories
   "categories.header": "Danh mục",
   "categories.list.menClothing": "Thời trang nam",

@@ -6,13 +6,26 @@ const TopRightLanguageItem: React.FC<{
   languageKey: string;
   text: string;
 }> = ({ languageKey, text }) => {
-  const { setLocal } = useContext(LocalesContext);
+  const { local, setLocal } = useContext(LocalesContext);
+
+  const handleSetLocal = () => {
+    if (local === languageKey) {
+      return;
+    }
+    setLocal(languageKey);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <div
       style={{
         width: "80px",
       }}
-      onClick={() => setLocal(languageKey)}
+      onClick={handleSetLocal}
     >
       {text}
     </div>

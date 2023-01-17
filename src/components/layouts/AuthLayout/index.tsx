@@ -1,8 +1,8 @@
 // libs
-import React, { ReactElement } from "react";
+import React, { memo, ReactElement } from "react";
 
 const AuthLayout: React.FC<{
   children: ReactElement;
 }> = ({ children }) => <>{children}</>;
 
-export default AuthLayout;
+export default memo(AuthLayout);

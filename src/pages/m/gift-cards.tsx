@@ -1,16 +1,12 @@
 import React from "react";
+import { MAIN_LAYOUT } from "~/constants";
 
-import MainLayout from "~layouts/MainLayout";
 import { NextPageWithLayout } from "../_app";
 
 const GiftCards: NextPageWithLayout = () => {
-  return (
-    <MainLayout>
-      <div>Gift Cards</div>
-    </MainLayout>
-  );
+  return <div>Gift Cards</div>;
 };
 
-GiftCards.getLayout = (page) => <MainLayout>{page}</MainLayout>;
+GiftCards.layout = MAIN_LAYOUT;
 
 export default GiftCards;

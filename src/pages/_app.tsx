@@ -1,17 +1,20 @@
-import React, { ReactElement, ReactNode } from "react";
+import React, { Fragment, ReactElement, useEffect, useState } from "react";
 import Head from "next/head";
 import type { AppProps } from "next/app";
 import type { NextPage } from "next/types";
 
 import ErrorBoundary from "~/components/ErrorBoundary";
+import MainLayout from "~layouts/MainLayout";
+import AuthLayout from "~layouts/AuthLayout";
 
 import { LocalesProvider } from "../hooks/useLocales";
 import { ProductDetailContext, CartContext } from "~/contexts";
 import "react-multi-carousel/lib/styles.css";
+import { MAIN_LAYOUT, AUTH_LAYOUT } from "~/constants";
 import "~/styles/index.scss";
 
 export type NextPageWithLayout<P = unknown, IP = P> = NextPage<P, IP> & {
-  getLayout?: (page: ReactElement) => ReactNode;
+  layout?: string;
 };
 
 type AppPropsWithLayout = AppProps & {
@@ -19,14 +22,25 @@ type AppPropsWithLayout = AppProps & {
 };
 
 const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
-  const getLayout = Component.getLayout ?? ((page) => page);
+  let Layout:
+    | React.NamedExoticComponent<{ children: ReactElement }>
+    | React.ExoticComponent<{ children: ReactElement }> = Fragment;
+
+  switch (Component.layout) {
+    case MAIN_LAYOUT:
+      Layout = MainLayout;
+      break;
+    case AUTH_LAYOUT:
+      Layout = AuthLayout;
+      break;
+  }
 
   return (
     <>
       <Head>
         <meta
           name="viewport"
-          content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=no"
+          content="width=device-width, initial-scale=1, minimum-scale=1"
         />
         <meta name="keywords" content="chainmart" />
         <meta name="robots" content="index, follow" />
@@ -37,15 +51,17 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://chainmart.site" />
       </Head>
-      <ProductDetailContext.ProductDetailProvider>
-        <CartContext.CartProvider>
-          <ErrorBoundary>
+      <ErrorBoundary>
+        <ProductDetailContext.ProductDetailProvider>
+          <CartContext.CartProvider>
             <LocalesProvider>
-              <>{getLayout(<Component {...pageProps} />)}</>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
             </LocalesProvider>
-          </ErrorBoundary>
-        </CartContext.CartProvider>
-      </ProductDetailContext.ProductDetailProvider>
+          </CartContext.CartProvider>
+        </ProductDetailContext.ProductDetailProvider>
+      </ErrorBoundary>
     </>
   );
 };

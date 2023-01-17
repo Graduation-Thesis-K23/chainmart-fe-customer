@@ -1,13 +1,13 @@
 import React from "react";
+import { AUTH_LAYOUT } from "~/constants";
 
 import LoginScreen from "~pages/Login";
 import type { NextPageWithLayout } from "./_app";
-import MainLayout from "~layouts/MainLayout";
 
 const Login: NextPageWithLayout = () => {
   return <LoginScreen />;
 };
 
-Login.getLayout = (page) => <MainLayout>{page}</MainLayout>;
+Login.layout = AUTH_LAYOUT;
 
 export default Login;

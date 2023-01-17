@@ -1,12 +1,11 @@
 import React from "react";
+import { MAIN_LAYOUT } from "~/constants";
 import type { NextPageWithLayout } from "../_app";
-
-import MainLayout from "~layouts/MainLayout";
 
 const Profile: NextPageWithLayout = () => {
   return <p>profile</p>;
 };
 
-Profile.getLayout = (page) => <MainLayout>{page}</MainLayout>;
+Profile.layout = MAIN_LAYOUT;
 
 export default Profile;

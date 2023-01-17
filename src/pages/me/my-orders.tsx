@@ -1,12 +1,11 @@
 import React from "react";
+import { MAIN_LAYOUT } from "~/constants";
 import { NextPageWithLayout } from "../_app";
-
-import MainLayout from "~layouts/MainLayout";
 
 const MyOrders: NextPageWithLayout = () => {
   return <p>MyOrders</p>;
 };
 
-MyOrders.getLayout = (page) => <MainLayout>{page}</MainLayout>;
+MyOrders.layout = MAIN_LAYOUT;
 
 export default MyOrders;

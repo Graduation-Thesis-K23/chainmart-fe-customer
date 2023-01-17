@@ -50,8 +50,6 @@ jobs:
             sudo docker-compose rm -f
             sudo docker-compose pull
             sudo docker-compose up -d
-            sudo docker system prune -a
-            y
 
       - name: Send message to Telegram
         uses: appleboy/telegram-action@master

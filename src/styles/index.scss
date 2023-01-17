@@ -9,6 +9,7 @@
 }
 
 html {
+  scroll-behavior: smooth;
   font-size: 62.5%;
 }
 
@@ -18,7 +19,6 @@ body {
   text-rendering: optimizespeed;
   color: $text-color;
   overflow-y: overlay;
-  scroll-behavior: smooth;
 }
 
 // Scrollbar CSS

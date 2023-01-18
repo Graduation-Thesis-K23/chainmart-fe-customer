@@ -1,12 +1,12 @@
 import React from "react";
+import { MAIN_LAYOUT } from "~/constants";
 
-import MainLayout from "~layouts/MainLayout";
 import { NextPageWithLayout } from "../_app";
 
 const FreeShipping: NextPageWithLayout = () => {
   return <div>Free Shipping</div>;
 };
 
-FreeShipping.getLayout = (page) => <MainLayout>{page}</MainLayout>;
+FreeShipping.layout = MAIN_LAYOUT;
 
 export default FreeShipping;

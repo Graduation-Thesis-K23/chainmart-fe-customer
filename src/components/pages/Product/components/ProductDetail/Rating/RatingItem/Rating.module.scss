@@ -1,0 +1,65 @@
+.rating-item {
+  display: flex;
+
+  ~ .rating-item {
+    margin-top: 16px;
+  }
+
+  &-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+
+  &-info {
+    flex: 1;
+    margin-left: 10px;
+
+    &-top {
+      display: flex;
+      align-items: center;
+
+      &-name {
+        font-weight: 700;
+      }
+
+      &-star {
+        margin-left: 12px;
+        font-size: 13px;
+        line-height: 24px;
+      }
+    }
+
+    &-mid {
+      height: 20px;
+      color: rgba(0, 0, 0, 0.6);
+
+      &-time {
+        font-size: 13px;
+        line-height: 24px;
+        margin-right: 6px;
+      }
+
+      &-classify {
+        font-size: 13px;
+        margin-left: 6px;
+      }
+    }
+
+    &-bottom {
+      margin-top: 10px;
+      font-size: 15px;
+
+      &-content {
+        text-align: justify;
+      }
+    }
+
+    &-image {
+      > div {
+        margin-right: 6px !important;
+      }
+    }
+  }
+}

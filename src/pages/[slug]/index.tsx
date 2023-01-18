@@ -3,7 +3,6 @@ import { GetStaticPropsContext } from "next";
 import Head from "next/head";
 
 import ProductPage from "~/components/pages/Product";
-import MainLayout from "~layouts/MainLayout";
 
 import { IParams } from "~/interfaces";
 import { IProductDetail } from "~/shared/interfaces";
@@ -11,12 +10,12 @@ import { getProducts } from "~/apis/Home";
 import { getProductDetail } from "~/apis/Product";
 import useProductDetail from "~/contexts/ProductDetailContext";
 import { NextPageWithLayout } from "../_app";
+import { MAIN_LAYOUT } from "~/constants";
 
 const Product: NextPageWithLayout<{
   product: IProductDetail;
 }> = ({ product }) => {
   const { setProductDetail } = useProductDetail();
-
   useEffect(() => {
     setProductDetail(product);
   }, [product, setProductDetail]);
@@ -24,19 +23,19 @@ const Product: NextPageWithLayout<{
   return (
     <>
       <Head>
-        <title>{product.name}</title>
-        <meta name="title" content={product.name} />
-        <meta name="description" content={product.name} />
-        <meta property="og:title" content={product.name} />
-        <meta property="og:description" content={product.name} />
-        <meta property="og:image" content={product.image} />
+        <title>{product?.name}</title>
+        <meta name="title" content={product?.name} />
+        <meta name="description" content={product?.name} />
+        <meta property="og:title" content={product?.name} />
+        <meta property="og:description" content={product?.name} />
+        <meta property="og:image" content={product?.image} />
       </Head>
       <ProductPage />
     </>
   );
 };
 
-Product.getLayout = (page) => <MainLayout>{page}</MainLayout>;
+Product.layout = MAIN_LAYOUT;
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const { slug } = context.params as IParams;
@@ -45,7 +44,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   return {
     props: { product },
-    revalidate: 10,
+    revalidate: 1,
   };
 };
 
@@ -54,7 +53,7 @@ export const getStaticPaths = async () => {
 
   return {
     paths,
-    fallback: "blocking",
+    fallback: false,
   };
 };
 

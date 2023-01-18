@@ -17,7 +17,7 @@ export default {
   // search
   "search.lookingFor": "What are you looking for?",
   // footer
-  "footer.customerService.title": "Customer Service",
+  "footer.customer_services": "Customer Service",
   "footer.customerService.helpCenter": "Help Center",
   "footer.customerService.howToBuy": "How to Buy",
   "footer.customerService.howToSell": "How to Sell",
@@ -26,7 +26,7 @@ export default {
   "footer.customerService.return": "Return",
   "footer.customerService.refund": "Refund",
   "footer.customerService.contactUs": "Contact Us",
-  "footer.aboutUs.title": "About Us",
+  "footer.about_us": "About Us",
   "footer.aboutUs.shopCareers": "Shop Careers",
   "footer.aboutUs.shopPolicies": "Shop Policies",
   "footer.aboutUs.privacyPolicy": "Privacy Policy",
@@ -35,9 +35,12 @@ export default {
   "footer.aboutUs.flashDeals": "Flash Deals",
   "footer.aboutUs.warrantyPolicy": "Warranty Policy",
   "footer.aboutUs.shopMall": "Shop Mall",
-  "footer.payment.title": "Payment",
+  "footer.support_center": "Support Center",
   "footer.socialMedia.title": "Follow Us",
-  "footer.download.title": "App Download",
+  "footer.subscribe": "Subscribe To Newsletter",
+  "footer.subscribeButton": "Subscribe",
+  "footer.location":
+    "Address: 19 Nguyen Huu Tho Street, Tan Phong Ward, District 7, Ho Chi Minh City",
   // categories
   "categories.header": "Categories",
   "categories.list.menClothing": "Men Clothing",
@@ -64,6 +67,7 @@ export default {
   "products.header": "Top Products",
   "products.viewAll": "View All",
   "products.sold": "sold",
+
   // product-detail
   "product.buyNow": "buy now",
   "product.addToCart": "add to cart",
@@ -71,4 +75,7 @@ export default {
   "product.specifications": "Product Specifications",
   "product.description": "Product Description",
   "product.familiar": "Product Familiar",
+  "product.notSelect": "Didn't choice classify",
+  // product-rating
+  "product.ratingHeader": "Product Rating",
 };

@@ -1,13 +1,226 @@
 @import "~/styles/mixins";
-@import "~/styles/variables";
 
 .footer {
   border-top: 2px solid $background-color;
 
-  &-inner {
-    @include container;
+  &_banner {
+    background-color: $primary-color;
 
-    display: flex;
-    justify-content: space-between;
+    &_group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 0;
+    }
+
+    &_icon {
+      font-size: 50px;
+      color: #fff;
+    }
+
+    &_text {
+      color: #fff;
+      font-size: 28px;
+      font-weight: 700;
+      margin-left: 8px;
+      line-height: 30px;
+    }
+
+    &_input {
+      height: 50px;
+      width: 60%;
+      font-size: 16px;
+      padding-left: 10px;
+      border-radius: 5px 0 0 5px;
+      color: #666;
+    }
+
+    &_button {
+      height: 50px;
+      width: 102px;
+      color: #fff;
+      font-weight: 600;
+      background-color: #000;
+      border-radius: 0 5px 5px 0;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+
+  &_top {
+    padding: 40px 0;
+
+    &_logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      &_text {
+        margin-top: 20px;
+        font-size: 14px;
+        text-align: center;
+        color: #666;
+      }
+    }
+
+    &_social_media {
+      display: flex;
+      justify-content: center;
+
+      &_list {
+        height: 100%;
+        width: 168px;
+        float: left;
+
+        &_item {
+          display: inline-block;
+          height: 100%;
+          width: 42px;
+
+          &_link {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            margin: 13px;
+            transition: all 0.5s ease-in-out;
+
+            &:hover {
+              transform: rotateY(-360deg);
+            }
+
+            &_image {
+              margin-top: 10px;
+            }
+          }
+        }
+      }
+    }
+
+    &_section {
+      &_title {
+        font-size: 18px;
+      }
+
+      &_list {
+        margin-top: 4px;
+      }
+
+      &_item {
+        padding: 3px;
+        transition: all 0.4s ease-in-out;
+
+        &:hover {
+          transform: translateX(8px);
+        }
+
+        &_text {
+          font-weight: 600;
+          color: #666 !important;
+        }
+      }
+    }
+  }
+
+  &_bot {
+    padding: 12px;
+    font-size: 12px;
+    text-align: center;
+    font-weight: 600;
+    background-color: #f6f3ec;
+  }
+
+  &_support {
+    display: block;
+
+    &_logo {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 30px;
+      height: 30px;
+      margin-top: 14px;
+      background-color: $primary-color;
+      border-radius: 50%;
+    }
+
+    &_text {
+      display: inline-block;
+      margin-left: 4px;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    &_phone {
+      display: block;
+      margin-top: 16px;
+      font-size: 20px;
+      color: $primary-color !important;
+    }
+
+    &_location {
+      margin-top: 10px;
+
+      &_text {
+        font-size: 13px;
+        font-weight: 600;
+        color: #666;
+      }
+    }
+  }
+}
+
+.container {
+  @include container;
+}
+
+.divider {
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .footer_banner {
+    &_group {
+      padding: 8px 0;
+    }
+
+    &_icon {
+      font-size: 30px;
+    }
+
+    &_text {
+      font-size: 18px;
+    }
+
+    &_input {
+      height: 40px;
+    }
+
+    &_button {
+      height: 40px;
+    }
+  }
+
+  .footer_top {
+    &_logo_text {
+      padding: 0 20px;
+    }
+
+    &_section_title {
+      margin-top: 12px;
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .footer {
+    &_top {
+      &_section {
+        padding: 0 20px;
+      }
+    }
   }
 }

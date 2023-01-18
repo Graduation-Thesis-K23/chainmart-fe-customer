@@ -1,11 +1,9 @@
 import Head from "next/head";
-import React, { ReactElement, Suspense } from "react";
-import dynamic from "next/dynamic";
+import React from "react";
 import type { NextPageWithLayout } from "./_app";
 
-import MainLayout from "~layouts/MainLayout";
-import Loading from "~atomics/Loading";
-const IndexScreen = dynamic(() => import("~pages/Index"));
+import IndexScreen from "~pages/Index";
+import { MAIN_LAYOUT } from "~/constants";
 
 const Index: NextPageWithLayout = () => (
   <>
@@ -29,12 +27,10 @@ const Index: NextPageWithLayout = () => (
       />
       <meta property="og:image" content="/banner1.png" />
     </Head>
-    <Suspense fallback={<Loading />}>
-      <IndexScreen />
-    </Suspense>
+    <IndexScreen />
   </>
 );
 
-Index.getLayout = (page: ReactElement) => <MainLayout>{page}</MainLayout>;
+Index.layout = MAIN_LAYOUT;
 
 export default Index;

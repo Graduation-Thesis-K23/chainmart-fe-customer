@@ -1,5 +1,14 @@
-@import "~/styles/variables";
 @import "~/styles/mixins";
+
+.container {
+  @include container;
+
+  height: 100%;
+}
+
+.header-shadow {
+  box-shadow: rgb(18 38 63 / 20%) 1px 1px 10px !important;
+}
 
 .header {
   position: fixed;
@@ -8,31 +17,95 @@
   right: 0;
   width: 100%;
   height: $header-height;
-  background-color: $primary-color;
+  background-color: white;
   z-index: 100;
 
-  &-inner {
-    @include container;
-  }
-
-  &-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  &_top {
     height: $header-top-height;
+    background-color: $primary-color;
+
+    &_left {
+      height: 100%;
+      width: 168px;
+      float: left;
+
+      &_item {
+        display: inline-block;
+        height: 100%;
+        width: 42px;
+        filter: invert(100%);
+
+        &_link {
+          display: inline-block;
+          width: 16px;
+          height: 16px;
+          margin: 13px;
+          transition: all 0.5s ease-in-out;
+
+          &:hover {
+            transform: rotateY(-360deg);
+          }
+
+          &_image {
+            margin-top: 10px;
+          }
+        }
+      }
+    }
+
+    &_right {
+      display: flex;
+      align-items: center;
+      float: right;
+      height: 100%;
+    }
   }
 
-  &-bottom {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: $header-bottom-height;
+  &_bot {
+    height: $header-bot-height;
 
-    &-middle {
+    &_inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
       height: 100%;
     }
+
+    &_logo {
+      display: inline-block;
+      height: 51px;
+      margin-left: 4px;
+
+      &_square {
+        display: none;
+        width: 48px;
+      }
+
+      &_rectangle {
+        width: 161px;
+      }
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .container {
+    padding-right: 16px;
+  }
+}
+
+@media (max-width: 992px) {
+  .header_bot_logo_rectangle {
+    display: none;
+  }
+
+  .header_bot_logo_square {
+    display: inline-block;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding-right: 16px;
   }
 }

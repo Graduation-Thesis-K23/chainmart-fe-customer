@@ -92,3 +92,8 @@ a[href] {
   height: 1px;
   background-color: antiquewhite;
 }
+
+.container {
+  max-width: $width;
+  margin: 0 auto;
+}

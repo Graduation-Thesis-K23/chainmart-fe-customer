@@ -1,22 +1,15 @@
-// libs
 import React, { memo } from "react";
-// components
+
 import Carousel from "./Carousel";
-import Banner from "./Banner";
-import HotWords from "./HotWords";
-// others
+
 import styles from "./Stardust.module.scss";
 
 const Stardust = () => (
-  <div className={styles["stardust-wrapper"]}>
-    <div className={styles["stardust-wrapper-inner"]}>
-      <div className={styles["stardust-top"]}>
-        <Carousel />
-        <Banner />
-      </div>
-      <HotWords />
+  <section className={styles["stardust"]}>
+    <div className="container">
+      <Carousel />
     </div>
-  </div>
+  </section>
 );
 
 export default memo(Stardust);

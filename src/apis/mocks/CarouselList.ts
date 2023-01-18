@@ -1,34 +1,21 @@
+import carousel1 from "~/assets/banner/c1.webp";
+import carousel2 from "~/assets/banner/c2.webp";
+import carousel3 from "~/assets/banner/c3.webp";
+
 export default [
   {
     id: 1,
-    src: "/banner1.png",
+    src: carousel1,
+    href: "/me/banner",
   },
   {
     id: 2,
-    src: "/banner1.png",
+    src: carousel2,
+    href: "/me/banner",
   },
   {
     id: 3,
-    src: "/banner1.png",
-  },
-  {
-    id: 4,
-    src: "/banner1.png",
-  },
-  {
-    id: 5,
-    src: "/banner1.png",
-  },
-  {
-    id: 6,
-    src: "/banner1.png",
-  },
-  {
-    id: 7,
-    src: "/banner1.png",
-  },
-  {
-    id: 8,
-    src: "/banner1.png",
+    src: carousel3,
+    href: "/me/banner",
   },
 ];

@@ -1,31 +1,46 @@
+@import "~/styles/variables";
+
 @mixin btn {
   position: absolute;
   top: 50%;
-  width: 3rem;
-  height: 6rem;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgb(255, 255, 255);
+  color: $primary-color;
   transform: translateY(-50%);
+  border: 2px solid $primary-color;
   cursor: pointer;
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: $primary-color;
+    color: #fff !important;
+    border-color: $primary-color !important;
   }
 }
 
 .carousel {
   position: relative;
-  height: 23.5rem;
-  width: 80rem;
+  border-radius: 10px;
+  overflow: hidden;
 
   &-prev-btn {
     @include btn;
 
-    left: 0;
+    left: 16px;
   }
 
   &-next-btn {
     @include btn;
 
-    right: 0;
+    right: 16px;
   }
+
+  &_controller {
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.2s linear;
+  }
+}
+
+.show {
+  opacity: 1;
+  visibility: visible;
 }

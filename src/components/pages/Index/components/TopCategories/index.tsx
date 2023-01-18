@@ -14,15 +14,16 @@ const TopCategories = () => {
   const [action, setAction] = useState<number>(0); // 1 ->, -1 <-
   const debouncedAction = useDebounce<number>(action, 200);
 
-  const data = useMemo(
-    () => ({
-      size: topCategories.length,
+  const data = useMemo(() => {
+    const size = topCategories.length;
+
+    return {
+      size,
       itemWidth: 146,
       swipeSize: 300,
-      listWidth: (146 + 20) * topCategories.length,
-    }),
-    []
-  );
+      listWidth: (146 + 20) * size,
+    };
+  }, []);
 
   const onPrev = useCallback(
     (swipeSize = data.swipeSize) => {
@@ -76,6 +77,9 @@ const TopCategories = () => {
   };
 
   useEffect(() => {
+    if (debouncedAction === 0) {
+      return;
+    }
     if (debouncedAction < 0) {
       onPrev(220);
     } else {

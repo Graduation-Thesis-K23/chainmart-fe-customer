@@ -30,10 +30,13 @@ const CarouselComponent = () => {
         {carouselList.map(({ id, src }) => (
           <div key={id}>
             <Image
+              className={styles["carousel_image"]}
               src={src}
-              layout="responsive"
+              width={1200}
+              height={423}
               alt={`carousel-${id}`}
               priority
+              placeholder="blur"
             />
           </div>
         ))}

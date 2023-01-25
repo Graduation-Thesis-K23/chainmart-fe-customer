@@ -7,6 +7,7 @@ import { RightOutlined, LeftOutlined } from "@ant-design/icons";
 import styles from "./TopCategories.module.scss";
 import topCategories from "~/apis/mocks/TopCategories";
 import useDebounce from "~/hooks/useDebounce";
+import useTranslate from "~/hooks/useTranslate";
 
 const TopCategories = () => {
   const [translateX, setTranslateX] = useState(0);
@@ -53,6 +54,7 @@ const TopCategories = () => {
   );
 
   const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    e.stopPropagation();
     const temp = e.touches[0];
     setXY({
       x: temp.clientX,
@@ -92,7 +94,9 @@ const TopCategories = () => {
     <div className={styles["top_categories"]}>
       <div className="container">
         <div className={styles["title"]}>
-          <div className={styles["title_text"]}>Top Categories</div>
+          <div className={styles["title_text"]}>
+            {useTranslate("categories.header")}
+          </div>
           <div className={styles["title_controller"]}>
             <Button
               className={styles["btn"]}
@@ -143,22 +147,22 @@ const TopCategories = () => {
                   width: data.itemWidth,
                 }}
               >
-                <Link href={item.href} prefetch={false}>
-                  <a
-                    aria-label={item.text}
-                    className={styles["top_categories_list_item_link"]}
-                  >
-                    <Image
-                      className={styles["top_categories_list_item_image"]}
-                      src={item.src}
-                      alt={item.text}
-                      width={90}
-                      height={90}
-                    />
-                    <span className={styles["top_categories_list_item_text"]}>
-                      {item.text}
-                    </span>
-                  </a>
+                <Link
+                  href={item.href}
+                  prefetch={false}
+                  aria-label={item.text}
+                  className={styles["top_categories_list_item_link"]}
+                >
+                  <Image
+                    className={styles["top_categories_list_item_image"]}
+                    src={item.src}
+                    alt={item.text}
+                    width={90}
+                    height={90}
+                  />
+                  <span className={styles["top_categories_list_item_text"]}>
+                    {item.text}
+                  </span>
                 </Link>
               </li>
             ))}

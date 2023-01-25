@@ -1,24 +1,30 @@
 import React from "react";
 import Link from "next/link";
 
-import SectionHeader from "../SectionHeader";
-import ProductsList from "./ProductsList";
+import ProductsList from "../ProductsList";
 
 import styles from "./Products.module.scss";
-import { default as translate } from "~/hooks/useTranslate";
+import useTranslate, { default as translate } from "~/hooks/useTranslate";
 
 const Products = () => {
   return (
     <div className={styles["products"]}>
-      <div className={styles["products-inner"]}>
+      <div className="container">
+        <div className={styles["title"]}>
+          <div className={styles["title_text"]}>
+            {useTranslate("products.header")}
+          </div>
+        </div>
+
         <div className={styles["products-content"]}>
-          <SectionHeader topicKey="products.header" />
           <ProductsList />
           <div className={styles["products-all"]}>
-            <Link href={"/products"} prefetch={false}>
-              <a className={styles["products-all-btn"]}>
-                {translate("products.viewAll")}
-              </a>
+            <Link
+              href={"/products"}
+              prefetch={false}
+              className={styles["products-all-btn"]}
+            >
+              <span>{translate("products.viewAll")}</span>
             </Link>
           </div>
         </div>

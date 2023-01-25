@@ -9,9 +9,7 @@ const Options: React.FC<{
 }> = ({ href, optionKey }) => {
   return (
     <Link href={href} prefetch={false}>
-      <a>
-        <span>{translate(optionKey)}</span>
-      </a>
+      <span>{translate(optionKey)}</span>
     </Link>
   );
 };

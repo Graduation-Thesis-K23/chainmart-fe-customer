@@ -10,15 +10,21 @@ const HeaderLogin = () => {
 
   return (
     <div className={styles["header-login"]}>
-      <Link href="/register" prefetch={false}>
-        <a aria-label="Đăng ký" className={styles["login"]}>
-          {registerText}
-        </a>
+      <Link
+        href="/register"
+        prefetch={false}
+        aria-label="Đăng ký"
+        className={styles["login"]}
+      >
+        <span>{registerText}</span>
       </Link>
-      <Link href="/login" prefetch={false}>
-        <a aria-label="Đăng nhập" className={styles["logout"]}>
-          {loginText}
-        </a>
+      <Link
+        href="/login"
+        prefetch={false}
+        aria-label="Đăng nhập"
+        className={styles["logout"]}
+      >
+        <span>{loginText}</span>
       </Link>
     </div>
   );

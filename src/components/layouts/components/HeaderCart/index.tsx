@@ -30,10 +30,8 @@ const HeaderCart = () => {
           arrowPointAtCenter={true}
         >
           <>
-            <Link href="/cart">
-              <a aria-label="Giỏ hàng">
-                <Image src={cartIcon} width={24} height={24} alt="cart-icon" />
-              </a>
+            <Link href="/cart" aria-label="Giỏ hàng">
+              <Image src={cartIcon} width={24} height={24} alt="cart-icon" />
             </Link>
           </>
         </Popover>

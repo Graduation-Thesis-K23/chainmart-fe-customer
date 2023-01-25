@@ -21,6 +21,11 @@
   border-radius: 10px;
   overflow: hidden;
 
+  &_image {
+    width: 100%;
+    height: auto;
+  }
+
   &-prev-btn {
     @include btn;
 

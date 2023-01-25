@@ -67,7 +67,13 @@ const Footer = () => {
         className={classNames(styles["footer_top"], styles["container"])}
       >
         <div className={styles["footer_top_logo"]}>
-          <Image src={logo} alt="footer-logo" width={161} height={51} />
+          <Image
+            src={logo}
+            alt="footer-logo"
+            width={161}
+            height={51}
+            priority
+          />
           <span className={styles["footer_top_logo_text"]}>
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi
             alias repellat laudantium eum culpa at error aspernatur.
@@ -81,20 +87,20 @@ const Footer = () => {
                 key={item.key}
                 className={styles["footer_top_social_media_list_item"]}
               >
-                <Link href={item.href} prefetch={false}>
-                  <a
-                    className={styles["footer_top_social_media_list_item_link"]}
-                  >
-                    <Image
-                      className={
-                        styles["footer_top_social_media_list_item_link_image"]
-                      }
-                      src={item.icon}
-                      alt="icon"
-                      width={16}
-                      height={16}
-                    />
-                  </a>
+                <Link
+                  href={item.href}
+                  prefetch={false}
+                  className={styles["footer_top_social_media_list_item_link"]}
+                >
+                  <Image
+                    className={
+                      styles["footer_top_social_media_list_item_link_image"]
+                    }
+                    src={item.icon}
+                    alt="icon"
+                    width={16}
+                    height={16}
+                  />
                 </Link>
               </li>
             ))}
@@ -108,13 +114,13 @@ const Footer = () => {
             <ul className={styles["footer_top_section_list"]}>
               {customer_services.map(({ key, href, text }) => (
                 <li key={key} className={styles["footer_top_section_item"]}>
-                  <Link href={href} prefetch={false}>
-                    <a
-                      className={styles["footer_top_section_item_text"]}
-                      aria-label={text}
-                    >
-                      {text}
-                    </a>
+                  <Link
+                    href={href}
+                    prefetch={false}
+                    className={styles["footer_top_section_item_text"]}
+                    aria-label={text}
+                  >
+                    <span>{text}</span>
                   </Link>
                 </li>
               ))}
@@ -127,13 +133,13 @@ const Footer = () => {
             <ul className={styles["footer-about-us-list"]}>
               {about_us.map(({ key, text, href }) => (
                 <li key={key} className={styles["footer_top_section_item"]}>
-                  <Link href={href} prefetch={false}>
-                    <a
-                      className={styles["footer_top_section_item_text"]}
-                      aria-label={text}
-                    >
-                      {text}
-                    </a>
+                  <Link
+                    href={href}
+                    prefetch={false}
+                    className={styles["footer_top_section_item_text"]}
+                    aria-label={text}
+                  >
+                    <span>{text}</span>
                   </Link>
                 </li>
               ))}
@@ -146,13 +152,13 @@ const Footer = () => {
             <ul className={styles["footer-about-us-list"]}>
               {support_center.map(({ key, text, href }) => (
                 <li key={key} className={styles["footer_top_section_item"]}>
-                  <Link href={href} prefetch={false}>
-                    <a
-                      className={styles["footer_top_section_item_text"]}
-                      aria-label={text}
-                    >
-                      {text}
-                    </a>
+                  <Link
+                    href={href}
+                    prefetch={false}
+                    className={styles["footer_top_section_item_text"]}
+                    aria-label={text}
+                  >
+                    <span>{text}</span>
                   </Link>
                 </li>
               ))}
@@ -169,10 +175,12 @@ const Footer = () => {
               />
             </div>
             <span className={styles["footer_support_text"]}>Hotline 24/7</span>
-            <Link href="tel:+84984526014" aria-label="Gọi điện">
-              <a className={styles["footer_support_phone"]}>
-                (+84) 98 4526 014
-              </a>
+            <Link
+              href="tel:+84984526014"
+              aria-label="Gọi điện"
+              className={styles["footer_support_phone"]}
+            >
+              <span>(+84) 98 4526 014</span>
             </Link>
             <div className={styles["footer_support_location"]}>
               <span className={styles["footer_support_location_text"]}>

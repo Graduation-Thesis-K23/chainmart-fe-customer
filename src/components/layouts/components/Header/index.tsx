@@ -53,16 +53,12 @@ const Header = () => {
           <ul className={styles["header_top_left"]}>
             {headerTopLeft.map((item) => (
               <li key={item.key} className={styles["header_top_left_item"]}>
-                <Link href={item.href} prefetch={false}>
-                  <a className={styles["header_top_left_item_link"]}>
-                    <Image
-                      className={styles["header_top_left_item_link_image"]}
-                      src={item.icon}
-                      alt="icon"
-                      width={16}
-                      height={16}
-                    />
-                  </a>
+                <Link
+                  href={item.href}
+                  prefetch={false}
+                  className={styles["header_top_left_item_link"]}
+                >
+                  <Image src={item.icon} alt="icon" width={16} height={16} />
                 </Link>
               </li>
             ))}
@@ -77,32 +73,30 @@ const Header = () => {
       <div className={styles["header_bot"]}>
         <div className={styles["container"]}>
           <div className={styles["header_bot_inner"]}>
-            <Link href="/">
-              <a
-                className={classNames(
-                  styles["header_bot_logo_rectangle"],
-                  styles["header_bot_logo"]
-                )}
-                aria-label="Trang chủ"
-              >
-                <Image src={logo} width={161} height={51} alt="logo" />
-              </a>
+            <Link
+              href="/"
+              className={classNames(
+                styles["header_bot_logo_rectangle"],
+                styles["header_bot_logo"]
+              )}
+              aria-label="Trang chủ"
+            >
+              <Image src={logo} width={161} height={51} alt="logo" />
             </Link>
-            <Link href="/">
-              <a
-                className={classNames(
-                  styles["header_bot_logo_square"],
-                  styles["header_bot_logo"]
-                )}
-                aria-label="Trang chủ"
-              >
-                <Image
-                  src={logoSquare}
-                  width={48}
-                  height={51}
-                  alt="logo-square"
-                />
-              </a>
+            <Link
+              href="/"
+              className={classNames(
+                styles["header_bot_logo_square"],
+                styles["header_bot_logo"]
+              )}
+              aria-label="Trang chủ"
+            >
+              <Image
+                src={logoSquare}
+                width={48}
+                height={51}
+                alt="logo-square"
+              />
             </Link>
             <HeaderBottomSearch />
             <HeaderBottomCart />

@@ -1,5 +1,26 @@
 @import "~/styles/variables";
 
+.products-list {
+  display: grid;
+  grid-gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  list-style: none;
+
+  &-item {
+    position: relative;
+    background-color: white;
+    box-shadow: 0 0.08rem 0.25rem 0 rgb(0 0 0 / 20%);
+    border: 2px solid rgba(0, 0, 0, 0.288);
+    border-radius: 10px;
+    box-sizing: border-box;
+
+    &:hover {
+      transform: scale(1.02);
+      transition: transform 0.2s ease-in-out;
+    }
+  }
+}
+
 .product-card {
   position: relative;
   display: flex;

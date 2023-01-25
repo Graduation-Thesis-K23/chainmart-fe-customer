@@ -9,6 +9,9 @@
     margin-top: 12px;
     border-radius: 10px;
     overflow: hidden;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 
     &_inner {
       height: 208px;
@@ -99,5 +102,11 @@
     &:hover {
       border-color: transparent;
     }
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .title_controller {
+    display: none;
   }
 }

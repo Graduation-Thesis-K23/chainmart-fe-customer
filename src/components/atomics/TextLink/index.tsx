@@ -10,15 +10,15 @@ interface Props {
 
 const TextLink = ({ href, text, blank }: Props) => {
   return (
-    <Link href={href} prefetch={false}>
-      <a
-        style={{
-          color: "inherit",
-        }}
-        target={blank ? "_blank" : "_self"}
-      >
-        <span>{text}</span>
-      </a>
+    <Link
+      href={href}
+      prefetch={false}
+      style={{
+        color: "inherit",
+      }}
+      target={blank ? "_blank" : "_self"}
+    >
+      <span>{text}</span>
     </Link>
   );
 };

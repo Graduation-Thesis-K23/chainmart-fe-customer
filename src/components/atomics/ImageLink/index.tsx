@@ -13,16 +13,16 @@ interface Props {
 
 const ImageLink = ({ href, src, width, height, alt }: Props) => {
   return (
-    <Link href={href} prefetch={false}>
-      <a
-        style={{
-          display: "inline-block",
-          width: `${width}px`,
-          height: `${height}px`,
-        }}
-      >
-        <Image src={src} width={width} height={height} alt={alt} />
-      </a>
+    <Link
+      href={href}
+      prefetch={false}
+      style={{
+        display: "inline-block",
+        width: `${width}px`,
+        height: `${height}px`,
+      }}
+    >
+      <Image src={src} width={width} height={height} alt={alt} />
     </Link>
   );
 };

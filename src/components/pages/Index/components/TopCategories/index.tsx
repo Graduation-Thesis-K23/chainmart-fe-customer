@@ -7,7 +7,7 @@ import { RightOutlined, LeftOutlined } from "@ant-design/icons";
 import styles from "./TopCategories.module.scss";
 import topCategories from "~/apis/mocks/TopCategories";
 import useDebounce from "~/hooks/useDebounce";
-import useTranslate from "~/hooks/useTranslate";
+import { default as translate } from "~/hooks/useTranslate";
 
 const TopCategories = () => {
   const [translateX, setTranslateX] = useState(0);
@@ -95,7 +95,7 @@ const TopCategories = () => {
       <div className="container">
         <div className={styles["title"]}>
           <div className={styles["title_text"]}>
-            {useTranslate("categories.header")}
+            {translate("categories.header")}
           </div>
           <div className={styles["title_controller"]}>
             <Button
@@ -150,18 +150,18 @@ const TopCategories = () => {
                 <Link
                   href={item.href}
                   prefetch={false}
-                  aria-label={item.text}
+                  aria-label={item.textKey}
                   className={styles["top_categories_list_item_link"]}
                 >
                   <Image
                     className={styles["top_categories_list_item_image"]}
                     src={item.src}
-                    alt={item.text}
+                    alt={item.textKey}
                     width={90}
                     height={90}
                   />
                   <span className={styles["top_categories_list_item_text"]}>
-                    {item.text}
+                    {translate(item.textKey)}
                   </span>
                 </Link>
               </li>

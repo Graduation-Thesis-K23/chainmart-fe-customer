@@ -3,21 +3,17 @@
 .products-list {
   display: grid;
   grid-gap: 24px;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
   list-style: none;
 
   &-item {
     position: relative;
     background-color: white;
-    box-shadow: 0 0.08rem 0.25rem 0 rgb(0 0 0 / 20%);
-    border: 2px solid rgba(0, 0, 0, 0.288);
-    border-radius: 10px;
+    box-shadow: 0 4px 10px rgb(51 51 51 / 15%);
+    border-radius: 20px;
+    transition: transform 0.2s linear;
     box-sizing: border-box;
-
-    &:hover {
-      transform: scale(1.02);
-      transition: transform 0.2s ease-in-out;
-    }
+    overflow: hidden;
   }
 }
 
@@ -30,12 +26,12 @@
 
   &-label {
     position: absolute;
-    top: 0.75rem;
-    left: -0.2rem;
+    top: 10px;
+    left: -2px;
     display: flex;
     width: fit-content;
-    min-width: 5.5rem;
-    max-width: 10rem;
+    min-width: 55px;
+    max-width: 100px;
     background-color: $primary-color;
     z-index: 1;
 
@@ -66,8 +62,8 @@
 
   &-discount {
     position: absolute;
-    top: 0.2rem;
-    right: 0.2rem;
+    top: 10px;
+    right: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -104,24 +100,26 @@
   }
 
   &-image {
+    position: relative;
     height: 23.4rem;
-    padding: 0.2rem 0.2rem 0;
   }
 
   &-body {
     display: flex;
     flex-direction: column;
-    height: 7.6rem;
-    padding: 0 0.4rem;
+    height: 60px;
     overflow: hidden;
+    padding: 0 10px;
 
     &-name {
       display: -webkit-box;
       display: -moz-box;
       display: -ms-box;
-      width: 22.2rem;
-      font-size: 1.4rem;
-      line-height: 1.8rem;
+      width: 100%;
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 20px;
+      padding: 4px 0;
       word-wrap: break-word;
       white-space: normal;
       overflow: hidden;
@@ -136,7 +134,7 @@
 
     &-prices {
       display: flex;
-      flex-direction: column;
+      align-items: baseline;
       width: -moz-fit-content;
       width: -webkit-fit-content;
       width: -ms-fit-content;
@@ -151,6 +149,7 @@
       &-two {
         font-size: 1.1rem;
         color: #929292;
+        margin-left: 4px;
         text-decoration: line-through;
       }
     }
@@ -159,8 +158,8 @@
   &-footer {
     display: flex;
     width: 100%;
-    height: 2rem;
-    padding: 0 0.4rem;
+    height: 28px;
+    padding: 0 14px;
     line-height: 2rem;
     justify-content: space-between;
 

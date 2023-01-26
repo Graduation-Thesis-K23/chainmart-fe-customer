@@ -4,17 +4,7 @@
 
   &_link {
     position: relative;
-    display: inline-block;
-  }
-
-  &_content {
-    position: absolute;
-    top: 50%;
-    left: 10px;
-    transform: translateY(-50%);
-    max-width: 50%;
-    font-size: 20px;
-    font-weight: 700;
+    display: block;
   }
 
   &_image {

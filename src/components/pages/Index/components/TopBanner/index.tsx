@@ -25,7 +25,6 @@ const TopBanner = () => {
                   width={490}
                   height={249}
                 />
-                <span className={styles["banner_content"]}>{item.text}</span>
               </Link>
             </Col>
           ))}

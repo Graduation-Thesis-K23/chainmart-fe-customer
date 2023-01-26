@@ -1,6 +1,6 @@
 import springRolls from "~/assets/categories/cha-gio.webp";
 import toiletPaper from "~/assets/categories/giay-ve-sinh.webp";
-import kem from "~/assets/categories/kem.webp";
+import cream from "~/assets/categories/kem.webp";
 import noodles from "~/assets/categories/mi-an-lien.webp";
 import washingPowder from "~/assets/categories/nuoc-giat.webp";
 import fishSauce from "~/assets/categories/nuoc-mam.webp";
@@ -13,61 +13,61 @@ export default [
   {
     id: 1,
     src: springRolls,
-    text: "Spring Rolls",
+    textKey: "categories.springRolls",
     href: "/categories/spring-rolls",
   },
   {
     id: 2,
     src: toiletPaper,
-    text: "Toilet Paper",
+    textKey: "categories.toiletPaper",
     href: "/categories/toilet-paper",
   },
   {
     id: 3,
-    src: kem,
-    text: "Ice Cream",
+    src: cream,
+    textKey: "categories.cream",
     href: "/categories/ice-cream",
   },
   {
     id: 4,
     src: noodles,
-    text: "Noodles",
+    textKey: "categories.noodles",
     href: "/categories/noodles",
   },
   {
     id: 5,
     src: washingPowder,
-    text: "Washing Powder",
+    textKey: "categories.washingPowder",
     href: "/categories/washing-powder",
   },
   {
     id: 6,
     src: fishSauce,
-    text: "Fish Sauce",
+    textKey: "categories.fishSauce",
     href: "/categories/fish-sauce",
   },
   {
     id: 7,
     src: softDrinks,
-    text: "Soft Drinks",
+    textKey: "categories.softDrinks",
     href: "/categories/soft-drinks",
   },
   {
     id: 8,
     src: vegetables,
-    text: "Vegetables",
+    textKey: "categories.vegetables",
     href: "/categories/vegetables",
   },
   {
     id: 9,
     src: milk,
-    text: "Milk",
+    textKey: "categories.milk",
     href: "/categories/milk",
   },
   {
     id: 10,
     src: pork,
-    text: "Pork",
+    textKey: "categories.pork",
     href: "/categories/pork",
   },
 ];

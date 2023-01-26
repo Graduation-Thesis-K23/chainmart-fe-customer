@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { Divider, Col, Row } from "antd";
 import { CheckCircleOutlined } from "@ant-design/icons";
+import classNames from "classnames";
 
 import Optional from "./Optional";
 import Images from "./Images";
@@ -14,7 +15,6 @@ import useProductDetail from "~/contexts/ProductDetailContext";
 import useTranslate from "~/hooks/useTranslate";
 import useCart from "~/contexts/CartContext";
 import { ICart } from "~/shared/interfaces";
-import classNames from "classnames";
 
 const MainInformation = () => {
   const { productDetail } = useProductDetail();
@@ -170,4 +170,4 @@ const MainInformation = () => {
   );
 };
 
-export default MainInformation;
+export default memo(MainInformation);

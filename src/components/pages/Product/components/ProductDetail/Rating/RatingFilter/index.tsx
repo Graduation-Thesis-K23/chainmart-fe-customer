@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Rate, Progress } from "antd";
 
 import styles from "./RatingFilter.module.scss";
@@ -43,4 +43,4 @@ const RatingFilter = () => {
   );
 };
 
-export default RatingFilter;
+export default memo(RatingFilter);

@@ -1,6 +1,7 @@
 export default {
   title: "Việt Nam",
   home: "Trang chủ",
+  cart: "Giỏ hàng",
   "404": "Trang bạn đang tìm không tồn tại.",
   // header
   "header.topLeft.0": "Miễn phí vận chuyển",

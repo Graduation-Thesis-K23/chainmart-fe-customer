@@ -11,7 +11,6 @@ const ImageSlider: React.FC<{
       alt="product-image"
       width={65}
       height={65}
-      objectFit="contain"
       onMouseEnter={onMouseEnter}
       style={{
         cursor: "pointer",

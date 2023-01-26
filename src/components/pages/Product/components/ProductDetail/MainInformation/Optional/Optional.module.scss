@@ -3,6 +3,14 @@
 .options {
   display: flex;
 
+  &_container {
+    padding: 10px;
+  }
+
+  &_warning {
+    background-color: #d6575715;
+  }
+
   &-title {
     width: 8rem;
 
@@ -58,6 +66,6 @@
   }
 
   ~ .options {
-    margin-top: 2rem;
+    margin-top: 10px;
   }
 }

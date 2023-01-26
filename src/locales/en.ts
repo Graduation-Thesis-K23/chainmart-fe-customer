@@ -58,15 +58,16 @@ export default {
   "products.header": "Top Products",
   "products.viewAll": "View All",
   "products.sold": "sold",
+  "products.soldOut": "Sold Out",
 
   // product-detail
   "product.buyNow": "buy now",
   "product.addToCart": "add to cart",
   "product.addToCartSuccess": "Item has been added to your shopping cart",
-  "product.specifications": "Product Specifications",
-  "product.description": "Product Description",
+  "product.specifications": "Specifications",
+  "product.description": "Description",
   "product.familiar": "Product Familiar",
   "product.notSelect": "Didn't choice classify",
   // product-rating
-  "product.ratingHeader": "Product Rating",
+  "product.ratingHeader": "Rating",
 };

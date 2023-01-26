@@ -1,12 +1,11 @@
-@import "~/styles/mixins";
+@import "~/styles/variables";
 
 .stakeholder {
-  padding-top: 1rem;
+  padding: 10px 15px;
   background-color: $background-color;
 
-  &-inner {
-    @include container;
-
-    display: flex;
+  &_inner {
+    background-color: #fff;
+    margin: 0 !important;
   }
 }

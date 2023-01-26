@@ -1,17 +1,19 @@
 import React, { useEffect, useState, memo } from "react";
 
 import RatingItem from "./RatingItem";
-import RatingHeader from "./RatingHeader";
 import RatingFilter from "./RatingFilter";
 
 import styles from "./Rating.module.scss";
 import useProductDetail from "~/contexts/ProductDetailContext";
 import { Comment } from "~/interfaces";
 import getRatingProduct from "~/apis/Product/get-rating-product";
+import useTranslate from "~/hooks/useTranslate";
 
 const Rating = () => {
   const { id } = useProductDetail().productDetail;
   const [comments, setComments] = useState<Array<Comment>>([]);
+
+  const productRatingHeader = useTranslate("product.ratingHeader");
 
   useEffect(() => {
     const temp = getRatingProduct(id);
@@ -23,9 +25,9 @@ const Rating = () => {
 
   return (
     <div className={styles["rating"]}>
-      <RatingHeader />
+      <p className={styles["rating_header"]}>{productRatingHeader}</p>
       <RatingFilter />
-      <ul className={styles["rating-list"]}>
+      <ul className={styles["rating_list"]}>
         {comments.map((comment) => (
           <RatingItem key={comment.id} comment={comment} />
         ))}

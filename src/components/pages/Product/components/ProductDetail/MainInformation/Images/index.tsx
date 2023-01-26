@@ -15,14 +15,14 @@ const Images: React.FC<{
   const [visible, setVisible] = useState<boolean>(false);
 
   return (
-    <div className={styles["left"]}>
-      <div className={styles["left-images"]}>
+    <div className={styles["images"]}>
+      <div className={styles["images_slider"]}>
         <Image
+          className={styles["images_slider_item"]}
           src={imageShow}
           alt="product-image"
-          width={450}
-          height={450}
-          objectFit="contain"
+          width={700}
+          height={700}
           onClick={() => setVisible(true)}
         />
         <ImageAntd
@@ -37,9 +37,9 @@ const Images: React.FC<{
           alt="preview"
         />
       </div>
-      <div className={styles["left-controller"]}>
+      <div className={styles["images_controller"]}>
         <Carousel
-          className={styles["left-controller-images"]}
+          className={styles["images_controller-images"]}
           responsive={{
             desktop: {
               breakpoint: { max: 3000, min: 10 },

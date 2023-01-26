@@ -1,10 +1,86 @@
-.familiar {
-  width: 23rem;
-  background-color: #fff;
+@import "~/styles/variables";
 
-  &-title {
+.familiar {
+  background-color: #fff;
+  padding-bottom: 10px;
+
+  &_title {
     padding: 1rem;
     font-size: 2rem;
     font-weight: 600;
+  }
+
+  &_list {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    list-style: none;
+  }
+
+  &_item {
+    position: relative;
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgb(51 51 51 / 15%);
+    border-radius: 20px;
+    transition: transform 0.2s linear;
+    overflow: hidden;
+
+    &_link {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &_image {
+      position: relative;
+      height: 220px;
+    }
+
+    &_body {
+      display: flex;
+      flex-direction: column;
+      padding: 6px 10px;
+      overflow: hidden;
+
+      &_name {
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-box;
+        font-size: 15px;
+        font-weight: 800;
+        line-height: 20px;
+        word-wrap: break-word;
+        white-space: normal;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        -moz-box-orient: vertical;
+        -moz-line-clamp: 2;
+        -ms-box-orient: vertical;
+        -ms-line-clamp: 2;
+      }
+
+      &_prices {
+        display: flex;
+        align-items: baseline;
+        width: -moz-fit-content;
+        width: -webkit-fit-content;
+        width: -ms-fit-content;
+
+        &_one {
+          color: red;
+          font-size: 14px;
+          font-weight: 600;
+          line-height: 2rem;
+        }
+
+        &_two {
+          font-size: 1.1rem;
+          color: #929292;
+          margin-left: 4px;
+          text-decoration: line-through;
+        }
+      }
+    }
   }
 }

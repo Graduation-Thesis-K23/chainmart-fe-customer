@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Divider, Modal } from "antd";
+import { Divider, Col, Row } from "antd";
+import { CheckCircleOutlined } from "@ant-design/icons";
 
 import Optional from "./Optional";
 import Images from "./Images";
@@ -13,6 +14,7 @@ import useProductDetail from "~/contexts/ProductDetailContext";
 import useTranslate from "~/hooks/useTranslate";
 import useCart from "~/contexts/CartContext";
 import { ICart } from "~/shared/interfaces";
+import classNames from "classnames";
 
 const MainInformation = () => {
   const { productDetail } = useProductDetail();
@@ -21,14 +23,13 @@ const MainInformation = () => {
 
   const buyNowText = useTranslate("product.buyNow");
   const addToCartText = useTranslate("product.addToCart");
-  const addToCartTextSuccess = useTranslate("product.addToCartSuccess");
   const productSpecifications = useTranslate("product.specifications");
   const productDescription = useTranslate("product.description");
-  const notSelect = useTranslate("product.notSelect");
 
   const [select, setSelect] = useState<{ [key: string]: string }>({});
   const [quantity, setQuantity] = useState<number>(1);
   const [cartSuccess, setAddCartSuccess] = useState(false);
+  const [warning, setWarning] = useState(false);
 
   const handleAddToCart = () => {
     let classify = "";
@@ -42,6 +43,7 @@ const MainInformation = () => {
       if (select[option]) {
         classify += select[option] + " ";
       } else {
+        setWarning(true);
         return;
       }
     }
@@ -79,76 +81,91 @@ const MainInformation = () => {
     }
 
     setCart(temp);
+    setSelect({});
 
     setAddCartSuccess(true);
+
+    setTimeout(() => {
+      setAddCartSuccess(false);
+    }, 2000);
   };
 
   return (
     <>
       {productDetail.name && (
-        <div className={styles["main-information"]}>
-          <div className={styles["main-information-inner"]}>
-            <Images image={productDetail.image} images={productDetail.images} />
-            <div className={styles["main-information-right"]}>
-              <Parameter
-                name={productDetail.name}
-                star={productDetail.star}
-                sold={productDetail.sold}
-                price={productDetail.price}
-                ignorePrice={productDetail.ignorePrice}
-              />
-              <Divider />
-              <Optional
-                options={productDetail.options}
-                select={select}
-                setSelect={setSelect}
-              />
-              <Divider />
-              <Quantity
-                maxQuantity={productDetail.maxQuantity}
-                quantity={quantity}
-                setQuantity={setQuantity}
-              />
-              <div className={styles["main-information-right-checkout"]}>
-                <button
-                  className={styles["main-information-right-checkout-buy"]}
-                >
-                  {buyNowText}
-                </button>
-                <button
-                  className={styles["main-information-right-checkout-cart"]}
-                  onClick={() => handleAddToCart()}
-                >
-                  {addToCartText}
-                </button>
+        <div className={styles["main_information"]}>
+          <div className="container">
+            <Row className={styles["main_information_top"]} gutter={[24, 12]}>
+              <Col xs={24} sm={24} md={10} lg={10} xl={10}>
+                <Images
+                  image={productDetail.image}
+                  images={productDetail.images}
+                />
+              </Col>
+              <Col xs={24} sm={24} md={14} lg={14} xl={14}>
+                <div className={styles["main_information-right"]}>
+                  <Parameter
+                    name={productDetail.name}
+                    star={productDetail.star}
+                    sold={productDetail.sold}
+                    price={productDetail.price}
+                    ignorePrice={productDetail.ignorePrice}
+                  />
+                  <Divider />
+                  <Optional
+                    options={productDetail.options}
+                    select={select}
+                    setSelect={setSelect}
+                    warning={warning}
+                    setWarning={setWarning}
+                  />
+                  <Divider />
+                  <Quantity
+                    maxQuantity={productDetail.maxQuantity}
+                    quantity={quantity}
+                    setQuantity={setQuantity}
+                  />
+                  <div className={styles["main_information-right-checkout"]}>
+                    <button
+                      className={styles["main_information-right-checkout-buy"]}
+                    >
+                      {buyNowText}
+                    </button>
+                    <button
+                      className={styles["main_information-right-checkout-cart"]}
+                      onClick={() => handleAddToCart()}
+                    >
+                      {addToCartText}
+                    </button>
+                  </div>
+                </div>
+              </Col>
+            </Row>
+            <div className={styles["description-inner"]}>
+              <div className={styles["description-title"]}>
+                {productSpecifications}
               </div>
+              <Specifications specifications={productDetail.specifications} />
+              <div className={styles["description-title"]}>
+                {productDescription}
+              </div>
+              <Description description={productDetail.description} />
             </div>
-          </div>
-          <Modal
-            open={cartSuccess}
-            onCancel={() => setAddCartSuccess(false)}
-            footer={[]}
-            mask={false}
-            closable={false}
-            centered
-            width={250}
-          >
-            <p>Some contents...</p>
-            <p>Some contents...</p>
-            <p>Some contents...</p>
-          </Modal>
-          <div className={styles["description-inner"]}>
-            <div className={styles["description-title"]}>
-              {productSpecifications}
-            </div>
-            <Specifications specifications={productDetail.specifications} />
-            <div className={styles["description-title"]}>
-              {productDescription}
-            </div>
-            <Description description={productDetail.description} />
           </div>
         </div>
       )}
+      <div
+        className={classNames(styles["cart_modal"], {
+          [styles["show"]]: cartSuccess,
+        })}
+      >
+        <div className={styles["cart_modal_content"]}>
+          <CheckCircleOutlined className={styles["cart_modal_content_icon"]} />
+          <p className={styles["cart_modal_content_text"]}>
+            {useTranslate("product.addToCartSuccess")}
+          </p>
+        </div>
+      </div>
     </>
   );
 };

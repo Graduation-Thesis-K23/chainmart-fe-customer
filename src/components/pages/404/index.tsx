@@ -31,8 +31,8 @@ const Page404 = () => {
         <div className={styles["number"]}>4</div>
       </div>
       <div className={styles["text"]}>{notify}</div>
-      <Link href="/" prefetch={false}>
-        <a className={styles["button"]}>{home}</a>
+      <Link href="/" prefetch={false} className={styles["button"]}>
+        <span>{home}</span>
       </Link>
     </div>
   );

@@ -10,21 +10,18 @@ const CategoriesList = () => {
   return (
     <div className={styles["categories-list"]}>
       {categoriesList.map(({ key, href, src, titleKey }) => (
-        <Link key={key} href={href} prefetch={false}>
-          <a className={styles["categories-list-item"]}>
-            <div className={styles["categories-list-item-image"]}>
-              <Image
-                src={src}
-                width={84}
-                height={84}
-                objectFit="contain"
-                alt="category"
-              />
-            </div>
-            <div className={styles["categories-list-item-title"]}>
-              {translate(titleKey)}
-            </div>
-          </a>
+        <Link
+          key={key}
+          href={href}
+          prefetch={false}
+          className={styles["categories-list-item"]}
+        >
+          <div className={styles["categories-list-item-image"]}>
+            <Image src={src} alt="category" fill />
+          </div>
+          <div className={styles["categories-list-item-title"]}>
+            {translate(titleKey)}
+          </div>
         </Link>
       ))}
     </div>

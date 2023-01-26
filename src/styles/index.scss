@@ -92,3 +92,12 @@ a[href] {
   height: 1px;
   background-color: antiquewhite;
 }
+
+.container {
+  max-width: $width;
+  margin: 0 auto;
+}
+
+.react-multiple-carousel__arrow {
+  z-index: 100 !important;
+}

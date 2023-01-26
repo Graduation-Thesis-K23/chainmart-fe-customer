@@ -1,4 +1,4 @@
-import React, { Fragment, ReactElement, useEffect, useState } from "react";
+import React, { Fragment, ReactElement } from "react";
 import Head from "next/head";
 import type { AppProps } from "next/app";
 import type { NextPage } from "next/types";

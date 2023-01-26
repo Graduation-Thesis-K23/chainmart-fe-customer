@@ -1,6 +1,7 @@
 import React from "react";
-import Familiar from "./Familiar";
+import { Col, Row } from "antd";
 
+import Familiar from "./Familiar";
 import MainInformation from "./MainInformation";
 import Rating from "./Rating";
 
@@ -11,9 +12,15 @@ const ProductDetail = () => {
     <>
       <MainInformation />
       <div className={styles["stakeholder"]}>
-        <div className={styles["stakeholder-inner"]}>
-          <Rating />
-          <Familiar />
+        <div className="container">
+          <Row gutter={[20, 12]} className={styles["stakeholder_inner"]}>
+            <Col xs={24} sm={24} md={17} lg={19} xl={19}>
+              <Rating />
+            </Col>
+            <Col xs={24} sm={24} md={7} lg={5} xl={5}>
+              <Familiar />
+            </Col>
+          </Row>
         </div>
       </div>
     </>

@@ -1,20 +1,23 @@
 import React from "react";
 import Link from "next/link";
 
-import AdsImagesList from "~/dataSources/AdsImages";
 import styles from "./AdsImage.module.scss";
 import Image from "next/image";
 
-const AdsImages = () => (
+const AdsImages: React.FC<{
+  data: Array<{
+    key: number;
+    src: string;
+    href: string;
+  }>;
+}> = ({ data }) => (
   <div className={styles["ads-images"]}>
     <div className={styles["ads-images-inner"]}>
       <ul className={styles["ads-images-list"]}>
-        {AdsImagesList.map(({ key, src, href }) => (
+        {data.map(({ key, src, href }) => (
           <li key={key} className={styles["ads-images-list-item"]}>
             <Link href={href} prefetch={false}>
-              <a>
-                <Image src={src} alt="ads-image" width={388} height={97} />
-              </a>
+              <Image src={src} alt="ads-image" width={388} height={97} />
             </Link>
           </li>
         ))}

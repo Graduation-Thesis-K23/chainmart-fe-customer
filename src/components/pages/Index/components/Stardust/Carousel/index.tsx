@@ -1,7 +1,9 @@
-import React, { useRef, useState, Fragment } from "react";
-import { Carousel } from "antd";
+import React, { useRef, useState } from "react";
+import { Carousel, Button } from "antd";
+import { CaretLeftOutlined, CaretRightOutlined } from "@ant-design/icons";
 import { CarouselRef } from "antd/lib/carousel";
 import Image from "next/image";
+import classNames from "classnames";
 
 import carouselList from "~/apis/mocks/CarouselList";
 import styles from "./Carousel.module.scss";
@@ -26,17 +28,53 @@ const CarouselComponent = () => {
     >
       <Carousel ref={carousel} autoplay>
         {carouselList.map(({ id, src }) => (
-          <Fragment key={id}>
-            <Image src={src} width="800" height="235" alt="carousel" />
-          </Fragment>
+          <div key={id}>
+            <Image
+              className={styles["carousel_image"]}
+              src={src}
+              width={1200}
+              height={423}
+              alt={`carousel-${id}`}
+              priority
+              placeholder="blur"
+            />
+          </div>
         ))}
       </Carousel>
-      {controller && (
-        <>
-          <div className={styles["carousel-prev-btn"]} onClick={onPrev}></div>
-          <div className={styles["carousel-next-btn"]} onClick={onNext}></div>
-        </>
-      )}
+      <div
+        className={classNames(styles["carousel_controller"], {
+          [styles["show"]]: controller,
+        })}
+      >
+        <Button
+          className={styles["carousel-prev-btn"]}
+          shape="circle"
+          size="large"
+          icon={
+            <CaretLeftOutlined
+              style={{
+                marginRight: "4px",
+                marginTop: "4px",
+              }}
+            />
+          }
+          onClick={onPrev}
+        />
+        <Button
+          className={styles["carousel-next-btn"]}
+          shape="circle"
+          size="large"
+          icon={
+            <CaretRightOutlined
+              style={{
+                marginLeft: "4px",
+                marginTop: "4px",
+              }}
+            />
+          }
+          onClick={onNext}
+        />
+      </div>
     </div>
   );
 };

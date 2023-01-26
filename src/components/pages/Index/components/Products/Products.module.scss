@@ -2,21 +2,11 @@
 @import "~/styles/mixins";
 
 .products {
-  height: 113rem;
-  background-color: $background-color;
-
-  &-inner {
-    @include container;
-
-    position: relative;
-    height: 100%;
-  }
+  padding: 15px;
 
   &-content {
-    position: absolute;
     top: 1rem;
     width: 100%;
-    background-color: #fff;
   }
 
   &-all {
@@ -26,10 +16,40 @@
     &-btn {
       display: inline-block;
       padding: 0.6rem 3rem;
-      color: white !important;
       background-color: $primary-color;
+      color: #fff !important;
       border-radius: 0.2rem;
       cursor: pointer;
     }
+  }
+}
+
+.title {
+  position: relative;
+  margin-bottom: 12px;
+
+  &_text {
+    position: relative;
+    display: inline-block;
+    background-color: #fff;
+    font-size: 26px;
+    line-height: 28px;
+    font-weight: 800;
+    padding: 0 15px;
+    z-index: 1;
+  }
+
+  &::after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: auto;
+    content: "";
+    margin: auto;
+    height: 1px;
+    width: 100%;
+    background: rgba(102, 102, 102, 0.247);
+    z-index: 0;
   }
 }

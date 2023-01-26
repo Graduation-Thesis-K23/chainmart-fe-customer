@@ -11,13 +11,16 @@ const Optional: React.FC<{
       [key: string]: string;
     }>
   >;
-}> = ({ options, select, setSelect }) => {
+  warning: boolean;
+  setWarning: React.Dispatch<React.SetStateAction<boolean>>;
+}> = ({ options, select, setSelect, warning, setWarning }) => {
   const optional = Object.entries(options);
 
   const handleSelect = (key: string, value: string) => {
     const obj = { ...select };
     obj[key] = value;
 
+    setWarning(false);
     setSelect(obj);
   };
 
@@ -26,7 +29,11 @@ const Optional: React.FC<{
   };
 
   return (
-    <>
+    <div
+      className={classNames(styles["options_container"], {
+        [styles["options_warning"]]: warning,
+      })}
+    >
       {optional.map((title, index) => (
         <div key={index} className={styles["options"]}>
           <div className={styles["options-title"]}>
@@ -50,7 +57,7 @@ const Optional: React.FC<{
           </div>
         </div>
       ))}
-    </>
+    </div>
   );
 };
 

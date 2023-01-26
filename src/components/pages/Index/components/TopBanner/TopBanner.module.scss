@@ -1,0 +1,15 @@
+.banner {
+  display: block;
+  padding: 40px 15px;
+
+  &_link {
+    position: relative;
+    display: block;
+  }
+
+  &_image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+}

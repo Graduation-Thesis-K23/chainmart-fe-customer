@@ -18,7 +18,7 @@
   width: 100%;
   height: $header-height;
   background-color: white;
-  z-index: 100;
+  z-index: 999;
 
   &_top {
     height: $header-top-height;
@@ -44,10 +44,6 @@
 
           &:hover {
             transform: rotateY(-360deg);
-          }
-
-          &_image {
-            margin-top: 10px;
           }
         }
       }

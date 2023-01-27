@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 import ProductBreadcrumb from "./components/Breadcrumb";
 import ProductDetail from "./components/ProductDetail";
@@ -12,4 +12,4 @@ const ProductPage = () => {
   );
 };
 
-export default ProductPage;
+export default memo(ProductPage);

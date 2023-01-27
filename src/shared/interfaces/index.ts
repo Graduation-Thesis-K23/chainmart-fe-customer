@@ -44,5 +44,5 @@ export interface ICart {
   slug: string;
   maxQuantity: number;
   quantity: number;
-  classify: string;
+  classify: { [key: string]: string };
 }

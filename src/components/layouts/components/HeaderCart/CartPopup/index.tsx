@@ -29,16 +29,14 @@ const CartPopup = () => {
             </Button>
           </div>
           <ul className={styles["cart_popup_body"]}>
-            {cart.map((product) => (
-              <li key={product.id} className={styles["cart-item-wrapper"]}>
+            {cart.map((product, index) => (
+              <li key={index} className={styles["cart-item-wrapper"]}>
                 <Link href={`/${product.slug}`} prefetch={false}>
                   <div className={styles["cart-item-image"]}>
                     <Image
                       src={product.image}
                       width={40}
                       height={40}
-                      objectFit={"cover"}
-                      layout={"fixed"}
                       alt="item"
                     />
                   </div>

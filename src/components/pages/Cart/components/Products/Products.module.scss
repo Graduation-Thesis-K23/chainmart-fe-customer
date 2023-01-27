@@ -1,0 +1,40 @@
+.products {
+  padding: 50px 15px 15px;
+
+  &_table,
+  &_table_row {
+    border: 1px solid #ebe5da;
+    border-collapse: collapse;
+  }
+
+  &_table {
+    width: 100%;
+
+    &_head {
+      padding: 15px;
+      font-size: 14px;
+      line-height: 18px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    &_body {
+      padding: 15px;
+      width: auto;
+      height: auto;
+
+      &_image {
+        display: block;
+      }
+    }
+
+    &_body:not(:nth-child(3)) {
+      text-align: center;
+    }
+  }
+}
+
+.table_container {
+  padding: 0;
+  overflow-x: overlay;
+}

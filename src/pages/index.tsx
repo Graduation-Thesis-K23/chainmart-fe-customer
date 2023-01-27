@@ -25,7 +25,9 @@ const Index: NextPageWithLayout = () => (
         property="og:description"
         content="12.12 Siêu Sale Sinh Nhật - Giảm Sâu Đến 90%. Ngập Tràn Voucher. Đặt Hàng Ngay Hôm Nay! Ngày Siêu Sale Sinh Nhật 12.12. Xem ShopeLive Lấy Mã Freeship Đến 99K. Lướt Mua Hàng Ngay. Flash Sale 0H-9H-12H-21H. Gì Cũng Rẻ - Freeship 0Đ. X4 Ưu Đãi Siêu Khủng."
       />
-      <meta property="og:image" content="/banner1.png" />
+      <meta property="og:image" content="/preview.jpg" />
+      <meta property="og:image:width" content="800" />
+      <meta property="og:image:height" content="600" />
     </Head>
     <IndexScreen />
   </>

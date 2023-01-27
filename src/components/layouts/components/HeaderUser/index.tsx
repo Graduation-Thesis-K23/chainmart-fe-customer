@@ -44,7 +44,7 @@ const HeaderUser = () => {
           <span className={styles["header-user_name"]}>hiepnguyen6014</span>
           <Image
             className={styles["header-user_image"]}
-            src="/avt.webp"
+            src="https://picsum.photos/26"
             width={26}
             height={26}
             alt="avatar"

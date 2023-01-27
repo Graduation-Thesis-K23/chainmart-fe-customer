@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { Divider, Col, Row } from "antd";
 import { CheckCircleOutlined } from "@ant-design/icons";
+import classNames from "classnames";
 
 import Optional from "./Optional";
 import Images from "./Images";
@@ -14,7 +15,6 @@ import useProductDetail from "~/contexts/ProductDetailContext";
 import useTranslate from "~/hooks/useTranslate";
 import useCart from "~/contexts/CartContext";
 import { ICart } from "~/shared/interfaces";
-import classNames from "classnames";
 
 const MainInformation = () => {
   const { productDetail } = useProductDetail();
@@ -32,7 +32,7 @@ const MainInformation = () => {
   const [warning, setWarning] = useState(false);
 
   const handleAddToCart = () => {
-    let classify = "";
+    const classify: { [key: string]: string } = {};
 
     const optionsKey = Object.keys(productDetail.options);
     for (const optionKey in optionsKey) {
@@ -41,7 +41,7 @@ const MainInformation = () => {
       const option = optionsKey[key];
 
       if (select[option]) {
-        classify += select[option] + " ";
+        classify[option] = select[option];
       } else {
         setWarning(true);
         return;
@@ -56,7 +56,7 @@ const MainInformation = () => {
       image: productDetail.image,
       maxQuantity: productDetail.maxQuantity,
       quantity,
-      classify: classify.trim(),
+      classify,
     };
 
     const temp: ICart[] = [...cart];
@@ -64,18 +64,12 @@ const MainInformation = () => {
     const isExist = temp.find(
       (product) =>
         product.id === itemCart.id &&
-        product.maxQuantity >= product.quantity + itemCart.quantity
+        product.maxQuantity >= product.quantity + itemCart.quantity &&
+        JSON.stringify(product.classify) === JSON.stringify(itemCart.classify)
     );
 
     if (isExist) {
-      temp.map((product) => {
-        if (
-          product.classify === itemCart.classify &&
-          product.id === itemCart.id
-        ) {
-          product.quantity += itemCart.quantity;
-        }
-      });
+      isExist.quantity += itemCart.quantity;
     } else {
       temp.push(itemCart);
     }
@@ -87,7 +81,7 @@ const MainInformation = () => {
 
     setTimeout(() => {
       setAddCartSuccess(false);
-    }, 2000);
+    }, 1000);
   };
 
   return (
@@ -170,4 +164,4 @@ const MainInformation = () => {
   );
 };
 
-export default MainInformation;
+export default memo(MainInformation);

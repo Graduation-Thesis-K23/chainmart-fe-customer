@@ -4,9 +4,7 @@ import { AUTH_LAYOUT } from "~/constants";
 import LoginScreen from "~pages/Login";
 import type { NextPageWithLayout } from "./_app";
 
-const Login: NextPageWithLayout = () => {
-  return <LoginScreen />;
-};
+const Login: NextPageWithLayout = () => <LoginScreen />;
 
 Login.layout = AUTH_LAYOUT;
 

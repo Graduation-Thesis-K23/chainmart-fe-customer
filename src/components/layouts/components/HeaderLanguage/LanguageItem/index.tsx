@@ -1,12 +1,12 @@
-import React, { memo, useContext } from "react";
+import React, { memo } from "react";
 
-import { LocalesContext } from "~/hooks/useLocales";
+import { useLocales } from "~/hooks/useLocales";
 
 const TopRightLanguageItem: React.FC<{
   languageKey: string;
   text: string;
 }> = ({ languageKey, text }) => {
-  const { local, setLocal } = useContext(LocalesContext);
+  const { local, setLocal } = useLocales();
 
   const handleSetLocal = () => {
     if (local === languageKey) {

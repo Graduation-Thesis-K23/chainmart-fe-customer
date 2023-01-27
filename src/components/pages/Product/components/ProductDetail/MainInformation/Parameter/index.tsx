@@ -3,7 +3,7 @@ import { Rate } from "antd";
 
 import { convertPrice, discount } from "~/helpers";
 import styles from "./Parameter.module.scss";
-import useTranslate from "~/hooks/useTranslate";
+import useTranslate from "~/hooks/useLocales";
 
 const Parameter: React.FC<{
   name: string;

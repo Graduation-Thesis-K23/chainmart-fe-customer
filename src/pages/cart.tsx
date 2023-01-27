@@ -4,7 +4,7 @@ import Head from "next/head";
 import type { NextPageWithLayout } from "./_app";
 import { MAIN_LAYOUT } from "~/constants";
 import CartScreen from "~pages/Cart";
-import useTranslate from "~/hooks/useTranslate";
+import useTranslate from "~/hooks/useLocales";
 
 const Cart: NextPageWithLayout = () => (
   <>

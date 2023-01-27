@@ -4,7 +4,7 @@ import Link from "next/link";
 import ProductsList from "../ProductsList";
 
 import styles from "./Products.module.scss";
-import useTranslate, { default as translate } from "~/hooks/useTranslate";
+import useTranslate, { default as translate } from "~/hooks/useLocales";
 
 const Products = () => {
   return (

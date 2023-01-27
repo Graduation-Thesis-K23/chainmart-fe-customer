@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import { Button } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 
-import useTranslate from "~/hooks/useTranslate";
+import useTranslate from "~/hooks/useLocales";
 import styles from "./HeaderSearch.module.scss";
 
 const HeaderSearch = () => {

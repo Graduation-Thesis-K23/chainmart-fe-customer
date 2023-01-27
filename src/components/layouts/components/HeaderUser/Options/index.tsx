@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import Link from "next/link";
 
-import { default as translate } from "~/hooks/useTranslate";
+import { default as translate } from "~/hooks/useLocales";
 
 const Options: React.FC<{
   href: string;

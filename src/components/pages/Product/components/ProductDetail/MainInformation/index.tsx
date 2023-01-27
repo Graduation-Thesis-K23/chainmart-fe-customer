@@ -12,7 +12,7 @@ import Description from "./Description";
 
 import styles from "./MainInformation.module.scss";
 import useProductDetail from "~/contexts/ProductDetailContext";
-import useTranslate from "~/hooks/useTranslate";
+import useTranslate from "~/hooks/useLocales";
 import useCart from "~/contexts/CartContext";
 import { ICart } from "~/shared/interfaces";
 

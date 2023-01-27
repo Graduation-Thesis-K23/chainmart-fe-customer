@@ -7,7 +7,7 @@ import styles from "./Rating.module.scss";
 import useProductDetail from "~/contexts/ProductDetailContext";
 import { Comment } from "~/interfaces";
 import getRatingProduct from "~/apis/Product/get-rating-product";
-import useTranslate from "~/hooks/useTranslate";
+import useTranslate from "~/hooks/useLocales";
 
 const Rating = () => {
   const { id } = useProductDetail().productDetail;

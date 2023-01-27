@@ -6,7 +6,7 @@ import { Rate } from "antd";
 import productsList from "~/apis/mocks/ProductsList";
 import styles from "./ProductsList.module.scss";
 import { convertPrice, discount } from "~/helpers";
-import useTranslate from "~/hooks/useTranslate";
+import useTranslate from "~/hooks/useLocales";
 
 const ProductsList = () => {
   const soldText = useTranslate("products.sold");

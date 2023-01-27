@@ -1,7 +1,7 @@
 // libs
 import React from "react";
 // hooks
-import useLanguage from "~/hooks/useTranslate";
+import useLanguage from "~/hooks/useLocales";
 // others
 import styles from "./SectionHeader.module.scss";
 

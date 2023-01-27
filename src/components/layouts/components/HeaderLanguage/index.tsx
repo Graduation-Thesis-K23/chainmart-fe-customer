@@ -3,7 +3,7 @@ import { Dropdown } from "antd";
 
 import { LanguageIcon, ExpandIcon } from "~/assets/icons";
 import LanguageItem from "./LanguageItem";
-import useLanguage from "~/hooks/useTranslate";
+import useLanguage from "~/hooks/useLocales";
 import styles from "./HeaderLanguage.module.scss";
 
 const items = [

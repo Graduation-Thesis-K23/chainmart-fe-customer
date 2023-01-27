@@ -7,7 +7,7 @@ import { RightOutlined, LeftOutlined } from "@ant-design/icons";
 import styles from "./TopCategories.module.scss";
 import topCategories from "~/apis/mocks/TopCategories";
 import useDebounce from "~/hooks/useDebounce";
-import { default as translate } from "~/hooks/useTranslate";
+import { default as translate } from "~/hooks/useLocales";
 
 const TopCategories = () => {
   const [translateX, setTranslateX] = useState(0);

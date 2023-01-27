@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 import styles from "./CartPopup.module.scss";
-import useTranslate from "~/hooks/useTranslate";
+import useTranslate from "~/hooks/useLocales";
 import useCart from "~/contexts/CartContext";
 import { convertPrice } from "~/helpers";
 

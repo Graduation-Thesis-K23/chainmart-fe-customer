@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import Link from "next/link";
 
 import styles from "./HeaderLogin.module.scss";
-import useTranslate from "~/hooks/useTranslate";
+import useTranslate from "~/hooks/useLocales";
 
 const HeaderLogin = () => {
   const registerText = useTranslate("header.topRight.register");

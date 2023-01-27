@@ -1,9 +1,16 @@
 // libs
-import React, { useMemo, createContext, ReactElement } from "react";
+import React, {
+  useState,
+  useContext,
+  useMemo,
+  createContext,
+  ReactElement,
+  useEffect,
+} from "react";
 // hooks
 import useLocalStorage from "./useLocalStorage";
 // others
-import locales from "../locales";
+import localesData from "../locales";
 
 interface Locales {
   local: string;
@@ -11,10 +18,10 @@ interface Locales {
   locales: object;
 }
 
-export const LocalesContext = createContext<Locales>({
-  local: "en",
+const LocalesContext = createContext<Locales>({
+  local: "vi",
   setLocal: () => {},
-  locales: {},
+  locales: localesData.vi,
 });
 
 export const LocalesProvider: React.FC<{
@@ -26,7 +33,7 @@ export const LocalesProvider: React.FC<{
     () => ({
       local,
       setLocal,
-      locales: locales[local as keyof typeof locales],
+      locales: localesData[local as keyof typeof localesData],
     }),
     [local, setLocal]
   );
@@ -36,7 +43,17 @@ export const LocalesProvider: React.FC<{
   );
 };
 
-export default {
-  LocalesContext,
-  LocalesProvider,
+export const useLocales = () => useContext(LocalesContext);
+
+const useTranslate = (key: string) => {
+  const [language, setLanguage] = useState<object>(localesData.vi);
+  const { locales } = useLocales();
+
+  useEffect(() => {
+    setLanguage(locales);
+  }, [locales]);
+
+  return language[key as keyof typeof language];
 };
+
+export default useTranslate;

@@ -1,7 +1,7 @@
 import React from "react";
 
 import styles from "./Products.module.scss";
-import useTranslate from "~/hooks/useTranslate";
+import useTranslate from "~/hooks/useLocales";
 import useCart from "~/contexts/CartContext";
 import { convertPrice } from "~/helpers";
 import Image from "next/image";

@@ -1,4 +1,4 @@
-import React, { memo, useContext, useMemo } from "react";
+import React, { memo, useMemo } from "react";
 import { Col, Row } from "antd";
 import { MailOutlined, PhoneFilled } from "@ant-design/icons";
 import Image from "next/image";
@@ -6,14 +6,13 @@ import classNames from "classnames";
 import Link from "next/link";
 
 import styles from "./Footer.module.scss";
-import useTranslate from "~/hooks/useTranslate";
+import useTranslate, { useLocales } from "~/hooks/useLocales";
 import logo from "~/assets/images/logo.png";
 import headerTopLeft from "~/dataSources/HeaderTopLeft";
 import footerList from "~/dataSources/FooterList";
-import { LocalesContext } from "~/hooks/useLocales";
 
 const Footer = () => {
-  const { local } = useContext(LocalesContext);
+  const { local } = useLocales();
   const subscribeText = useTranslate("footer.subscribe");
   const subscribeButtonText = useTranslate("footer.subscribeButton");
   const locationText = useTranslate("footer.location");

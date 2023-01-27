@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 
 import styles from "./404.module.scss";
-import useTranslate from "~/hooks/useTranslate";
+import useTranslate from "~/hooks/useLocales";
 
 const Page404 = () => {
   const notify = useTranslate("404");

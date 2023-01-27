@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-import useTranslate from "~/hooks/useTranslate";
+import useTranslate from "~/hooks/useLocales";
 import styles from "./Familiar.module.scss";
 import useProductDetail from "~/contexts/ProductDetailContext";
 import { convertPrice } from "~/helpers";

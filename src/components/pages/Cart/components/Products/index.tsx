@@ -14,7 +14,7 @@ const Products = () => {
   const totalText = useTranslate("cart.productTotal");
   const actionText = useTranslate("cart.productAction");
 
-  const { cart, setCart } = useCart();
+  const { cart } = useCart();
 
   return (
     <div className={styles["products"]}>

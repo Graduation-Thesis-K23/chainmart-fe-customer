@@ -15,6 +15,12 @@ export default {
   // cart
   "cart.viewCart": "View Cart",
   "cart.recentlyAdded": "Recently Added",
+  "cart.productImage": "Image",
+  "cart.productName": "Name",
+  "cart.productUnitPrice": "Unit Price",
+  "cart.productQuantity": "Quantity",
+  "cart.productTotal": "Total",
+  "cart.productAction": "Action",
   // search
   "search.lookingFor": "What are you looking for?",
   // footer

@@ -36,7 +36,6 @@ const CarouselComponent = () => {
               height={423}
               alt={`carousel-${id}`}
               priority
-              placeholder="blur"
             />
           </div>
         ))}

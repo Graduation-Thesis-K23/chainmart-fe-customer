@@ -1,7 +1,15 @@
 import React from "react";
 
+import Breadcrumb from "./components/Breadcrumb";
+import Products from "./components/Products";
+
 const Cart = () => {
-  return <>cart</>;
+  return (
+    <>
+      <Breadcrumb />
+      <Products />
+    </>
+  );
 };
 
 export default Cart;

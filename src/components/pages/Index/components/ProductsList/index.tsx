@@ -38,7 +38,13 @@ const ProductsList = () => {
               </div>
             )}
             <div className={styles["product-card-image"]}>
-              <Image src={item.image} fill alt={item.slug} priority />
+              <Image
+                src={item.image}
+                fill
+                sizes="(max-width: 768px) 40vw, (max-width: 1200px) 45vw, 50vw"
+                alt={item.slug}
+                priority
+              />
             </div>
             <div className={styles["product-card-body"]}>
               <span className={styles["product-card-body-name"]}>

@@ -24,6 +24,7 @@ const Images: React.FC<{
           width={700}
           height={700}
           onClick={() => setVisible(true)}
+          priority
         />
         <ImageAntd
           style={{ display: "none" }}

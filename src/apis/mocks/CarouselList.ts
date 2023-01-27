@@ -1,21 +1,17 @@
-import carousel1 from "~/assets/banner/c1.webp";
-import carousel2 from "~/assets/banner/c2.webp";
-import carousel3 from "~/assets/banner/c3.webp";
-
 export default [
   {
     id: 1,
-    src: carousel1,
+    src: "https://picsum.photos/1200/423",
     href: "/me/banner",
   },
   {
     id: 2,
-    src: carousel2,
+    src: "https://picsum.photos/1135/400",
     href: "/me/banner",
   },
   {
     id: 3,
-    src: carousel3,
+    src: "https://picsum.photos/1096/386",
     href: "/me/banner",
   },
 ];

@@ -16,6 +16,12 @@ export default {
   // cart
   "cart.viewCart": "Xem giỏ hàng",
   "cart.recentlyAdded": "Sản phẩm vừa thêm",
+  "cart.productImage": "Hình ảnh",
+  "cart.productName": "Tên sản phẩm",
+  "cart.productUnitPrice": "Giá",
+  "cart.productQuantity": "Số lượng",
+  "cart.productTotal": "Số tiền",
+  "cart.productAction": "Hành động",
   // search
   "search.lookingFor": "Bạn muốn tìm gì?",
   // footer

@@ -5,6 +5,10 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   output: "standalone",
+
+  images: {
+    domains: ["picsum.photos"],
+  },
 };
 
 const withBundleAnalyzer = require("@next/bundle-analyzer")({

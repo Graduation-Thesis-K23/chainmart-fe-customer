@@ -21,7 +21,13 @@ const Familiar = () => {
               <li key={item.id} className={styles["familiar_item"]}>
                 <Link href={item.slug} className={styles["familiar_item_link"]}>
                   <div className={styles["familiar_item_image"]}>
-                    <Image src={item.image} fill alt={item.slug} />
+                    <Image
+                      src={item.image}
+                      fill
+                      alt={item.slug}
+                      sizes="(max-width: 768px) 40vw, (max-width: 1200px) 45vw,
+                    50vw"
+                    />
                   </div>
                   <div className={styles["familiar_item_body"]}>
                     <span className={styles["familiar_item_body_name"]}>

@@ -11,6 +11,7 @@ const Breadcrumb = () => {
         className={styles["breadcrumb_image"]}
         src={breadcrumb}
         alt="breadcrumb"
+        priority
       />
       <div className={styles["breadcrumb_overlay"]}></div>
     </div>

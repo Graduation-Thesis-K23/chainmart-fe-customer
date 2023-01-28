@@ -15,8 +15,7 @@ export default {
   // cart
   "cart.viewCart": "View Cart",
   "cart.recentlyAdded": "Recently Added",
-  "cart.productImage": "Image",
-  "cart.productName": "Name",
+  "cart.product": "Product",
   "cart.productUnitPrice": "Unit Price",
   "cart.productQuantity": "Quantity",
   "cart.productTotal": "Total",

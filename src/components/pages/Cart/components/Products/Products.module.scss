@@ -23,12 +23,97 @@
       width: auto;
       height: auto;
 
+      &_product {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+      }
+
       &_image {
         display: block;
+        padding: 1px;
+        border: 1px solid #ebe5da;
+      }
+
+      &_price {
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      &_delete {
+        padding: 12px;
+        cursor: pointer;
+      }
+
+      &_name {
+        width: 100%;
+        margin-left: 10px;
+
+        &_top {
+          display: -webkit-box;
+          display: -moz-box;
+          display: -ms-box;
+          font-size: 15px;
+          font-weight: 600;
+          line-height: 20px;
+          word-wrap: break-word;
+          white-space: normal;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+          -moz-box-orient: vertical;
+          -moz-line-clamp: 2;
+          -ms-box-orient: vertical;
+          -ms-line-clamp: 2;
+        }
+
+        &_bot {
+          color: #666;
+          font-weight: 600;
+          font-size: 13px;
+        }
+      }
+
+      .quantity-control {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 3px;
+        border-radius: 4px;
+        border: 1px solid rgba(102, 102, 102, 0.3);
+        user-select: none;
+
+        &-sub,
+        &-add {
+          display: inline-block;
+          width: 30px;
+          height: 30px;
+          font-size: 16px;
+          border-radius: 4px;
+          padding: 0;
+          cursor: pointer;
+
+          &:hover:not(&--disable) {
+            background-color: #757575;
+            color: white;
+          }
+
+          &--disable {
+            cursor: not-allowed;
+          }
+        }
+
+        &-value {
+          display: inline-block;
+          font-size: 14px;
+          width: 40px;
+          text-align: center;
+        }
       }
     }
 
-    &_body:not(:nth-child(3)) {
+    &_body:not(:nth-child(1)) {
       text-align: center;
     }
   }

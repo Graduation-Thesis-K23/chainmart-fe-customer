@@ -1,20 +1,35 @@
-import React from "react";
+import React, { memo } from "react";
+import { DeleteOutlined } from "@ant-design/icons";
+import Link from "next/link";
+import Image from "next/image";
+import classNames from "classnames";
 
 import styles from "./Products.module.scss";
 import useTranslate from "~/hooks/useLocales";
 import useCart from "~/contexts/CartContext";
-import { convertPrice } from "~/helpers";
-import Image from "next/image";
+import { convertPrice, convertClassify } from "~/helpers";
+import { INCREASE, DECREASE } from "~/constants";
 
 const Products = () => {
-  const imageText = useTranslate("cart.productImage");
-  const nameText = useTranslate("cart.productName");
+  const productText = useTranslate("cart.product");
   const unitPriceText = useTranslate("cart.productUnitPrice");
   const quantityText = useTranslate("cart.productQuantity");
   const totalText = useTranslate("cart.productTotal");
   const actionText = useTranslate("cart.productAction");
 
-  const { cart } = useCart();
+  const { cart, setCart } = useCart();
+
+  const handleChangeQuantity = (
+    id: number,
+    classify: object,
+    action: string
+  ) => {
+    if (action === INCREASE) {
+      console.log(INCREASE);
+    } else if (action === DECREASE) {
+      console.log(DECREASE);
+    }
+  };
 
   return (
     <div className={styles["products"]}>
@@ -23,9 +38,7 @@ const Products = () => {
           <table className={styles["products_table"]}>
             <thead>
               <tr>
-                <th className={styles["products_table_head"]}>ID</th>
-                <th className={styles["products_table_head"]}>{imageText}</th>
-                <th className={styles["products_table_head"]}>{nameText}</th>
+                <th className={styles["products_table_head"]}>{productText}</th>
                 <th className={styles["products_table_head"]}>
                   {unitPriceText}
                 </th>
@@ -39,27 +52,72 @@ const Products = () => {
             <tbody>
               {cart.map((item, index) => (
                 <tr key={index} className={styles["products_table_row"]}>
-                  <td className={styles["products_table_body"]}>{index + 1}</td>
                   <td className={styles["products_table_body"]}>
-                    <Image
-                      className={styles["products_table_body_image"]}
-                      src={item.image}
-                      width={80}
-                      height={80}
-                      alt={item.name}
-                    />
+                    <div className={styles["products_table_body_product"]}>
+                      <Image
+                        className={styles["products_table_body_image"]}
+                        src={item.image}
+                        width={80}
+                        height={80}
+                        alt={item.name}
+                      />
+                      <Link
+                        href={"/" + item.slug}
+                        className={styles["products_table_body_name"]}
+                      >
+                        <p className={styles["products_table_body_name_top"]}>
+                          {item.name}
+                        </p>
+                        <p className={styles["products_table_body_name_bot"]}>
+                          {convertClassify(item.classify)}
+                        </p>
+                      </Link>
+                    </div>
                   </td>
-                  <td className={styles["products_table_body"]}>{item.name}</td>
                   <td className={styles["products_table_body"]}>
-                    {convertPrice(item.price)}đ
+                    <span className={styles["products_table_body_price"]}>
+                      {convertPrice(item.price)}đ
+                    </span>
                   </td>
                   <td className={styles["products_table_body"]}>
-                    {item.quantity}
+                    <div className={styles["quantity-control"]}>
+                      <button
+                        className={classNames(styles["quantity-control-sub"], {
+                          [styles["quantity-control-sub--disable"]]:
+                            item.quantity === 1,
+                        })}
+                        onClick={() =>
+                          handleChangeQuantity(item.id, item.classify, DECREASE)
+                        }
+                      >
+                        -
+                      </button>
+                      <span className={styles["quantity-control-value"]}>
+                        {item.quantity}
+                      </span>
+                      <button
+                        className={classNames(styles["quantity-control-add"], {
+                          [styles["quantity-control-add--disable"]]:
+                            item.quantity === item.maxQuantity,
+                        })}
+                        onClick={() =>
+                          handleChangeQuantity(item.id, item.classify, INCREASE)
+                        }
+                      >
+                        +
+                      </button>
+                    </div>
                   </td>
                   <td className={styles["products_table_body"]}>
-                    {convertPrice(item.price * item.quantity)}đ
+                    <span className={styles["products_table_body_price"]}>
+                      {convertPrice(item.price * item.quantity)}đ
+                    </span>
                   </td>
-                  <td className={styles["products_table_body"]}>X</td>
+                  <td className={styles["products_table_body"]}>
+                    <span className={styles["products_table_body_delete"]}>
+                      <DeleteOutlined />
+                    </span>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -70,4 +128,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default memo(Products);

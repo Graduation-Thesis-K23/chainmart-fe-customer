@@ -23,6 +23,7 @@
     "next": "^13.1.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.42.1",
     "react-multi-carousel": "^2.8.2",
     "sharp": "^0.31.1",
     "sitemap": "^7.1.1"

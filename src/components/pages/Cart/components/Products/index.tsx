@@ -3,6 +3,8 @@ import { DeleteOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import Image from "next/image";
 import classNames from "classnames";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { Row, Col } from "antd";
 
 import styles from "./Products.module.scss";
 import useTranslate from "~/hooks/useLocales";
@@ -10,14 +12,20 @@ import useCart from "~/contexts/CartContext";
 import { convertPrice, convertClassify } from "~/helpers";
 import { INCREASE, DECREASE } from "~/constants";
 
+type FormData = {
+  note: string;
+};
+
 const Products = () => {
+  const { register, handleSubmit } = useForm<FormData>();
+
   const productText = useTranslate("cart.product");
   const unitPriceText = useTranslate("cart.productUnitPrice");
   const quantityText = useTranslate("cart.productQuantity");
   const totalText = useTranslate("cart.productTotal");
   const actionText = useTranslate("cart.productAction");
 
-  const { cart, setCart } = useCart();
+  const { cart } = useCart();
 
   const handleChangeQuantity = (
     id: number,
@@ -29,6 +37,10 @@ const Products = () => {
     } else if (action === DECREASE) {
       console.log(DECREASE);
     }
+  };
+
+  const onSubmit: SubmitHandler<FormData> = (formData) => {
+    console.log(formData);
   };
 
   return (
@@ -123,6 +135,26 @@ const Products = () => {
             </tbody>
           </table>
         </div>
+        <Row gutter={[12, 12]}>
+          <Col>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <label>Note:</label>
+              <textarea
+                placeholder="Min 20 character"
+                {...register("note", {
+                  minLength: {
+                    value: 20,
+                    message: "m",
+                  },
+                })}
+              />
+              <input type="submit" />
+            </form>
+          </Col>
+          <Col>
+            <div>s</div>
+          </Col>
+        </Row>
       </div>
     </div>
   );

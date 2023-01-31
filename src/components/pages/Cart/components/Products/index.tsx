@@ -1,10 +1,8 @@
-import React, { memo } from "react";
+import React, { memo, useMemo } from "react";
 import { DeleteOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import Image from "next/image";
 import classNames from "classnames";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { Row, Col } from "antd";
 
 import styles from "./Products.module.scss";
 import useTranslate from "~/hooks/useLocales";
@@ -12,18 +10,15 @@ import useCart from "~/contexts/CartContext";
 import { convertPrice, convertClassify } from "~/helpers";
 import { INCREASE, DECREASE } from "~/constants";
 
-type FormData = {
-  note: string;
-};
-
 const Products = () => {
-  const { register, handleSubmit } = useForm<FormData>();
-
   const productText = useTranslate("cart.product");
   const unitPriceText = useTranslate("cart.productUnitPrice");
   const quantityText = useTranslate("cart.productQuantity");
   const totalText = useTranslate("cart.productTotal");
   const actionText = useTranslate("cart.productAction");
+  const noteText = useTranslate("cart.note");
+  const cartTotalText = useTranslate("cart.cartTotal");
+  const checkoutText = useTranslate("cart.checkout");
 
   const { cart } = useCart();
 
@@ -39,9 +34,9 @@ const Products = () => {
     }
   };
 
-  const onSubmit: SubmitHandler<FormData> = (formData) => {
-    console.log(formData);
-  };
+  const total = useMemo(() => {
+    return cart.reduce((prev, curr) => prev + curr.price * curr.quantity, 0);
+  }, [cart]);
 
   return (
     <div className={styles["products"]}>
@@ -135,26 +130,20 @@ const Products = () => {
             </tbody>
           </table>
         </div>
-        <Row gutter={[12, 12]}>
-          <Col>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <label>Note:</label>
-              <textarea
-                placeholder="Min 20 character"
-                {...register("note", {
-                  minLength: {
-                    value: 20,
-                    message: "m",
-                  },
-                })}
-              />
-              <input type="submit" />
-            </form>
-          </Col>
-          <Col>
-            <div>s</div>
-          </Col>
-        </Row>
+        <div className={styles["products_checkout"]}>
+          <p className={styles["products_checkout_text"]}>{noteText}</p>
+          <div className={styles["products_checkout_info"]}>
+            <span className={styles["products_checkout_total"]}>
+              {cartTotalText}
+            </span>
+            <span className={styles["products_checkout_price"]}>
+              {convertPrice(total)}đ
+            </span>
+            <button className={styles["products_checkout_button"]}>
+              {checkoutText}
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

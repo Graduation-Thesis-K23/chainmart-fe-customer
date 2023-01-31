@@ -21,6 +21,9 @@ export default {
   "cart.productQuantity": "Số lượng",
   "cart.productTotal": "Số tiền",
   "cart.productAction": "Hành động",
+  "cart.note": "Phí vận chuyển, thuế và mã giảm giá được tính tại bước sau",
+  "cart.cartTotal": "Tổng thanh toán",
+  "cart.checkout": "Thanh toán",
   // search
   "search.lookingFor": "Bạn muốn tìm gì?",
   // footer

@@ -20,6 +20,9 @@ export default {
   "cart.productQuantity": "Quantity",
   "cart.productTotal": "Total",
   "cart.productAction": "Action",
+  "cart.note": "Shipping, taxes, and discounts will be calculated at checkout.",
+  "cart.cartTotal": "Total",
+  "cart.checkout": "Checkout",
   // search
   "search.lookingFor": "What are you looking for?",
   // footer

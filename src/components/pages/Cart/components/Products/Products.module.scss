@@ -1,3 +1,5 @@
+@import "~/styles/variables";
+
 .products {
   padding: 50px 15px 15px;
 
@@ -117,9 +119,63 @@
       text-align: center;
     }
   }
+
+  &_checkout {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 12px;
+    padding: 22px;
+    background-color: #faf7f2;
+    border-radius: 6px;
+
+    &_text {
+      color: #666;
+      margin-right: 20px;
+    }
+
+    &_info {
+      display: flex;
+      align-items: center;
+    }
+
+    &_button {
+      background-color: $primary-color;
+      color: #fff;
+      padding: 13px 36px;
+      margin-left: 12px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+
+    &_total {
+      font-weight: 600;
+      font-size: 18px;
+      margin-right: 8px;
+    }
+
+    &_price {
+      font-weight: 700;
+      margin-right: 8px;
+      font-size: 18px;
+      color: rgb(228, 28, 28);
+    }
+  }
 }
 
 .table_container {
   padding: 0;
   overflow-x: overlay;
+}
+
+@media (max-width: 576px) {
+  .products_checkout_text {
+    display: none;
+  }
 }

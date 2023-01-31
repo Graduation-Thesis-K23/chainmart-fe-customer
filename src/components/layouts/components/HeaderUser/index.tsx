@@ -13,7 +13,7 @@ import Options from "./Options";
 const items: MenuProps["items"] = [
   {
     key: "1",
-    label: <Options href="/me" optionKey="header.topRight.myAccount" />,
+    label: <Options href="/settings" optionKey="header.topRight.myAccount" />,
     icon: <UserOutlined />,
   },
   {

@@ -8,14 +8,13 @@ import useTranslate, { default as translate } from "~/hooks/useLocales";
 
 const Products = () => {
   return (
-    <div className={styles["products"]}>
+    <section className={styles["products"]}>
       <div className="container">
         <div className={styles["title"]}>
           <div className={styles["title_text"]}>
             {useTranslate("products.header")}
           </div>
         </div>
-
         <div className={styles["products-content"]}>
           <ProductsList />
           <div className={styles["products-all"]}>
@@ -29,7 +28,7 @@ const Products = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

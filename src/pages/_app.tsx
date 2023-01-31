@@ -6,11 +6,12 @@ import type { NextPage } from "next/types";
 import ErrorBoundary from "~/components/ErrorBoundary";
 import MainLayout from "~layouts/MainLayout";
 import AuthLayout from "~layouts/AuthLayout";
+import SettingLayout from "~layouts/SettingLayout";
 
 import { LocalesProvider } from "../hooks/useLocales";
 import { ProductDetailContext, CartContext } from "~/contexts";
 import "react-multi-carousel/lib/styles.css";
-import { MAIN_LAYOUT, AUTH_LAYOUT } from "~/constants";
+import { MAIN_LAYOUT, AUTH_LAYOUT, SETTING_LAYOUT } from "~/constants";
 import "~/styles/index.scss";
 
 export type NextPageWithLayout<P = unknown, IP = P> = NextPage<P, IP> & {
@@ -33,6 +34,9 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
     case AUTH_LAYOUT:
       Layout = AuthLayout;
       break;
+    case SETTING_LAYOUT:
+      Layout = SettingLayout;
+      break;
   }
 
   return (
@@ -45,11 +49,29 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
         <meta name="keywords" content="chainmart" />
         <meta name="robots" content="index, follow" />
         <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="language" content="English" />
+        <meta name="language" content="Vietnamese" />
         <meta name="revisit-after" content="1 days" />
         <meta name="author" content="hiepnguyen6014, iamphduc" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://chainmart.site" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/site.webmanifest" />
       </Head>
       <ErrorBoundary>
         <ProductDetailContext.ProductDetailProvider>

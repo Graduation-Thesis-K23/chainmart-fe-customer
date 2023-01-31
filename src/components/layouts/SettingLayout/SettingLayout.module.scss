@@ -1,0 +1,39 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  height: 64px;
+
+  &_vertical {
+    width: 1px;
+    height: 28px;
+    margin: 0 10px;
+    background-color: rgba(0, 0, 0, 0.12);
+  }
+
+  &_right {
+    display: flex;
+    align-items: center;
+
+    &_avatar {
+      display: inline-block;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+  }
+
+  &_language {
+    display: inline-block;
+    cursor: pointer;
+
+    &_icon {
+      font-size: 13px;
+    }
+
+    &_selected {
+      margin-right: 8px;
+      font-weight: 600;
+    }
+  }
+}

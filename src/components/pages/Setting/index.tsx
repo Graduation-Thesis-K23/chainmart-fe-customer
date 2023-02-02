@@ -1,18 +1,15 @@
+import React, { useCallback, useEffect, useState } from "react";
 import { Menu } from "antd";
 import {
   ProfileOutlined,
   UnlockOutlined,
   PartitionOutlined,
 } from "@ant-design/icons";
-import React, {
-  useCallback,
-  useEffect,
-  useState,
-  useLayoutEffect,
-} from "react";
 import type { MenuProps } from "antd/es/menu";
 
 import ProfileSettings from "./components/ProfileSettings";
+import AccountsConnect from "./components/AccountsConnect";
+import MenuItem from "./components/MenuItem";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -20,17 +17,17 @@ const items: MenuItem[] = [
   {
     key: 1,
     icon: <ProfileOutlined />,
-    label: "Profile",
+    label: <MenuItem label="settings.profile" />,
   },
   {
     key: 2,
     icon: <PartitionOutlined />,
-    label: "Connected Account",
+    label: <MenuItem label="settings.connectAccounts" />,
   },
   {
     key: 3,
     icon: <UnlockOutlined />,
-    label: "Change Password",
+    label: <MenuItem label="settings.changePassword" />,
   },
 ];
 
@@ -72,6 +69,7 @@ const Setting = () => {
         onClick={onClick}
         inlineCollapsed={collapsed}
         mode="inline"
+        defaultSelectedKeys={["1"]}
         items={items}
       />
       <div
@@ -82,9 +80,11 @@ const Setting = () => {
           width: collapsed ? "calc(100vw - 56px)" : "calc(100vw - 256px)",
           padding: 16,
           backgroundColor: "#f2f5fc",
+          borderTopLeftRadius: "8px",
         }}
       >
         <ProfileSettings />
+        <AccountsConnect />
       </div>
     </>
   );

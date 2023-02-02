@@ -46,6 +46,11 @@ export default {
   "categories.vegetables": "Rau củ",
   "categories.milk": "Sữa",
   "categories.pork": "Thịt heo",
+  // settings
+  "settings.profile": "Hồ sơ",
+  "settings.address": "Địa chỉ",
+  "settings.connectAccounts": "Tài khoản liên kết",
+  "settings.changePassword": "Thay đổi mật khẩu",
   // featured
   "products.header": "Top sản phẩm",
   "products.viewAll": "Xem tất cả",

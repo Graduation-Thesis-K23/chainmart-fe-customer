@@ -46,6 +46,11 @@ export default {
   "categories.vegetables": "Vegetables",
   "categories.milk": "Milk",
   "categories.pork": "Pork",
+  // settings
+  "settings.profile": "Profile",
+  "settings.address": "Address",
+  "settings.connectAccounts": "Connected Account",
+  "settings.changePassword": "Change Password",
 
   // featured
   "products.header": "Top Products",

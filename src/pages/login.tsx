@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { AUTH_LAYOUT } from "~/constants";
 
 import LoginScreen from "~pages/Login";

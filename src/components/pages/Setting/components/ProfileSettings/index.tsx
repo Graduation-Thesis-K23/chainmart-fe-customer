@@ -3,6 +3,7 @@ import Image from "next/image";
 import { CameraOutlined } from "@ant-design/icons";
 
 import ChangeAvatarModal from "../ChangeAvatar";
+import ProfileForm from "../ProfileForm";
 import styles from "./ProfileSettings.module.scss";
 
 const ProfileSettings = () => {
@@ -28,6 +29,8 @@ const ProfileSettings = () => {
         />
       </div>
       <ChangeAvatarModal state={{ isModalOpen, setIsModalOpen }} />
+
+      <ProfileForm />
     </div>
   );
 };

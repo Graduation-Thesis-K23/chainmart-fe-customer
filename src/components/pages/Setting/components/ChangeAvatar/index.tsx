@@ -3,6 +3,9 @@ import { Upload, Modal } from "antd";
 import ImgCrop from "antd-img-crop";
 import { PictureOutlined } from "@ant-design/icons";
 import type { UploadProps } from "antd/es/upload/interface";
+import useTranslate from "~/hooks/useLocales";
+
+import styles from "./ChangeAvatar.module.scss";
 
 const ChangeAvatar: React.FC<{
   state: {
@@ -10,6 +13,11 @@ const ChangeAvatar: React.FC<{
     setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   };
 }> = ({ state }) => {
+  const editImageText = useTranslate("settings.editImage");
+  const saveText = useTranslate("settings.save");
+  const cancelText = useTranslate("settings.cancel");
+  const dragOrClickText = useTranslate("settings.dropOrClick");
+
   const onChange: UploadProps["onChange"] = ({ file }) => {
     if (file.status === "done") {
       console.log(file.originFileObj);
@@ -28,14 +36,17 @@ const ChangeAvatar: React.FC<{
     >
       <ImgCrop
         rotate
-        modalTitle="Chỉnh sửa ảnh"
+        modalTitle={editImageText}
         grid
         modalWidth={710}
-        modalOk={"Huỷ bỏ"}
-        modalCancel={"Lưu thay đổi"}
+        modalOk={saveText}
+        modalCancel={cancelText}
       >
         <Upload.Dragger showUploadList={false} onChange={onChange}>
-          <PictureOutlined />
+          <div className={styles["picture"]}>
+            <PictureOutlined className={styles["picture-icon"]} />
+            <p className={styles["picture-text"]}>{dragOrClickText}</p>
+          </div>
         </Upload.Dragger>
       </ImgCrop>
     </Modal>

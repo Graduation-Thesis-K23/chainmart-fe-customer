@@ -1,0 +1,16 @@
+.picture {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 250px;
+
+  &-icon {
+    font-size: 70px;
+    color: cadetblue;
+  }
+
+  &-text {
+    font-size: 16px;
+  }
+}

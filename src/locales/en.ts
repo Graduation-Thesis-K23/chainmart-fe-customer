@@ -51,13 +51,26 @@ export default {
   "settings.address": "Address",
   "settings.connectAccounts": "Connected Account",
   "settings.changePassword": "Change Password",
+  "settings.editImage": "Edit Image",
+  "settings.cancel": "Cancel",
+  "settings.save": "Save",
+  "settings.dropOrClick": "Click or drop image here",
+  "settings.fullName": "Full name",
+  "settings.birthday": "Birthday",
+  "settings.gender": "Gender",
+  "settings.phoneNumber": "Phone number",
+  "settings.email": "Email",
+  "settings.username": "Username",
+  "settings.male": "Male",
+  "settings.female": "Female",
+  "settings.custom": "Custom",
+  "settings.update": "Your profile updated successfully",
 
   // featured
   "products.header": "Top Products",
   "products.viewAll": "View All",
   "products.sold": "sold",
   "products.soldOut": "Sold Out",
-
   // product-detail
   "product.buyNow": "buy now",
   "product.addToCart": "add to cart",

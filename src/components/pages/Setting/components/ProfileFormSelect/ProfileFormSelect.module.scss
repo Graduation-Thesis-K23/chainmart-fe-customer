@@ -1,0 +1,35 @@
+.select-group {
+  padding-bottom: 10px;
+
+  &_label {
+    display: inline-block;
+    margin-bottom: 14px;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  &_input {
+    display: flex;
+    align-items: center;
+    height: 36px;
+    padding: 6px;
+    background-color: #0000000c;
+
+    &_icon {
+      display: flex;
+      font-size: 20px;
+      margin-left: 4px;
+      color: #888;
+    }
+
+    &_text {
+      width: 100%;
+      line-height: 20px;
+      height: 36px;
+      background-color: transparent;
+      margin-left: 6px;
+      border: none;
+      outline: none;
+    }
+  }
+}

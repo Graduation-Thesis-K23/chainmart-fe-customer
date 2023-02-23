@@ -2,6 +2,7 @@ import React, { Fragment, ReactElement } from "react";
 import Head from "next/head";
 import type { AppProps } from "next/app";
 import type { NextPage } from "next/types";
+import { ToastContainer } from "react-toastify";
 
 import ErrorBoundary from "~/components/ErrorBoundary";
 import MainLayout from "~layouts/MainLayout";
@@ -12,6 +13,7 @@ import { LocalesProvider } from "../hooks/useLocales";
 import { ProductDetailContext, CartContext } from "~/contexts";
 import "react-multi-carousel/lib/styles.css";
 import { MAIN_LAYOUT, AUTH_LAYOUT, SETTING_LAYOUT } from "~/constants";
+import "react-toastify/dist/ReactToastify.css";
 import "~/styles/index.scss";
 
 export type NextPageWithLayout<P = unknown, IP = P> = NextPage<P, IP> & {
@@ -78,7 +80,10 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
           <CartContext.CartProvider>
             <LocalesProvider>
               <Layout>
-                <Component {...pageProps} />
+                <>
+                  <Component {...pageProps} />
+                  <ToastContainer />
+                </>
               </Layout>
             </LocalesProvider>
           </CartContext.CartProvider>

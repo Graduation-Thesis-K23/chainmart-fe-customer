@@ -65,6 +65,13 @@ export default {
   "settings.female": "Nữ",
   "settings.custom": "Tuỳ chỉnh",
   "settings.update": "Hồ sơ của bạn đã cập nhập",
+  "settings.addNewAddress": "Thêm địa chỉ mới",
+  "settings.newAddress": "Địa chỉ mới",
+  "settings.city": "Tỉnh/Thành phố",
+  "settings.district": "Quận/Huyện",
+  "settings.ward": "Phường/Xã",
+  "settings.streetName": "Địa chỉ cụ thể",
+  "settings.defaultAddress": "Đặt làm địa chỉ mặc định",
   // featured
   "products.header": "Top sản phẩm",
   "products.viewAll": "Xem tất cả",

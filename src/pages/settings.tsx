@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React from "react";
 import Head from "next/head";
 import { NextPageWithLayout } from "./_app";
 

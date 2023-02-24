@@ -1,41 +1,33 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useId } from "react";
 import { Menu } from "antd";
 import {
   ProfileOutlined,
   UnlockOutlined,
   PartitionOutlined,
+  HomeOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd/es/menu";
 
 import ProfileSettings from "./components/ProfileSettings";
 import AccountsConnect from "./components/AccountsConnect";
 import MenuItem from "./components/MenuItem";
-
-type MenuItem = Required<MenuProps>["items"][number];
-
-const items: MenuItem[] = [
-  {
-    key: 1,
-    icon: <ProfileOutlined />,
-    label: <MenuItem label="settings.profile" />,
-  },
-  {
-    key: 2,
-    icon: <PartitionOutlined />,
-    label: <MenuItem label="settings.connectAccounts" />,
-  },
-  {
-    key: 3,
-    icon: <UnlockOutlined />,
-    label: <MenuItem label="settings.changePassword" />,
-  },
-];
+import MyAddress from "./components/MyAddress";
+import ChangePassword from "./components/ChangePassword";
 
 const Setting = () => {
   const [collapsed, setCollapsed] = useState<boolean>(true);
 
+  const profileId = useId();
+  const addressId = useId();
+  const accountsId = useId();
+  const passwordId = useId();
+
   const onClick: MenuProps["onClick"] = (e) => {
-    console.log(e);
+    const element = document.getElementById(e.key);
+
+    if (element) {
+      window.scroll({ top: element.offsetTop - 16 });
+    }
   };
 
   const onResize = useCallback(() => {
@@ -65,12 +57,40 @@ const Setting = () => {
   return (
     <>
       <Menu
-        style={{ width: collapsed ? 56 : 256, height: "100%", border: "none" }}
+        style={{
+          position: "fixed",
+          top: 64,
+          left: 0,
+          width: collapsed ? 56 : 256,
+          height: "100%",
+          border: "none",
+        }}
         onClick={onClick}
         inlineCollapsed={collapsed}
         mode="inline"
-        defaultSelectedKeys={["1"]}
-        items={items}
+        defaultSelectedKeys={[profileId]}
+        items={[
+          {
+            key: profileId,
+            icon: <ProfileOutlined />,
+            label: <MenuItem label="settings.profile" />,
+          },
+          {
+            key: addressId,
+            icon: <HomeOutlined />,
+            label: <MenuItem label="settings.address" />,
+          },
+          {
+            key: accountsId,
+            icon: <PartitionOutlined />,
+            label: <MenuItem label="settings.connectAccounts" />,
+          },
+          {
+            key: passwordId,
+            icon: <UnlockOutlined />,
+            label: <MenuItem label="settings.changePassword" />,
+          },
+        ]}
       />
       <div
         style={{
@@ -83,8 +103,10 @@ const Setting = () => {
           borderTopLeftRadius: "8px",
         }}
       >
-        <ProfileSettings />
-        <AccountsConnect />
+        <ProfileSettings id={profileId} />
+        <MyAddress id={addressId} />
+        <AccountsConnect id={accountsId} />
+        <ChangePassword id={passwordId} />
       </div>
     </>
   );

@@ -1,17 +1,23 @@
 .profile_settings {
   max-width: 1000px;
   min-height: 200px;
-  margin: 120px auto;
-  background-color: #fff;
+  margin: 0 auto;
   border-radius: 6px;
+  overflow: auto;
+
+  &_inner {
+    position: relative;
+    margin-top: 140px;
+    background-color: #fff;
+  }
 
   &_avatar {
     position: absolute;
-    top: 60px;
+    top: 0;
     left: 50%;
     width: 160px;
     height: 160px;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
 
     &_image {
       border-radius: 50%;

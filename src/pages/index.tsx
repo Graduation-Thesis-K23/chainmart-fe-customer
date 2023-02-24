@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React, { memo } from "react";
+import React from "react";
 import type { NextPageWithLayout } from "./_app";
 
 import IndexScreen from "~pages/Index";

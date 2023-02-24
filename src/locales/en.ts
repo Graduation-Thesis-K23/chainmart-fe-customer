@@ -65,7 +65,13 @@ export default {
   "settings.female": "Female",
   "settings.custom": "Custom",
   "settings.update": "Your profile updated successfully",
-
+  "settings.addNewAddress": "Add new address",
+  "settings.newAddress": "New address",
+  "settings.city": "City",
+  "settings.district": "District",
+  "settings.ward": "Ward",
+  "settings.streetName": "Street Name",
+  "settings.defaultAddress": "Set as Default Address",
   // featured
   "products.header": "Top Products",
   "products.viewAll": "View All",

@@ -17,10 +17,19 @@ import ProfileFormSelect from "../ProfileFormSelect";
 import useTranslate from "~/hooks/useLocales";
 
 const ProfileForm = () => {
-  const { register, handleSubmit } = useForm();
-
   const notifyText = useTranslate("settings.update");
   const saveText = useTranslate("settings.save");
+
+  const { control, handleSubmit } = useForm({
+    defaultValues: {
+      fullName: "",
+      birthday: "",
+      username: "",
+      phoneNumber: "",
+      email: "",
+      gender: "",
+    },
+  });
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     console.log(JSON.stringify(data));
@@ -42,7 +51,8 @@ const ProfileForm = () => {
             <ProfileFormInput
               labelKey="settings.fullName"
               icon={<ContactsOutlined />}
-              register={register}
+              control={control}
+              name="fullName"
             />
           </Col>
           <Col xs={24} sm={12} md={12} lg={12} xl={12}>
@@ -50,7 +60,8 @@ const ProfileForm = () => {
               labelKey="settings.birthday"
               icon={<CalendarOutlined />}
               type="date"
-              register={register}
+              name="birthday"
+              control={control}
             />
           </Col>
         </Row>
@@ -59,15 +70,16 @@ const ProfileForm = () => {
             <ProfileFormInput
               labelKey="settings.username"
               icon={<IdcardOutlined />}
-              register={register}
-              disabled
+              name="username"
+              control={control}
             />
           </Col>
           <Col xs={24} sm={12} md={12} lg={12} xl={12}>
             <ProfileFormInput
               labelKey="settings.phoneNumber"
+              name="phoneNumber"
               icon={<PhoneOutlined rotate={90} />}
-              register={register}
+              control={control}
             />
           </Col>
         </Row>
@@ -75,16 +87,17 @@ const ProfileForm = () => {
           <Col xs={24} sm={12} md={12} lg={12} xl={12}>
             <ProfileFormInput
               labelKey="settings.email"
+              name="email"
               icon={<MailOutlined />}
               type="email"
-              register={register}
+              control={control}
             />
           </Col>
           <Col xs={24} sm={12} md={12} lg={12} xl={12}>
             <ProfileFormSelect
               labelKey="settings.gender"
+              control={control}
               icon={<UserSwitchOutlined />}
-              register={register}
             />
           </Col>
         </Row>

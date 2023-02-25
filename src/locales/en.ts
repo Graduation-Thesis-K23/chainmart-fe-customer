@@ -72,6 +72,9 @@ export default {
   "settings.ward": "Ward",
   "settings.streetName": "Street Name",
   "settings.defaultAddress": "Set as Default Address",
+  "settings.addNewAddressSuccess": "Add new address successfully",
+  "settings.updateButton": "Update",
+  "settings.defaultAddr": "Default Address",
   // featured
   "products.header": "Top Products",
   "products.viewAll": "View All",

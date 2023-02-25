@@ -72,6 +72,9 @@ export default {
   "settings.ward": "Phường/Xã",
   "settings.streetName": "Địa chỉ cụ thể",
   "settings.defaultAddress": "Đặt làm địa chỉ mặc định",
+  "settings.addNewAddressSuccess": "Thêm địa chỉ mới thành công",
+  "settings.updateButton": "Cập nhập",
+  "settings.defaultAddr": "Địa chỉ mặc định",
   // featured
   "products.header": "Top sản phẩm",
   "products.viewAll": "Xem tất cả",

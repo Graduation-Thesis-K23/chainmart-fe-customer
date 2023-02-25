@@ -5,7 +5,7 @@ export default [
     phone: "0984526014",
     street: "134/43 Đường Lê Đức Thọ",
     address: "Xã An Thạnh Trung, Huyện Chợ Mới, An Giang",
-    default: false,
+    df: false,
   },
   {
     key: 1,
@@ -13,6 +13,14 @@ export default [
     phone: "0984526012",
     street: "93 Ngõ 123 Đường Tràn Tiền",
     address: "Xã Hàm Rồng, Huyện Năm Căn, Cà Mau",
-    default: true,
+    df: true,
+  },
+  {
+    key: 2,
+    name: "Nguyễn Đại Hiệp Hiệp Đại Hiệp",
+    phone: "0984526012",
+    street: "93 Ngõ 123 Đường Tràn Tiền",
+    address: "Xã Hàm Rồng, Huyện Năm Căn, Cà Mau",
+    df: true,
   },
 ];

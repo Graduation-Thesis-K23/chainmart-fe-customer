@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import {
-  UserOutlined,
+  ContactsOutlined,
   CalendarOutlined,
   IdcardOutlined,
   PhoneOutlined,
@@ -41,7 +41,7 @@ const ProfileForm = () => {
           <Col xs={24} sm={12} md={12} lg={12} xl={12}>
             <ProfileFormInput
               labelKey="settings.fullName"
-              icon={<UserOutlined />}
+              icon={<ContactsOutlined />}
               register={register}
             />
           </Col>

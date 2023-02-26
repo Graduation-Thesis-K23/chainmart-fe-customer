@@ -3,8 +3,8 @@ import { Upload, Modal } from "antd";
 import ImgCrop from "antd-img-crop";
 import { PictureOutlined } from "@ant-design/icons";
 import type { UploadProps } from "antd/es/upload/interface";
-import useTranslate from "~/hooks/useLocales";
 
+import useTranslate from "~/hooks/useLocales";
 import styles from "./ChangeAvatar.module.scss";
 
 const ChangeAvatar: React.FC<{
@@ -19,9 +19,9 @@ const ChangeAvatar: React.FC<{
   const dragOrClickText = useTranslate("settings.dropOrClick");
 
   const onChange: UploadProps["onChange"] = ({ file }) => {
+    state.setIsModalOpen(false);
     if (file.status === "done") {
       console.log(file.originFileObj);
-      state.setIsModalOpen(false);
     }
   };
 

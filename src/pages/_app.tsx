@@ -3,6 +3,7 @@ import Head from "next/head";
 import type { AppProps } from "next/app";
 import type { NextPage } from "next/types";
 import { ToastContainer } from "react-toastify";
+import { Baloo_2 } from "@next/font/google";
 
 import ErrorBoundary from "~/components/ErrorBoundary";
 import MainLayout from "~layouts/MainLayout";
@@ -15,6 +16,13 @@ import "react-multi-carousel/lib/styles.css";
 import { MAIN_LAYOUT, AUTH_LAYOUT, SETTING_LAYOUT } from "~/constants";
 import "react-toastify/dist/ReactToastify.css";
 import "~/styles/index.scss";
+
+const nunito = Baloo_2({
+  weight: ["400", "500", "600", "700", "800"],
+  style: ["normal"],
+  subsets: ["latin", "vietnamese"],
+  fallback: ["Roboto"],
+});
 
 export type NextPageWithLayout<P = unknown, IP = P> = NextPage<P, IP> & {
   layout?: string;
@@ -79,12 +87,14 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
         <ProductDetailContext.ProductDetailProvider>
           <CartContext.CartProvider>
             <LocalesProvider>
-              <Layout>
-                <>
-                  <Component {...pageProps} />
-                  <ToastContainer />
-                </>
-              </Layout>
+              <div className={nunito.className}>
+                <Layout>
+                  <>
+                    <Component {...pageProps} />
+                    <ToastContainer />
+                  </>
+                </Layout>
+              </div>
             </LocalesProvider>
           </CartContext.CartProvider>
         </ProductDetailContext.ProductDetailProvider>

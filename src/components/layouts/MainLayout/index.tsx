@@ -5,12 +5,6 @@ import Footer from "../components/Footer";
 
 import styles from "./MainLayout.module.scss";
 
-/* dynamic(() => {
-  return new Promise((resolve) => setTimeout(resolve, 2 * 1000)).then(
-    () => import("~pages/Index")
-  );
-}); */
-
 const MainLayout: React.FC<{
   children: ReactElement;
 }> = ({ children }) => (

@@ -46,21 +46,13 @@ const ProfileFormSelect: React.FC<{
               ]}
               id={id}
               ref={ref}
+              bordered={false}
               onChange={onChange}
             />
-            {/*  <select
-              className={styles["select-group_input_text"]}
-              id={id}
-              {...field}
-            >
-              <option value="male">{maleText}</option>
-              <option value="female">{femaleText}</option>
-              <option value="custom">{customText}</option>
-            </select> */}
           </div>
         </div>
       )}
-    ></Controller>
+    />
   );
 };
 

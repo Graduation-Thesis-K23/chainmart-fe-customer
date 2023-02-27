@@ -1,7 +1,53 @@
-.accounts-connect {
+@import "~/styles/variables";
+
+.account {
   max-width: 1000px;
-  min-height: 1200px;
   margin: 40px auto 20px;
   background-color: #fff;
   border-radius: 6px;
+
+  &-header {
+    padding: 16px 24px;
+    border-bottom: 1px solid #efefef;
+  }
+
+  &-list {
+    padding: 16px 24px;
+  }
+
+  &-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+
+    + .account-item {
+      border-top: 1px solid rgba(0, 0, 0, 0.09);
+      padding-top: 20px;
+    }
+
+    &:not(:last-child) {
+      padding-bottom: 20px;
+    }
+
+    &-left {
+      display: flex;
+    }
+
+    &-logo {
+      width: 30px;
+      height: 30px;
+    }
+
+    &-username {
+      margin-left: 10px;
+      line-height: 30px;
+    }
+
+    &-btn {
+      line-height: 30px;
+      font-weight: 500;
+      text-decoration: underline;
+      color: $primary-color;
+    }
+  }
 }

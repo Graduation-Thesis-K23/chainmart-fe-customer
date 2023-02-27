@@ -75,6 +75,9 @@ export default {
   "settings.addNewAddressSuccess": "Add new address successfully",
   "settings.updateButton": "Update",
   "settings.defaultAddr": "Default Address",
+  "settings.accountsConnected": "Accounts Connected",
+  "settings.connect": "Connect",
+  "settings.connected": "Connected",
   // featured
   "products.header": "Top Products",
   "products.viewAll": "View All",

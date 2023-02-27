@@ -3,6 +3,7 @@ import { Control } from "react-hook-form";
 
 import MyAddressSelect from "../MyAddressSelect";
 import Location from "~/dataSources/Location.json";
+import { SelectOption } from "../../interfaces";
 
 const MyAddressWard: React.FC<{
   labelKey: string;
@@ -26,9 +27,7 @@ const MyAddressWard: React.FC<{
   district: string;
   city: string;
 }> = (props) => {
-  const [options, setOptions] = useState<
-    Array<{ value: string; label: string }>
-  >([]);
+  const [options, setOptions] = useState<Array<SelectOption>>([]);
 
   const { city, district } = props;
 

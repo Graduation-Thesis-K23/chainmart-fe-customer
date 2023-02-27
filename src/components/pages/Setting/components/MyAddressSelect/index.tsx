@@ -2,6 +2,7 @@ import { Select } from "antd";
 import React, { memo, useId } from "react";
 import { Control, Controller } from "react-hook-form";
 import useTranslate from "~/hooks/useLocales";
+import { SelectOption } from "../../interfaces";
 
 import styles from "./MyAddressSelect.module.scss";
 
@@ -17,10 +18,7 @@ const MyAddressSelect: React.FC<{
     street: string;
   }>;
   name: "city" | "ward" | "district";
-  options: Array<{
-    value: string;
-    label: string;
-  }>;
+  options: Array<SelectOption>;
   disabled?: boolean;
   setStep: React.Dispatch<
     React.SetStateAction<{

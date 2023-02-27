@@ -2,9 +2,9 @@ import React, { memo } from "react";
 import useTranslate from "~/hooks/useLocales";
 import { Address } from "../../interfaces";
 
-import styles from "./AddressItem.module.scss";
+import styles from "./MyAddressItem.module.scss";
 
-const AddressItem: React.FC<Address> = ({
+const MyAddressItem: React.FC<Address> = ({
   address,
   name,
   df,
@@ -33,4 +33,4 @@ const AddressItem: React.FC<Address> = ({
   );
 };
 
-export default memo(AddressItem);
+export default memo(MyAddressItem);

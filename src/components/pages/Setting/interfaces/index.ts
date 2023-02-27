@@ -9,3 +9,8 @@ export interface Address {
 export interface AddressKey extends Address {
   key: number;
 }
+
+export interface SelectOption {
+  value: string;
+  label: string;
+}

@@ -10,12 +10,12 @@ import {
 } from "@ant-design/icons";
 import { Col, Modal, Row } from "antd";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-
-import useTranslate from "~/hooks/useLocales";
-import styles from "./MyAddress.module.scss";
-import { getAddressList } from "~/apis/Settings";
-import AddressItem from "../AddressItem";
 import classNames from "classnames";
+
+import { getAddressList } from "~/apis/Settings";
+import styles from "./MyAddress.module.scss";
+import useTranslate from "~/hooks/useLocales";
+import MyAddressItem from "../MyAddressItem";
 import MyAddressInput from "../MyAddressInput";
 import { toast } from "react-toastify";
 import { AddressKey } from "../../interfaces";
@@ -198,7 +198,7 @@ const MyAddress: React.FC<{
       </div>
       <div className={styles["address-bot"]}>
         {addressList.map(({ key, name, phone, street, address, df }) => (
-          <AddressItem
+          <MyAddressItem
             key={key}
             address={address}
             name={name}

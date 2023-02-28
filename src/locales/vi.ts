@@ -77,7 +77,7 @@ export default {
   "settings.defaultAddr": "Địa chỉ mặc định",
   "settings.accountsConnected": "Tài khoản liên kết",
   "settings.connect": "Liên kết",
-  "settings.connected": "Đã liên kết",
+  "settings.disconnect": "Huỷ liên kết",
   // featured
   "products.header": "Top sản phẩm",
   "products.viewAll": "Xem tất cả",

@@ -11,7 +11,7 @@ const AccountsConnect: React.FC<{
 }> = ({ id }) => {
   const accountsText = useTranslate("settings.accountsConnected");
   const connectText = useTranslate("settings.connect");
-  const connectedText = useTranslate("settings.connected");
+  const disconnectText = useTranslate("settings.disconnect");
 
   return (
     <div id={id} className={styles["account"]}>
@@ -42,7 +42,7 @@ const AccountsConnect: React.FC<{
               hiepnguyen6014@gmail.com
             </div>
           </div>
-          <div className={styles["account-item-btn"]}>{connectedText}</div>
+          <div className={styles["account-item-btn"]}>{disconnectText}</div>
         </div>
       </div>
     </div>

@@ -77,7 +77,7 @@ export default {
   "settings.defaultAddr": "Default Address",
   "settings.accountsConnected": "Accounts Connected",
   "settings.connect": "Connect",
-  "settings.connected": "Connected",
+  "settings.disconnect": "Disconnect",
   // featured
   "products.header": "Top Products",
   "products.viewAll": "View All",

@@ -26,7 +26,7 @@ const MyAddressDistrict: React.FC<{
   >;
   city: string;
 }> = (props) => {
-  const [options, setOptions] = useState<Array<SelectOption>>();
+  const [options, setOptions] = useState<Array<SelectOption>>([]);
 
   useEffect(() => {
     const cityItems = Location.find((item) => item.level1_id === props.city);

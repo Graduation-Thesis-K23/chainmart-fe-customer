@@ -1,5 +1,10 @@
 import React, { memo } from "react";
-import { Controller, useForm } from "react-hook-form";
+import {
+  Controller,
+  FieldValues,
+  SubmitHandler,
+  useForm,
+} from "react-hook-form";
 import useTranslate from "~/hooks/useLocales";
 
 import styles from "./ChangePassword.module.scss";
@@ -16,7 +21,7 @@ const ChangePassword: React.FC<{
       renewPassword: "",
     },
   });
-  const onSubmit = (data) => console.log(data);
+  const onSubmit: SubmitHandler<FieldValues> = (data) => console.log(data);
 
   return (
     <div id={id} className={styles["password"]}>

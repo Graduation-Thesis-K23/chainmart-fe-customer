@@ -1,5 +1,4 @@
 import React, { memo } from "react";
-import { Button } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 
 import useTranslate from "~/hooks/useLocales";
@@ -16,10 +15,9 @@ const HeaderSearch = () => {
           spellCheck={false}
           placeholder={searchPlaceholder}
         />
-        <Button
-          className={styles["header_search_btn"]}
-          icon={<SearchOutlined />}
-        />
+        <button className={styles["header_search_btn"]}>
+          <SearchOutlined />
+        </button>
       </div>
     </div>
   );

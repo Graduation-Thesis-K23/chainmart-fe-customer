@@ -16,7 +16,7 @@ import styles from "./Header.module.scss";
 import headerTopLeft from "~/dataSources/HeaderTopLeft";
 
 const Header = () => {
-  const logged = true;
+  const logged = false;
   const [shadow, setShadow] = useState(false);
 
   const toggleVisible = useCallback(() => {

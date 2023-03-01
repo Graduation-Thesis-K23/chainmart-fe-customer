@@ -1,0 +1,46 @@
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: rgb(136, 221, 168);
+  background: linear-gradient(
+    190deg,
+    rgba(136, 221, 168, 1) 0%,
+    rgba(45, 168, 92, 1) 49%,
+    rgb(62, 187, 110) 100%
+  );
+
+  &_inner {
+    height: 100%;
+  }
+
+  &_container {
+    width: 800px;
+    height: 600px;
+    margin: 16px;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px 0 rgb(0 0 0 / 14%);
+
+    &_row {
+      height: 100%;
+    }
+
+    &_image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f6f6f6;
+    }
+
+    &_form {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+  }
+}

@@ -78,6 +78,19 @@ export default {
   "settings.accountsConnected": "Tài khoản liên kết",
   "settings.connect": "Liên kết",
   "settings.disconnect": "Huỷ liên kết",
+  "settings.currentPassword": "Mật khẩu hiện tại",
+  "settings.newPassword": "Mật khẩu mới",
+  "settings.renewPassword": "Nhập lại mật khẩu mới",
+  "settings.notifyPassword":
+    "Mật khẩu bao gồm ít nhất một chữ viết hoa, một chữ viết thường, một số, một ký tự đặc biệt và có từ 8 ký tự đến 20 ký tự",
+  "settings.passwordErrorMinLength": "Mật khẩu ít hơn 8 ký tự",
+  "settings.passwordErrorMaxLength": "Mật khẩu nhiều hơn 20 ký tự",
+  "settings.passwordErrorStrong":
+    "Mật khẩu phải có ít nhất một chữ viết hoa, một chữ viết thường, một số và một ký tự đặc biệt",
+  "settings.passwordErrorSame": "Mật khẩu mới không khớp",
+  "settings.passwordErrorSame1":
+    "Mật khẩu mới không được giống với mật khẩu hiện tại",
+  "settings.showPassword": "Hiển thị mật khẩu",
   // featured
   "products.header": "Top sản phẩm",
   "products.viewAll": "Xem tất cả",

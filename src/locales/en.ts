@@ -78,6 +78,23 @@ export default {
   "settings.accountsConnected": "Accounts Connected",
   "settings.connect": "Connect",
   "settings.disconnect": "Disconnect",
+  "settings.currentPassword": "Current Password",
+  "settings.newPassword": "New Password",
+  "settings.renewPassword": "Retype New Password",
+  "settings.strongPassword": "Your password not strong",
+  "settings.notifyPassword":
+    "Your password must have least one uppercase character, one lowercase character, one special character, one number and the length in range from 8 to 20 characters.",
+  "settings.passwordErrorMinLength":
+    "Password must have more than 8 characters",
+  "settings.passwordErrorMaxLength":
+    "Password must have less than 20 characters",
+  "settings.passwordErrorStrong":
+    "Password must have least one uppercase character, one lowercase character, one special character, one number",
+  "settings.passwordErrorSame": "Password doesn't match",
+  "settings.passwordErrorSame1":
+    "New password should not be the same as your existing password",
+  "settings.showPassword": "Show password",
+  // featured
   // featured
   "products.header": "Top Products",
   "products.viewAll": "View All",

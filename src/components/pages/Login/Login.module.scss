@@ -26,6 +26,7 @@
 
     &_row {
       height: 100%;
+      font-family: inherit;
     }
 
     &_image {
@@ -40,6 +41,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      font-family: inherit;
       height: 100%;
     }
   }

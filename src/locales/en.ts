@@ -61,6 +61,7 @@ export default {
   "settings.phoneNumber": "Phone number",
   "settings.email": "Email",
   "settings.username": "Username",
+  "settings.password": "Password",
   "settings.male": "Male",
   "settings.female": "Female",
   "settings.custom": "Custom",

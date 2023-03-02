@@ -61,6 +61,7 @@ export default {
   "settings.phoneNumber": "Điện thoại",
   "settings.email": "Email",
   "settings.username": "Tên người dùng",
+  "settings.password": "Mật khẩu",
   "settings.male": "Nam",
   "settings.female": "Nữ",
   "settings.custom": "Tuỳ chỉnh",

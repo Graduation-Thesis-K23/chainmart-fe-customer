@@ -3,6 +3,10 @@
 .profile-form {
   padding: 120px 24px 50px;
 
+  div {
+    font-family: inherit;
+  }
+
   .submit-button {
     padding: 8px 16px;
     background-color: $primary-color;

@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Divider } from "antd";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { IdcardOutlined, LockOutlined } from "@ant-design/icons";
 
 import LoginInput from "../LoginInput";
 
@@ -26,8 +27,18 @@ const LoginForm = () => {
   return (
     <form className={styles["form"]} onSubmit={handleSubmit(onSubmit)}>
       <div className={styles["form_title"]}>Welcome Back</div>
-      <LoginInput control={control} name="username" />
-      <LoginInput control={control} name="password" />
+      <LoginInput
+        control={control}
+        name="username"
+        icon={<IdcardOutlined />}
+        labelKey="settings.username"
+      />
+      <LoginInput
+        control={control}
+        name="password"
+        icon={<LockOutlined />}
+        labelKey="settings.password"
+      />
       <button className={styles["login-btn"]}>Sign In</button>
       <Divider plain>Or</Divider>
       <Link href="/forgot" className={styles["forgot_link"]}>

@@ -11,6 +11,23 @@
     rgb(62, 187, 110) 100%
   );
 
+  &_language {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: inline-block;
+    cursor: pointer;
+
+    &_icon {
+      font-size: 13px;
+    }
+
+    &_selected {
+      margin-right: 8px;
+      font-weight: 600;
+    }
+  }
+
   &_inner {
     height: 100%;
   }

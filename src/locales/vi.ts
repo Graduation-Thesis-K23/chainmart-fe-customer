@@ -92,6 +92,14 @@ export default {
   "settings.passwordErrorSame1":
     "Mật khẩu mới không được giống với mật khẩu hiện tại",
   "settings.showPassword": "Hiển thị mật khẩu",
+  // login
+  "login.title": "Chào bạn!",
+  "login.or": "Hoặc",
+  "login.forgotPassword": "Quên mật khẩu?",
+  "login.google": "Đăng nhập bằng Google",
+  "login.facebook": "Đăng nhập bằng Facebook",
+  "login.newUser": "Người dùng mới?",
+  "login.create": "Tạo tài khoản",
   // featured
   "products.header": "Top sản phẩm",
   "products.viewAll": "Xem tất cả",

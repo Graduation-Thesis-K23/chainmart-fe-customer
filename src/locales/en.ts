@@ -95,7 +95,14 @@ export default {
   "settings.passwordErrorSame1":
     "New password should not be the same as your existing password",
   "settings.showPassword": "Show password",
-  // featured
+  // login
+  "login.title": "Welcome Back",
+  "login.or": "Or",
+  "login.forgotPassword": "Forgot password?",
+  "login.google": "Sign in with Google",
+  "login.facebook": "Sign in with Facebook",
+  "login.newUser": "New user?",
+  "login.create": "Create account",
   // featured
   "products.header": "Top Products",
   "products.viewAll": "View All",

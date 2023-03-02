@@ -13,6 +13,15 @@ import facebookSvg from "~/assets/icons/facebook-color.svg";
 import googleSvg from "~/assets/icons/google-color.svg";
 
 const LoginForm = () => {
+  const titleText = useTranslate("login.title");
+  const signInText = useTranslate("header.topRight.login");
+  const orText = useTranslate("login.or");
+  const forgotPasswordText = useTranslate("login.forgotPassword");
+  const googleText = useTranslate("login.google");
+  const facebookText = useTranslate("login.facebook");
+  const newUserText = useTranslate("login.newUser");
+  const createText = useTranslate("login.create");
+
   const { control, handleSubmit } = useForm({
     defaultValues: {
       username: "",
@@ -26,7 +35,7 @@ const LoginForm = () => {
 
   return (
     <form className={styles["form"]} onSubmit={handleSubmit(onSubmit)}>
-      <div className={styles["form_title"]}>Welcome Back</div>
+      <div className={styles["form_title"]}>{titleText}</div>
       <LoginInput
         control={control}
         name="username"
@@ -38,24 +47,29 @@ const LoginForm = () => {
         name="password"
         icon={<LockOutlined />}
         labelKey="settings.password"
+        type="password"
       />
-      <button className={styles["login-btn"]}>Sign In</button>
-      <Divider plain>Or</Divider>
-      <Link href="/forgot" className={styles["forgot_link"]}>
-        Forgot password?
+      <button className={styles["login-btn"]}>{signInText}</button>
+      <Divider plain>{orText}</Divider>
+      <Link href="/forgot" className={styles["forgot_link"]} prefetch={false}>
+        {forgotPasswordText}
       </Link>
-      <Link href="/google" className={styles["oauth-btn"]}>
+      <Link href="/google" className={styles["oauth-btn"]} prefetch={false}>
         <Image src={googleSvg} alt="facebook-logo" width={20} height={20} />
-        <span className={styles["oauth-btn_text"]}>Sign in with Google</span>
+        <span className={styles["oauth-btn_text"]}>{googleText}</span>
       </Link>
-      <Link href="/facebook" className={styles["oauth-btn"]}>
+      <Link href="/facebook" className={styles["oauth-btn"]} prefetch={false}>
         <Image src={facebookSvg} alt="facebook-logo" width={20} height={20} />
-        <span className={styles["oauth-btn_text"]}>Sign in with Facebook</span>
+        <span className={styles["oauth-btn_text"]}>{facebookText}</span>
       </Link>
       <div className={styles["register"]}>
-        <span className={styles["register_label"]}>New user?</span>
-        <Link className={styles["register_link"]} href="/register">
-          Create account
+        <span className={styles["register_label"]}>{newUserText}</span>
+        <Link
+          className={styles["register_link"]}
+          href="/register"
+          prefetch={false}
+        >
+          {createText}
         </Link>
       </div>
     </form>

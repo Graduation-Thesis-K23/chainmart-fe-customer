@@ -6,7 +6,7 @@
   align-items: center;
   justify-content: center;
   background-color: #eee;
-  padding: 4px 8px;
+  padding: 8px;
 
   .focus-border {
     position: absolute;
@@ -54,8 +54,9 @@
   }
 
   &_icon {
-    display: inline-block;
+    display: flex;
     font-size: 18px;
+    color: #888;
   }
 
   &_text {

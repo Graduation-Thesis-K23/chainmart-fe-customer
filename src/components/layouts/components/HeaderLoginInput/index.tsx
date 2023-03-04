@@ -1,11 +1,11 @@
 import classNames from "classnames";
 import React, { HTMLInputTypeAttribute, memo, useId, useState } from "react";
 import { Control, Controller } from "react-hook-form";
+
 import useTranslate from "~/hooks/useLocales";
+import styles from "./HeaderLoginInput.module.scss";
 
-import styles from "./LoginInput.module.scss";
-
-const LoginInput: React.FC<{
+const HeaderLoginInput: React.FC<{
   control: Control<{
     username: string;
     password: string;
@@ -62,4 +62,4 @@ const LoginInput: React.FC<{
   );
 };
 
-export default memo(LoginInput);
+export default memo(HeaderLoginInput);

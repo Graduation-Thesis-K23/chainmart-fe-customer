@@ -32,18 +32,4 @@
       overflow: hidden;
     }
   }
-
-  &_language {
-    display: inline-block;
-    cursor: pointer;
-
-    &_icon {
-      font-size: 13px;
-    }
-
-    &_selected {
-      margin-right: 8px;
-      font-weight: 600;
-    }
-  }
 }

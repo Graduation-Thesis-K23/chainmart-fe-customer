@@ -1,8 +1,8 @@
 @import "~/styles/variables";
 
 .form {
-  display: block;
-  max-width: 300px;
+  height: 100%;
+  width: 80%;
 
   &_title {
     font-size: 34px;
@@ -13,9 +13,9 @@
   .login-btn {
     width: 100%;
     padding: 10px 0;
-    font-weight: 600;
     color: #fff;
-    font-size: 16px;
+    font-size: 18px;
+    margin-top: 12px;
     background-color: $primary-color;
     cursor: pointer;
 
@@ -26,32 +26,31 @@
 
   .forgot_link {
     display: block;
-    text-align: center;
-    font-size: 12px;
-    font-weight: 500;
-    margin-bottom: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    margin: auto;
+    margin-bottom: 4px;
+    padding: 6px;
+    background-color: transparent;
     color: rgba(0, 0, 255, 0.35);
+    cursor: pointer;
   }
 
-  .oauth-btn {
+  .oauth {
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 36px;
-    border: 1px solid $primary-color;
-    margin-bottom: 10px;
 
-    &_text {
-      margin-left: 6px;
-      font-weight: 500;
-    }
+    &-btn {
+      display: inline-block;
 
-    &:hover {
-      background-color: #eee;
+      + .oauth-btn {
+        margin-left: 20px;
+      }
     }
   }
 
   .register {
+    margin-bottom: 20px;
     text-align: center;
 
     &_label {
@@ -64,6 +63,8 @@
       font-size: 12px;
       font-weight: 500;
       color: rgba(0, 0, 255, 0.35);
+      background-color: transparent;
+      cursor: pointer;
     }
   }
 }

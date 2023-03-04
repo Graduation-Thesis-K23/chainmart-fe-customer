@@ -70,3 +70,14 @@ a[href] {
 .react-multiple-carousel__arrow {
   z-index: 100 !important;
 }
+
+.ant-dropdown,
+.ant-popover,
+.ant-col,
+.ant-row {
+  font-family: inherit;
+
+  * {
+    font-family: inherit;
+  }
+}

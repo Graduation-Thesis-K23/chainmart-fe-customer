@@ -17,7 +17,7 @@ import { MAIN_LAYOUT, AUTH_LAYOUT, SETTING_LAYOUT } from "~/constants";
 import "react-toastify/dist/ReactToastify.css";
 import "~/styles/index.scss";
 
-const nunito = Baloo_2({
+export const nunito = Baloo_2({
   weight: ["400", "500", "600", "700", "800"],
   style: ["normal"],
   subsets: ["latin", "vietnamese"],
@@ -56,6 +56,7 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
           name="viewport"
           content="width=device-width, initial-scale=1, minimum-scale=1"
         />
+        <meta name="theme-color" content="#2da85c" />
         <meta name="keywords" content="chainmart" />
         <meta name="robots" content="index, follow" />
         <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />

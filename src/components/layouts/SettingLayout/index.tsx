@@ -1,25 +1,12 @@
 import React, { memo } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { CaretDownOutlined } from "@ant-design/icons";
-import { Dropdown } from "antd";
+import { GlobalOutlined } from "@ant-design/icons";
 
-import LanguageItem from "../components/HeaderLanguage/LanguageItem";
+import MultiLanguage from "~/components/commons/MultiLanguage";
 
 import logoSquare from "~/assets/images/logo-square.png";
 import styles from "./SettingLayout.module.scss";
-import useLanguage from "~/hooks/useLocales";
-
-const items = [
-  {
-    key: "1",
-    label: <LanguageItem languageKey="vi" text="Việt Nam" />,
-  },
-  {
-    key: "2",
-    label: <LanguageItem languageKey="en" text="English" />,
-  },
-];
 
 const SettingLayout: React.FC<{
   children: JSX.Element;
@@ -31,21 +18,13 @@ const SettingLayout: React.FC<{
           <Image src={logoSquare} width={50} height={50} alt="logo" priority />
         </Link>
         <div className={styles["header_right"]}>
+          <GlobalOutlined />
           <div className={styles["header_language"]} id="language">
-            <Dropdown
-              menu={{ items }}
-              placement="bottom"
-              getPopupContainer={() =>
+            <MultiLanguage
+              container={() =>
                 document.getElementById("language") as HTMLElement
               }
-            >
-              <div className={styles["header_language_wrapper"]}>
-                <span className={styles["header_language_selected"]}>
-                  {useLanguage("title")}
-                </span>
-                <CaretDownOutlined className={styles["header_language_icon"]} />
-              </div>
-            </Dropdown>
+            />
           </div>
           <div className={styles["header_vertical"]}></div>
           <Image

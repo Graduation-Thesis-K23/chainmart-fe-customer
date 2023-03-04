@@ -1,25 +1,9 @@
-@import "~/styles/variables";
-
 .header_language {
   display: flex;
   align-items: center;
+  margin-right: 10px;
   height: 100%;
-
-  &_wrapper {
-    display: flex;
-    align-items: center;
-    margin-left: 1.2rem;
-    color: #fff;
-    height: 90%;
-    padding-right: 10px;
-    font-size: 1.4rem;
-    cursor: pointer;
-  }
-
-  &_text {
-    font-weight: 600;
-    margin-left: 0.3rem;
-  }
+  color: #fff;
 }
 
 @media (max-width: 576px) {

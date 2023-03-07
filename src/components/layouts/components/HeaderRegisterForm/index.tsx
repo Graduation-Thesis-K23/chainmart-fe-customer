@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import {
   IdcardOutlined,
   LockOutlined,

@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Divider } from "antd";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { IdcardOutlined, LockOutlined } from "@ant-design/icons";
 
 import HeaderLoginInput from "../HeaderLoginInput";
@@ -12,6 +12,7 @@ import styles from "./HeaderLoginForm.module.scss";
 import facebookSvg from "~/assets/icons/facebook-color.svg";
 import googleSvg from "~/assets/icons/google-color.svg";
 import { REGISTER_STATE, FORGOT_STATE } from "../HeaderLogin";
+import { SignInPayload, signIn } from "~/apis/auth";
 
 const HeaderLoginForm: React.FC<{
   setFormCode: React.Dispatch<React.SetStateAction<number>>;
@@ -23,8 +24,14 @@ const HeaderLoginForm: React.FC<{
     },
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<SignInPayload> = async (payload) => {
+    const response = await signIn(payload);
+
+    if (response) {
+      document.location.href = "/";
+    } else {
+      console.log("show error message");
+    }
   };
 
   return (

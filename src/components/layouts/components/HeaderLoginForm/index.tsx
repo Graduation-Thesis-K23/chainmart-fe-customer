@@ -6,9 +6,9 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { IdcardOutlined, LockOutlined } from "@ant-design/icons";
 
 import HeaderLoginInput from "../HeaderLoginInput";
+import Translate from "~/components/commons/Translate";
 
 import styles from "./HeaderLoginForm.module.scss";
-import useTranslate from "~/hooks/useLocales";
 import facebookSvg from "~/assets/icons/facebook-color.svg";
 import googleSvg from "~/assets/icons/google-color.svg";
 import { REGISTER_STATE, FORGOT_STATE } from "../HeaderLogin";
@@ -16,13 +16,6 @@ import { REGISTER_STATE, FORGOT_STATE } from "../HeaderLogin";
 const HeaderLoginForm: React.FC<{
   setFormCode: React.Dispatch<React.SetStateAction<number>>;
 }> = ({ setFormCode }) => {
-  const titleText = useTranslate("login.title");
-  const signInText = useTranslate("header.topRight.login");
-  const orText = useTranslate("login.or");
-  const forgotPasswordText = useTranslate("login.forgotPassword");
-  const newUserText = useTranslate("login.newUser");
-  const createText = useTranslate("login.create");
-
   const { control, handleSubmit } = useForm({
     defaultValues: {
       username: "",
@@ -37,7 +30,9 @@ const HeaderLoginForm: React.FC<{
   return (
     <>
       <div className={styles["form"]}>
-        <div className={styles["form_title"]}>{titleText}</div>
+        <div className={styles["form_title"]}>
+          <Translate textKey="login.title" />
+        </div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <HeaderLoginInput
             control={control}
@@ -53,18 +48,18 @@ const HeaderLoginForm: React.FC<{
             type="password"
           />
 
-          <input
-            type="submit"
-            className={styles["login-btn"]}
-            value={signInText}
-          />
+          <button type="submit" className={styles["login-btn"]}>
+            <Translate textKey="header.topRight.login" />
+          </button>
         </form>
-        <Divider plain>{orText}</Divider>
+        <Divider plain>
+          <Translate textKey="login.or" />
+        </Divider>
         <button
           onClick={() => setFormCode(FORGOT_STATE)}
           className={styles["forgot_link"]}
         >
-          {forgotPasswordText}
+          <Translate textKey="login.forgotPassword" />
         </button>
         <div className={styles["oauth"]}>
           <Link href="/google" className={styles["oauth-btn"]} prefetch={false}>
@@ -84,12 +79,14 @@ const HeaderLoginForm: React.FC<{
           </Link>
         </div>
         <div className={styles["register"]}>
-          <span className={styles["register_label"]}>{newUserText}</span>
+          <span className={styles["register_label"]}>
+            <Translate textKey="login.newUser" />
+          </span>
           <button
             onClick={() => setFormCode(REGISTER_STATE)}
             className={styles["register_link"]}
           >
-            {createText}
+            <Translate textKey="login.create" />
           </button>
         </div>
       </div>

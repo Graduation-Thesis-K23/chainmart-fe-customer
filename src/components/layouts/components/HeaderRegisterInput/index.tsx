@@ -1,19 +1,20 @@
-import classNames from "classnames";
-import React, { HTMLInputTypeAttribute, memo, useId, useState } from "react";
+import React, { HTMLInputTypeAttribute, memo } from "react";
 import { Control, Controller } from "react-hook-form";
 
 import Input from "~/components/commons/Input";
 
-const HeaderLoginInput: React.FC<{
+const HeaderRegisterInput: React.FC<{
   control: Control<{
     username: string;
     password: string;
+    email: string;
+    name: string;
   }>;
-  name: "username" | "password";
+  name: "username" | "password" | "name" | "email";
   icon: JSX.Element;
   labelKey: string;
   type?: HTMLInputTypeAttribute;
-}> = ({ control, name, icon, labelKey, type = "text" }) => {
+}> = ({ control, name, labelKey, icon, type = "text" }) => {
   return (
     <Controller
       name={name}
@@ -24,7 +25,7 @@ const HeaderLoginInput: React.FC<{
           icon={icon}
           onChange={onChange}
           type={type}
-          labelMarginBottom={6}
+          labelMarginBottom={0}
           labelFontSize={16}
         />
       )}
@@ -32,4 +33,4 @@ const HeaderLoginInput: React.FC<{
   );
 };
 
-export default memo(HeaderLoginInput);
+export default memo(HeaderRegisterInput);

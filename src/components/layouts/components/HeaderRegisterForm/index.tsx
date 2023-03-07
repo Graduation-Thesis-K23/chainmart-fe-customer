@@ -1,26 +1,40 @@
 import React, { memo } from "react";
-import { LeftOutlined } from "@ant-design/icons";
-import { Divider } from "antd";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import {
+  IdcardOutlined,
+  LockOutlined,
+  LeftOutlined,
+  UserOutlined,
+  MailOutlined,
+} from "@ant-design/icons";
 
 import { LOGIN_STATE } from "../HeaderLogin";
+import HeaderRegisterInput from "../HeaderRegisterInput";
 
-import useTranslate from "~/hooks/useLocales";
 import styles from "./HeaderRegisterForm.module.scss";
+import Translate from "~/components/commons/Translate";
+import { signUp, SignUpPayload } from "~/apis/auth";
 
 const HeaderRegisterForm: React.FC<{
   setFormCode: React.Dispatch<React.SetStateAction<number>>;
 }> = ({ setFormCode }) => {
-  const orText = useTranslate("login.or");
-  const createTitleText = useTranslate("login.createTitle");
-  const createDescText = useTranslate("login.createDesc");
-  const createBtnText = useTranslate("login.createBtn");
-  const createPasswordText = useTranslate("login.createPassword");
+  const { control, handleSubmit } = useForm({
+    defaultValues: {
+      username: "",
+      password: "",
+      name: "",
+      email: "",
+    },
+  });
 
-  const { register, handleSubmit } = useForm();
+  const onSubmit: SubmitHandler<SignUpPayload> = async (payload) => {
+    const response = await signUp(payload);
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
+    if (response) {
+      document.location.href = "/";
+    } else {
+      console.log("show error message");
+    }
   };
 
   return (
@@ -32,28 +46,44 @@ const HeaderRegisterForm: React.FC<{
         <LeftOutlined className={styles["register_back_icon"]} />
       </div>
       <div>
-        <div className={styles["register_title"]}>{createTitleText}</div>
-        <div className={styles["register_desc"]}>{createDescText}</div>
+        <div className={styles["register_title"]}>
+          <Translate textKey="login.createTitle" />
+        </div>
+        <div className={styles["register_desc"]}>
+          <Translate textKey="login.createDesc" />
+        </div>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <input
-            {...register("username")}
-            placeholder="Email/Phone"
-            className={styles["register_input"]}
-            required
+          <HeaderRegisterInput
+            control={control}
+            name="name"
+            labelKey="settings.fullName"
+            icon={<IdcardOutlined />}
           />
-          <input
-            {...register("password")}
-            placeholder={createPasswordText}
-            className={styles["register_input"]}
-            required
+          <HeaderRegisterInput
+            control={control}
+            name="username"
+            labelKey="settings.username"
+            icon={<UserOutlined />}
           />
-          <input
-            type="submit"
-            value={createBtnText}
-            className={styles["register_btn"]}
+          <HeaderRegisterInput
+            control={control}
+            name="password"
+            labelKey="login.createPassword"
+            type="password"
+            icon={<LockOutlined />}
           />
+
+          <HeaderRegisterInput
+            control={control}
+            name="email"
+            type="email"
+            labelKey="settings.email"
+            icon={<MailOutlined />}
+          />
+          <button type="submit" className={styles["register_btn"]}>
+            <Translate textKey="login.createBtn" />
+          </button>
         </form>
-        <Divider plain>{orText}</Divider>
       </div>
     </div>
   );

@@ -9,6 +9,7 @@ import {
 
 import styles from "./HeaderUser.module.scss";
 import Options from "./Options";
+import useAuth from "~/hooks/useAuth";
 
 const items: MenuProps["items"] = [
   {
@@ -31,26 +32,36 @@ const items: MenuProps["items"] = [
 ];
 
 const HeaderUser = () => {
+  const user = useAuth();
+
   return (
     <div id="header-user" className={styles["user"]}>
-      <Dropdown
-        menu={{ items }}
-        placement="bottomRight"
-        getPopupContainer={() =>
-          document.getElementById("header-user") as HTMLElement
-        }
-      >
-        <div className={styles["header-user"]}>
-          <span className={styles["header-user_name"]}>hiepnguyen6014</span>
-          <Image
-            className={styles["header-user_image"]}
-            src="https://picsum.photos/26"
-            width={26}
-            height={26}
-            alt="avatar"
-          />
-        </div>
-      </Dropdown>
+      {user ? (
+        <>
+          <Dropdown
+            menu={{ items }}
+            placement="bottomRight"
+            getPopupContainer={() =>
+              document.getElementById("header-user") as HTMLElement
+            }
+          >
+            <div className={styles["header-user"]}>
+              <span className={styles["header-user_name"]}>
+                {user.username}
+              </span>
+              <Image
+                className={styles["header-user_image"]}
+                src="https://picsum.photos/26"
+                width={26}
+                height={26}
+                alt="avatar"
+              />
+            </div>
+          </Dropdown>
+        </>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

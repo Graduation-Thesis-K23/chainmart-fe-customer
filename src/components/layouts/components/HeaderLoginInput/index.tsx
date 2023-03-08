@@ -1,5 +1,4 @@
-import classNames from "classnames";
-import React, { HTMLInputTypeAttribute, memo, useId, useState } from "react";
+import React, { HTMLInputTypeAttribute, memo } from "react";
 import { Control, Controller } from "react-hook-form";
 
 import Input from "~/components/commons/Input";

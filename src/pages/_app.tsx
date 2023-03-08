@@ -1,10 +1,11 @@
-import React, { Fragment, ReactElement } from "react";
+import React, { Fragment, ReactElement, useEffect, useState } from "react";
 import Head from "next/head";
 import type { AppProps } from "next/app";
 import type { NextPage } from "next/types";
 import { ToastContainer } from "react-toastify";
 import { Baloo_2 } from "@next/font/google";
 
+import Loading from "~/components/atomics/Loading";
 import ErrorBoundary from "~/components/ErrorBoundary";
 import MainLayout from "~layouts/MainLayout";
 import AuthLayout from "~layouts/AuthLayout";
@@ -16,6 +17,7 @@ import "react-multi-carousel/lib/styles.css";
 import { MAIN_LAYOUT, AUTH_LAYOUT, SETTING_LAYOUT } from "~/constants";
 import "react-toastify/dist/ReactToastify.css";
 import "~/styles/index.scss";
+import { AuthProvider } from "~/hooks/useAuth";
 
 export const nunito = Baloo_2({
   weight: ["400", "500", "600", "700", "800"],
@@ -32,7 +34,7 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
-const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
+const MyApp = ({ Component, pageProps, router }: AppPropsWithLayout) => {
   let Layout:
     | React.NamedExoticComponent<{ children: ReactElement }>
     | React.ExoticComponent<{ children: ReactElement }> = Fragment;
@@ -48,6 +50,22 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
       Layout = SettingLayout;
       break;
   }
+  const [isRouteChanging, setIsRouteChanging] = useState(false);
+  useEffect(() => {
+    const routeChangeStartHandler = () => setIsRouteChanging(true);
+
+    const routeChangeEndHandler = () => setIsRouteChanging(false);
+
+    router.events.on("routeChangeStart", routeChangeStartHandler);
+    router.events.on("routeChangeComplete", routeChangeEndHandler);
+    router.events.on("routeChangeError", routeChangeEndHandler);
+    router.events.on("hashChangeStart", () => console.log("s"));
+    return () => {
+      router.events.off("routeChangeStart", routeChangeStartHandler);
+      router.events.off("routeChangeComplete", routeChangeEndHandler);
+      router.events.off("routeChangeError", routeChangeEndHandler);
+    };
+  }, [router.events]);
 
   return (
     <>
@@ -87,16 +105,24 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
       <ErrorBoundary>
         <ProductDetailContext.ProductDetailProvider>
           <CartContext.CartProvider>
-            <LocalesProvider>
-              <div className={nunito.className}>
-                <Layout>
-                  <>
-                    <Component {...pageProps} />
-                    <ToastContainer />
-                  </>
-                </Layout>
-              </div>
-            </LocalesProvider>
+            <AuthProvider>
+              <LocalesProvider>
+                <>
+                  {isRouteChanging ? (
+                    <Loading />
+                  ) : (
+                    <div className={nunito.className}>
+                      <Layout>
+                        <>
+                          <Component {...pageProps} />
+                          <ToastContainer />
+                        </>
+                      </Layout>
+                    </div>
+                  )}
+                </>
+              </LocalesProvider>
+            </AuthProvider>
           </CartContext.CartProvider>
         </ProductDetailContext.ProductDetailProvider>
       </ErrorBoundary>

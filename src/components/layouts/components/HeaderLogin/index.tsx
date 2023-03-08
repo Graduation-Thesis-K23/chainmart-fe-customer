@@ -2,28 +2,23 @@ import React, { memo, useState } from "react";
 import { Modal, Row, Col } from "antd";
 import Image from "next/image";
 import classNames from "classnames";
+import { CloseCircleOutlined } from "@ant-design/icons";
 
 import HeaderLoginForm from "../HeaderLoginForm";
 import HeaderForgotForm from "../HeaderForgotForm";
 import HeaderRegisterForm from "../HeaderRegisterForm";
 
-import useTranslate from "~/hooks/useLocales";
 import banner from "~/assets/login/banner.jpg";
 import styles from "./HeaderLogin.module.scss";
-import { CloseCircleOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { nunito } from "~/pages/_app";
+import Translate from "~/components/commons/Translate";
 
 export const LOGIN_STATE = 1;
 export const FORGOT_STATE = 2;
 export const REGISTER_STATE = 3;
 
 const HeaderLogin = () => {
-  const registerText = useTranslate("header.topRight.register");
-  const loginText = useTranslate("header.topRight.login");
-  const continueText = useTranslate("login.continue");
-  const useText = useTranslate("login.termsOfUse");
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formCode, setFormCode] = useState(LOGIN_STATE);
 
@@ -53,14 +48,18 @@ const HeaderLogin = () => {
         aria-label="Đăng ký"
         onClick={() => handleModal(true, REGISTER_STATE)}
       >
-        <span>{registerText}</span>
+        <span>
+          <Translate textKey="header.topRight.register" />
+        </span>
       </button>
       <button
         className={styles["logout-btn"]}
         aria-label="Đăng nhập"
         onClick={() => handleModal(true, LOGIN_STATE)}
       >
-        <span>{loginText}</span>
+        <span>
+          <Translate textKey="header.topRight.login" />
+        </span>
       </button>
       <Modal
         open={isModalOpen}
@@ -89,13 +88,13 @@ const HeaderLogin = () => {
               {Form}
               <div className={styles["login-notify"]}>
                 <span className={styles["login-notify_text"]}>
-                  {continueText}
+                  <Translate textKey="login.continue" />
                 </span>
                 <Link
                   className={styles["login-notify_link"]}
                   href={"/m/terms-of-use"}
                 >
-                  {useText}
+                  <Translate textKey="login.termsOfUse" />
                 </Link>
               </div>
             </Col>

@@ -3,7 +3,6 @@ import classNames from "classnames";
 import { RefCallBack } from "react-hook-form";
 
 import styles from "./Input.module.scss";
-import useTranslate from "~/hooks/useLocales";
 import Translate from "../Translate";
 
 const Input: React.FC<{

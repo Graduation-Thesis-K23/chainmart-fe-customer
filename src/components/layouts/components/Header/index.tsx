@@ -11,12 +11,15 @@ import HeaderLogin from "../HeaderLogin";
 
 import logo from "~/assets/images/logo.png";
 import logoSquare from "~/assets/images/logo-square.png";
-
 import styles from "./Header.module.scss";
 import headerTopLeft from "~/dataSources/HeaderTopLeft";
+import useAuth from "~/hooks/useAuth";
 
 const Header = () => {
-  const logged = false;
+  const user = useAuth();
+
+  console.log(user);
+
   const [shadow, setShadow] = useState(false);
 
   const toggleVisible = useCallback(() => {
@@ -66,7 +69,7 @@ const Header = () => {
           <div className={styles["header_top_right"]}>
             <HeaderLanguage />
             <div className="hor-divider" />
-            {logged ? <HeaderUser /> : <HeaderLogin />}
+            {user ? <HeaderUser /> : <HeaderLogin />}
           </div>
         </div>
       </div>

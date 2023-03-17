@@ -1,12 +1,5 @@
 // libs
-import React, {
-  useState,
-  useContext,
-  useMemo,
-  createContext,
-  ReactElement,
-  useEffect,
-} from "react";
+import React, { useContext, useMemo, createContext, ReactElement } from "react";
 // hooks
 import useLocalStorage from "./useLocalStorage";
 // others
@@ -46,14 +39,9 @@ export const LocalesProvider: React.FC<{
 export const useLocales = () => useContext(LocalesContext);
 
 const useTranslate = (key: string) => {
-  const [language, setLanguage] = useState<object>(localesData.vi);
   const { locales } = useLocales();
 
-  useEffect(() => {
-    setLanguage(locales);
-  }, [locales]);
-
-  return language[key as keyof typeof language];
+  return locales[key as keyof typeof locales];
 };
 
 export default useTranslate;

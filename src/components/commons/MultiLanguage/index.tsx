@@ -5,7 +5,7 @@ import { CaretDownOutlined } from "@ant-design/icons";
 import LanguageItem from "./LanguageItem";
 
 import styles from "./MultiLanguage.module.scss";
-import useTranslate from "~/hooks/useLocales";
+import Translate from "../Translate";
 
 const items = [
   {
@@ -21,8 +21,6 @@ const items = [
 const MultiLanguage: React.FC<{
   container?: (triggerNode: HTMLElement) => HTMLElement;
 }> = ({ container = () => document.getElementsByTagName("body")[0] }) => {
-  const languageSelected = useTranslate("title");
-
   return (
     <Dropdown
       menu={{ items }}
@@ -30,7 +28,9 @@ const MultiLanguage: React.FC<{
       getPopupContainer={container}
     >
       <div className={styles["language"]}>
-        <span className={styles["language_selected"]}>{languageSelected}</span>
+        <span className={styles["language_selected"]}>
+          <Translate textKey="title" />
+        </span>
         <CaretDownOutlined className={styles["language_icon"]} />
       </div>
     </Dropdown>

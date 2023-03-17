@@ -8,6 +8,7 @@ import styles from "./TopCategories.module.scss";
 import topCategories from "~/apis/mocks/TopCategories";
 import useDebounce from "~/hooks/useDebounce";
 import { default as translate } from "~/hooks/useLocales";
+import Translate from "~/components/commons/Translate";
 
 const TopCategories = () => {
   const [translateX, setTranslateX] = useState(0);
@@ -161,7 +162,7 @@ const TopCategories = () => {
                     height={90}
                   />
                   <span className={styles["top_categories_list_item_text"]}>
-                    {translate(item.textKey)}
+                    <Translate textKey={item.textKey} />
                   </span>
                 </Link>
               </li>

@@ -19,7 +19,7 @@ const Images: React.FC<{
       <div className={styles["images_slider"]}>
         <Image
           className={styles["images_slider_item"]}
-          src={imageShow}
+          src={getS3Image(images[0])}
           alt="product-image"
           width={700}
           height={700}

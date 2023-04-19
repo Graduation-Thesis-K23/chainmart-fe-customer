@@ -37,12 +37,12 @@ export interface IProductDetail {
 }
 
 export interface ICart {
-  id: number;
+  id: string;
   name: string;
   price: number;
   image: string;
   slug: string;
   maxQuantity: number;
   quantity: number;
-  classify: { [key: string]: string };
+  select: { [key: string]: string };
 }

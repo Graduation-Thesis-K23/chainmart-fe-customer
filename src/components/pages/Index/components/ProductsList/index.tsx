@@ -1,36 +1,59 @@
-import React, { memo } from "react";
+import React, { memo, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Rate } from "antd";
 
-import productsList from "~/apis/mocks/ProductsList";
 import styles from "./ProductsList.module.scss";
 import { convertPrice, discount } from "~/helpers";
 import useTranslate from "~/hooks/useLocales";
+import { useAppDispatch, useAppSelector } from "~/redux";
+import { fetchProducts } from "~/redux";
+import getS3Image from "~/helpers/get-s3-image";
+import checkCreated from "~/helpers/check-created";
+import { ASYNC_STATUS } from "~/redux/constants";
+import Loading from "~/components/atomics/Loading";
 
 const ProductsList = () => {
   const soldText = useTranslate("products.sold");
 
+  const { data, status } = useAppSelector((state) => state.products);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
+
+  if (status === ASYNC_STATUS.IDLE || status === ASYNC_STATUS.LOADING) {
+    return (
+      <div
+        style={{
+          position: "relative",
+          height: 600,
+        }}
+      >
+        <Loading />
+      </div>
+    );
+  }
+
   return (
     <ul className={styles["products-list"]}>
-      {productsList.map((item) => (
+      {data.map((item) => (
         <li key={item.id} className={styles["products-list-item"]}>
           <Link
             href={"/[slug]"}
             as={"/" + item.slug}
             className={styles["product-card"]}
           >
-            {item.label && (
+            {checkCreated(item.created_at) && (
               <div className={styles["product-card-label"]}>
-                <span className={styles["product-card-label-text"]}>
-                  {item.label}
-                </span>
+                <span className={styles["product-card-label-text"]}>New</span>
               </div>
             )}
-            {discount(item.price, item.ignorePrice) > 0 && (
+            {item.sale && (
               <div className={styles["product-card-discount"]}>
                 <span className={styles["product-card-discount-percent"]}>
-                  {discount(item.price, item.ignorePrice)}%
+                  {item.sale}%
                 </span>
                 <span className={styles["product-card-discount-text"]}>
                   off
@@ -39,7 +62,7 @@ const ProductsList = () => {
             )}
             <div className={styles["product-card-image"]}>
               <Image
-                src={item.image}
+                src={getS3Image(item.images[0])}
                 fill
                 sizes="(max-width: 768px) 40vw, (max-width: 1200px) 45vw, 50vw"
                 alt={item.slug}
@@ -54,9 +77,9 @@ const ProductsList = () => {
                 <span className={styles["product-card-body-prices-one"]}>
                   {convertPrice(item.price)}đ
                 </span>
-                {discount(item.price, item.ignorePrice) > 0 && (
+                {item.sale && (
                   <span className={styles["product-card-body-prices-two"]}>
-                    {convertPrice(item.ignorePrice)}đ
+                    {convertPrice(discount(item.price, item.sale))}đ
                   </span>
                 )}
               </div>
@@ -67,13 +90,17 @@ const ProductsList = () => {
                   className={styles["product-card-footer-star-item"]}
                   disabled
                   allowHalf
-                  value={item.star}
+                  value={3}
                 />
               </div>
-              {item.sold > 0 && (
+              {item.quantity !== item.units_in_stocks && (
                 <div className={styles["product-card-footer-sold"]}>
                   <span>
-                    {item.sold} {soldText}
+                    {item.quantity -
+                      item.units_in_stocks -
+                      item.units_on_orders +
+                      " "}
+                    {soldText}
                   </span>
                 </div>
               )}

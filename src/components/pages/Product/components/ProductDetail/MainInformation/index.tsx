@@ -11,20 +11,25 @@ import Specifications from "./Specifications";
 import Description from "./Description";
 
 import styles from "./MainInformation.module.scss";
-import useProductDetail from "~/contexts/ProductDetailContext";
 import useTranslate from "~/hooks/useLocales";
 import useCart from "~/contexts/CartContext";
 import { ICart } from "~/shared/interfaces";
+import { useAppSelector } from "~/redux";
+import getS3Image from "~/helpers/get-s3-image";
+import { ASYNC_STATUS } from "~/redux/constants";
+import Loading from "~/components/atomics/Loading";
+import { discount } from "~/helpers";
 
 const MainInformation = () => {
-  const { productDetail } = useProductDetail();
-
   const { cart, setCart } = useCart();
+
+  const { data, status } = useAppSelector((state) => state.product);
 
   const buyNowText = useTranslate("product.buyNow");
   const addToCartText = useTranslate("product.addToCart");
   const productSpecifications = useTranslate("product.specifications");
   const productDescription = useTranslate("product.description");
+  const addToCartSuccess = useTranslate("product.addToCartSuccess");
 
   const [select, setSelect] = useState<{ [key: string]: string }>({});
   const [quantity, setQuantity] = useState<number>(1);
@@ -32,31 +37,23 @@ const MainInformation = () => {
   const [warning, setWarning] = useState(false);
 
   const handleAddToCart = () => {
-    const classify: { [key: string]: string } = {};
+    const optionsNumber = JSON.parse(data.options).length;
+    const selectedNumber = Object.keys(select).length;
 
-    const optionsKey = Object.keys(productDetail.options);
-    for (const optionKey in optionsKey) {
-      const key: number = +optionKey.trim();
-
-      const option = optionsKey[key];
-
-      if (select[option]) {
-        classify[option] = select[option];
-      } else {
-        setWarning(true);
-        return;
-      }
+    if (optionsNumber !== selectedNumber) {
+      setWarning(true);
+      return;
     }
 
     const itemCart: ICart = {
-      id: productDetail.id,
-      name: productDetail.name,
-      slug: productDetail.slug,
-      price: productDetail.price,
-      image: productDetail.image,
-      maxQuantity: productDetail.maxQuantity,
+      id: data.id,
+      name: data.name,
+      slug: data.slug,
+      price: data.price,
+      image: getS3Image(data.images[0]),
+      maxQuantity: 5,
       quantity,
-      classify,
+      select,
     };
 
     const temp: ICart[] = [...cart];
@@ -65,7 +62,8 @@ const MainInformation = () => {
       (product) =>
         product.id === itemCart.id &&
         product.maxQuantity >= product.quantity + itemCart.quantity &&
-        JSON.stringify(product.classify) === JSON.stringify(itemCart.classify)
+        Object.entries(product.select).toString() ===
+          Object.entries(itemCart.select).toString()
     );
 
     if (isExist) {
@@ -84,70 +82,79 @@ const MainInformation = () => {
     }, 1000);
   };
 
+  if (status === ASYNC_STATUS.IDLE || status === ASYNC_STATUS.LOADING) {
+    return (
+      <div
+        style={{
+          position: "relative",
+          height: 600,
+        }}
+      >
+        <Loading />
+      </div>
+    );
+  }
+
   return (
     <>
-      {productDetail.name && (
-        <div className={styles["main_information"]}>
-          <div className="container">
-            <Row className={styles["main_information_top"]} gutter={[24, 12]}>
-              <Col xs={24} sm={24} md={10} lg={10} xl={10}>
-                <Images
-                  image={productDetail.image}
-                  images={productDetail.images}
+      <div className={styles["main_information"]}>
+        <div className="container">
+          <Row className={styles["main_information_top"]} gutter={[24, 12]}>
+            <Col xs={24} sm={24} md={10} lg={10} xl={10}>
+              <Images images={data.images} />
+            </Col>
+            <Col xs={24} sm={24} md={14} lg={14} xl={14}>
+              <div className={styles["main_information-right"]}>
+                <Parameter
+                  name={data.name}
+                  star={3}
+                  sold={3}
+                  price={data.price}
+                  sale={data.sale}
                 />
-              </Col>
-              <Col xs={24} sm={24} md={14} lg={14} xl={14}>
-                <div className={styles["main_information-right"]}>
-                  <Parameter
-                    name={productDetail.name}
-                    star={productDetail.star}
-                    sold={productDetail.sold}
-                    price={productDetail.price}
-                    ignorePrice={productDetail.ignorePrice}
-                  />
-                  <Divider />
-                  <Optional
-                    options={productDetail.options}
-                    select={select}
-                    setSelect={setSelect}
-                    warning={warning}
-                    setWarning={setWarning}
-                  />
-                  <Divider />
-                  <Quantity
-                    maxQuantity={productDetail.maxQuantity}
-                    quantity={quantity}
-                    setQuantity={setQuantity}
-                  />
-                  <div className={styles["main_information-right-checkout"]}>
-                    <button
-                      className={styles["main_information-right-checkout-buy"]}
-                    >
-                      {buyNowText}
-                    </button>
-                    <button
-                      className={styles["main_information-right-checkout-cart"]}
-                      onClick={() => handleAddToCart()}
-                    >
-                      {addToCartText}
-                    </button>
-                  </div>
+                <Divider />
+                <Optional
+                  options={JSON.parse(data.options)}
+                  select={select}
+                  setSelect={setSelect}
+                  warning={warning}
+                  setWarning={setWarning}
+                />
+                <Divider />
+                <Quantity
+                  maxQuantity={5}
+                  quantity={quantity}
+                  setQuantity={setQuantity}
+                />
+                <div className={styles["main_information-right-checkout"]}>
+                  <button
+                    className={styles["main_information-right-checkout-buy"]}
+                  >
+                    {buyNowText}
+                  </button>
+                  <button
+                    className={styles["main_information-right-checkout-cart"]}
+                    onClick={handleAddToCart}
+                  >
+                    {addToCartText}
+                  </button>
                 </div>
-              </Col>
-            </Row>
-            <div className={styles["description-inner"]}>
-              <div className={styles["description-title"]}>
-                {productSpecifications}
               </div>
-              <Specifications specifications={productDetail.specifications} />
-              <div className={styles["description-title"]}>
-                {productDescription}
-              </div>
-              <Description description={productDetail.description} />
+            </Col>
+          </Row>
+          <div className={styles["description-inner"]}>
+            <div className={styles["description-title"]}>
+              {productSpecifications}
             </div>
+            <Specifications specifications={JSON.parse(data.specifications)} />
+            <div className={styles["description-title"]}>
+              {productDescription}
+            </div>
+            <Description description={data.description} />
           </div>
         </div>
-      )}
+      </div>
+
       <div
         className={classNames(styles["cart_modal"], {
           [styles["show"]]: cartSuccess,
@@ -156,7 +163,7 @@ const MainInformation = () => {
         <div className={styles["cart_modal_content"]}>
           <CheckCircleOutlined className={styles["cart_modal_content_icon"]} />
           <p className={styles["cart_modal_content_text"]}>
-            {useTranslate("product.addToCartSuccess")}
+            {addToCartSuccess}
           </p>
         </div>
       </div>

@@ -10,8 +10,8 @@ const Parameter: React.FC<{
   star: number;
   sold: number;
   price: number;
-  ignorePrice: number;
-}> = ({ name, star, sold, price, ignorePrice }) => {
+  sale?: number;
+}> = ({ name, star, sold, price, sale = 0 }) => {
   const soldText = useTranslate("products.sold");
 
   return (
@@ -31,11 +31,9 @@ const Parameter: React.FC<{
       <div className={styles["value"]}>
         <span className={styles["value-price"]}>{convertPrice(price)} đ</span>
         <span className={styles["value-price-ignore"]}>
-          {convertPrice(ignorePrice)} đ
+          {convertPrice(discount(price, sale))} đ
         </span>
-        <span className={styles["value-discount"]}>
-          {discount(price, ignorePrice)}%
-        </span>
+        {sale > 0 && <span className={styles["value-discount"]}>{sale}%</span>}
       </div>
     </>
   );

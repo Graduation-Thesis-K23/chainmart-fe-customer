@@ -18,8 +18,6 @@ import useAuth from "~/hooks/useAuth";
 const Header = () => {
   const user = useAuth();
 
-  console.log(user);
-
   const [shadow, setShadow] = useState(false);
 
   const toggleVisible = useCallback(() => {
@@ -34,7 +32,6 @@ const Header = () => {
       setShadow(false);
       return;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shadow]);
 
   useEffect(() => {

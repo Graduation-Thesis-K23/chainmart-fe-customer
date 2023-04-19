@@ -1,10 +1,16 @@
-import React, { memo } from "react";
+import React, { memo, FC } from "react";
 import classNames from "classnames";
 
 import styles from "./Optional.module.scss";
 
-const Optional: React.FC<{
-  options: object;
+interface Option {
+  id: string;
+  label: string;
+  values: string[];
+}
+
+const Optional: FC<{
+  options: Array<Option>;
   select: { [key: string]: string };
   setSelect: React.Dispatch<
     React.SetStateAction<{
@@ -14,7 +20,7 @@ const Optional: React.FC<{
   warning: boolean;
   setWarning: React.Dispatch<React.SetStateAction<boolean>>;
 }> = ({ options, select, setSelect, warning, setWarning }) => {
-  const optional = Object.entries(options);
+  const optional = options.map((i) => i.label);
 
   const handleSelect = (key: string, value: string) => {
     const obj = { ...select };
@@ -37,20 +43,20 @@ const Optional: React.FC<{
       {optional.map((title, index) => (
         <div key={index} className={styles["options"]}>
           <div className={styles["options-title"]}>
-            <span>{String(title[0])}</span>
+            <span>{title}</span>
           </div>
           <div className={styles["options-select"]}>
             <div className={styles["options-select-option-list"]}>
-              {Array.from(title[1]).map((option, index) => (
+              {options[index].values.map((option, index) => (
                 <div
                   key={index}
                   className={classNames(styles["options-select-option-item"], {
                     [styles["options-select-option-item--selected"]]:
-                      checkSelected(title[0], String(option)),
+                      checkSelected(title, option),
                   })}
-                  onClick={() => handleSelect(title[0], String(option))}
+                  onClick={() => handleSelect(title, option)}
                 >
-                  <span>{String(option)}</span>
+                  <span>{option}</span>
                 </div>
               ))}
             </div>

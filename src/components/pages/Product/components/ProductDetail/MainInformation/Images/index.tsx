@@ -6,12 +6,12 @@ import Image from "next/image";
 import ImageSlider from "./ImageSlider";
 
 import styles from "./Images.module.scss";
+import getS3Image from "~/helpers/get-s3-image";
 
 const Images: React.FC<{
-  image: string;
   images: Array<string>;
-}> = ({ image, images }) => {
-  const [imageShow, setImageShow] = useState<string>(image);
+}> = ({ images }) => {
+  const [imageShow, setImageShow] = useState<string>(getS3Image(images[0]));
   const [visible, setVisible] = useState<boolean>(false);
 
   return (
@@ -48,14 +48,13 @@ const Images: React.FC<{
             },
           }}
         >
-          {images &&
-            images.map((i, index) => (
-              <ImageSlider
-                key={index}
-                src={i}
-                onMouseEnter={() => setImageShow(i)}
-              />
-            ))}
+          {images.map((i, index) => (
+            <ImageSlider
+              key={index}
+              src={getS3Image(i)}
+              onMouseEnter={() => setImageShow(getS3Image(i))}
+            />
+          ))}
         </Carousel>
       </div>
     </div>

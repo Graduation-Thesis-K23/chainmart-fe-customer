@@ -7,7 +7,11 @@ const nextConfig = {
   output: "standalone",
 
   images: {
-    domains: ["picsum.photos", "lh3.googleusercontent.com"],
+    domains: [
+      "picsum.photos",
+      "lh3.googleusercontent.com",
+      "api.chainmart.site",
+    ],
   },
 };
 

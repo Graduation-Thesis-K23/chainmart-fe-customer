@@ -18,6 +18,8 @@ import { MAIN_LAYOUT, AUTH_LAYOUT, SETTING_LAYOUT } from "~/constants";
 import "react-toastify/dist/ReactToastify.css";
 import "~/styles/index.scss";
 import { AuthProvider } from "~/hooks/useAuth";
+import { Provider } from "react-redux";
+import { store } from "~/redux";
 
 export const nunito = Baloo_2({
   weight: ["400", "500", "600", "700", "800"],
@@ -118,28 +120,30 @@ const MyApp = ({ Component, pageProps, router }: AppPropsWithLayout) => {
         <link rel="manifest" href="/site.webmanifest" />
       </Head>
       <ErrorBoundary>
-        <ProductDetailContext.ProductDetailProvider>
-          <CartContext.CartProvider>
-            <AuthProvider>
-              <LocalesProvider>
-                <>
-                  {isRouteChanging ? (
-                    <Loading />
-                  ) : (
-                    <div className={nunito.className}>
-                      <Layout>
-                        <>
-                          <Component {...pageProps} />
-                          <ToastContainer />
-                        </>
-                      </Layout>
-                    </div>
-                  )}
-                </>
-              </LocalesProvider>
-            </AuthProvider>
-          </CartContext.CartProvider>
-        </ProductDetailContext.ProductDetailProvider>
+        <Provider store={store}>
+          <ProductDetailContext.ProductDetailProvider>
+            <CartContext.CartProvider>
+              <AuthProvider>
+                <LocalesProvider>
+                  <>
+                    {isRouteChanging ? (
+                      <Loading />
+                    ) : (
+                      <div className={nunito.className}>
+                        <Layout>
+                          <>
+                            <Component {...pageProps} />
+                            <ToastContainer />
+                          </>
+                        </Layout>
+                      </div>
+                    )}
+                  </>
+                </LocalesProvider>
+              </AuthProvider>
+            </CartContext.CartProvider>
+          </ProductDetailContext.ProductDetailProvider>
+        </Provider>
       </ErrorBoundary>
     </>
   );

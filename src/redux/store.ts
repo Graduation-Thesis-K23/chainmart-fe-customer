@@ -3,11 +3,13 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 import { productsReducer } from "./products";
 import { productReducer } from "./product";
+import { familiarReducer } from "./familiar";
 
 const store = configureStore({
   reducer: {
     products: productsReducer,
     product: productReducer,
+    familiar: familiarReducer,
   },
 });
 

@@ -1,6 +1,5 @@
 import { SitemapStream, streamToPromise } from "sitemap";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getProducts } from "~/apis/Home";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -9,20 +8,20 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     });
 
     // List of posts
-    const posts = (await getProducts()).map((i) => {
+    /* const posts = (await getProducts()).map((i) => {
       return {
         slug: i.params.slug,
       };
-    });
+    }); */
 
     // Create each URL row
-    posts.forEach((post) => {
+    /*  posts.forEach((post) => {
       smStream.write({
         url: `/${post.slug}`,
         changefreq: "daily",
         priority: 0.9,
       });
-    });
+    }); */
 
     // End sitemap stream
     smStream.end();

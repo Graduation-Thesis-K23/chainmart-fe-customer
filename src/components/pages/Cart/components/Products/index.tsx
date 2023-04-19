@@ -23,7 +23,7 @@ const Products = () => {
   const { cart } = useCart();
 
   const handleChangeQuantity = (
-    id: number,
+    id: string,
     classify: object,
     action: string
   ) => {
@@ -76,7 +76,7 @@ const Products = () => {
                           {item.name}
                         </p>
                         <p className={styles["products_table_body_name_bot"]}>
-                          {convertClassify(item.classify)}
+                          {convertClassify(item.select)}
                         </p>
                       </Link>
                     </div>
@@ -94,7 +94,7 @@ const Products = () => {
                             item.quantity === 1,
                         })}
                         onClick={() =>
-                          handleChangeQuantity(item.id, item.classify, DECREASE)
+                          handleChangeQuantity(item.id, item.select, DECREASE)
                         }
                       >
                         -
@@ -108,7 +108,7 @@ const Products = () => {
                             item.quantity === item.maxQuantity,
                         })}
                         onClick={() =>
-                          handleChangeQuantity(item.id, item.classify, INCREASE)
+                          handleChangeQuantity(item.id, item.select, INCREASE)
                         }
                       >
                         +

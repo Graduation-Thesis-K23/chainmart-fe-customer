@@ -5,8 +5,9 @@ import instance from "~/services/axios-instance";
 import { ProductType } from "./../products/slide";
 import { RootState } from "../store";
 
-export interface Product extends Omit<ProductType, "images"> {
+export interface Product extends Omit<ProductType, "images" | "category"> {
   images: string[];
+  category: string;
 }
 export interface ProductState {
   data: Product;
@@ -28,6 +29,7 @@ export const productSlice = createSlice({
       state.data = {
         ...action.payload,
         images: action.payload.images.split(","),
+        category: action.payload.category.name,
       };
     },
   },
@@ -44,6 +46,7 @@ export const productSlice = createSlice({
       const product = {
         ...payload,
         images: payload.images.split(","),
+        category: payload.category.name,
       };
 
       state.data = product;

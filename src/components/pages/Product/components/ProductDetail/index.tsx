@@ -6,8 +6,10 @@ import MainInformation from "./MainInformation";
 import Rating from "./Rating";
 
 import styles from "./ProductDetail.module.scss";
+import { useAppSelector } from "~/redux";
 
 const ProductDetail = () => {
+  const { data } = useAppSelector((state) => state.product);
   return (
     <>
       <MainInformation />
@@ -18,7 +20,7 @@ const ProductDetail = () => {
               <Rating />
             </Col>
             <Col xs={24} sm={24} md={7} lg={5} xl={5}>
-              <Familiar />
+              <Familiar id={data.id} />
             </Col>
           </Row>
         </div>

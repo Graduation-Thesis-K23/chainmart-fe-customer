@@ -4,6 +4,11 @@ import { ASYNC_STATUS } from "../constants";
 import instance from "~/services/axios-instance";
 import { RootState } from "../store";
 
+type CategoryType = {
+  id: string;
+  name: string;
+  description: string;
+};
 export interface ProductType {
   id: string;
   name: string;
@@ -13,7 +18,7 @@ export interface ProductType {
   images: string;
   created_at: string;
   supplier: string;
-  category: string;
+  category: CategoryType;
   slug: string;
   expiry_date: string;
   description: string;

@@ -41,7 +41,10 @@ const Product: NextPageWithLayout<{
             <meta name="description" content={product.description} />
             <meta property="og:title" content={product.name} />
             <meta property="og:description" content={product.description} />
-            <meta property="og:image" content={getS3Image(product.images[0])} />
+            <meta
+              property="og:image"
+              content={getS3Image(product.images.split(",")[0])}
+            />
           </Head>
           <ProductPage />
         </>
@@ -56,6 +59,8 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   const { slug } = context.params as IParams;
 
   const product = await instance("/api/products/slug/" + slug);
+
+  console.log(product);
 
   return {
     props: { product },

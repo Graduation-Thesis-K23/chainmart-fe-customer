@@ -46,3 +46,8 @@ export interface ICart {
   quantity: number;
   select: { [key: string]: string };
 }
+
+export interface SignInPayload {
+  username: string;
+  password: string;
+}

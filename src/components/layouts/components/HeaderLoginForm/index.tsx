@@ -12,26 +12,27 @@ import styles from "./HeaderLoginForm.module.scss";
 import facebookSvg from "~/assets/icons/facebook-color.svg";
 import googleSvg from "~/assets/icons/google-color.svg";
 import { REGISTER_STATE, FORGOT_STATE } from "../HeaderLogin";
-import { SignInPayload, signIn } from "~/apis/auth";
+import { signIn, useAppDispatch } from "~/redux";
+import { SignInPayload } from "~/shared/interfaces";
 
 const HeaderLoginForm: React.FC<{
   setFormCode: React.Dispatch<React.SetStateAction<number>>;
 }> = ({ setFormCode }) => {
-  const { control, handleSubmit } = useForm({
+  const dispatch = useAppDispatch();
+
+  const {
+    control,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm({
     defaultValues: {
       username: "",
       password: "",
     },
   });
 
-  const onSubmit: SubmitHandler<SignInPayload> = async (payload) => {
-    const response = await signIn(payload);
-
-    if (response) {
-      document.location.href = "/";
-    } else {
-      console.log("show error message");
-    }
+  const onSubmit: SubmitHandler<SignInPayload> = async (account) => {
+    await dispatch(signIn(account));
   };
 
   return (
@@ -55,7 +56,11 @@ const HeaderLoginForm: React.FC<{
             type="password"
           />
 
-          <button type="submit" className={styles["login-btn"]}>
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className={styles["login-btn"]}
+          >
             <Translate textKey="header.topRight.login" />
           </button>
         </form>

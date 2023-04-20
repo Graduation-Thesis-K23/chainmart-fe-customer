@@ -2,15 +2,18 @@ import React, { memo } from "react";
 import Link from "next/link";
 
 import { default as translate } from "~/hooks/useLocales";
+import { logout, useAppDispatch } from "~/redux";
 
 const Options: React.FC<{
   href: string;
   optionKey: string;
 }> = ({ href, optionKey }) => {
-  const handleLogout = () => {
-    document.cookie =
-      "access_token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;'";
-    document.location.href = "/";
+  const dispatch = useAppDispatch();
+
+  const handleLogout = async () => {
+    await dispatch(logout());
+
+    window.location.href = "/";
   };
 
   if (href === "/logout") {

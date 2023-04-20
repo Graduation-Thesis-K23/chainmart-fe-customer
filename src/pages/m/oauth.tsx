@@ -7,9 +7,11 @@ import instance from "~/services/axios-instance";
 const OAuth: NextPage<{ refresh_token: string }> = ({ refresh_token }) => {
   useEffect(() => {
     const getAccessToken = async () => {
-      await instance.get("/api/auth/oauth?refresh_token=" + refresh_token);
+      const response = await instance.get(
+        "/api/auth/oauth?refresh_token=" + refresh_token
+      );
 
-      window.location.href = "/";
+      console.log(response);
     };
 
     getAccessToken();

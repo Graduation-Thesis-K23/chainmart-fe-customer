@@ -69,11 +69,15 @@ const HeaderLoginForm: React.FC<{
           <Translate textKey="login.forgotPassword" />
         </button>
         <div className={styles["oauth"]}>
-          <Link href="/google" className={styles["oauth-btn"]} prefetch={false}>
+          <Link
+            href={`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/google`}
+            className={styles["oauth-btn"]}
+            prefetch={false}
+          >
             <Image src={googleSvg} alt="facebook-logo" width={48} height={48} />
           </Link>
           <Link
-            href="/facebook"
+            href={`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/facebook`}
             className={styles["oauth-btn"]}
             prefetch={false}
           >

@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Divider } from "antd";
@@ -12,18 +12,21 @@ import styles from "./HeaderLoginForm.module.scss";
 import facebookSvg from "~/assets/icons/facebook-color.svg";
 import googleSvg from "~/assets/icons/google-color.svg";
 import { REGISTER_STATE, FORGOT_STATE } from "../HeaderLogin";
-import { signIn, useAppDispatch } from "~/redux";
+import { signIn, useAppDispatch, useAppSelector } from "~/redux";
 import { SignInPayload } from "~/shared/interfaces";
 
 const HeaderLoginForm: React.FC<{
   setFormCode: React.Dispatch<React.SetStateAction<number>>;
 }> = ({ setFormCode }) => {
+  const [showError, setShowError] = useState(false);
+
   const dispatch = useAppDispatch();
+  const { message } = useAppSelector((state) => state.user);
 
   const {
     control,
     handleSubmit,
-    formState: { isSubmitting },
+    formState: { isSubmitting, isValid },
   } = useForm({
     defaultValues: {
       username: "",
@@ -32,7 +35,18 @@ const HeaderLoginForm: React.FC<{
   });
 
   const onSubmit: SubmitHandler<SignInPayload> = async (account) => {
-    await dispatch(signIn(account));
+    const response = await dispatch(signIn(account));
+
+    if ("error" in response) {
+      setShowError(true);
+    }
+  };
+
+  const handleFormChange = () => {
+    if (!showError) {
+      return;
+    }
+    setShowError(false);
   };
 
   return (
@@ -41,7 +55,7 @@ const HeaderLoginForm: React.FC<{
         <div className={styles["form_title"]}>
           <Translate textKey="login.title" />
         </div>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} onChange={handleFormChange}>
           <HeaderLoginInput
             control={control}
             name="username"
@@ -55,10 +69,10 @@ const HeaderLoginForm: React.FC<{
             labelKey="settings.password"
             type="password"
           />
-
+          {showError && <p>{message}</p>}
           <button
             type="submit"
-            disabled={isSubmitting}
+            disabled={isSubmitting || !isValid}
             className={styles["login-btn"]}
           >
             <Translate textKey="header.topRight.login" />

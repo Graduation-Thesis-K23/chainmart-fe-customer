@@ -12,13 +12,11 @@ const Input: React.FC<{
   labelMarginBottom?: number;
   labelFontSize?: number;
   type?: HTMLInputTypeAttribute;
-  ref?: RefCallBack;
 }> = ({
   labelKey,
   type = "text",
   icon,
   onChange,
-  ref,
   labelMarginBottom = 14,
   labelFontSize = 12,
 }) => {
@@ -59,8 +57,6 @@ const Input: React.FC<{
           onBlur={handleInputBlur}
           onChange={onChange}
           id={id}
-          ref={ref}
-          required
         />
         <span className={styles["focus-border"]}></span>
       </div>

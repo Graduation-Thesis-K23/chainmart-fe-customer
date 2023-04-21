@@ -17,6 +17,11 @@ const HeaderLoginInput: React.FC<{
     <Controller
       name={name}
       control={control}
+      rules={{
+        required: true,
+        maxLength: 32,
+        minLength: 8,
+      }}
       render={({ field: { onChange } }) => (
         <Input
           labelKey={labelKey}

@@ -16,11 +16,13 @@ export interface User {
 export interface UserState {
   data: User;
   status: typeof ASYNC_STATUS[keyof typeof ASYNC_STATUS];
+  message: string;
 }
 
 const initialState: UserState = {
   data: {} as unknown as User,
   status: ASYNC_STATUS.IDLE,
+  message: "",
 };
 
 export const loginSlide = createSlice({
@@ -43,15 +45,16 @@ export const loginSlide = createSlice({
       state.status = ASYNC_STATUS.SUCCEED;
       state.data = payload;
     });
-    builder.addCase(signIn.rejected, (state) => {
+    builder.addCase(signIn.rejected, (state, action) => {
       state.status = ASYNC_STATUS.FAILED;
       state.data = {} as unknown as User;
+      state.message = action.error.message as unknown as string;
     });
   },
 });
 
 export const checkCookieToken = createAsyncThunk(
-  "login/checkCookie",
+  "user/checkCookie",
   async (): Promise<User> => {
     const response = await instance.post("/api/auth/check-token");
 

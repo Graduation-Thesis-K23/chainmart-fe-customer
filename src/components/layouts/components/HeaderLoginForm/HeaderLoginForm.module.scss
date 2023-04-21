@@ -24,6 +24,11 @@
     }
   }
 
+  .login-btn:disabled,
+  .login-btn[disabled] {
+    background-color: #42cf715d;
+  }
+
   .forgot_link {
     display: block;
     font-size: 13px;

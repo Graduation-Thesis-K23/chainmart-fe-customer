@@ -10,8 +10,7 @@
     "prepare": "husky install",
     "prettier": "npx prettier --write .",
     "prettier:check": "prettier --config .prettierrc.json --check .",
-    "husky install": "husky install",
-    "semantic-release": "semantic-release"
+    "husky install": "husky install"
   },
   "dependencies": {
     "@ant-design/icons": "^4.8.0",

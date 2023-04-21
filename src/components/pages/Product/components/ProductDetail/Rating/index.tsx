@@ -6,8 +6,8 @@ import RatingFilter from "./RatingFilter";
 import styles from "./Rating.module.scss";
 import useProductDetail from "~/contexts/ProductDetailContext";
 import { Comment } from "~/interfaces";
-import getRatingProduct from "~/apis/Product/get-rating-product";
 import useTranslate from "~/hooks/useLocales";
+import getRatingProduct from "~/apis/Product/get-rating-product";
 
 const Rating = () => {
   const { id } = useProductDetail().productDetail;

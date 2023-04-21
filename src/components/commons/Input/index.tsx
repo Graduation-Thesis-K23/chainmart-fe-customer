@@ -1,6 +1,5 @@
 import React, { HTMLInputTypeAttribute, memo, useId, useState } from "react";
 import classNames from "classnames";
-import { RefCallBack } from "react-hook-form";
 
 import styles from "./Input.module.scss";
 import Translate from "../Translate";
@@ -12,6 +11,7 @@ const Input: React.FC<{
   labelMarginBottom?: number;
   labelFontSize?: number;
   type?: HTMLInputTypeAttribute;
+  marginBottom?: number;
 }> = ({
   labelKey,
   type = "text",
@@ -19,6 +19,7 @@ const Input: React.FC<{
   onChange,
   labelMarginBottom = 14,
   labelFontSize = 12,
+  marginBottom = 10,
 }) => {
   const [active, setActive] = useState(false);
 
@@ -33,7 +34,12 @@ const Input: React.FC<{
   };
 
   return (
-    <div className={styles["input-group"]}>
+    <div
+      className={styles["input-group"]}
+      style={{
+        marginBottom,
+      }}
+    >
       <label
         style={{
           marginBottom: labelMarginBottom,

@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { ASYNC_STATUS } from "../constants";
 import instance from "~/services/axios-instance";
 import { RootState } from "../store";
-import { SignInPayload } from "~/shared/interfaces";
+import { SignInPayload, SignUpPayload } from "~/shared/interfaces";
 
 export interface User {
   name: string;
@@ -50,6 +50,15 @@ export const loginSlide = createSlice({
       state.data = {} as unknown as User;
       state.message = action.error.message as unknown as string;
     });
+    builder.addCase(signUp.fulfilled, (state, { payload }) => {
+      state.status = ASYNC_STATUS.SUCCEED;
+      state.data = payload;
+    });
+    builder.addCase(signUp.rejected, (state, action) => {
+      state.status = ASYNC_STATUS.FAILED;
+      state.data = {} as unknown as User;
+      state.message = action.error.message as unknown as string;
+    });
   },
 });
 
@@ -86,6 +95,19 @@ export const signIn = createAsyncThunk(
   "user/signIn",
   async (account: SignInPayload) => {
     const response = await instance.post("/api/auth/sign-in", account);
+
+    if ("message" in response) {
+      return await Promise.reject(response);
+    }
+
+    return response as unknown as User;
+  }
+);
+
+export const signUp = createAsyncThunk(
+  "user/signUp",
+  async (account: SignUpPayload) => {
+    const response = await instance.post("/api/auth/sign-up", account);
 
     if ("message" in response) {
       return await Promise.reject(response);

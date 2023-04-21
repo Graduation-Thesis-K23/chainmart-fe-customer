@@ -1,5 +1,5 @@
 import React, { HTMLInputTypeAttribute, memo } from "react";
-import { Control, Controller } from "react-hook-form";
+import { Control, Controller, RegisterOptions } from "react-hook-form";
 
 import Input from "~/components/commons/Input";
 
@@ -14,11 +14,13 @@ const HeaderRegisterInput: React.FC<{
   icon: JSX.Element;
   labelKey: string;
   type?: HTMLInputTypeAttribute;
-}> = ({ control, name, labelKey, icon, type = "text" }) => {
+  rules?: RegisterOptions;
+}> = ({ control, name, labelKey, icon, type = "text", rules = {} }) => {
   return (
     <Controller
       name={name}
       control={control}
+      rules={rules}
       render={({ field: { onChange } }) => (
         <Input
           labelKey={labelKey}
@@ -27,6 +29,7 @@ const HeaderRegisterInput: React.FC<{
           type={type}
           labelMarginBottom={0}
           labelFontSize={16}
+          marginBottom={2}
         />
       )}
     />

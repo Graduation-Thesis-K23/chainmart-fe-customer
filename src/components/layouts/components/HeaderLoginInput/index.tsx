@@ -28,8 +28,9 @@ const HeaderLoginInput: React.FC<{
           icon={icon}
           onChange={onChange}
           type={type}
-          labelMarginBottom={6}
+          labelMarginBottom={2}
           labelFontSize={16}
+          marginBottom={2}
         />
       )}
     />

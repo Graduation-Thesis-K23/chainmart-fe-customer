@@ -5,9 +5,7 @@ import classNames from "classnames";
 
 import HeaderBottomCart from "../HeaderCart";
 import HeaderBottomSearch from "../HeaderSearch";
-import HeaderUser from "../HeaderUser";
 import HeaderLanguage from "../HeaderLanguage";
-import HeaderLogin from "../HeaderLogin";
 
 import logo from "~/assets/images/logo.png";
 import logoSquare from "~/assets/images/logo-square.png";

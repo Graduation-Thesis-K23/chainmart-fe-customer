@@ -14,6 +14,8 @@ import googleSvg from "~/assets/icons/google-color.svg";
 import { REGISTER_STATE, FORGOT_STATE } from "../HeaderLogin";
 import { signIn, useAppDispatch, useAppSelector } from "~/redux";
 import { SignInPayload } from "~/shared/interfaces";
+import { ErrorMessage } from "@hookform/error-message";
+import { default as dictionary } from "~/hooks/useLocales";
 
 const HeaderLoginForm: React.FC<{
   setFormCode: React.Dispatch<React.SetStateAction<number>>;
@@ -26,12 +28,14 @@ const HeaderLoginForm: React.FC<{
   const {
     control,
     handleSubmit,
-    formState: { isSubmitting, isValid },
+    formState: { isSubmitting, isValid, errors },
   } = useForm({
     defaultValues: {
       username: "",
       password: "",
     },
+    mode: "onTouched",
+    reValidateMode: "onChange",
   });
 
   const onSubmit: SubmitHandler<SignInPayload> = async (account) => {
@@ -59,16 +63,48 @@ const HeaderLoginForm: React.FC<{
           <HeaderLoginInput
             control={control}
             name="username"
+            rules={{
+              required: dictionary("username.notEmpty"),
+              minLength: {
+                message: dictionary("username.minLength"),
+                value: 8,
+              },
+              maxLength: {
+                message: dictionary("username.maxLength"),
+                value: 32,
+              },
+              pattern: {
+                value: /^([a-z])([a-z0-9_])+$/gu,
+                message: dictionary("username.inValid"),
+              },
+            }}
             icon={<IdcardOutlined />}
             labelKey="settings.username"
           />
+          <ErrorMessage errors={errors} name="username" />
           <HeaderLoginInput
             control={control}
             name="password"
+            rules={{
+              required: dictionary("password.empty"),
+              minLength: {
+                message: dictionary("password.minLength"),
+                value: 8,
+              },
+              maxLength: {
+                message: dictionary("password.maxLength"),
+                value: 32,
+              },
+              pattern: {
+                value: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
+                message: dictionary("password.notStrong"),
+              },
+            }}
             icon={<LockOutlined />}
             labelKey="settings.password"
             type="password"
           />
+          <ErrorMessage errors={errors} name="password" />
           {showError && <p>{message}</p>}
           <button
             type="submit"

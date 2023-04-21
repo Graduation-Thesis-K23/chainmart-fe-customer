@@ -21,11 +21,12 @@ const HeaderRegisterInput: React.FC<{
       name={name}
       control={control}
       rules={rules}
-      render={({ field: { onChange } }) => (
+      render={({ field: { onChange, onBlur } }) => (
         <Input
           labelKey={labelKey}
           icon={icon}
           onChange={onChange}
+          onBlur={onBlur}
           type={type}
           labelMarginBottom={0}
           labelFontSize={16}

@@ -1,5 +1,5 @@
 import React, { HTMLInputTypeAttribute, memo } from "react";
-import { Control, Controller } from "react-hook-form";
+import { Control, Controller, RegisterOptions } from "react-hook-form";
 
 import Input from "~/components/commons/Input";
 
@@ -12,22 +12,20 @@ const HeaderLoginInput: React.FC<{
   icon: JSX.Element;
   labelKey: string;
   type?: HTMLInputTypeAttribute;
-}> = ({ control, name, icon, labelKey, type = "text" }) => {
+  rules?: RegisterOptions;
+}> = ({ control, name, icon, labelKey, type = "text", rules = {} }) => {
   return (
     <Controller
       name={name}
       control={control}
-      rules={{
-        required: true,
-        maxLength: 32,
-        minLength: 8,
-      }}
-      render={({ field: { onChange } }) => (
+      rules={rules}
+      render={({ field: { onChange, onBlur } }) => (
         <Input
           labelKey={labelKey}
           icon={icon}
           onChange={onChange}
           type={type}
+          onBlur={onBlur}
           labelMarginBottom={2}
           labelFontSize={16}
           marginBottom={2}

@@ -3,6 +3,7 @@ import classNames from "classnames";
 
 import styles from "./Input.module.scss";
 import Translate from "../Translate";
+import { Noop } from "react-hook-form";
 
 const Input: React.FC<{
   labelKey: string;
@@ -12,6 +13,7 @@ const Input: React.FC<{
   labelFontSize?: number;
   type?: HTMLInputTypeAttribute;
   marginBottom?: number;
+  onBlur?: Noop;
 }> = ({
   labelKey,
   type = "text",
@@ -20,6 +22,7 @@ const Input: React.FC<{
   labelMarginBottom = 14,
   labelFontSize = 12,
   marginBottom = 10,
+  onBlur = () => {},
 }) => {
   const [active, setActive] = useState(false);
 
@@ -30,6 +33,7 @@ const Input: React.FC<{
   };
 
   const handleInputBlur = () => {
+    onBlur();
     setActive(false);
   };
 

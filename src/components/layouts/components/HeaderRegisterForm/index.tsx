@@ -38,8 +38,8 @@ const HeaderRegisterForm: React.FC<{
       name: "",
       email: "",
     },
-    mode: "all",
-    shouldFocusError: true,
+    mode: "onTouched",
+    reValidateMode: "onChange",
   });
 
   const onSubmit: SubmitHandler<SignUpPayload> = async (account) => {
@@ -93,7 +93,7 @@ const HeaderRegisterForm: React.FC<{
             rules={{
               required: dictionary("fullName.notEmpty"),
               pattern: {
-                value: /^[A-Z][a-zA-Z]{3,}(?: [A-Z][a-zA-Z]*){0,2}\s?$/gu,
+                value: /^[A-Z][a-zA-Z]{3,}(?: [A-Z][a-zA-Z]*){0,2}\s?$/g,
                 message: dictionary("fullName.inValid"),
               },
               maxLength: {
@@ -142,7 +142,8 @@ const HeaderRegisterForm: React.FC<{
                 value: 32,
               },
               pattern: {
-                value: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
+                value:
+                  /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/g,
                 message: dictionary("password.notStrong"),
               },
             }}

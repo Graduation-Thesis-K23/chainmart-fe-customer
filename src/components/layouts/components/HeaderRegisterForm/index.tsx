@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import {
   IdcardOutlined,
@@ -16,11 +16,15 @@ import Translate from "~/components/commons/Translate";
 import { SignUpPayload } from "~/shared/interfaces";
 import { ErrorMessage } from "@hookform/error-message";
 import { signUp, useAppDispatch } from "~/redux";
+import { default as dictionary } from "~/hooks/useLocales";
 
 const HeaderRegisterForm: React.FC<{
   setFormCode: React.Dispatch<React.SetStateAction<number>>;
 }> = ({ setFormCode }) => {
   const dispatch = useAppDispatch();
+
+  const emailExistedText = dictionary("email.existed");
+  const usernameExistedText = dictionary("username.existed");
 
   const {
     control,
@@ -34,10 +38,11 @@ const HeaderRegisterForm: React.FC<{
       name: "",
       email: "",
     },
+    mode: "all",
+    shouldFocusError: true,
   });
 
   const onSubmit: SubmitHandler<SignUpPayload> = async (account) => {
-    // setError("username", { type: "focus" }, { shouldFocus: true });
     const response = await dispatch(signUp(account));
     if ("error" in response) {
       switch (response.error.message) {
@@ -46,7 +51,7 @@ const HeaderRegisterForm: React.FC<{
             "username",
             {
               type: "manual",
-              message: "username.existed",
+              message: usernameExistedText,
             },
             { shouldFocus: true }
           );
@@ -56,7 +61,7 @@ const HeaderRegisterForm: React.FC<{
             "email",
             {
               type: "manual",
-              message: "email.existed",
+              message: emailExistedText,
             },
             { shouldFocus: true }
           );
@@ -86,15 +91,14 @@ const HeaderRegisterForm: React.FC<{
           <HeaderRegisterInput
             control={control}
             rules={{
-              required: "fullName.notEmpty",
+              required: dictionary("fullName.notEmpty"),
               pattern: {
-                value: /^[A-Z][a-zA-Z]{3,}(?: [A-Z][a-zA-Z]*){0,2}$/g,
-                message: "fullName.inValid",
+                value: /^[A-Z][a-zA-Z]{3,}(?: [A-Z][a-zA-Z]*){0,2}\s?$/gu,
+                message: dictionary("fullName.inValid"),
               },
-              minLength: 8,
               maxLength: {
                 value: 52,
-                message: "fullName.maxLength",
+                message: dictionary("fullName.maxLength"),
               },
             }}
             name="name"
@@ -105,14 +109,18 @@ const HeaderRegisterForm: React.FC<{
           <HeaderRegisterInput
             control={control}
             rules={{
-              required: "username.notEmpty",
+              required: dictionary("username.notEmpty"),
               minLength: {
-                message: "username.minLength",
+                message: dictionary("username.minLength"),
                 value: 8,
               },
               maxLength: {
-                message: "username.maxLength",
+                message: dictionary("username.maxLength"),
                 value: 32,
+              },
+              pattern: {
+                value: /^([a-z])([a-z0-9_])+$/gu,
+                message: dictionary("username.inValid"),
               },
             }}
             name="username"
@@ -120,23 +128,22 @@ const HeaderRegisterForm: React.FC<{
             icon={<UserOutlined />}
           />
           <ErrorMessage errors={errors} name="username" />
-
           <HeaderRegisterInput
             control={control}
             name="password"
             rules={{
-              required: "password.empty",
+              required: dictionary("password.empty"),
               minLength: {
-                message: "password.minLength",
+                message: dictionary("password.minLength"),
                 value: 8,
               },
               maxLength: {
-                message: "password.maxLength",
+                message: dictionary("password.maxLength"),
                 value: 32,
               },
               pattern: {
                 value: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
-                message: "password.notStrong",
+                message: dictionary("password.notStrong"),
               },
             }}
             labelKey="login.createPassword"
@@ -144,23 +151,20 @@ const HeaderRegisterForm: React.FC<{
             icon={<LockOutlined />}
           />
           <ErrorMessage errors={errors} name="password" />
-
           <HeaderRegisterInput
             control={control}
             rules={{
-              required: "email.empty",
+              required: dictionary("email.empty"),
               pattern: {
                 value: /^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
-                message: "email.inValid",
+                message: dictionary("email.inValid"),
               },
             }}
             name="email"
-            type="email"
             labelKey="settings.email"
             icon={<MailOutlined />}
           />
           <ErrorMessage errors={errors} name="email" />
-
           <button
             type="submit"
             disabled={isSubmitting || !isValid}

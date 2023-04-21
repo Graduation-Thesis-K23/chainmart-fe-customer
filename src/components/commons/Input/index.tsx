@@ -63,6 +63,7 @@ const Input: React.FC<{
           onBlur={handleInputBlur}
           onChange={onChange}
           id={id}
+          autoComplete="off"
         />
         <span className={styles["focus-border"]}></span>
       </div>

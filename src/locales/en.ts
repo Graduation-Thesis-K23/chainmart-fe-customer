@@ -128,4 +128,22 @@ export default {
   "product.notSelect": "Didn't choice classify",
   // product-rating
   "product.ratingHeader": "Rating",
+  // error
+  "fullName.notEmpty": "Họ và tên không được để trống.",
+  "fullName.inValid": "Họ và tên không chứ số và viết hoa chữ cái đầu.",
+  "fullName.maxLength": "Họ và tên không quá 52 ký tự.",
+  "username.notEmpty": "Tên người dùng không được để trống.d",
+  "username.minLength": "Tên người dùng tối thiểu 8 ký tự.",
+  "username.maxLength": "Tên người dùng tối đa 32 ký tự.",
+  "username.existed": "Tên người dùng đã tồn tại.",
+  "username.inValid":
+    "Tên người dùng bắt đầu bằng chữ, có thể chứa _ và không có ký tự đặc biệt.",
+  "password.empty": "Mật khẩu không được để trống.",
+  "password.minLength": "Mật khẩu tối thiểu 8 ký tự.",
+  "password.maxLength": "Mật khẩu tối đa 32 ký tự.",
+  "password.notStrong":
+    "Mật khẩu phải có ít nhất một chữ viết hoa, một chữ viết thường, một số và một ký tự đặc biệt @, !, #,...",
+  "email.empty": "Email không được để trống.",
+  "email.inValid": "Email không đúng định dạng.",
+  "email.existed": "Email đã tồn tại.",
 };

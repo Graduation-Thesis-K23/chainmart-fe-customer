@@ -129,7 +129,7 @@ export default {
   "fullName.notEmpty": "Họ và tên không được để trống.",
   "fullName.inValid": "Họ và tên không chứa số và viết hoa chữ cái đầu.",
   "fullName.maxLength": "Họ và tên không quá 52 ký tự.",
-  "username.notEmpty": "Tên người dùng không được để trống.d",
+  "username.notEmpty": "Tên người dùng không được để trống.",
   "username.minLength": "Tên người dùng tối thiểu 8 ký tự.",
   "username.maxLength": "Tên người dùng tối đa 32 ký tự.",
   "username.existed": "Tên người dùng đã tồn tại.",

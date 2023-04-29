@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState, useId } from "react";
 import { Menu } from "antd";
+import { useRouter } from "next/router";
 import {
   ProfileOutlined,
   UnlockOutlined,
@@ -13,8 +14,17 @@ import AccountsConnect from "./components/AccountsConnect";
 import MenuItem from "./components/MenuItem";
 import MyAddress from "./components/MyAddress";
 import ChangePassword from "./components/ChangePassword";
+import { useAppSelector } from "~/redux";
+import { ASYNC_STATUS } from "~/redux/constants";
+import Loading from "~/components/atomics/Loading";
+
+const SMALL_MENU_WIDTH = 56;
+const LARGE_MENU_WIDTH = 256;
 
 const Setting = () => {
+  const { status } = useAppSelector((state) => state.user);
+
+  const router = useRouter();
   const [collapsed, setCollapsed] = useState<boolean>(true);
 
   const profileId = useId();
@@ -39,6 +49,12 @@ const Setting = () => {
   }, [collapsed]);
 
   useEffect(() => {
+    if (status !== ASYNC_STATUS.SUCCEED) {
+      router.push("/");
+    }
+  }, [router, status]);
+
+  useEffect(() => {
     if (window.innerWidth < 1200) {
       setCollapsed(true);
     } else {
@@ -54,6 +70,10 @@ const Setting = () => {
     };
   }, [onResize]);
 
+  if (status !== ASYNC_STATUS.SUCCEED) {
+    return <Loading />;
+  }
+
   return (
     <>
       <Menu
@@ -61,7 +81,7 @@ const Setting = () => {
           position: "fixed",
           top: 64,
           left: 0,
-          width: collapsed ? 56 : 256,
+          width: collapsed ? SMALL_MENU_WIDTH : LARGE_MENU_WIDTH,
           height: "100%",
           border: "none",
         }}
@@ -96,7 +116,7 @@ const Setting = () => {
         style={{
           position: "absolute",
           top: 64,
-          left: collapsed ? 56 : 256,
+          left: collapsed ? SMALL_MENU_WIDTH : LARGE_MENU_WIDTH,
           width: collapsed ? "calc(100vw - 56px)" : "calc(100vw - 256px)",
           padding: 16,
           backgroundColor: "#f2f5fc",

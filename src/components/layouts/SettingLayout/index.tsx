@@ -7,10 +7,25 @@ import MultiLanguage from "~/components/commons/MultiLanguage";
 
 import logoSquare from "~/assets/images/logo-square.png";
 import styles from "./SettingLayout.module.scss";
+import Loading from "~/components/atomics/Loading";
+import { ASYNC_STATUS } from "~/redux/constants";
+import { useAppSelector } from "~/redux";
+import { Avatar } from "antd";
 
 const SettingLayout: React.FC<{
   children: JSX.Element;
 }> = ({ children }) => {
+  const { status, data } = useAppSelector((state) => state.user);
+
+  if (status !== ASYNC_STATUS.SUCCEED) {
+    return (
+      <>
+        {children}
+        <Loading />
+      </>
+    );
+  }
+
   return (
     <>
       <header className={styles["header"]}>
@@ -27,13 +42,19 @@ const SettingLayout: React.FC<{
             />
           </div>
           <div className={styles["header_vertical"]}></div>
-          <Image
-            className={styles["header_right_avatar"]}
-            src="https://lh3.googleusercontent.com/a/AEdFTp51xsRcGBKmxFF50oQEUWJXtnMZ0FHt7IAcSCMh=s96-c"
-            width={32}
-            height={32}
-            alt="avatar"
-          />
+          {data.avatar ? (
+            <Image
+              className={styles["header_right_avatar"]}
+              src={data.avatar}
+              width={32}
+              height={32}
+              alt="avatar"
+            />
+          ) : (
+            <Avatar size={32} gap={1}>
+              {data.name[0]}
+            </Avatar>
+          )}
         </div>
       </header>
       {children}

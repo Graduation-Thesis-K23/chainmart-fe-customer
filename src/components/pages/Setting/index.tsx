@@ -16,7 +16,6 @@ import MyAddress from "./components/MyAddress";
 import ChangePassword from "./components/ChangePassword";
 import { useAppSelector } from "~/redux";
 import { ASYNC_STATUS } from "~/redux/constants";
-import Loading from "~/components/atomics/Loading";
 
 const SMALL_MENU_WIDTH = 56;
 const LARGE_MENU_WIDTH = 256;
@@ -69,10 +68,6 @@ const Setting = () => {
       window.removeEventListener("resize", onResize);
     };
   }, [onResize]);
-
-  if (status !== ASYNC_STATUS.SUCCEED) {
-    return <Loading />;
-  }
 
   return (
     <>

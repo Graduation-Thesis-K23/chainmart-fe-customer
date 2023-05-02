@@ -1,9 +1,10 @@
 import Head from "next/head";
 import React from "react";
 import type { NextPageWithLayout } from "./_app";
+import dynamic from "next/dynamic";
 
-import IndexScreen from "~pages/Index";
 import { MAIN_LAYOUT } from "~/constants";
+const IndexScreen = dynamic(() => import("~pages/Index"), { ssr: false });
 
 const Index: NextPageWithLayout = () => (
   <>

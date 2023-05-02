@@ -26,7 +26,7 @@ const initialState: UserState = {
 };
 
 export const loginSlide = createSlice({
-  name: "login",
+  name: "user",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -58,6 +58,9 @@ export const loginSlide = createSlice({
       state.status = ASYNC_STATUS.FAILED;
       state.data = {} as unknown as User;
       state.message = action.error.message as unknown as string;
+    });
+    builder.addCase(changeAvatar.fulfilled, (state, { payload }) => {
+      state.data.avatar = payload;
     });
   },
 });
@@ -120,6 +123,19 @@ export const signUp = createAsyncThunk(
 export const logout = createAsyncThunk(
   "user/logout",
   async () => await instance.get("/api/auth/logout")
+);
+
+export const changeAvatar = createAsyncThunk(
+  "user/changeAvatar",
+  async (formData: FormData) => {
+    const response = await instance.post("/api/users/change-avatar", formData);
+
+    try {
+      return String(response);
+    } catch (error) {
+      return await Promise.reject(response);
+    }
+  }
 );
 
 export default loginSlide.reducer;

@@ -1,7 +1,8 @@
 import React from "react";
 import { MAIN_LAYOUT } from "~/constants";
+import dynamic from "next/dynamic";
 
-import Page404Screen from "~pages/404";
+const Page404Screen = dynamic(() => import("~pages/404"), { ssr: false });
 import type { NextPageWithLayout } from "./_app";
 
 const Page500: NextPageWithLayout = () => <Page404Screen />;

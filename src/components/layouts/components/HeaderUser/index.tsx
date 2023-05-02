@@ -10,6 +10,7 @@ import {
 import styles from "./HeaderUser.module.scss";
 import Options from "./Options";
 import { User } from "~/redux";
+import getS3Image from "~/helpers/get-s3-image";
 
 const items: MenuProps["items"] = [
   {
@@ -46,7 +47,7 @@ const HeaderUser: FC<{ user: User }> = ({ user }) => {
           {user.avatar ? (
             <Image
               className={styles["header-user_image"]}
-              src={user.avatar}
+              src={getS3Image(user.avatar)}
               width={26}
               height={26}
               alt="avatar"

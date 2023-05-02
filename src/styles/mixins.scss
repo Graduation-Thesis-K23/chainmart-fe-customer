@@ -6,7 +6,7 @@
 }
 
 @mixin complement-header {
-  margin-top: calc($header-height);
+  padding-top: calc($header-height);
 }
 
 @mixin topic-header {

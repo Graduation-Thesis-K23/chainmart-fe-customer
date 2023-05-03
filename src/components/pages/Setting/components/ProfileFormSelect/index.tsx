@@ -9,11 +9,9 @@ const ProfileFormSelect: React.FC<{
   labelKey: string;
   icon: JSX.Element;
   control: Control<{
-    fullName: string;
+    name: string;
     birthday: string;
-    username: string;
-    phoneNumber: string;
-    email: string;
+    phone: string;
     gender: string;
   }>;
 }> = ({ labelKey, icon, control }) => {
@@ -28,7 +26,7 @@ const ProfileFormSelect: React.FC<{
     <Controller
       control={control}
       name="gender"
-      render={({ field: { onChange, ref } }) => (
+      render={({ field: { onChange, ref, value } }) => (
         <div className={styles["select-group"]}>
           <label className={styles["select-group_label"]} htmlFor={id}>
             {labelText}
@@ -48,6 +46,7 @@ const ProfileFormSelect: React.FC<{
               ref={ref}
               bordered={false}
               onChange={onChange}
+              defaultValue={value}
             />
           </div>
         </div>

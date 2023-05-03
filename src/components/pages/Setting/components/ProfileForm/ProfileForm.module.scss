@@ -13,5 +13,11 @@
     color: white;
     float: right;
     cursor: pointer;
+
+    &:disabled,
+    &[disabled] {
+      opacity: 0.8;
+      cursor: not-allowed;
+    }
   }
 }

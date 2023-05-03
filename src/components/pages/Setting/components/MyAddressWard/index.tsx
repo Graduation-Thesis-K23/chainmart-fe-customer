@@ -9,8 +9,8 @@ const MyAddressWard: React.FC<{
   labelKey: string;
   icon: JSX.Element;
   control: Control<{
-    fullName: string;
-    phoneNumber: string;
+    name: string;
+    phone: string;
     city: string;
     district: string;
     ward: string;
@@ -32,13 +32,15 @@ const MyAddressWard: React.FC<{
   const { city, district } = props;
 
   useEffect(() => {
-    const cityItems = Location.find((item) => item.level1_id === city);
+    const cityItems = Location.find((item) => item.name === city);
+    console.log(cityItems?.level2s);
+    console.log(district);
     const districtItems = cityItems?.level2s.find(
-      (item) => item.level2_id === district
+      (item) => item.name === district
     );
 
     const wardList = districtItems?.level3s.map((item) => ({
-      value: item.level3_id,
+      value: item.name,
       label: item.name,
     }));
 

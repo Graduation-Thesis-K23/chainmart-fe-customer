@@ -1,10 +1,12 @@
 import React from "react";
 import Head from "next/head";
+import dynamic from "next/dynamic";
 
-import type { NextPageWithLayout } from "./_app";
 import { MAIN_LAYOUT } from "~/constants";
-import CartScreen from "~pages/Cart";
+import type { NextPageWithLayout } from "./_app";
 import useTranslate from "~/hooks/useLocales";
+
+const CartScreen = dynamic(() => import("~pages/Cart"), { ssr: false });
 
 const Cart: NextPageWithLayout = () => (
   <>

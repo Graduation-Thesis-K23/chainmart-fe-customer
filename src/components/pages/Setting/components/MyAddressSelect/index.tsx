@@ -10,8 +10,8 @@ const MyAddressSelect: React.FC<{
   labelKey: string;
   icon: JSX.Element;
   control: Control<{
-    fullName: string;
-    phoneNumber: string;
+    name: string;
+    phone: string;
     city: string;
     district: string;
     ward: string;

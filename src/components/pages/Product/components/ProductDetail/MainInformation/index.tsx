@@ -22,8 +22,6 @@ const MainInformation = () => {
 
   const { data } = useAppSelector((state) => state.product);
 
-  console.log(data);
-
   const buyNowText = useTranslate("product.buyNow");
   const addToCartText = useTranslate("product.addToCart");
   const productSpecifications = useTranslate("product.specifications");

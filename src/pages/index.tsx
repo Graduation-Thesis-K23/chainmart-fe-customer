@@ -4,7 +4,7 @@ import type { NextPageWithLayout } from "./_app";
 import dynamic from "next/dynamic";
 
 import { MAIN_LAYOUT } from "~/constants";
-const IndexScreen = dynamic(() => import("~pages/Index"), { ssr: false });
+const IndexScreen = dynamic(() => import("~pages/Index"), { ssr: true });
 
 const Index: NextPageWithLayout = () => (
   <>
@@ -28,7 +28,7 @@ const Index: NextPageWithLayout = () => (
       />
       <meta property="og:image" content="/preview.jpg" />
       <meta property="og:image:width" content="800" />
-      <meta property="og:image:height" content="600" />
+      <meta property="og:image:height" content="800" />
     </Head>
     <IndexScreen />
   </>

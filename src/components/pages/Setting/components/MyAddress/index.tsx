@@ -8,26 +8,23 @@ import {
   HomeOutlined,
   BuildOutlined,
 } from "@ant-design/icons";
-import { Col, Modal, Row } from "antd";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import classNames from "classnames";
+import { Button, Col, Modal, Row } from "antd";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
-import { getAddressList } from "~/apis/Settings";
 import styles from "./MyAddress.module.scss";
 import useTranslate from "~/hooks/useLocales";
-import MyAddressItem from "../MyAddressItem";
 import MyAddressInput from "../MyAddressInput";
-import { toast } from "react-toastify";
-import { AddressKey } from "../../interfaces";
 import MyAddressCity from "../MyAddressCity";
 import MyAddressDistrict from "../MyAddressDistrict";
 import MyAddressWard from "../MyAddressWard";
+import { Address, createAddress, useAppDispatch } from "~/redux";
+import MyAddressList from "../MyAddressList";
 
 const MyAddress: React.FC<{
   id: string;
 }> = ({ id }) => {
   const [newAddress, setNewAddress] = useState<boolean>(false);
-  const [addressList, setAddressList] = useState<Array<AddressKey>>([]);
   /*
   0 not select so enable only city
   1 is city selected so enable district more.
@@ -43,15 +40,25 @@ const MyAddress: React.FC<{
   const cancelText = useTranslate("settings.cancel");
   const notifyText = useTranslate("settings.addNewAddressSuccess");
 
-  const { control, handleSubmit, getValues, setFocus, resetField } = useForm({
+  const dispatch = useAppDispatch();
+
+  const {
+    control,
+    handleSubmit,
+    getValues,
+    setFocus,
+    formState: { isSubmitting },
+  } = useForm({
     defaultValues: {
-      fullName: "",
-      phoneNumber: "",
+      name: "",
+      phone: "",
       city: "",
       district: "",
       ward: "",
       street: "",
     },
+    mode: "onTouched",
+    reValidateMode: "onChange",
   });
 
   const handleClose = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -59,32 +66,25 @@ const MyAddress: React.FC<{
     setNewAddress(false);
   };
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(JSON.stringify(data));
+  const onSubmit: SubmitHandler<Address> = (data) => {
+    dispatch(createAddress(data));
     toast.success(notifyText, {
       position: "bottom-right",
       autoClose: 1000,
       hideProgressBar: true,
     });
-    // setNewAddress(false);
+    setNewAddress(false);
   };
-
-  useEffect(() => {
-    const temp: Array<AddressKey> = getAddressList();
-    setAddressList(temp);
-  }, []);
 
   useEffect(() => {
     if (step.step === 1) {
       setFocus("district");
-      resetField("district");
     } else if (step.step === 2) {
       setFocus("ward");
-      resetField("ward");
     } else if (step.step === 3) {
       setFocus("street");
     }
-  }, [resetField, setFocus, step]);
+  }, [setFocus, step]);
 
   return (
     <div id={id} className={styles["address"]}>
@@ -111,17 +111,14 @@ const MyAddress: React.FC<{
           footer={null}
           width={800}
         >
-          <form
-            className={styles["address-form"]}
-            onSubmit={handleSubmit(onSubmit)}
-          >
+          <form className={styles["address-form"]}>
             <Row gutter={26}>
               <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                 <MyAddressInput
                   labelKey="settings.fullName"
                   icon={<ContactsOutlined />}
                   control={control}
-                  name="fullName"
+                  name="name"
                 />
               </Col>
               <Col xs={24} sm={24} md={12} lg={12} xl={12}>
@@ -129,7 +126,7 @@ const MyAddress: React.FC<{
                   labelKey="settings.phoneNumber"
                   icon={<PhoneOutlined rotate={90} />}
                   control={control}
-                  name="phoneNumber"
+                  name="phone"
                 />
               </Col>
             </Row>
@@ -184,30 +181,19 @@ const MyAddress: React.FC<{
               >
                 {cancelText}
               </button>
-              <input
-                type="submit"
-                className={classNames(
-                  styles["address-modal_footer_button"],
-                  styles["address-modal_footer_button_save"]
-                )}
-                value={saveText}
-              />
+              <Button
+                className={styles["address-modal_footer_button_save"]}
+                disabled={isSubmitting}
+                loading={isSubmitting}
+                onClick={handleSubmit(onSubmit)}
+              >
+                {saveText}
+              </Button>
             </div>
           </form>
         </Modal>
       </div>
-      <div className={styles["address-bot"]}>
-        {addressList.map(({ key, name, phone, street, address, df }) => (
-          <MyAddressItem
-            key={key}
-            address={address}
-            name={name}
-            phone={phone}
-            street={street}
-            df={df}
-          />
-        ))}
-      </div>
+      <MyAddressList />
     </div>
   );
 };

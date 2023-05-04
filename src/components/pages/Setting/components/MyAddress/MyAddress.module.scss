@@ -32,10 +32,6 @@
     }
   }
 
-  &-bot {
-    padding: 16px 24px;
-  }
-
   &-form {
     border-top: 1px solid #c8c2c2;
     padding-top: 10px;
@@ -56,6 +52,8 @@
     &_save {
       color: #fff;
       background-color: $primary-color;
+      margin-left: 10px;
+      border-radius: 0;
     }
 
     &:hover {

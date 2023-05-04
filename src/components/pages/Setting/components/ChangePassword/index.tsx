@@ -1,45 +1,90 @@
 import React, { memo, useState } from "react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import useTranslate from "~/hooks/useLocales";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { ErrorMessage } from "@hookform/error-message";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
+
+import { default as dictionary } from "~/hooks/useLocales";
+import Translate from "~/components/commons/Translate";
 import ChangePasswordInput from "../ChangePasswordInput";
 
 import styles from "./ChangePassword.module.scss";
+import { changePassword, useAppDispatch } from "~/redux";
+import { toast } from "react-toastify";
+
+interface ChangePassword {
+  currentPassword: string;
+  newPassword: string;
+  renewPassword: string;
+}
 
 const ChangePassword: React.FC<{
   id: string;
 }> = ({ id }) => {
-  const passwordText = useTranslate("settings.changePassword");
-  const passwordNotifyText = useTranslate("settings.notifyPassword");
-  const saveText = useTranslate("settings.save");
-  const showPasswordText = useTranslate("settings.showPassword");
-
   const [show, setShow] = useState(false);
+  const [errMessage, setErrMessage] = useState("");
+
+  const formSchema = Yup.object().shape({
+    newPassword: Yup.string(),
+    renewPassword: Yup.string().oneOf(
+      [Yup.ref("newPassword")],
+      dictionary("settings.passwordErrorSame")
+    ),
+  });
+
+  const dispatch = useAppDispatch();
 
   const {
     handleSubmit,
     control,
-    setError,
     formState: { errors },
-    clearErrors,
   } = useForm({
     defaultValues: {
       currentPassword: "",
       newPassword: "",
       renewPassword: "",
     },
+    mode: "onTouched",
+    reValidateMode: "onChange",
+    resolver: yupResolver(formSchema),
   });
 
   const onShowPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setShow(e.target.checked);
   };
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<ChangePassword> = async (data) => {
+    if (data.currentPassword === data.newPassword) {
+      setErrMessage("settings.passwordErrorSame1");
+      return;
+    }
+
+    setErrMessage("");
+
+    const result = await dispatch(changePassword(data));
+
+    if (!result.payload) {
+      toast.error("Current password not correct!", {
+        autoClose: 1000,
+      });
+
+      return;
+    }
+
+    toast.success("Change password successfully!", {
+      autoClose: 1000,
+    });
+  };
 
   return (
     <div id={id} className={styles["password"]}>
-      <div className={styles["password-header"]}>{passwordText}</div>
+      <div className={styles["password-header"]}>
+        <Translate textKey="settings.changePassword" />
+      </div>
       <div className={styles["password-body"]}>
-        <div className={styles["password-notify"]}>{passwordNotifyText}</div>
+        <div className={styles["password-notify"]}>
+          <Translate textKey="settings.notifyPassword" />
+        </div>
         <form
           className={styles["password-form"]}
           onSubmit={handleSubmit(onSubmit)}
@@ -49,34 +94,67 @@ const ChangePassword: React.FC<{
             control={control}
             name="currentPassword"
             type={show ? "text" : "password"}
-            handleError={{
-              error: errors.currentPassword,
-              setError,
-              clearErrors,
+            rules={{
+              required: dictionary("password.empty"),
+              minLength: {
+                value: 8,
+                message: dictionary("settings.passwordErrorMinLength"),
+              },
+              maxLength: {
+                value: 32,
+                message: dictionary("settings.passwordErrorMaxLength"),
+              },
+              pattern: {
+                value: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
+                message: dictionary("settings.passwordErrorStrong"),
+              },
             }}
           />
+          <ErrorMessage errors={errors} name="currentPassword" />
           <ChangePasswordInput
             labelKey="settings.newPassword"
             control={control}
             name="newPassword"
             type={show ? "text" : "password"}
-            handleError={{
-              error: errors.newPassword,
-              setError,
-              clearErrors,
+            rules={{
+              required: dictionary("password.empty"),
+              minLength: {
+                value: 8,
+                message: dictionary("settings.passwordErrorMinLength"),
+              },
+              maxLength: {
+                value: 32,
+                message: dictionary("settings.passwordErrorMaxLength"),
+              },
+              pattern: {
+                value: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
+                message: dictionary("settings.passwordErrorStrong"),
+              },
             }}
           />
+          <ErrorMessage errors={errors} name="newPassword" />
           <ChangePasswordInput
             labelKey="settings.renewPassword"
             control={control}
             name="renewPassword"
             type={show ? "text" : "password"}
-            handleError={{
-              error: errors.renewPassword,
-              setError,
-              clearErrors,
+            rules={{
+              required: dictionary("password.empty"),
+              minLength: {
+                value: 8,
+                message: dictionary("settings.passwordErrorMinLength"),
+              },
+              maxLength: {
+                value: 32,
+                message: dictionary("settings.passwordErrorMaxLength"),
+              },
+              pattern: {
+                value: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
+                message: dictionary("settings.passwordErrorStrong"),
+              },
             }}
           />
+          <ErrorMessage errors={errors} name="renewPassword" />
           <div className={styles["password-show"]}>
             <input
               className={styles["password-show_input"]}
@@ -88,13 +166,14 @@ const ChangePassword: React.FC<{
               htmlFor="showPassword"
               className={styles["password-show_label"]}
             >
-              {showPasswordText}
+              <Translate textKey="settings.showPassword" />
             </label>
           </div>
+          {<p>{dictionary(errMessage)}</p>}
           <input
             className={styles["password-submit"]}
             type="submit"
-            value={saveText}
+            value={dictionary("settings.save")}
           />
         </form>
       </div>

@@ -33,8 +33,7 @@ const MyAddressWard: React.FC<{
 
   useEffect(() => {
     const cityItems = Location.find((item) => item.name === city);
-    console.log(cityItems?.level2s);
-    console.log(district);
+
     const districtItems = cityItems?.level2s.find(
       (item) => item.name === district
     );

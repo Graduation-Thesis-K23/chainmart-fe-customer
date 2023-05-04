@@ -15,19 +15,18 @@ const MyAddressList = () => {
 
   return (
     <div className={styles["address-list"]}>
-      {data.address.map(
-        ({ name, phone, street, city, district, ward }, index) => (
-          <MyAddressItem
-            key={index}
-            city={city}
-            district={district}
-            ward={ward}
-            name={name}
-            phone={phone}
-            street={street}
-          />
-        )
-      )}
+      {data.address.map(({ name, phone, street, city, district, ward, id }) => (
+        <MyAddressItem
+          id={id}
+          key={id}
+          city={city}
+          district={district}
+          ward={ward}
+          name={name}
+          phone={phone}
+          street={street}
+        />
+      ))}
     </div>
   );
 };

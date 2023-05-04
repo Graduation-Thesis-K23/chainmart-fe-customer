@@ -17,6 +17,12 @@ export interface Address {
   city: string;
   ward: string;
   street: string;
+  id?: string;
+}
+
+export interface ChangePasswordPayload {
+  currentPassword: string;
+  newPassword: string;
 }
 
 export interface SettingState {
@@ -55,6 +61,18 @@ export const settingSlide = createSlice({
     builder.addCase(getAllAddress.fulfilled, (state, action) => {
       state.status = ASYNC_STATUS.SUCCEED;
       state.data.address = action.payload;
+    });
+    builder.addCase(deleteAddress.fulfilled, (state, action) => {
+      state.status = ASYNC_STATUS.SUCCEED;
+      state.data.address = state.data.address.filter(
+        (add) => add.id !== action.payload
+      );
+    });
+    builder.addCase(changePassword.fulfilled, (state) => {
+      state.status = ASYNC_STATUS.SUCCEED;
+    });
+    builder.addCase(changePassword.rejected, (state) => {
+      state.status = ASYNC_STATUS.FAILED;
     });
   },
 });
@@ -97,6 +115,32 @@ export const getAllAddress = createAsyncThunk(
     }
 
     return response as unknown as Address[];
+  }
+);
+
+export const deleteAddress = createAsyncThunk(
+  "setting/deleteAddress",
+  async (id: string) => {
+    const response = await instance.delete("/api/address/" + id);
+
+    if ("message" in response) {
+      return Promise.reject(response.message);
+    }
+
+    return id;
+  }
+);
+
+export const changePassword = createAsyncThunk(
+  "setting/changePassword",
+  async (data: ChangePasswordPayload) => {
+    const response = await instance.post("/api/users/change-password", data);
+
+    if ("message" in response) {
+      return Promise.reject(response.message);
+    }
+
+    return "success";
   }
 );
 

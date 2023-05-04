@@ -4,13 +4,11 @@ import { useRouter } from "next/router";
 import {
   ProfileOutlined,
   UnlockOutlined,
-  PartitionOutlined,
   HomeOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd/es/menu";
 
 import ProfileSettings from "./components/ProfileSettings";
-import AccountsConnect from "./components/AccountsConnect";
 import MenuItem from "./components/MenuItem";
 import MyAddress from "./components/MyAddress";
 import ChangePassword from "./components/ChangePassword";
@@ -28,7 +26,6 @@ const Setting = () => {
 
   const profileId = useId();
   const addressId = useId();
-  const accountsId = useId();
   const passwordId = useId();
 
   const onClick: MenuProps["onClick"] = (e) => {
@@ -48,7 +45,7 @@ const Setting = () => {
   }, [collapsed]);
 
   useEffect(() => {
-    if (status !== ASYNC_STATUS.SUCCEED) {
+    if (status !== ASYNC_STATUS.SUCCEED && status !== ASYNC_STATUS.LOADING) {
       router.push("/");
     }
   }, [router, status]);
@@ -95,11 +92,11 @@ const Setting = () => {
             icon: <HomeOutlined />,
             label: <MenuItem label="settings.address" />,
           },
-          {
+          /* {
             key: accountsId,
             icon: <PartitionOutlined />,
             label: <MenuItem label="settings.connectAccounts" />,
-          },
+          }, */
           {
             key: passwordId,
             icon: <UnlockOutlined />,
@@ -120,7 +117,7 @@ const Setting = () => {
       >
         <ProfileSettings id={profileId} />
         <MyAddress id={addressId} />
-        <AccountsConnect id={accountsId} />
+        {/* <AccountsConnect id={accountsId} /> */}
         <ChangePassword id={passwordId} />
       </div>
     </>

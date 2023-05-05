@@ -95,11 +95,7 @@ export const updateUserInfo = createAsyncThunk(
 export const createAddress = createAsyncThunk(
   "setting/createAddress",
   async (data: Address) => {
-    const response = await instance.post("/api/address", data);
-
-    if ("message" in response) {
-      return Promise.reject(response.message);
-    }
+    const response = await instance.post<Address>("/api/address", data);
 
     return response as unknown as Address;
   }
@@ -108,11 +104,7 @@ export const createAddress = createAsyncThunk(
 export const getAllAddress = createAsyncThunk(
   "setting/getAllAddress",
   async () => {
-    const response = await instance.get("/api/address");
-
-    if ("message" in response) {
-      return Promise.reject(response.message);
-    }
+    const response = await instance.get<Address[]>("/api/address");
 
     return response as unknown as Address[];
   }
@@ -121,11 +113,7 @@ export const getAllAddress = createAsyncThunk(
 export const deleteAddress = createAsyncThunk(
   "setting/deleteAddress",
   async (id: string) => {
-    const response = await instance.delete("/api/address/" + id);
-
-    if ("message" in response) {
-      return Promise.reject(response.message);
-    }
+    await instance.delete("/api/address/" + id);
 
     return id;
   }
@@ -134,11 +122,7 @@ export const deleteAddress = createAsyncThunk(
 export const changePassword = createAsyncThunk(
   "setting/changePassword",
   async (data: ChangePasswordPayload) => {
-    const response = await instance.post("/api/users/change-password", data);
-
-    if ("message" in response) {
-      return Promise.reject(response.message);
-    }
+    await instance.post("/api/users/change-password", data);
 
     return "success";
   }

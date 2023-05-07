@@ -16,13 +16,11 @@ import useCart from "~/contexts/CartContext";
 import { ICart } from "~/shared/interfaces";
 import { useAppSelector } from "~/redux";
 import getS3Image from "~/helpers/get-s3-image";
-import { ASYNC_STATUS } from "~/redux/constants";
-import Loading from "~/components/atomics/Loading";
 
 const MainInformation = () => {
   const { cart, setCart } = useCart();
 
-  const { data, status } = useAppSelector((state) => state.product);
+  const { data } = useAppSelector((state) => state.product);
 
   const buyNowText = useTranslate("product.buyNow");
   const addToCartText = useTranslate("product.addToCart");
@@ -80,19 +78,6 @@ const MainInformation = () => {
       setAddCartSuccess(false);
     }, 1000);
   };
-
-  if (status === ASYNC_STATUS.IDLE || status === ASYNC_STATUS.LOADING) {
-    return (
-      <div
-        style={{
-          position: "relative",
-          height: 600,
-        }}
-      >
-        <Loading />
-      </div>
-    );
-  }
 
   return (
     <>

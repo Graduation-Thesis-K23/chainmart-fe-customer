@@ -4,24 +4,22 @@ import RatingItem from "./RatingItem";
 import RatingFilter from "./RatingFilter";
 
 import styles from "./Rating.module.scss";
-import useProductDetail from "~/contexts/ProductDetailContext";
 import { Comment } from "~/interfaces";
 import useTranslate from "~/hooks/useLocales";
 import getRatingProduct from "~/apis/Product/get-rating-product";
 
 const Rating = () => {
-  const { id } = useProductDetail().productDetail;
   const [comments, setComments] = useState<Array<Comment>>([]);
 
   const productRatingHeader = useTranslate("product.ratingHeader");
 
   useEffect(() => {
-    const temp = getRatingProduct(id);
+    const temp = getRatingProduct(1);
 
     if (temp) {
       setComments(temp);
     }
-  }, [id]);
+  }, []);
 
   return (
     <div className={styles["rating"]}>

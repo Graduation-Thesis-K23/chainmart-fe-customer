@@ -1,5 +1,5 @@
 import React, { HTMLInputTypeAttribute, memo, useId, useState } from "react";
-import { Control } from "react-hook-form/dist/types";
+import { Control, RegisterOptions } from "react-hook-form/dist/types";
 import classNames from "classnames";
 
 import useTranslate from "~/hooks/useLocales";
@@ -10,23 +10,24 @@ const ProfileFormInput: React.FC<{
   labelKey: string;
   icon: JSX.Element;
   type?: HTMLInputTypeAttribute;
-  name:
-    | "email"
-    | "fullName"
-    | "birthday"
-    | "username"
-    | "phoneNumber"
-    | "gender";
+  name: "name" | "birthday" | "phone" | "gender";
   control: Control<{
-    fullName: string;
+    name: string;
     birthday: string;
-    username: string;
-    phoneNumber: string;
-    email: string;
+    phone: string;
     gender: string;
   }>;
   disabled?: boolean;
-}> = ({ labelKey, icon, type = "text", control, disabled = false, name }) => {
+  rules?: RegisterOptions;
+}> = ({
+  labelKey,
+  icon,
+  type = "text",
+  control,
+  disabled = false,
+  name,
+  rules,
+}) => {
   const [active, setActive] = useState(false);
 
   const labelText = useTranslate(labelKey);
@@ -44,7 +45,8 @@ const ProfileFormInput: React.FC<{
     <Controller
       name={name}
       control={control}
-      render={({ field: { ref, onChange } }) => (
+      rules={rules}
+      render={({ field: { ref, onChange, value } }) => (
         <div className={styles["input-group"]}>
           <label className={styles["input-group_label"]} htmlFor={id}>
             {labelText}
@@ -63,6 +65,7 @@ const ProfileFormInput: React.FC<{
               ref={ref}
               onChange={onChange}
               id={id}
+              value={value}
               disabled={disabled}
             />
             <span className={styles["focus-border"]}></span>

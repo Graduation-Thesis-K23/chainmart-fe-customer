@@ -1,18 +1,26 @@
-import React, { memo } from "react";
+import React, { FC, memo } from "react";
 import useTranslate from "~/hooks/useLocales";
-import { Address } from "../../interfaces";
 
 import styles from "./MyAddressItem.module.scss";
+import { Address, deleteAddress, useAppDispatch } from "~/redux";
+import { Popconfirm } from "antd";
 
-const MyAddressItem: React.FC<Address> = ({
-  address,
-  name,
-  df,
+const MyAddressItem: FC<Address> = ({
   street,
+  name,
+  city,
+  ward,
+  district,
   phone,
+  id = "",
 }) => {
-  const updateText = useTranslate("settings.updateButton");
-  const defaultText = useTranslate("settings.default");
+  const deleteText = useTranslate("settings.deleteButton");
+
+  const dispatch = useAppDispatch();
+
+  const handleDeleteAddress = () => {
+    dispatch(deleteAddress(id));
+  };
 
   return (
     <div className={styles["address"]}>
@@ -22,12 +30,21 @@ const MyAddressItem: React.FC<Address> = ({
           <span className={styles["divider"]} />
           <div className={styles["phone"]}>{phone}</div>
         </div>
-        <div className={styles["ad"]}>{address}</div>
+        <div className={styles["ad"]}>
+          {ward + ", " + city + ", " + district}
+        </div>
         <div className={styles["street"]}>{street}</div>
-        {df ? <div className={styles["df"]}>{defaultText}</div> : <></>}
       </div>
       <div className={styles["address-right"]}>
-        <button className={styles["update-btn"]}>{updateText}</button>
+        <Popconfirm
+          title="Delete the address?"
+          onConfirm={handleDeleteAddress}
+          okText="Yes"
+          cancelText="No"
+          placement="topRight"
+        >
+          <button className={styles["delete-btn"]}> {deleteText}</button>
+        </Popconfirm>
       </div>
     </div>
   );

@@ -10,31 +10,16 @@ import { useAppDispatch, useAppSelector } from "~/redux";
 import { fetchProducts } from "~/redux";
 import getS3Image from "~/helpers/get-s3-image";
 import checkCreated from "~/helpers/check-created";
-import { ASYNC_STATUS } from "~/redux/constants";
-import Loading from "~/components/atomics/Loading";
 
 const ProductsList = () => {
   const soldText = useTranslate("products.sold");
 
-  const { data, status } = useAppSelector((state) => state.products);
+  const { data } = useAppSelector((state) => state.products);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
-
-  if (status === ASYNC_STATUS.IDLE || status === ASYNC_STATUS.LOADING) {
-    return (
-      <div
-        style={{
-          position: "relative",
-          height: 600,
-        }}
-      >
-        <Loading />
-      </div>
-    );
-  }
 
   return (
     <ul className={styles["products-list"]}>

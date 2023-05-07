@@ -92,6 +92,7 @@ export default {
   "settings.passwordErrorSame1":
     "Mật khẩu mới không được giống với mật khẩu hiện tại",
   "settings.showPassword": "Hiển thị mật khẩu",
+  "settings.deleteButton": "Xoá",
   // login
   "login.title": "Chào bạn!",
   "login.or": "Hoặc",

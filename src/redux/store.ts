@@ -5,6 +5,7 @@ import { productsReducer } from "./products";
 import { productReducer } from "./product";
 import { familiarReducer } from "./familiar";
 import { userReducer } from "./user";
+import { settingReducer } from "./setting";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     product: productReducer,
     familiar: familiarReducer,
     user: userReducer,
+    setting: settingReducer,
   },
 });
 

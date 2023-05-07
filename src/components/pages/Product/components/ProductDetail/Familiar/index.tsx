@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -6,28 +6,21 @@ import useTranslate from "~/hooks/useLocales";
 import styles from "./Familiar.module.scss";
 import { convertPrice, discount } from "~/helpers";
 import { useAppDispatch, useAppSelector, fetchFamiliarProduct } from "~/redux";
-import { ASYNC_STATUS } from "~/redux/constants";
-import Loading from "~/components/atomics/Loading";
 import getS3Image from "~/helpers/get-s3-image";
 
-const Familiar: FC<{
-  id: string;
-}> = ({ id }) => {
+const Familiar = () => {
   const familiarText = useTranslate("product.familiar");
 
-  const { data, status } = useAppSelector((state) => state.familiar);
+  const product = useAppSelector((state) => state.product);
+  const { data } = useAppSelector((state) => state.products);
 
   const dispatch = useAppDispatch();
 
   const items = data.slice(0, 5);
 
   useEffect(() => {
-    dispatch(fetchFamiliarProduct(id));
-  }, [dispatch, id]);
-
-  if (status === ASYNC_STATUS.IDLE || status === ASYNC_STATUS.LOADING) {
-    return <Loading />;
-  }
+    dispatch(fetchFamiliarProduct(product.data.id));
+  }, [dispatch, product.data.id]);
 
   return (
     <div className={styles["familiar"]}>

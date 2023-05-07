@@ -1,9 +1,16 @@
-import React from "react";
+import React, { FC, memo } from "react";
 
 import styles from "./Loading.module.scss";
 
-const Loading = () => {
-  return (
+const Loading: FC<{
+  display: boolean;
+}> = ({ display = false }) => (
+  <div
+    className={styles["loading__container"]}
+    style={{
+      display: display ? "block" : "none",
+    }}
+  >
     <div className={styles["lds-roller"]}>
       <div></div>
       <div></div>
@@ -14,7 +21,7 @@ const Loading = () => {
       <div></div>
       <div></div>
     </div>
-  );
-};
+  </div>
+);
 
-export default Loading;
+export default memo(Loading);

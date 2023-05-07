@@ -10,14 +10,14 @@ const MyAddressInput: React.FC<{
   icon: JSX.Element;
   type?: HTMLInputTypeAttribute;
   control: Control<{
-    fullName: string;
-    phoneNumber: string;
+    name: string;
+    phone: string;
     city: string;
     district: string;
     ward: string;
     street: string;
   }>;
-  name: "fullName" | "phoneNumber" | "city" | "district" | "ward" | "street";
+  name: "name" | "phone" | "city" | "district" | "ward" | "street";
 }> = ({ labelKey, icon, type = "text", control, name }) => {
   const [active, setActive] = useState(false);
 

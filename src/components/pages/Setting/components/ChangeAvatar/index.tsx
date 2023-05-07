@@ -6,29 +6,31 @@ import type { UploadProps } from "antd/es/upload/interface";
 
 import useTranslate from "~/hooks/useLocales";
 import styles from "./ChangeAvatar.module.scss";
+import { changeAvatar, useAppDispatch } from "~/redux";
 
 const ChangeAvatar: React.FC<{
-  state: {
-    isModalOpen: boolean;
-    setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  };
-}> = ({ state }) => {
+  isModalOpen: boolean;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}> = ({ isModalOpen, setIsModalOpen }) => {
+  const dispatch = useAppDispatch();
   const editImageText = useTranslate("settings.editImage");
   const saveText = useTranslate("settings.save");
   const cancelText = useTranslate("settings.cancel");
   const dragOrClickText = useTranslate("settings.dropOrClick");
 
   const onChange: UploadProps["onChange"] = ({ file }) => {
-    state.setIsModalOpen(false);
-    if (file.status === "done") {
-      console.log(file.originFileObj);
+    if (file.status === "done" && file.originFileObj) {
+      const formData = new FormData();
+      formData.append("image", file.originFileObj);
+      dispatch(changeAvatar(formData));
+      setIsModalOpen(false);
     }
   };
 
   return (
     <Modal
-      open={state.isModalOpen}
-      onCancel={() => state.setIsModalOpen(false)}
+      open={isModalOpen}
+      onCancel={() => setIsModalOpen(false)}
       footer={null}
       centered
       closable={false}

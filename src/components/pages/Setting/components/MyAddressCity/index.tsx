@@ -8,8 +8,8 @@ const MyAddressCity: React.FC<{
   labelKey: string;
   icon: JSX.Element;
   control: Control<{
-    fullName: string;
-    phoneNumber: string;
+    name: string;
+    phone: string;
     city: string;
     district: string;
     ward: string;
@@ -30,7 +30,7 @@ const MyAddressCity: React.FC<{
 
   useEffect(() => {
     const cityList = Location.map((item) => ({
-      value: item.level1_id,
+      value: item.name,
       label: item.name,
     }));
 

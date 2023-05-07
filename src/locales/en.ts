@@ -95,6 +95,7 @@ export default {
   "settings.passwordErrorSame1":
     "New password should not be the same as your existing password",
   "settings.showPassword": "Show password",
+  "settings.deleteButton": "Delete",
   // login
   "login.title": "Welcome!",
   "login.or": "Or",

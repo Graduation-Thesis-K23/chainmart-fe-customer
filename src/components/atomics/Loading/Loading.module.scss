@@ -1,5 +1,21 @@
 @import "~/styles/variables";
 
+.loading__container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #ffffffa4;
+  z-index: 99999;
+}
+
+.block-scroll {
+  overflow: hidden;
+}
+
 .lds-roller {
   display: inline-block;
   position: absolute;

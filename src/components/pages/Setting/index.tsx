@@ -1,25 +1,31 @@
 import React, { useCallback, useEffect, useState, useId } from "react";
 import { Menu } from "antd";
+import { useRouter } from "next/router";
 import {
   ProfileOutlined,
   UnlockOutlined,
-  PartitionOutlined,
   HomeOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd/es/menu";
 
 import ProfileSettings from "./components/ProfileSettings";
-import AccountsConnect from "./components/AccountsConnect";
 import MenuItem from "./components/MenuItem";
 import MyAddress from "./components/MyAddress";
 import ChangePassword from "./components/ChangePassword";
+import { useAppSelector } from "~/redux";
+import { ASYNC_STATUS } from "~/redux/constants";
+
+const SMALL_MENU_WIDTH = 56;
+const LARGE_MENU_WIDTH = 256;
 
 const Setting = () => {
+  const { status } = useAppSelector((state) => state.user);
+
+  const router = useRouter();
   const [collapsed, setCollapsed] = useState<boolean>(true);
 
   const profileId = useId();
   const addressId = useId();
-  const accountsId = useId();
   const passwordId = useId();
 
   const onClick: MenuProps["onClick"] = (e) => {
@@ -37,6 +43,12 @@ const Setting = () => {
       setCollapsed(false);
     }
   }, [collapsed]);
+
+  useEffect(() => {
+    if (status !== ASYNC_STATUS.SUCCEED && status !== ASYNC_STATUS.LOADING) {
+      router.push("/");
+    }
+  }, [router, status]);
 
   useEffect(() => {
     if (window.innerWidth < 1200) {
@@ -61,7 +73,7 @@ const Setting = () => {
           position: "fixed",
           top: 64,
           left: 0,
-          width: collapsed ? 56 : 256,
+          width: collapsed ? SMALL_MENU_WIDTH : LARGE_MENU_WIDTH,
           height: "100%",
           border: "none",
         }}
@@ -80,11 +92,11 @@ const Setting = () => {
             icon: <HomeOutlined />,
             label: <MenuItem label="settings.address" />,
           },
-          {
+          /* {
             key: accountsId,
             icon: <PartitionOutlined />,
             label: <MenuItem label="settings.connectAccounts" />,
-          },
+          }, */
           {
             key: passwordId,
             icon: <UnlockOutlined />,
@@ -96,7 +108,7 @@ const Setting = () => {
         style={{
           position: "absolute",
           top: 64,
-          left: collapsed ? 56 : 256,
+          left: collapsed ? SMALL_MENU_WIDTH : LARGE_MENU_WIDTH,
           width: collapsed ? "calc(100vw - 56px)" : "calc(100vw - 256px)",
           padding: 16,
           backgroundColor: "#f2f5fc",
@@ -105,7 +117,7 @@ const Setting = () => {
       >
         <ProfileSettings id={profileId} />
         <MyAddress id={addressId} />
-        <AccountsConnect id={accountsId} />
+        {/* <AccountsConnect id={accountsId} /> */}
         <ChangePassword id={passwordId} />
       </div>
     </>

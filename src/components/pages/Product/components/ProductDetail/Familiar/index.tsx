@@ -44,13 +44,12 @@ const Familiar = () => {
                 </span>
                 <div className={styles["familiar_item_body_prices"]}>
                   <span className={styles["familiar_item_body_prices_one"]}>
-                    {convertPrice(item.price)}đ
+                    {convertPrice(item.price)}
                   </span>
                   <span className={styles["familiar_item_body_prices_two"]}>
                     {convertPrice(
                       discount(item.price, item.sale ? item.sale : 0)
                     )}
-                    đ
                   </span>
                 </div>
               </div>

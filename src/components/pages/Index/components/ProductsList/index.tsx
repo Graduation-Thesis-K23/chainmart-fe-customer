@@ -60,11 +60,11 @@ const ProductsList = () => {
               </span>
               <div className={styles["product-card-body-prices"]}>
                 <span className={styles["product-card-body-prices-one"]}>
-                  {convertPrice(item.price)}đ
+                  {convertPrice(item.price)}
                 </span>
                 {item.sale && (
                   <span className={styles["product-card-body-prices-two"]}>
-                    {convertPrice(discount(item.price, item.sale))}đ
+                    {convertPrice(discount(item.price, item.sale))}
                   </span>
                 )}
               </div>

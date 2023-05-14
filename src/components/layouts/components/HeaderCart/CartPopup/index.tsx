@@ -44,7 +44,7 @@ const CartPopup = () => {
                     <span>{product.name}</span>
                   </div>
                   <div className={styles["cart-item-price"]}>
-                    <span>{convertPrice(product.price)}đ</span>
+                    <span>{convertPrice(product.price)}</span>
                   </div>
                 </Link>
               </li>

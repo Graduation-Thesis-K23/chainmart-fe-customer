@@ -83,7 +83,7 @@ const Products = () => {
                   </td>
                   <td className={styles["products_table_body"]}>
                     <span className={styles["products_table_body_price"]}>
-                      {convertPrice(item.price)}đ
+                      {convertPrice(item.price)}
                     </span>
                   </td>
                   <td className={styles["products_table_body"]}>
@@ -117,7 +117,7 @@ const Products = () => {
                   </td>
                   <td className={styles["products_table_body"]}>
                     <span className={styles["products_table_body_price"]}>
-                      {convertPrice(item.price * item.quantity)}đ
+                      {convertPrice(item.price * item.quantity)}
                     </span>
                   </td>
                   <td className={styles["products_table_body"]}>
@@ -137,7 +137,7 @@ const Products = () => {
               {cartTotalText}
             </span>
             <span className={styles["products_checkout_price"]}>
-              {convertPrice(total)}đ
+              {convertPrice(total)}
             </span>
             <button className={styles["products_checkout_button"]}>
               {checkoutText}

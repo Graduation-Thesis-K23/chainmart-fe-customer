@@ -29,9 +29,9 @@ const Parameter: React.FC<{
         </span>
       </div>
       <div className={styles["value"]}>
-        <span className={styles["value-price"]}>{convertPrice(price)} đ</span>
+        <span className={styles["value-price"]}>{convertPrice(price)}</span>
         <span className={styles["value-price-ignore"]}>
-          {convertPrice(discount(price, sale))} đ
+          {convertPrice(discount(price, sale))}
         </span>
         {sale > 0 && <span className={styles["value-discount"]}>{sale}%</span>}
       </div>

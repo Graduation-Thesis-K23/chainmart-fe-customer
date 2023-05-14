@@ -7,7 +7,8 @@
   &_header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: end;
+    margin-bottom: 10px;
 
     &_text {
       color: rgba(0, 0, 0, 0.4);
@@ -27,14 +28,14 @@
     a {
       display: flex;
       justify-content: space-between;
-      padding: 0.5rem 0;
-      height: 5rem;
+      align-items: center;
+      gap: 5px;
+      padding: 10px 0;
+      border-top: 1px solid #e0e0e0;
 
       .cart-item-image {
-        width: 3.4rem !important;
-        height: 3.4rem !important;
-        margin-right: 1rem;
-        border: 1px solid #e0e0e0;
+        display: flex;
+        align-items: center;
       }
 
       .cart-item-name {
@@ -49,7 +50,6 @@
 
       .cart-item-price {
         width: 8rem;
-        margin-left: 1rem;
         font-size: 1.3rem;
         text-align: right;
       }

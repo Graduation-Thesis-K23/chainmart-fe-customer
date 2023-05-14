@@ -23,6 +23,7 @@
     &_body {
       padding: 15px;
       width: auto;
+      min-width: 8vw;
       height: auto;
 
       &_product {
@@ -36,6 +37,7 @@
         padding: 1px;
         border: 1px solid #ebe5da;
         overflow: hidden;
+        object-fit: contain;
       }
 
       &_price {
@@ -110,7 +112,6 @@
         &-value {
           display: inline-block;
           font-size: 14px;
-          width: 40px;
           text-align: center;
         }
       }
@@ -118,6 +119,10 @@
 
     &_body:not(:nth-child(1)) {
       text-align: center;
+    }
+
+    &_body:last-child {
+      min-width: unset;
     }
   }
 
@@ -166,6 +171,8 @@
       margin-right: 8px;
       font-size: 18px;
       color: rgb(228, 28, 28);
+      min-width: 10vw;
+      text-align: center;
     }
   }
 }

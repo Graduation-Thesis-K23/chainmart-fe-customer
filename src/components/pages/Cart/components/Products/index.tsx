@@ -20,18 +20,32 @@ const Products = () => {
   const cartTotalText = useTranslate("cart.cartTotal");
   const checkoutText = useTranslate("cart.checkout");
 
-  const { cart } = useCart();
+  const { cart, setCart } = useCart();
 
-  const handleChangeQuantity = (
-    id: string,
-    classify: object,
-    action: string
-  ) => {
+  const handleChangeQuantity = (id: string, action: string) => {
     if (action === INCREASE) {
-      console.log(INCREASE);
+      setCart((prev) =>
+        prev.map((item) => {
+          if (item.id === id && item.quantity < item.maxQuantity) {
+            return { ...item, quantity: item.quantity + 1 };
+          }
+          return item;
+        })
+      );
     } else if (action === DECREASE) {
-      console.log(DECREASE);
+      setCart((prev) =>
+        prev.map((item) => {
+          if (item.id === id && item.quantity > 0) {
+            return { ...item, quantity: item.quantity - 1 };
+          }
+          return item;
+        })
+      );
     }
+  };
+
+  const handleRemove = (id: string) => {
+    setCart((prev) => prev.filter((item) => item.id !== id));
   };
 
   const total = useMemo(() => {
@@ -93,9 +107,7 @@ const Products = () => {
                           [styles["quantity-control-sub--disable"]]:
                             item.quantity === 1,
                         })}
-                        onClick={() =>
-                          handleChangeQuantity(item.id, item.select, DECREASE)
-                        }
+                        onClick={() => handleChangeQuantity(item.id, DECREASE)}
                       >
                         -
                       </button>
@@ -107,9 +119,7 @@ const Products = () => {
                           [styles["quantity-control-add--disable"]]:
                             item.quantity === item.maxQuantity,
                         })}
-                        onClick={() =>
-                          handleChangeQuantity(item.id, item.select, INCREASE)
-                        }
+                        onClick={() => handleChangeQuantity(item.id, INCREASE)}
                       >
                         +
                       </button>
@@ -121,7 +131,10 @@ const Products = () => {
                     </span>
                   </td>
                   <td className={styles["products_table_body"]}>
-                    <span className={styles["products_table_body_delete"]}>
+                    <span
+                      className={styles["products_table_body_delete"]}
+                      onClick={() => handleRemove(item.id)}
+                    >
                       <DeleteOutlined />
                     </span>
                   </td>

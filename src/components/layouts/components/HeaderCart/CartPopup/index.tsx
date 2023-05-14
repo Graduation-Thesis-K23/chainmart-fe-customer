@@ -37,14 +37,16 @@ const CartPopup = () => {
                       src={product.image}
                       width={40}
                       height={40}
-                      alt="item"
+                      style={{ objectFit: "contain" }}
+                      alt={product.name}
                     />
                   </div>
                   <div className={styles["cart-item-name"]}>
                     <span>{product.name}</span>
                   </div>
                   <div className={styles["cart-item-price"]}>
-                    <span>{convertPrice(product.price)}</span>
+                    <p>{convertPrice(product.price)}</p>
+                    <p>x{product.quantity}</p>
                   </div>
                 </Link>
               </li>

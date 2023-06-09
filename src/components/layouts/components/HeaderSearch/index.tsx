@@ -19,20 +19,36 @@ const HeaderSearch = () => {
   const [searchValue, setSearchValue] = useState<string>("");
   const searchValueDebounce = useDebounce(searchValue, 400);
 
-  const items: MenuProps["items"] = data.map((item, index) => {
-    return {
-      key: index,
-      label: (
-        <HeaderSearchItem
-          href={item.slug}
-          name={item.name}
-          image={
-            item.images ? getS3Image(item.images?.split(",")[0]) : undefined
-          }
-        />
-      ),
-    };
-  });
+  const items: MenuProps["items"] =
+    data.length > 0
+      ? data.map((item, index) => {
+          return {
+            key: index,
+            label: (
+              <HeaderSearchItem
+                href={item.slug}
+                name={item.name}
+                image={
+                  item.images
+                    ? getS3Image(item.images?.split(",")[0])
+                    : undefined
+                }
+              />
+            ),
+          };
+        })
+      : [
+          {
+            key: "1",
+            label: (
+              <HeaderSearchItem
+                href={"/"}
+                name={"notFound.product"}
+                image={undefined}
+              />
+            ),
+          },
+        ];
 
   useEffect(() => {
     dispatch(searchProducts(searchValueDebounce));

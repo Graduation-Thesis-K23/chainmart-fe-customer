@@ -43,9 +43,7 @@ export const searchSlide = createSlice({
   extraReducers: (builder) => {
     builder.addCase(searchProducts.fulfilled, (state, action) => {
       state.status = ASYNC_STATUS.SUCCEED;
-      if (action.payload) {
-        state.data = action.payload as unknown as SearchProduct[];
-      }
+      state.data = action.payload as unknown as SearchProduct[];
     });
     builder.addCase(searchProducts.pending, (state) => {
       state.status = ASYNC_STATUS.LOADING;
@@ -57,7 +55,7 @@ export const searchProducts = createAsyncThunk(
   "search/searchProducts",
   async (searchText: string) => {
     if (searchText === "") {
-      return;
+      return initialState.data;
     }
     return await instance.get("/api/products/search/" + searchText);
   }

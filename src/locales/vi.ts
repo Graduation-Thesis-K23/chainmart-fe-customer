@@ -144,4 +144,6 @@ export default {
   "email.empty": "Email không được để trống.",
   "email.inValid": "Email không đúng định dạng.",
   "email.existed": "Email đã tồn tại.",
+
+  "notFound.product": "Không tìm thấy sản phẩm phù hợp",
 };

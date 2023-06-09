@@ -147,4 +147,6 @@ export default {
   "email.empty": "Email is not empty.",
   "email.inValid": "Email is not valid.",
   "email.existed": "Email already exist.",
+
+  "notFound.product": "Not found suitable product",
 };

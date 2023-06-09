@@ -26,7 +26,9 @@ const HeaderSearch = () => {
         <HeaderSearchItem
           href={item.slug}
           name={item.name}
-          image={getS3Image(item.images?.split(",")[0] || "")}
+          image={
+            item.images ? getS3Image(item.images?.split(",")[0]) : undefined
+          }
         />
       ),
     };

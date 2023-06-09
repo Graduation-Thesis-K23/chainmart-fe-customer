@@ -7,16 +7,12 @@ import Translate from "~/components/commons/Translate";
 
 const HeaderSearchItem: FC<{
   href: string;
-  image?: string;
+  image?: string | undefined;
   name: string;
-}> = ({ href, image = "", name }) => {
+}> = ({ href, image, name }) => {
   return (
-    <Link
-      className={styles["search__item"]}
-      href={href}
-      onClick={() => console.log("s")}
-    >
-      {image !== "" ? (
+    <Link className={styles["search__item"]} href={href}>
+      {image ? (
         <>
           <Image
             className={styles["search__image"]}

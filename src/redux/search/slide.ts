@@ -4,22 +4,35 @@ import { ASYNC_STATUS } from "../constants";
 import instance from "~/services/axios-instance";
 
 export interface SearchProduct {
-  phone: string;
   name: string;
-  district: string;
-  city: string;
-  ward: string;
-  street: string;
-  id?: string;
+  slug: string;
+  images?: string;
 }
 
-export interface ProductState {
+export interface SearchState {
   data: SearchProduct[];
   status: typeof ASYNC_STATUS[keyof typeof ASYNC_STATUS];
 }
 
-const initialState: ProductState = {
-  data: [],
+const initialState: SearchState = {
+  data: [
+    {
+      slug: "categories/soft-drinks",
+      name: "categories.softDrinks",
+    },
+    {
+      slug: "categories/noodles",
+      name: "categories.noodles",
+    },
+    {
+      slug: "categories/vegetables",
+      name: "categories.vegetables",
+    },
+    {
+      slug: "categories/fish-sauce",
+      name: "categories.fishSauce",
+    },
+  ],
   status: ASYNC_STATUS.IDLE,
 };
 
@@ -30,7 +43,9 @@ export const searchSlide = createSlice({
   extraReducers: (builder) => {
     builder.addCase(searchProducts.fulfilled, (state, action) => {
       state.status = ASYNC_STATUS.SUCCEED;
-      state.data = action.payload as unknown as SearchProduct[];
+      if (action.payload) {
+        state.data = action.payload as unknown as SearchProduct[];
+      }
     });
     builder.addCase(searchProducts.pending, (state) => {
       state.status = ASYNC_STATUS.LOADING;
@@ -40,7 +55,10 @@ export const searchSlide = createSlice({
 
 export const searchProducts = createAsyncThunk(
   "search/searchProducts",
-  async (searchText) => {
+  async (searchText: string) => {
+    if (searchText === "") {
+      return;
+    }
     return await instance.get("/api/products/search/" + searchText);
   }
 );

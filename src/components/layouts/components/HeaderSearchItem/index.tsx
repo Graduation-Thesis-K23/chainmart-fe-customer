@@ -1,18 +1,39 @@
-import React, { FC } from "react";
+import React, { FC, memo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
 import styles from "./HeaderSearchItem.module.scss";
+import Translate from "~/components/commons/Translate";
 
 const HeaderSearchItem: FC<{
   href: string;
-  image: string;
+  image?: string;
   name: string;
-}> = ({ href, image, name }) => (
-  <Link href={href} prefetch={false} className={styles["search-item"]}>
-    <Image src={image} alt="product-image" width="40" height="40" />
-    <span>{name}</span>
-  </Link>
-);
+}> = ({ href, image = "", name }) => {
+  return (
+    <Link
+      className={styles["search__item"]}
+      href={href}
+      onClick={() => console.log("s")}
+    >
+      {image !== "" ? (
+        <>
+          <Image
+            className={styles["search__image"]}
+            src={image}
+            alt="product-image"
+            width="40"
+            height="40"
+          />
+          <span className={styles["search__name"]}>{name}</span>
+        </>
+      ) : (
+        <span className={styles["search__name"]}>
+          <Translate textKey={name} />
+        </span>
+      )}
+    </Link>
+  );
+};
 
-export default HeaderSearchItem;
+export default memo(HeaderSearchItem);

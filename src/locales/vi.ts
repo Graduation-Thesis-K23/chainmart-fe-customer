@@ -41,7 +41,7 @@ export default {
   "categories.cream": "Kem",
   "categories.noodles": "Mì Gói",
   "categories.washingPowder": "Nước giặt",
-  "categories.fishSauce": "Nước mắt",
+  "categories.fishSauce": "Nước mắm",
   "categories.softDrinks": "Nước ngọt",
   "categories.vegetables": "Rau củ",
   "categories.milk": "Sữa",

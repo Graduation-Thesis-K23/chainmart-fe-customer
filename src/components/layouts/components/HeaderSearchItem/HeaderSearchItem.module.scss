@@ -1,5 +1,18 @@
-.search-item {
-  display: flex;
-  height: 42px;
-  align-items: center;
+.search {
+  &__item {
+    display: flex;
+    height: 42px;
+    align-items: center;
+  }
+
+  &__image {
+    margin-right: 8px;
+  }
+
+  &__name {
+    font-size: 16px;
+    font-weight: 500;
+    max-width: 100%;
+    word-wrap: break-word;
+  }
 }

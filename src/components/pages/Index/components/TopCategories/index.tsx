@@ -5,7 +5,7 @@ import { Button } from "antd";
 import { RightOutlined, LeftOutlined } from "@ant-design/icons";
 
 import styles from "./TopCategories.module.scss";
-import topCategories from "~/shared/categories";
+import topCategories from "~/sub-categories/categories";
 import useDebounce from "~/hooks/useDebounce";
 import Translate from "~/components/commons/Translate";
 

@@ -1,4 +1,4 @@
-import React, { useState, memo } from "react";
+import React, { useState, memo, useEffect } from "react";
 import { Image as ImageAntd } from "antd";
 import Carousel from "react-multi-carousel";
 import Image from "next/image";
@@ -11,15 +11,19 @@ import getS3Image from "~/helpers/get-s3-image";
 const Images: React.FC<{
   images: Array<string>;
 }> = ({ images }) => {
-  const [imageShow, setImageShow] = useState<string>(getS3Image(images[0]));
+  const [imageShow, setImageShow] = useState<string>(images[0]);
   const [visible, setVisible] = useState<boolean>(false);
+
+  useEffect(() => {
+    setImageShow(images[0]);
+  }, [images]);
 
   return (
     <div className={styles["images"]}>
       <div className={styles["images_slider"]}>
         <Image
           className={styles["images_slider_item"]}
-          src={imageShow}
+          src={getS3Image(imageShow)}
           alt="product-image"
           width={700}
           height={700}
@@ -30,7 +34,7 @@ const Images: React.FC<{
           style={{ display: "none" }}
           preview={{
             visible,
-            src: imageShow,
+            src: getS3Image(imageShow),
             onVisibleChange: (value) => {
               setVisible(value);
             },

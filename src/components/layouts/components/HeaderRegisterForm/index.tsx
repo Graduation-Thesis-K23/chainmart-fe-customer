@@ -13,7 +13,7 @@ import HeaderRegisterInput from "../HeaderRegisterInput";
 
 import styles from "./HeaderRegisterForm.module.scss";
 import Translate from "~/components/commons/Translate";
-import { SignUpPayload } from "~/shared/interfaces";
+import { SignUpPayload } from "~/interfaces";
 import { ErrorMessage } from "@hookform/error-message";
 import { signUp, useAppDispatch } from "~/redux";
 import { default as dictionary } from "~/hooks/useLocales";

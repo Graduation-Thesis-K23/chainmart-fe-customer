@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useMemo } from "react";
 import useLocalStorage from "~/hooks/useLocalStorage";
-import { ICart } from "~/shared/interfaces";
+import { ICart } from "~/interfaces";
 
 interface ICartContext {
   cart: Array<ICart>;

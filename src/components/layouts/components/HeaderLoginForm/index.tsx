@@ -13,7 +13,7 @@ import facebookSvg from "~/assets/icons/facebook-color.svg";
 import googleSvg from "~/assets/icons/google-color.svg";
 import { REGISTER_STATE, FORGOT_STATE } from "../HeaderLogin";
 import { signIn, useAppDispatch, useAppSelector } from "~/redux";
-import { SignInPayload } from "~/shared/interfaces";
+import { SignInPayload } from "~/interfaces";
 import { ErrorMessage } from "@hookform/error-message";
 import { default as dictionary } from "~/hooks/useLocales";
 

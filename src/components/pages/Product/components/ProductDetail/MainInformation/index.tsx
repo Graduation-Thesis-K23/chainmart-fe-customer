@@ -13,7 +13,7 @@ import Description from "./Description";
 import styles from "./MainInformation.module.scss";
 import useTranslate from "~/hooks/useLocales";
 import useCart from "~/contexts/CartContext";
-import { ICart } from "~/shared/interfaces";
+import { ICart } from "~/interfaces";
 import { useAppSelector } from "~/redux";
 import getS3Image from "~/helpers/get-s3-image";
 

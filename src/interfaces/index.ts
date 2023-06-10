@@ -1,23 +1,60 @@
-import { ParsedUrlQuery } from "querystring";
-
-export interface IParams extends ParsedUrlQuery {
+export interface IProduct {
+  id: number;
+  name: string;
+  price: number;
+  ignorePrice: number;
+  star: number;
+  sold: number;
+  image: string;
+  label?: number;
   slug: string;
 }
 
-interface CommentImage {
+export interface FamiliarProduct {
   id: number;
-  src: string;
+  name: string;
+  price: number;
+  ignorePrice: number;
+  image: string;
+  slug: string;
 }
 
-export interface Comment {
+export interface IProductDetail {
   id: number;
-  productId: number;
   name: string;
-  timestamp: number;
+  price: number;
+  ignorePrice: number;
   star: number;
-  content?: string;
-  avatar: string;
-  like: number;
-  classify: string;
-  images?: Array<CommentImage>;
+  sold: number;
+  images: string[];
+  image: string;
+  slug: string;
+  options: object;
+  maxQuantity: number;
+  specifications: { [key: string]: string };
+  description: string;
+  familiar: Array<FamiliarProduct>;
+}
+
+export interface ICart {
+  id: string;
+  name: string;
+  price: number;
+  image: string;
+  slug: string;
+  maxQuantity: number;
+  quantity: number;
+  select: { [key: string]: string };
+}
+
+export interface SignInPayload {
+  username: string;
+  password: string;
+}
+
+export interface SignUpPayload {
+  username: string;
+  password: string;
+  name: string;
+  email: string;
 }

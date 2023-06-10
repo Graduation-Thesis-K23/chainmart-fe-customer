@@ -5,9 +5,8 @@ import { Button } from "antd";
 import { RightOutlined, LeftOutlined } from "@ant-design/icons";
 
 import styles from "./TopCategories.module.scss";
-import topCategories from "~/apis/mocks/TopCategories";
+import topCategories from "~/shared/categories";
 import useDebounce from "~/hooks/useDebounce";
-import { default as translate } from "~/hooks/useLocales";
 import Translate from "~/components/commons/Translate";
 
 const TopCategories = () => {
@@ -23,7 +22,7 @@ const TopCategories = () => {
       size,
       itemWidth: 146,
       swipeSize: 300,
-      listWidth: (146 + 20) * size,
+      listWidth: (146 + 20) * (size - 1),
     };
   }, []);
 
@@ -96,7 +95,7 @@ const TopCategories = () => {
       <div className="container">
         <div className={styles["title"]}>
           <div className={styles["title_text"]}>
-            {translate("categories.header")}
+            <Translate textKey="categories.header" />
           </div>
           <div className={styles["title_controller"]}>
             <Button

@@ -7,6 +7,7 @@ import styles from "./CartPopup.module.scss";
 import useTranslate from "~/hooks/useLocales";
 import useCart from "~/contexts/CartContext";
 import { convertPrice } from "~/helpers";
+import { Empty } from "antd";
 
 const CartPopup = () => {
   const { cart } = useCart();
@@ -17,7 +18,9 @@ const CartPopup = () => {
   return (
     <div className={styles["cart_popup"]}>
       {cart.length === 0 ? (
-        <div>Empty</div>
+        <div>
+          <Empty description={false} />
+        </div>
       ) : (
         <>
           <div className={styles["cart_popup_header"]}>

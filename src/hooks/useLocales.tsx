@@ -3,7 +3,7 @@ import React, { useContext, useMemo, createContext, ReactElement } from "react";
 // hooks
 import useLocalStorage from "./useLocalStorage";
 // others
-import localesData from "../locales";
+import localesData from "../shared/locales";
 
 interface Locales {
   local: string;

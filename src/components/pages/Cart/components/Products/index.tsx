@@ -35,7 +35,7 @@ const Products = () => {
     } else if (action === DECREASE) {
       setCart((prev) =>
         prev.map((item) => {
-          if (item.id === id && item.quantity > 0) {
+          if (item.id === id && item.quantity > 1) {
             return { ...item, quantity: item.quantity - 1 };
           }
           return item;
@@ -70,7 +70,7 @@ const Products = () => {
                 <th className={styles["products_table_head"]}>{actionText}</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className={styles["products_table_tbody"]}>
               {cart.map((item, index) => (
                 <tr key={index} className={styles["products_table_row"]}>
                   <td className={styles["products_table_body"]}>

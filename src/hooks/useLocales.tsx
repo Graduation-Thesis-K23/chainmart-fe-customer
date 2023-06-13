@@ -38,7 +38,7 @@ export const LocalesProvider: React.FC<{
 
 export const useLocales = () => useContext(LocalesContext);
 
-const useTranslate = (key: string) => {
+const useTranslate = (key: string): string => {
   const { locales } = useLocales();
 
   return locales[key as keyof typeof locales];

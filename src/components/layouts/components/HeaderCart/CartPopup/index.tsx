@@ -1,38 +1,37 @@
 import React from "react";
-import { Button } from "antd";
+import { Button, Empty } from "antd";
 import Link from "next/link";
 import Image from "next/image";
 
 import styles from "./CartPopup.module.scss";
-import useTranslate from "~/hooks/useLocales";
-import useAuth from "~/hooks/useAuth";
 import useCart from "~/contexts/CartContext";
 import { convertPrice } from "~/helpers";
-import { Empty } from "antd";
+import { useAppSelector } from "~/redux";
+import { isEmptyObject } from "~/utils/is-empty-object";
+import Translate from "~/components/commons/Translate";
 
 const CartPopup = () => {
-  const user = useAuth();
+  const { data } = useAppSelector((state) => state.user);
   const { cart } = useCart();
 
-  const addedRecentlyText = useTranslate("cart.recentlyAdded");
-  const viewCartText = useTranslate("cart.viewCart");
-  const notLoggedInText = useTranslate("cart.notLoggedIn");
-  const emptyText = useTranslate("cart.empty");
-
-  if (!user) {
-    return <div className={styles["cart_popup--empty"]}>{notLoggedInText}</div>;
+  if (isEmptyObject(data)) {
+    return (
+      <div className={styles["cart_popup--empty"]}>
+        <Translate textKey="cart.notLoggedIn" />
+      </div>
+    );
   }
   if (cart.length === 0) {
-    return <div className={styles["cart_popup--empty"]}>{emptyText}</div>;
+    return <Empty description={<Translate textKey="cart.empty" />} />;
   }
   return (
     <div className={styles["cart_popup"]}>
       <div className={styles["cart_popup_header"]}>
         <span className={styles["cart_popup_header_text"]}>
-          {addedRecentlyText}
+          <Translate textKey="cart.recentlyAdded" />
         </span>
         <Button href="/cart" className={styles["cart_popup_header_btn"]}>
-          {viewCartText}
+          <Translate textKey="cart.viewCart" />
         </Button>
       </div>
       <ul className={styles["cart_popup_body"]}>

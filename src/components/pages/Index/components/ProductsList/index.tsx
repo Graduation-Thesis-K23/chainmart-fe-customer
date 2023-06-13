@@ -25,11 +25,12 @@ const ProductsList = () => {
     <ul className={styles["products-list"]}>
       {data.map((item) => (
         <li key={item.id} className={styles["products-list-item"]}>
-          <Link
+          {/* <Link
             href={"/[slug]"}
             as={"/" + item.slug}
             className={styles["product-card"]}
-          >
+          > */}
+          <div className={styles["product-card"]}>
             {checkCreated(item.created_at) && (
               <div className={styles["product-card-label"]}>
                 <span className={styles["product-card-label-text"]}>New</span>
@@ -90,7 +91,7 @@ const ProductsList = () => {
                 </div>
               )}
             </div>
-          </Link>
+          </div>
         </li>
       ))}
     </ul>

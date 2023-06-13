@@ -6,6 +6,7 @@ import classNames from "classnames";
 
 import styles from "./Products.module.scss";
 import useTranslate from "~/hooks/useLocales";
+import useAuth from "~/hooks/useAuth";
 import useCart from "~/contexts/CartContext";
 import { convertPrice, convertClassify } from "~/helpers";
 import { INCREASE, DECREASE } from "~/constants";
@@ -19,8 +20,17 @@ const Products = () => {
   const noteText = useTranslate("cart.note");
   const cartTotalText = useTranslate("cart.cartTotal");
   const checkoutText = useTranslate("cart.checkout");
+  const notLoggedInText = useTranslate("cart.notLoggedIn");
+  const emptyText = useTranslate("cart.empty");
 
+  const user = useAuth();
   const { cart, setCart } = useCart();
+
+  console.log(user);
+
+  const total = useMemo(() => {
+    return cart.reduce((prev, curr) => prev + curr.price * curr.quantity, 0);
+  }, [cart]);
 
   const handleChangeQuantity = (id: string, action: string) => {
     if (action === INCREASE) {
@@ -48,10 +58,12 @@ const Products = () => {
     setCart((prev) => prev.filter((item) => item.id !== id));
   };
 
-  const total = useMemo(() => {
-    return cart.reduce((prev, curr) => prev + curr.price * curr.quantity, 0);
-  }, [cart]);
-
+  if (!user) {
+    return <div className={styles["products--empty"]}>{notLoggedInText}</div>;
+  }
+  if (cart.length === 0) {
+    return <div className={styles["products--empty"]}>{emptyText}</div>;
+  }
   return (
     <div className={styles["products"]}>
       <div className="container">

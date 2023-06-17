@@ -7,9 +7,8 @@ import { SignInPayload, SignUpPayload } from "~/interfaces";
 
 export interface User {
   name: string;
-  email: number;
   role: string;
-  avatar: string;
+  photo: string;
   username: string;
 }
 
@@ -60,7 +59,7 @@ export const loginSlide = createSlice({
       state.message = action.error.message as unknown as string;
     });
     builder.addCase(changeAvatar.fulfilled, (state, { payload }) => {
-      state.data.avatar = payload;
+      state.data.photo = payload;
     });
   },
 });

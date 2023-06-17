@@ -25,13 +25,15 @@ const HeaderLoginForm: React.FC<{
   const dispatch = useAppDispatch();
   const { message } = useAppSelector((state) => state.user);
 
+  const messageText = dictionary(message);
+
   const {
     control,
     handleSubmit,
     formState: { isSubmitting, isValid, errors },
   } = useForm({
     defaultValues: {
-      username: "",
+      account: "",
       password: "",
     },
     mode: "onTouched",
@@ -62,50 +64,26 @@ const HeaderLoginForm: React.FC<{
         <form onSubmit={handleSubmit(onSubmit)} onChange={handleFormChange}>
           <HeaderLoginInput
             control={control}
-            name="username"
+            name="account"
             rules={{
-              required: dictionary("username.notEmpty"),
-              minLength: {
-                message: dictionary("username.minLength"),
-                value: 8,
-              },
-              maxLength: {
-                message: dictionary("username.maxLength"),
-                value: 32,
-              },
-              pattern: {
-                value: /^([a-z])([a-z0-9_])+$/gu,
-                message: dictionary("username.inValid"),
-              },
+              required: dictionary("account.notEmpty"),
             }}
             icon={<IdcardOutlined />}
-            labelKey="settings.username"
+            labelKey="settings.account"
           />
-          <ErrorMessage errors={errors} name="username" />
+          <ErrorMessage errors={errors} name="account" />
           <HeaderLoginInput
             control={control}
             name="password"
             rules={{
               required: dictionary("password.empty"),
-              minLength: {
-                message: dictionary("password.minLength"),
-                value: 8,
-              },
-              maxLength: {
-                message: dictionary("password.maxLength"),
-                value: 32,
-              },
-              pattern: {
-                value: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
-                message: dictionary("password.notStrong"),
-              },
             }}
             icon={<LockOutlined />}
             labelKey="settings.password"
             type="password"
           />
           <ErrorMessage errors={errors} name="password" />
-          {showError && <p>{message}</p>}
+          {showError && <p>{messageText}</p>}
           <button
             type="submit"
             disabled={isSubmitting || !isValid}

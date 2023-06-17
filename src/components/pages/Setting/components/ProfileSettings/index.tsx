@@ -23,15 +23,15 @@ const ProfileSettings: React.FC<{
     <div id={id} className={styles["profile_settings"]}>
       <div className={styles["profile_settings_inner"]}>
         <div className={styles["profile_settings_avatar"]}>
-          {data.avatar ? (
+          {data.photo ? (
             <Image
               className={styles["profile_settings_avatar_image"]}
-              src={getS3Image(data.avatar)}
+              src={getS3Image(data.photo)}
               width={160}
               height={160}
               alt="avatar"
               placeholder="blur"
-              blurDataURL={getS3Image(data.avatar)}
+              blurDataURL={getS3Image(data.photo)}
               priority
             />
           ) : (

@@ -35,11 +35,12 @@ const ProfileForm = () => {
   const {
     control,
     handleSubmit,
+    setValue,
     formState: { isSubmitting, isDirty, errors },
   } = useForm({
     defaultValues: {
       name: info.name ? info.name : "",
-      birthday: info.birthday ? info.birthday.slice(0, 10) : "",
+      birthday: info.birthday ? info.birthday : "",
       phone: info.phone ? info.phone : "",
       gender: info.gender ? info.gender : "",
     },
@@ -64,7 +65,12 @@ const ProfileForm = () => {
 
   useEffect(() => {
     dispatch(getUserInfo());
-  }, [dispatch]);
+
+    setValue("name", info.name ? info.name : "");
+    setValue("birthday", info.birthday ? info.birthday : "");
+    setValue("gender", info.gender ? info.gender : "");
+    setValue("phone", info.phone ? info.phone : "");
+  }, [dispatch, info.birthday, info.gender, info.name, info.phone, setValue]);
 
   return (
     <>

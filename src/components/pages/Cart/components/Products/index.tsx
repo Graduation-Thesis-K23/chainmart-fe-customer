@@ -26,8 +26,6 @@ const Products = () => {
   const user = useAuth();
   const { cart, setCart } = useCart();
 
-  console.log(user);
-
   const total = useMemo(() => {
     return cart.reduce((prev, curr) => prev + curr.price * curr.quantity, 0);
   }, [cart]);

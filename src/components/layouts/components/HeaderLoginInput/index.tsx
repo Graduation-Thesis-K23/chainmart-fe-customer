@@ -2,13 +2,11 @@ import React, { HTMLInputTypeAttribute, memo } from "react";
 import { Control, Controller, RegisterOptions } from "react-hook-form";
 
 import Input from "~/components/commons/Input";
+import { SignInPayload } from "~/interfaces";
 
 const HeaderLoginInput: React.FC<{
-  control: Control<{
-    username: string;
-    password: string;
-  }>;
-  name: "username" | "password";
+  control: Control<SignInPayload>;
+  name: keyof SignInPayload;
   icon: JSX.Element;
   labelKey: string;
   type?: HTMLInputTypeAttribute;

@@ -50,7 +50,7 @@ export interface ICart {
 }
 
 export interface SignInPayload {
-  username: string;
+  account: string;
   password: string;
 }
 

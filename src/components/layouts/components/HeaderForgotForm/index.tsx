@@ -1,24 +1,60 @@
 import React, { memo } from "react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import {
+  Controller,
+  FieldValues,
+  SubmitHandler,
+  useForm,
+} from "react-hook-form";
+import { ErrorMessage } from "@hookform/error-message";
+import { LeftOutlined } from "@ant-design/icons";
 
 import styles from "./HeaderForgotForm.module.scss";
 import { LOGIN_STATE } from "../HeaderLogin";
-import { LeftOutlined } from "@ant-design/icons";
-import { Divider } from "antd";
-import useTranslate from "~/hooks/useLocales";
+import Translate from "~/components/commons/Translate";
+import { default as dictionary } from "~/hooks/useLocales";
+import resetPassword from "~/apis/reset-password";
+
+interface Account {
+  account: string;
+}
 
 const HeaderForgotForm: React.FC<{
   setFormCode: React.Dispatch<React.SetStateAction<number>>;
-}> = ({ setFormCode }) => {
-  const orText = useTranslate("login.or");
-  const forgotTitleText = useTranslate("login.forgotTitle");
-  const forgotDescText = useTranslate("login.forgotDesc");
-  const forgotSendText = useTranslate("login.forgotSend");
+  setAccount: React.Dispatch<React.SetStateAction<string>>;
+}> = ({ setFormCode, setAccount }) => {
+  const {
+    control,
+    handleSubmit,
+    setError,
+    formState: { isValid, isSubmitting, errors },
+  } = useForm({
+    defaultValues: {
+      account: "",
+    },
+    mode: "onBlur",
+    reValidateMode: "onChange",
+  });
 
-  const { register, handleSubmit } = useForm();
+  const messages: FieldValues = {
+    "account.accountNotExist": dictionary("account.accountNotExist"),
+    "account.phoneNotExist": dictionary("account.accountNotExist"),
+    "account.emailNotExist": dictionary("account.accountNotExist"),
+  };
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<Account> = async ({ account }) => {
+    const result = await resetPassword(account);
+
+    if (result.statusCode === 200) {
+      setFormCode(4);
+      setAccount(account);
+    } else {
+      const message = messages[result?.message || "account.accountNotExist"];
+
+      setError("account", {
+        type: "error",
+        message,
+      });
+    }
   };
 
   return (
@@ -30,22 +66,41 @@ const HeaderForgotForm: React.FC<{
         <LeftOutlined className={styles["forget_back_icon"]} />
       </div>
       <div>
-        <div className={styles["forget_title"]}>{forgotTitleText}</div>
-        <div className={styles["forget_desc"]}>{forgotDescText}</div>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <input
-            {...register("username")}
-            placeholder="Email/Phone"
-            className={styles["forget_input"]}
-            required
-          />
-          <input
-            type="submit"
-            value={forgotSendText}
-            className={styles["forget_btn"]}
+        <div className={styles["forget_title"]}>
+          <Translate textKey="login.forgotTitle" />
+        </div>
+        <div className={styles["forget_desc"]}>
+          <Translate textKey="login.forgotDesc" />
+        </div>
+        <form>
+          <Controller
+            name="account"
+            control={control}
+            rules={{
+              required: dictionary("account.notEmpty"),
+              pattern: {
+                value: /^(?:\d{10}|\w+@\w+\.\w{2,3})$/gu,
+                message: dictionary("account.inValid"),
+              },
+            }}
+            render={({ field: { onChange, onBlur } }) => (
+              <input
+                placeholder="Email/Phone"
+                className={styles["forget_input"]}
+                onChange={onChange}
+                onBlur={onBlur}
+              />
+            )}
           />
         </form>
-        <Divider plain>{orText}</Divider>
+        <ErrorMessage errors={errors} name="account" />
+        <button
+          disabled={isSubmitting || !isValid}
+          className={styles["forget_btn"]}
+          onClick={handleSubmit(onSubmit)}
+        >
+          <Translate textKey="login.forgotSend" />
+        </button>
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ import { CloseCircleOutlined } from "@ant-design/icons";
 import HeaderLoginForm from "../HeaderLoginForm";
 import HeaderForgotForm from "../HeaderForgotForm";
 import HeaderRegisterForm from "../HeaderRegisterForm";
+import HeaderOtpForm from "../HeaderOtpForm";
 
 import banner from "~/assets/login/banner.jpg";
 import styles from "./HeaderLogin.module.scss";
@@ -17,10 +18,12 @@ import Translate from "~/components/commons/Translate";
 export const LOGIN_STATE = 1;
 export const FORGOT_STATE = 2;
 export const REGISTER_STATE = 3;
+export const OTP_STATE = 4;
 
 const HeaderLogin = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formCode, setFormCode] = useState(LOGIN_STATE);
+  const [account, setAccount] = useState<string>("");
 
   let Form = <HeaderLoginForm setFormCode={setFormCode} />;
 
@@ -29,10 +32,15 @@ const HeaderLogin = () => {
       Form = <HeaderLoginForm setFormCode={setFormCode} />;
       break;
     case FORGOT_STATE:
-      Form = <HeaderForgotForm setFormCode={setFormCode} />;
+      Form = (
+        <HeaderForgotForm setFormCode={setFormCode} setAccount={setAccount} />
+      );
       break;
     case REGISTER_STATE:
       Form = <HeaderRegisterForm setFormCode={setFormCode} />;
+      break;
+    case OTP_STATE:
+      Form = <HeaderOtpForm setFormCode={setFormCode} account={account} />;
       break;
   }
 

@@ -50,10 +50,10 @@ const Header = () => {
             </div>
           )}
         >
-          {data.avatar ? (
+          {data.photo ? (
             <Image
               className={styles["header_right_avatar"]}
-              src={getS3Image(data.avatar)}
+              src={getS3Image(data.photo)}
               width={32}
               height={32}
               alt="avatar"

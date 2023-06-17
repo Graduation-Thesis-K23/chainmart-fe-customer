@@ -7,6 +7,7 @@ import { familiarReducer } from "./familiar";
 import { userReducer } from "./user";
 import { settingReducer } from "./setting";
 import { searchReducer } from "./search";
+import { accountReducer } from "./account";
 
 const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
     user: userReducer,
     setting: settingReducer,
     search: searchReducer,
+    account: accountReducer,
   },
 });
 

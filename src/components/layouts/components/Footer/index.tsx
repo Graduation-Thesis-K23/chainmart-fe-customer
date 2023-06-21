@@ -10,6 +10,7 @@ import useTranslate, { useLocales } from "~/hooks/useLocales";
 import logo from "~/assets/images/logo.png";
 import headerTopLeft from "~/dataSources/HeaderTopLeft";
 import footerList from "~/dataSources/FooterList";
+import Translate from "~/components/commons/Translate";
 
 const Footer = () => {
   const { local } = useLocales();
@@ -74,8 +75,7 @@ const Footer = () => {
             priority
           />
           <span className={styles["footer_top_logo_text"]}>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi
-            alias repellat laudantium eum culpa at error aspernatur.
+            <Translate textKey="slogan.title" />
           </span>
         </div>
         <div className={classNames("ver-divider", styles["divider"])} />

@@ -5,7 +5,7 @@ import { CarouselRef } from "antd/lib/carousel";
 import Image from "next/image";
 import classNames from "classnames";
 
-import carouselList from "~/apis/mocks/CarouselList";
+import carouselList from "~/sub-categories/carousel";
 import styles from "./Carousel.module.scss";
 
 const CarouselComponent = () => {

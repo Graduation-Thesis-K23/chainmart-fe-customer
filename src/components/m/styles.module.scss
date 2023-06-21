@@ -1,0 +1,25 @@
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+
+  .content-list {
+    padding-top: 12px;
+  }
+
+  .content-item {
+    padding-bottom: 20px;
+
+    &__title {
+      font-weight: 600;
+      font-size: 28px;
+    }
+
+    &__content {
+      font-size: 22px;
+      line-height: 1.5;
+      color: #666;
+    }
+  }
+}

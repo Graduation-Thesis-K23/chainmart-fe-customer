@@ -6,22 +6,22 @@ import emailIcon from "~/assets/icons/email.svg";
 export default [
   {
     key: 0,
-    href: "/m/free-shipping",
+    href: "https://www.facebook.com/",
     icon: facebookIcon,
   },
   {
     key: 1,
-    href: "/m/free-returns",
+    href: "https://www.instagram.com/",
     icon: instagramIcon,
   },
   {
     key: 2,
-    href: "/m/gift-cards",
+    href: "https://www.youtube.com/",
     icon: youtubeIcon,
   },
   {
     key: 3,
-    href: "/m/gift-cards",
+    href: "mailto:chainmart.otp@gmail.com",
     icon: emailIcon,
   },
 ];

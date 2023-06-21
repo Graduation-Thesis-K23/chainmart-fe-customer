@@ -1,0 +1,118 @@
+@import "~/styles/variables";
+
+.otp {
+  padding: 32px 8px;
+  width: 100%;
+  height: 100%;
+
+  &_back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 8px;
+    cursor: pointer;
+
+    &_icon {
+      font-size: 20px;
+    }
+  }
+
+  &_title {
+    font-size: 26px;
+    text-align: center;
+  }
+
+  &_description {
+    font-size: 15px;
+    margin-top: 24px;
+    text-align: center;
+  }
+
+  &_account {
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  &_desc {
+    text-align: center;
+  }
+
+  &_btn_disable {
+    opacity: 0.7;
+    cursor: not-allowed !important;
+  }
+
+  &_error {
+    text-align: center;
+    color: red;
+    font-weight: 500;
+    font-size: 18px;
+  }
+
+  &_input {
+    position: relative;
+    margin: 32px 0;
+    height: 50px;
+
+    &_element {
+      width: 100% !important;
+      height: 100% !important;
+      font-size: 50px !important;
+      padding-left: 37px !important;
+      letter-spacing: 35px !important;
+    }
+
+    &_digits {
+      position: absolute;
+      right: 30px;
+      left: 30px;
+      bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &_digit {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.26);
+      width: 40px;
+    }
+  }
+
+  &_resend {
+    text-align: center;
+
+    &_btn {
+      margin-left: 4px;
+      background-color: transparent;
+      color: blue;
+      cursor: pointer;
+    }
+  }
+
+  &_submit {
+    background-color: $primary-color;
+    padding: 8px 0;
+    text-align: center;
+    cursor: pointer;
+    color: white;
+    font-size: 18px;
+    margin-top: 24px;
+
+    &:disabled {
+      opacity: 0.7;
+    }
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type="number"] {
+    -moz-appearance: "textfield";
+  }
+}

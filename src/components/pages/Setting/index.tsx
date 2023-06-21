@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState, useId } from "react";
 import { Menu } from "antd";
-import { useRouter } from "next/router";
 import {
   ProfileOutlined,
   UnlockOutlined,
   HomeOutlined,
+  PartitionOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd/es/menu";
 
@@ -12,21 +12,20 @@ import ProfileSettings from "./components/ProfileSettings";
 import MenuItem from "./components/MenuItem";
 import MyAddress from "./components/MyAddress";
 import ChangePassword from "./components/ChangePassword";
-import { useAppSelector } from "~/redux";
-import { ASYNC_STATUS } from "~/redux/constants";
+
+import AccountsConnect from "./components/AccountsConnect";
+import withAuth from "~/hocs/withAuth";
 
 const SMALL_MENU_WIDTH = 56;
 const LARGE_MENU_WIDTH = 256;
 
 const Setting = () => {
-  const { status } = useAppSelector((state) => state.user);
-
-  const router = useRouter();
   const [collapsed, setCollapsed] = useState<boolean>(true);
 
   const profileId = useId();
   const addressId = useId();
   const passwordId = useId();
+  const accountsId = useId();
 
   const onClick: MenuProps["onClick"] = (e) => {
     const element = document.getElementById(e.key);
@@ -43,12 +42,6 @@ const Setting = () => {
       setCollapsed(false);
     }
   }, [collapsed]);
-
-  useEffect(() => {
-    if (status !== ASYNC_STATUS.SUCCEED && status !== ASYNC_STATUS.LOADING) {
-      router.push("/");
-    }
-  }, [router, status]);
 
   useEffect(() => {
     if (window.innerWidth < 1200) {
@@ -92,11 +85,11 @@ const Setting = () => {
             icon: <HomeOutlined />,
             label: <MenuItem label="settings.address" />,
           },
-          /* {
+          {
             key: accountsId,
             icon: <PartitionOutlined />,
             label: <MenuItem label="settings.connectAccounts" />,
-          }, */
+          },
           {
             key: passwordId,
             icon: <UnlockOutlined />,
@@ -117,10 +110,10 @@ const Setting = () => {
       >
         <ProfileSettings id={profileId} />
         <MyAddress id={addressId} />
-        {/* <AccountsConnect id={accountsId} /> */}
+        <AccountsConnect id={accountsId} />
         <ChangePassword id={passwordId} />
       </div>
     </>
   );
 };
-export default Setting;
+export default withAuth(Setting);

@@ -44,10 +44,10 @@ const HeaderUser: FC<{ user: User }> = ({ user }) => {
       >
         <div className={styles["header-user"]}>
           <span className={styles["header-user_name"]}>{user.name}</span>
-          {user.avatar ? (
+          {user.photo ? (
             <Image
               className={styles["header-user_image"]}
-              src={getS3Image(user.avatar)}
+              src={getS3Image(user.photo)}
               width={26}
               height={26}
               alt="avatar"

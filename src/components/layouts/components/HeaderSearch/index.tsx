@@ -9,15 +9,30 @@ import styles from "./HeaderSearch.module.scss";
 import useDebounce from "~/hooks/useDebounce";
 import { searchProducts, useAppDispatch, useAppSelector } from "~/redux";
 import getS3Image from "~/helpers/get-s3-image";
+import { useRouter } from "next/router";
 
 const HeaderSearch = () => {
   const searchPlaceholder = useTranslate("search.lookingFor");
+  const [open, setOpen] = useState<boolean>(false);
+
+  const router = useRouter();
 
   const { data } = useAppSelector((state) => state.search);
   const dispatch = useAppDispatch();
 
   const [searchValue, setSearchValue] = useState<string>("");
   const searchValueDebounce = useDebounce(searchValue, 400);
+
+  const handleEnterPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      router.push({
+        pathname: "/search",
+        query: { keyword: searchValue },
+      });
+
+      setOpen(false);
+    }
+  };
 
   const items: MenuProps["items"] =
     data.length > 0
@@ -59,7 +74,7 @@ const HeaderSearch = () => {
       <Dropdown
         menu={{ items }}
         placement="bottom"
-        trigger={["click"]}
+        open={open}
         getPopupContainer={() =>
           document.getElementById("header-search") as HTMLElement
         }
@@ -71,8 +86,23 @@ const HeaderSearch = () => {
             placeholder={searchPlaceholder}
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
+            onKeyDown={(e) => handleEnterPress(e)}
+            onFocus={() => setOpen(true)}
+            onBlur={() => {
+              setTimeout(() => {
+                setOpen(false);
+              }, 200);
+            }}
           />
-          <button className={styles["header_search_btn"]}>
+          <button
+            className={styles["header_search_btn"]}
+            onClick={() => {
+              router.push({
+                pathname: "/search",
+                query: { keyword: searchValue },
+              });
+            }}
+          >
             <SearchOutlined />
           </button>
         </div>

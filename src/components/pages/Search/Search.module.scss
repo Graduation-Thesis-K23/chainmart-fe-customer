@@ -1,0 +1,80 @@
+@import "~/styles/variables";
+
+.search {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 12px;
+
+  &__filter {
+    &__title {
+      margin-bottom: 12px;
+      font-size: 18px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    &__item {
+      margin-bottom: 12px;
+
+      &__title {
+        margin-bottom: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+
+      &__content {
+        &__item {
+          display: flex;
+          height: 26px;
+          margin: 0 !important;
+
+          // disabled select text
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+        }
+      }
+    }
+
+    &__price {
+      display: flex;
+      justify-content: space-between;
+
+      &__input {
+        width: 40%;
+        border: 1px solid $primary-color;
+        padding: 4px 2px;
+        background-color: #f8f3f371;
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+          -moz-appearance: textfield;
+        }
+      }
+
+      &__btn {
+        width: 100%;
+        background-color: $primary-color;
+        margin-top: 12px;
+        padding: 8px 0;
+        color: #fff;
+        text-transform: uppercase;
+        font-weight: 500;
+        font-size: 16px;
+        cursor: pointer;
+
+        &:hover {
+          opacity: 0.8;
+        }
+
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}

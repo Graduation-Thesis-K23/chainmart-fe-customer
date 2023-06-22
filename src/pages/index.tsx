@@ -9,26 +9,24 @@ const IndexScreen = dynamic(() => import("~pages/Index"), { ssr: true });
 const Index: NextPageWithLayout = () => (
   <>
     <Head>
-      <title>Chainmart Việt Nam | Hệ thống siêu thị hàng đầu Việt Nam</title>
+      <title>Chainmart: Nơi mua sắm đáng tin cậy – Bạn của mọi nhà</title>
       <meta
         name="title"
-        content="Chainmart Việt Nam | Hệ thống siêu thị hàng đầu Việt Nam"
+        content="Chainmart: Nơi mua sắm đáng tin cậy – Bạn của mọi nhà"
       />
       <meta
         name="description"
-        content="12.12 Siêu Sale Sinh Nhật - Giảm Sâu Đến 90%. Ngập Tràn Voucher. Đặt Hàng Ngay Hôm Nay! Ngày Siêu Sale Sinh Nhật 12.12. Xem ShopeLive Lấy Mã Freeship Đến 99K. Lướt Mua Hàng Ngay. Flash Sale 0H-9H-12H-21H. Gì Cũng Rẻ - Freeship 0Đ. X4 Ưu Đãi Siêu Khủng."
+        content="Chainmart: Nơi mua sắm đáng tin cậy – Bạn của mọi nhà"
       />
       <meta
         property="og:title"
-        content="Chainmart Việt Nam | Hệ thống siêu thị hàng đầu Việt Nam"
+        content="Chainmart: Nơi mua sắm đáng tin cậy – Bạn của mọi nhà"
       />
       <meta
         property="og:description"
-        content="12.12 Siêu Sale Sinh Nhật - Giảm Sâu Đến 90%. Ngập Tràn Voucher. Đặt Hàng Ngay Hôm Nay! Ngày Siêu Sale Sinh Nhật 12.12. Xem ShopeLive Lấy Mã Freeship Đến 99K. Lướt Mua Hàng Ngay. Flash Sale 0H-9H-12H-21H. Gì Cũng Rẻ - Freeship 0Đ. X4 Ưu Đãi Siêu Khủng."
+        content="Chainmart: Nơi mua sắm đáng tin cậy – Bạn của mọi nhà"
       />
-      <meta property="og:image" content="/preview.jpg" />
-      <meta property="og:image:width" content="800" />
-      <meta property="og:image:height" content="800" />
+      <meta property="og:image" content="/og-image.png" />
     </Head>
     <IndexScreen />
   </>

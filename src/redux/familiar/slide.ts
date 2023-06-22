@@ -2,16 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { ASYNC_STATUS } from "../constants";
 import instance from "~/services/axios-instance";
 import { RootState } from "../store";
-import { ProductType } from "../products";
-
-export interface FamiliarProduct {
-  id: string;
-  name: string;
-  price: number;
-  sale?: number;
-  images: Array<string>;
-  slug: string;
-}
+import { FamiliarProduct } from "~/shared";
 
 export interface FamiliarProductState {
   data: FamiliarProduct[];
@@ -33,17 +24,7 @@ export const familiarSlide = createSlice({
     });
     builder.addCase(fetchFamiliarProduct.fulfilled, (state, action) => {
       state.status = ASYNC_STATUS.SUCCEED;
-
-      const familiarProducts: FamiliarProduct[] = action.payload.map((p) => ({
-        images: p.images.split(","),
-        id: p.id,
-        name: p.name,
-        price: p.price,
-        sale: p.sale,
-        slug: p.slug,
-      }));
-
-      state.data = familiarProducts;
+      state.data = action.payload;
     });
   },
 });
@@ -51,7 +32,7 @@ export const familiarSlide = createSlice({
 export const fetchFamiliarProduct = createAsyncThunk(
   "familiar/fetchFamiliarProduct",
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async (uuid: string): Promise<ProductType[]> =>
+  async (uuid: string): Promise<FamiliarProduct[]> =>
     await instance.get("/api/products"),
   {
     condition: (_, { getState }) => {

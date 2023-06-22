@@ -8,8 +8,9 @@ import { IParams } from "~/interfaces";
 import { NextPageWithLayout } from "../_app";
 import { MAIN_LAYOUT } from "~/constants";
 import instance from "~/services/axios-instance";
-import { ProductType, setProduct, useAppDispatch } from "~/redux";
+import { setProduct, useAppDispatch } from "~/redux";
 import getS3Image from "~/helpers/get-s3-image";
+import { ProductType } from "~/shared";
 
 const Product: NextPageWithLayout<{
   product: ProductType;
@@ -28,10 +29,7 @@ const Product: NextPageWithLayout<{
         <meta name="description" content={product.description} />
         <meta property="og:title" content={product.name} />
         <meta property="og:description" content={product.description} />
-        <meta
-          property="og:image"
-          content={getS3Image(product.images.split(",")[0])}
-        />
+        <meta property="og:image" content={getS3Image(product.images[0])} />
       </Head>
       <ProductPage />
     </>

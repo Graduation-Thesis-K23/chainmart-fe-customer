@@ -10,7 +10,7 @@ import getS3Image from "~/helpers/get-s3-image";
 
 const Images: React.FC<{
   images: Array<string>;
-}> = ({ images }) => {
+}> = ({ images = [] }) => {
   const [imageShow, setImageShow] = useState<string>(images[0]);
   const [visible, setVisible] = useState<boolean>(false);
 

@@ -25,73 +25,71 @@ const ProductsList = () => {
     <ul className={styles["products-list"]}>
       {data.map((item) => (
         <li key={item.id} className={styles["products-list-item"]}>
-          {/* <Link
+          <Link
             href={"/[slug]"}
             as={"/" + item.slug}
             className={styles["product-card"]}
-          > */}
-          <div className={styles["product-card"]}>
-            {checkCreated(item.created_at) && (
-              <div className={styles["product-card-label"]}>
-                <span className={styles["product-card-label-text"]}>New</span>
-              </div>
-            )}
-            {item.sale && (
-              <div className={styles["product-card-discount"]}>
-                <span className={styles["product-card-discount-percent"]}>
-                  {item.sale}%
-                </span>
-                <span className={styles["product-card-discount-text"]}>
-                  off
-                </span>
-              </div>
-            )}
-            <div className={styles["product-card-image"]}>
-              <Image
-                src={getS3Image(item.images[0])}
-                fill
-                sizes="(max-width: 768px) 40vw, (max-width: 1200px) 45vw, 50vw"
-                alt={item.slug}
-                priority
-              />
-            </div>
-            <div className={styles["product-card-body"]}>
-              <span className={styles["product-card-body-name"]}>
-                {item.name}
-              </span>
-              <div className={styles["product-card-body-prices"]}>
-                <span className={styles["product-card-body-prices-one"]}>
-                  {convertPrice(item.price)}
-                </span>
-                {item.sale && (
-                  <span className={styles["product-card-body-prices-two"]}>
-                    {convertPrice(discount(item.price, item.sale))}
+          >
+            <div className={styles["product-card"]}>
+              {checkCreated(item.created_at) && (
+                <div className={styles["product-card-label"]}>
+                  <span className={styles["product-card-label-text"]}>New</span>
+                </div>
+              )}
+              {item.sale && (
+                <div className={styles["product-card-discount"]}>
+                  <span className={styles["product-card-discount-percent"]}>
+                    {item.sale}%
                   </span>
-                )}
-              </div>
-            </div>
-            <div className={styles["product-card-footer"]}>
-              <div className={styles["product-card-footer-star"]}>
-                <Rate
-                  className={styles["product-card-footer-star-item"]}
-                  disabled
-                  allowHalf
-                  value={3}
-                />
-              </div>
-              {item.quantity !== item.units_in_stocks && (
-                <div className={styles["product-card-footer-sold"]}>
-                  <span>
-                    {item.quantity -
-                      item.units_in_stocks -
-                      item.units_on_orders +
-                      " "}
-                    {soldText}
+                  <span className={styles["product-card-discount-text"]}>
+                    off
                   </span>
                 </div>
               )}
+              <div className={styles["product-card-image"]}>
+                <Image
+                  src={getS3Image(item.images[0])}
+                  fill
+                  sizes="(max-width: 768px) 40vw, (max-width: 1200px) 45vw, 50vw"
+                  alt={item.slug}
+                  priority
+                />
+              </div>
+              <div className={styles["product-card-body"]}>
+                <span className={styles["product-card-body-name"]}>
+                  {item.name}
+                </span>
+                <div className={styles["product-card-body-prices"]}>
+                  <span className={styles["product-card-body-prices-one"]}>
+                    {convertPrice(item.price)}
+                  </span>
+                  {item.sale && (
+                    <span className={styles["product-card-body-prices-two"]}>
+                      {convertPrice(discount(item.price, item.sale))}
+                    </span>
+                  )}
+                </div>
+              </div>
+              <div className={styles["product-card-footer"]}>
+                <div className={styles["product-card-footer-star"]}>
+                  <Rate
+                    className={styles["product-card-footer-star-item"]}
+                    disabled
+                    allowHalf
+                    value={3}
+                  />
+                </div>
+                {item.sold > 0 && (
+                  <div className={styles["product-card-footer-sold"]}>
+                    <span>
+                      {item.sold + " "}
+                      {soldText}
+                    </span>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
+          </Link>
         </li>
       ))}
     </ul>

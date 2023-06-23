@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { Col, Row } from "antd";
 
 import styles from "./TopBanner.module.scss";

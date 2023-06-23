@@ -4,6 +4,12 @@ import { ASYNC_STATUS } from "../constants";
 import instance from "~/services/axios-instance";
 import { ProductListType } from "~/shared";
 
+interface ErrorPayload {
+  statusCode: number;
+  message: string;
+  error: string;
+}
+
 export interface FilterPayload {
   keyword: string;
   categories?: string;
@@ -48,12 +54,12 @@ export const filterProducts = createAsyncThunk(
       obj as unknown as Record<string, string>
     ).toString();
 
-    const response = await instance.get(
+    const response = await instance.get<ProductListType[], ErrorPayload>(
       "api/products/search-and-filter?" + queryParam
     );
 
     if ("message" in response) {
-      return thunkApi.rejectWithValue(response.message as unknown as string);
+      return thunkApi.rejectWithValue(response?.message as unknown as string);
     }
 
     return thunkApi.fulfillWithValue(response);

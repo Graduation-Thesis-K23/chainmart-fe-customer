@@ -1,6 +1,6 @@
 import React, { memo, useState } from "react";
 import { useRouter } from "next/router";
-import { Checkbox, Col, Divider, Row, Select } from "antd";
+import { Checkbox, Col, Divider, Row, Select, Space } from "antd";
 
 import categoryList from "~/shared/categories";
 import styles from "./Search.module.scss";
@@ -25,7 +25,6 @@ const SearchScreen = () => {
   const keyword = router.query.keyword as string;
 
   const handleCategoryChange = (e: CheckboxChangeEvent, category: string) => {
-    console.log(e.target.checked, category);
     if (e.target.checked) {
       if (categories === "") {
         console.log("set");
@@ -67,8 +66,8 @@ const SearchScreen = () => {
 
   return (
     <div className={styles["search"]}>
-      <Row gutter={12}>
-        <Col xs={24} sm={24} md={6} lg={4} xl={4}>
+      <Row gutter={[12, 12]}>
+        <Col xs={0} sm={5} md={6} lg={4} xl={4}>
           <div className={styles["search__filter"]}>
             <div className={styles["search__filter__title"]}>Search Filter</div>
             <div className={styles["search__filter__item"]}>
@@ -120,7 +119,8 @@ const SearchScreen = () => {
             <Divider />
           </div>
         </Col>
-        <Col xs={24} sm={24} md={18} lg={20} xl={20}>
+        <Col xs={24} sm={19} md={18} lg={20} xl={20}>
+          <Space></Space>
           <div className={styles["search__order__group"]}>
             <span>Sort by</span>
             <div
@@ -159,7 +159,7 @@ const SearchScreen = () => {
             categories={categories}
             minPrice={minPrice}
             maxPrice={maxPrice}
-            order={order}
+            orderBy={order}
           />
         </Col>
       </Row>

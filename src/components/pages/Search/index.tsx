@@ -1,12 +1,13 @@
 import React, { memo, useState } from "react";
 import { useRouter } from "next/router";
-import { Checkbox, Col, Divider, Row } from "antd";
+import { Checkbox, Col, Divider, Row, Select } from "antd";
 
 import categoryList from "~/shared/categories";
 import styles from "./Search.module.scss";
 import Translate from "~/components/commons/Translate";
 import ProductList from "./ProductList";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
+import classNames from "classnames";
 
 const SearchScreen = () => {
   const router = useRouter();
@@ -16,37 +17,21 @@ const SearchScreen = () => {
   const [categories, setCategories] = useState<string>(
     (router.query.categories as string) || ""
   );
-  const [keyword, setKeyword] = useState<string>(
-    (router.query.keyword as string) || ""
-  );
-  const [order, setOrder] = useState<string>(router.query.orderBy as string);
-  const [maxPrice, setMaxPrice] = useState<string>(
-    (router.query.maxPrice as string) || ""
-  );
-  const [minPrice, setMinPrice] = useState<string>(
-    (router.query.minPrice as string) || ""
-  );
 
-  const setQuery = () => {
-    const query = {
-      ...(keyword && { keyword }),
-      ...(categories && { categories }),
-      ...(order && { orderBy: order }),
-      ...(maxPrice && { maxPrice }),
-      ...(minPrice && { minPrice }),
-    };
+  const [order, setOrder] = useState<string>("");
+  const [maxPrice, setMaxPrice] = useState<string>("");
+  const [minPrice, setMinPrice] = useState<string>("");
 
-    router.push({
-      pathname: "/search",
-      query,
-    });
-  };
+  const keyword = router.query.keyword as string;
 
   const handleCategoryChange = (e: CheckboxChangeEvent, category: string) => {
+    console.log(e.target.checked, category);
     if (e.target.checked) {
       if (categories === "") {
+        console.log("set");
         setCategories(category);
       } else {
+        console.log("add");
         setCategories(categories + "," + category);
       }
     } else {
@@ -56,27 +41,33 @@ const SearchScreen = () => {
 
       setCategories(newCategories.join(","));
     }
-
-    setQuery();
   };
 
-  const handleRangePrice = () => {
-    setQuery();
+  const handleOrderChange = (value: string) => {
+    setOrder(value);
   };
 
-  const enableApplyBtn = () => {
-    const newMinPrice = minPriceRef.current?.value;
-    const newMaxPrice = maxPriceRef.current?.value;
+  const handleApplyPrice = () => {
+    const minPrice = minPriceRef.current?.value;
+    const maxPrice = maxPriceRef.current?.value;
 
-    if (newMinPrice && newMaxPrice) {
-      setMinPrice(newMinPrice);
-      setMaxPrice(newMaxPrice);
+    if (minPrice && maxPrice && Number(minPrice) < Number(maxPrice)) {
+      setMinPrice(minPrice);
+      setMaxPrice(maxPrice);
+    } else {
+      // clear input
+      if (minPriceRef.current && maxPriceRef.current) {
+        minPriceRef.current.value = "";
+        maxPriceRef.current.value = "";
+      }
+      setMinPrice("");
+      setMaxPrice("");
     }
   };
 
   return (
     <div className={styles["search"]}>
-      <Row gutter={[24, 24]}>
+      <Row gutter={12}>
         <Col xs={24} sm={24} md={6} lg={4} xl={4}>
           <div className={styles["search__filter"]}>
             <div className={styles["search__filter__title"]}>Search Filter</div>
@@ -109,21 +100,18 @@ const SearchScreen = () => {
                   <input
                     className={styles["search__filter__price__input"]}
                     type="number"
-                    onChange={() => enableApplyBtn()}
                     ref={minPriceRef}
                   />
                   -
                   <input
                     className={styles["search__filter__price__input"]}
                     type="number"
-                    onChange={() => enableApplyBtn()}
                     ref={maxPriceRef}
                   />
                 </div>
                 <button
                   className={styles["search__filter__price__btn"]}
-                  disabled={Number(minPrice) >= Number(maxPrice)}
-                  onClick={() => handleRangePrice()}
+                  onClick={() => handleApplyPrice()}
                 >
                   Apply
                 </button>
@@ -133,8 +121,46 @@ const SearchScreen = () => {
           </div>
         </Col>
         <Col xs={24} sm={24} md={18} lg={20} xl={20}>
-          <div>{categories}</div>
-          <ProductList />
+          <div className={styles["search__order__group"]}>
+            <span>Sort by</span>
+            <div
+              className={classNames(styles["search__order__item"], {
+                [styles["search__order__item--active"]]: order === "latest",
+              })}
+            >
+              <button onClick={() => handleOrderChange("latest")}>
+                Latest
+              </button>
+            </div>
+            <div
+              className={classNames(styles["search__order__item"], {
+                [styles["search__order__item--active"]]: order === "sales",
+              })}
+            >
+              <button onClick={() => handleOrderChange("sales")}>
+                Top Sales
+              </button>
+            </div>
+            <div className={styles["search__order__item"]}>
+              <Select
+                className={styles["search__order__item__price"]}
+                defaultValue="Price"
+                options={[
+                  { value: "desc", label: "Price: Hight to Low" },
+                  { value: "asc", label: "Price: Low to Hight" },
+                ]}
+                bordered={false}
+                onChange={(value) => handleOrderChange(value)}
+              />
+            </div>
+          </div>
+          <ProductList
+            keyword={keyword}
+            categories={categories}
+            minPrice={minPrice}
+            maxPrice={maxPrice}
+            order={order}
+          />
         </Col>
       </Row>
     </div>

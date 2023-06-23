@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from "~/redux";
 import { fetchProducts } from "~/redux";
 import getS3Image from "~/helpers/get-s3-image";
 import checkCreated from "~/helpers/check-created";
+import convertNumberToK from "~/helpers/convert-to-k";
 
 const ProductsList = () => {
   const soldText = useTranslate("products.sold");
@@ -71,18 +72,22 @@ const ProductsList = () => {
                 </div>
               </div>
               <div className={styles["product-card-footer"]}>
-                <div className={styles["product-card-footer-star"]}>
-                  <Rate
-                    className={styles["product-card-footer-star-item"]}
-                    disabled
-                    allowHalf
-                    value={3}
-                  />
-                </div>
+                {item.rating > 0 ? (
+                  <div className={styles["product-card-footer-star"]}>
+                    <Rate
+                      className={styles["product-card-footer-star-item"]}
+                      disabled
+                      allowHalf
+                      value={item.rating}
+                    />
+                  </div>
+                ) : (
+                  <span></span>
+                )}
                 {item.sold > 0 && (
                   <div className={styles["product-card-footer-sold"]}>
                     <span>
-                      {item.sold + " "}
+                      {convertNumberToK(item.sold) + " "}
                       {soldText}
                     </span>
                   </div>

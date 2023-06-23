@@ -17,20 +17,20 @@ export interface SearchState {
 const initialState: SearchState = {
   data: [
     {
-      slug: "categories/soft-drinks",
-      name: "categories.softDrinks",
+      slug: "search?categories=softDrinks",
+      name: "softDrinks",
     },
     {
-      slug: "categories/noodles",
-      name: "categories.noodles",
+      slug: "search?categories=noodles",
+      name: "noodles",
     },
     {
-      slug: "categories/vegetables",
-      name: "categories.vegetables",
+      slug: "search?categories=vegetables",
+      name: "vegetables",
     },
     {
-      slug: "categories/fish-sauce",
-      name: "categories.fishSauce",
+      slug: "search?categories=fishSauce",
+      name: "fishSauce",
     },
   ],
   status: ASYNC_STATUS.IDLE,

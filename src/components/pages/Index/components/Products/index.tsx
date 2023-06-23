@@ -19,7 +19,7 @@ const Products = () => {
           <ProductsList />
           <div className={styles["products-all"]}>
             <Link
-              href={"/products"}
+              href={"/search?keyword="}
               prefetch={false}
               className={styles["products-all-btn"]}
             >

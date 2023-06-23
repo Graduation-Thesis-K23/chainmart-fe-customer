@@ -1,0 +1,115 @@
+@import "~/styles/variables";
+
+.search {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 12px;
+
+  &__filter {
+    &__title {
+      margin-bottom: 12px;
+      font-size: 18px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    &__item {
+      margin-bottom: 12px;
+
+      &__title {
+        margin-bottom: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+
+      &__content {
+        &__item {
+          display: flex;
+          height: 26px;
+          margin: 0 !important;
+
+          // disabled select text
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+        }
+      }
+    }
+
+    &__price {
+      display: flex;
+      justify-content: space-between;
+
+      &__input {
+        width: 40%;
+        border: 1px solid $primary-color;
+        padding: 4px 2px;
+        background-color: #f8f3f371;
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+          -moz-appearance: textfield;
+        }
+      }
+
+      &__btn {
+        width: 100%;
+        background-color: $primary-color;
+        margin-top: 12px;
+        padding: 10px 0 6px;
+        color: #fff;
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size: 15px;
+        cursor: pointer;
+
+        &:hover {
+          opacity: 0.8;
+        }
+
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+
+  &__order {
+    &__group {
+      display: flex;
+      align-items: center;
+      background-color: rgba(0, 0, 0, 0.03);
+      padding: 12px 20px;
+    }
+
+    &__item {
+      margin-left: 22px;
+      background-color: #fff;
+      height: 30px;
+      transition: all 0.3s ease-in-out;
+
+      button {
+        min-width: max-content;
+        background-color: inherit;
+        color: inherit;
+        height: 100%;
+        padding: 0 12px;
+        font-size: 14px;
+        cursor: pointer;
+      }
+
+      &--active {
+        background-color: $primary-color;
+        color: #fff;
+      }
+
+      &__price {
+        width: 170px;
+      }
+    }
+  }
+}

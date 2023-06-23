@@ -67,7 +67,7 @@ const ProductList: FC<{
             );
           }}
         >
-          Reload
+          <Translate textKey="search.reload" />
         </button>
       </div>
     );

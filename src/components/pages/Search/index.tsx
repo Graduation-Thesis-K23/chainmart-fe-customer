@@ -8,11 +8,14 @@ import Translate from "~/components/commons/Translate";
 import ProductList from "./ProductList";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 import classNames from "classnames";
+import useTranslate from "~/hooks/useLocales";
 
 const SearchScreen = () => {
   const router = useRouter();
   const minPriceRef = React.useRef<HTMLInputElement>(null);
   const maxPriceRef = React.useRef<HTMLInputElement>(null);
+
+  const priceText = useTranslate("search.price");
 
   const [categories, setCategories] = useState<string>(
     (router.query.categories as string) || ""
@@ -69,10 +72,12 @@ const SearchScreen = () => {
       <Row gutter={[12, 12]}>
         <Col xs={0} sm={5} md={6} lg={4} xl={4}>
           <div className={styles["search__filter"]}>
-            <div className={styles["search__filter__title"]}>Search Filter</div>
+            <div className={styles["search__filter__title"]}>
+              <Translate textKey="search.filter" />
+            </div>
             <div className={styles["search__filter__item"]}>
               <div className={styles["search__filter__item__title"]}>
-                By Category
+                <Translate textKey="search.byCategory" />
               </div>
               <div className={styles["search__filter__item__content"]}>
                 {categoryList.map((item) => (
@@ -92,7 +97,7 @@ const SearchScreen = () => {
             <Divider />
             <div className={styles["search__filter__item"]}>
               <div className={styles["search__filter__item__title"]}>
-                Price Range
+                <Translate textKey="search.byPrice" />
               </div>
               <div className={styles["search__filter__item__content"]}>
                 <div className={styles["search__filter__price"]}>
@@ -112,7 +117,7 @@ const SearchScreen = () => {
                   className={styles["search__filter__price__btn"]}
                   onClick={() => handleApplyPrice()}
                 >
-                  Apply
+                  <Translate textKey="search.apply" />
                 </button>
               </div>
             </div>
@@ -122,14 +127,16 @@ const SearchScreen = () => {
         <Col xs={24} sm={19} md={18} lg={20} xl={20}>
           <Space></Space>
           <div className={styles["search__order__group"]}>
-            <span>Sort by</span>
+            <span>
+              <Translate textKey="search.sortBy" />
+            </span>
             <div
               className={classNames(styles["search__order__item"], {
                 [styles["search__order__item--active"]]: order === "latest",
               })}
             >
               <button onClick={() => handleOrderChange("latest")}>
-                Latest
+                <Translate textKey="search.latest" />
               </button>
             </div>
             <div
@@ -138,16 +145,22 @@ const SearchScreen = () => {
               })}
             >
               <button onClick={() => handleOrderChange("sales")}>
-                Top Sales
+                <Translate textKey="search.topSales" />
               </button>
             </div>
             <div className={styles["search__order__item"]}>
               <Select
                 className={styles["search__order__item__price"]}
-                defaultValue="Price"
+                defaultValue={priceText}
                 options={[
-                  { value: "desc", label: "Price: Hight to Low" },
-                  { value: "asc", label: "Price: Low to Hight" },
+                  {
+                    value: "desc",
+                    label: <Translate textKey="search.priceHighToLow" />,
+                  },
+                  {
+                    value: "asc",
+                    label: <Translate textKey="search.priceLowToHigh" />,
+                  },
                 ]}
                 bordered={false}
                 onChange={(value) => handleOrderChange(value)}

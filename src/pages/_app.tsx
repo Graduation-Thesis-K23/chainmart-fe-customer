@@ -18,6 +18,7 @@ import "~/styles/index.scss";
 import { AuthProvider } from "~/hooks/useAuth";
 import { Provider } from "react-redux";
 import { store } from "~/redux";
+import Message from "~/components/Message";
 
 export const nunito = Baloo_2({
   weight: ["400", "500", "600", "700", "800"],
@@ -108,6 +109,8 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
                       font-family: ${nunito.style.fontFamily} !important;
                     }
                   `}</style>
+                  <Message />
+
                   <Layout>
                     <Component {...pageProps} />
                   </Layout>

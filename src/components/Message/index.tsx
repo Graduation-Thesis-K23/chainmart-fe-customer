@@ -4,11 +4,17 @@ import {
   MessageOutlined,
   SendOutlined,
 } from "@ant-design/icons";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Badge, Button, Dropdown, MenuProps } from "antd";
 import classNames from "classnames";
 import Image from "next/image";
-import { sendMessage, useAppDispatch, useAppSelector } from "~/redux";
+import {
+  receiveMessage,
+  sendMessage,
+  useAppDispatch,
+  useAppSelector,
+} from "~/redux";
+import socket from "~/services/socket.io-instance";
 
 import styles from "./Message.module.scss";
 import logoSquare from "~/assets/images/logo-square.png";
@@ -25,6 +31,7 @@ const Message = () => {
   const messageLookupOrder = useTranslate("message.lookupOrder");
   const messageBuyingGuide = useTranslate("message.buyingGuide");
   const messageSeekingProduct = useTranslate("message.seekingProduct");
+  const startMessage = useTranslate("message.startMessage");
 
   const handleMinimizeChat = () => {
     setIsOpen(false);
@@ -42,8 +49,15 @@ const Message = () => {
     if (sendMessage.fulfilled.match(result)) {
       const messageBox = document.getElementById("message-list");
 
+      socket.emit("send_message", result.payload.content);
+
       if (messageBox) {
-        messageBox.scrollTop = messageBox.scrollHeight;
+        setTimeout(() => {
+          messageBox.scrollTop = messageBox.scrollHeight;
+        }, 100);
+        setTimeout(() => {
+          messageBox.scrollTop = messageBox.scrollHeight;
+        }, 200);
       }
     }
     setMessage("");
@@ -91,6 +105,16 @@ const Message = () => {
     },
   ];
 
+  useEffect(() => {
+    socket.on("receive_message", (data) => {
+      dispatch(receiveMessage(data));
+    });
+
+    return () => {
+      socket.off("receive_message");
+    };
+  }, [dispatch]);
+
   return (
     <div className={styles["message"]}>
       <div className={styles["message__btn"]} onClick={handleOpenChat}>
@@ -123,6 +147,13 @@ const Message = () => {
         </div>
         <div className={styles["message__box__body"]}>
           <div className={styles["message__box__body__list"]} id="message-list">
+            <div className={styles["message__box__body__list__chatbot"]}>
+              <span
+                className={styles["message__box__body__list__chatbot__text"]}
+              >
+                {startMessage}
+              </span>
+            </div>
             {messages.data.map((message, index) => {
               if (message.sender === "chatbot") {
                 return (

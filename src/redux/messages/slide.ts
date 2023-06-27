@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { ASYNC_STATUS } from "../constants";
-
 export interface Message {
   id: string;
   content: string;
@@ -17,36 +16,7 @@ export interface MessageState {
 }
 
 const initialState: MessageState = {
-  data: [
-    {
-      id: "1",
-      content: "Hello",
-      createdAt: "2021-08-01T00:00:00.000Z",
-      sender: "anonymous",
-      status: "read",
-    },
-    {
-      id: "2",
-      content: "Hi how are you? I'm fine thank you and you? I'm fine too.",
-      createdAt: "2021-08-01T00:00:00.000Z",
-      sender: "chatbot",
-      receiver: "anonymous",
-    },
-    {
-      id: "3",
-      content:
-        "How are you? How are you? How are you? How are you? How are you? How are you?",
-      createdAt: "2021-08-01T00:00:00.000Z",
-      sender: "anonymous",
-    },
-    {
-      id: "4",
-      content: "I'm fine",
-      createdAt: "2021-08-01T00:00:00.000Z",
-      sender: "chatbot",
-      receiver: "anonymous",
-    },
-  ],
+  data: [],
   status: ASYNC_STATUS.SUCCEED,
 };
 
@@ -59,6 +29,10 @@ export const messagesSlide = createSlice({
       state.status = ASYNC_STATUS.SUCCEED;
       state.data.push(action.payload as unknown as Message);
     });
+    builder.addCase(receiveMessage.fulfilled, (state, action) => {
+      state.status = ASYNC_STATUS.SUCCEED;
+      state.data.push(action.payload as unknown as Message);
+    });
   },
 });
 
@@ -66,10 +40,22 @@ export const sendMessage = createAsyncThunk(
   "message/sendMessage",
   async (message: string) => {
     return Promise.resolve({
-      id: "5",
+      id: Date.now().toString(),
       content: message,
       createdAt: Date.now().toString(),
       sender: "anonymous",
+    });
+  }
+);
+
+export const receiveMessage = createAsyncThunk(
+  "message/receiveMessage",
+  async (message: string) => {
+    return Promise.resolve({
+      id: Date.now().toString(),
+      content: message,
+      createdAt: Date.now().toString(),
+      sender: "chatbot",
     });
   }
 );

@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { ASYNC_STATUS } from "../constants";
-import instance from "~/services/axios-instance";
+import instance from "~/apis/axios-instance";
 import { RootState } from "../store";
 import { SignInPayload, SignUpPayload } from "~/interfaces";
 

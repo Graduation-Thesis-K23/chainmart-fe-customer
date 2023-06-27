@@ -30,10 +30,15 @@ const Parameter: React.FC<{
       </div>
       <div className={styles["value"]}>
         <span className={styles["value-price"]}>{convertPrice(price)}</span>
-        <span className={styles["value-price-ignore"]}>
-          {convertPrice(discount(price, sale))}
-        </span>
-        {sale > 0 && <span className={styles["value-discount"]}>{sale}%</span>}
+
+        {sale > 0 && (
+          <>
+            <span className={styles["value-price-ignore"]}>
+              {convertPrice(discount(price, sale))}
+            </span>
+            <span className={styles["value-discount"]}>{sale}%</span>
+          </>
+        )}
       </div>
     </>
   );

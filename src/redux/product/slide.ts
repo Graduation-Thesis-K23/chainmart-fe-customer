@@ -2,20 +2,16 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 
 import { ASYNC_STATUS } from "../constants";
 import instance from "~/services/axios-instance";
-import { ProductType } from "./../products/slide";
 import { RootState } from "../store";
+import { ProductType } from "~/shared";
 
-export interface Product extends Omit<ProductType, "images" | "category"> {
-  images: string[];
-  category: string;
-}
 export interface ProductState {
-  data: Product;
+  data: ProductType;
   status: typeof ASYNC_STATUS[keyof typeof ASYNC_STATUS];
 }
 
 const initialState: ProductState = {
-  data: {} as unknown as Product,
+  data: {} as unknown as ProductType,
   status: ASYNC_STATUS.IDLE,
 };
 
@@ -25,12 +21,7 @@ export const productSlice = createSlice({
   reducers: {
     setProduct(state, action: PayloadAction<ProductType>) {
       state.status = ASYNC_STATUS.SUCCEED;
-
-      state.data = {
-        ...action.payload,
-        images: action.payload.images.split(","),
-        category: action.payload.category.name,
-      };
+      state.data = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -42,14 +33,7 @@ export const productSlice = createSlice({
     });
     builder.addCase(fetchProduct.fulfilled, (state, { payload }) => {
       state.status = ASYNC_STATUS.SUCCEED;
-
-      const product = {
-        ...payload,
-        images: payload.images.split(","),
-        category: payload.category.name,
-      };
-
-      state.data = product;
+      state.data = payload;
     });
   },
 });

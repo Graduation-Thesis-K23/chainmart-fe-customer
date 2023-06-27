@@ -1,30 +1,89 @@
-import React, { memo, useEffect } from "react";
-import Link from "next/link";
+import React, { FC, memo, useEffect } from "react";
 import Image from "next/image";
-import { Rate } from "antd";
+import { Rate, Spin } from "antd";
 
-import styles from "./ProductsList.module.scss";
-import { convertPrice, discount } from "~/helpers";
-import useTranslate from "~/hooks/useLocales";
-import { useAppDispatch, useAppSelector } from "~/redux";
-import { fetchProducts } from "~/redux";
-import getS3Image from "~/helpers/get-s3-image";
+import styles from "./ProductList.module.scss";
+import Translate from "~/components/commons/Translate";
 import checkCreated from "~/helpers/check-created";
 import convertNumberToK from "~/helpers/convert-to-k";
+import {
+  ASYNC_STATUS,
+  FilterPayload,
+  filterProducts,
+  useAppDispatch,
+  useAppSelector,
+} from "~/redux";
+import Link from "next/link";
+import getS3Image from "~/helpers/get-s3-image";
+import { convertPrice, discount } from "~/helpers";
 
-const ProductsList = () => {
-  const soldText = useTranslate("products.sold");
-
-  const { data } = useAppSelector((state) => state.products);
+const ProductList: FC<{
+  keyword: string;
+  categories: string;
+  minPrice: string;
+  maxPrice: string;
+  orderBy: string;
+}> = ({ keyword, categories, minPrice, maxPrice, orderBy }) => {
+  const filter = useAppSelector((state) => state.filter);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchProducts());
-  }, [dispatch]);
+    // create filter payload and ignore empty fields
+    const filterPayload: FilterPayload = {
+      keyword,
+      ...(categories !== "" && { categories }),
+      ...(minPrice !== "" && { minPrice }),
+      ...(maxPrice !== "" && { maxPrice }),
+      ...(orderBy !== "" && { orderBy }),
+    };
+
+    dispatch(filterProducts(filterPayload));
+  }, [keyword, categories, minPrice, maxPrice, orderBy, dispatch]);
+
+  if (
+    filter.status === ASYNC_STATUS.LOADING ||
+    filter.status === ASYNC_STATUS.IDLE
+  ) {
+    return (
+      <div className={styles["loading"]}>
+        <Spin />
+      </div>
+    );
+  }
+
+  if (filter.status === ASYNC_STATUS.FAILED) {
+    return (
+      <div className={styles["loading"]}>
+        <button
+          onClick={() => {
+            dispatch(
+              filterProducts({
+                keyword,
+                ...(categories !== "" && { categories }),
+                ...(minPrice !== "" && { minPrice }),
+                ...(maxPrice !== "" && { maxPrice }),
+                ...(orderBy !== "" && { orderBy }),
+              })
+            );
+          }}
+        >
+          <Translate textKey="search.reload" />
+        </button>
+      </div>
+    );
+  }
+
+  if (filter.data.length === 0) {
+    return (
+      <div className={styles["loading"]}>
+        <Translate textKey="notFound.product" />
+      </div>
+    );
+  }
 
   return (
     <ul className={styles["products-list"]}>
-      {data.map((item) => (
+      {filter.data.map((item) => (
         <li key={item.id} className={styles["products-list-item"]}>
           <Link
             href={"/[slug]"}
@@ -88,7 +147,7 @@ const ProductsList = () => {
                   <div className={styles["product-card-footer-sold"]}>
                     <span>
                       {convertNumberToK(item.sold) + " "}
-                      {soldText}
+                      <Translate textKey="products.sold" />
                     </span>
                   </div>
                 )}
@@ -101,4 +160,4 @@ const ProductsList = () => {
   );
 };
 
-export default memo(ProductsList);
+export default memo(ProductList);

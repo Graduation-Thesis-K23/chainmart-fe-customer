@@ -4,12 +4,10 @@ import Link from "next/link";
 
 import styles from "./Breadcrumb.module.scss";
 import { useAppSelector } from "~/redux";
-import useTranslate from "~/hooks/useLocales";
+import Translate from "~/components/commons/Translate";
 
 const ProductBreadcrumb = () => {
   const { data } = useAppSelector((state) => state.product);
-
-  const home = useTranslate("home");
 
   return (
     <div className={styles["breadcrumb"]}>
@@ -17,10 +15,14 @@ const ProductBreadcrumb = () => {
         <div className={styles["breadcrumb_inner"]}>
           <Breadcrumb>
             <Breadcrumb.Item>
-              <Link href="/">{home}</Link>
+              <Link href="/">
+                <Translate textKey="home" />
+              </Link>
             </Breadcrumb.Item>
             <Breadcrumb.Item>
-              <Link href="/"> {data.category}</Link>
+              <Link href="/">
+                <Translate textKey={data.category} />
+              </Link>
             </Breadcrumb.Item>
             <Breadcrumb.Item>{data.name}</Breadcrumb.Item>
           </Breadcrumb>

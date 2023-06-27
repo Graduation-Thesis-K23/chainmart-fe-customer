@@ -49,6 +49,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd index
+            sudo docker system prune -f -a
             sudo docker-compose stop
             sudo docker-compose rm -f
             sudo docker-compose pull

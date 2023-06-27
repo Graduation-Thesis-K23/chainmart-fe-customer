@@ -12,7 +12,7 @@ const Familiar = () => {
   const familiarText = useTranslate("product.familiar");
 
   const product = useAppSelector((state) => state.product);
-  const { data } = useAppSelector((state) => state.products);
+  const { data } = useAppSelector((state) => state.familiar);
 
   const dispatch = useAppDispatch();
 

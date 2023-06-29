@@ -6,10 +6,10 @@ import classNames from "classnames";
 
 import styles from "./Products.module.scss";
 import useTranslate from "~/hooks/useLocales";
-import useAuth from "~/hooks/useAuth";
 import useCart from "~/contexts/CartContext";
 import { convertPrice, convertClassify } from "~/helpers";
 import { INCREASE, DECREASE } from "~/constants";
+import getS3Image from "~/helpers/get-s3-image";
 
 const Products = () => {
   const productText = useTranslate("cart.product");
@@ -20,10 +20,8 @@ const Products = () => {
   const noteText = useTranslate("cart.note");
   const cartTotalText = useTranslate("cart.cartTotal");
   const checkoutText = useTranslate("cart.checkout");
-  const notLoggedInText = useTranslate("cart.notLoggedIn");
   const emptyText = useTranslate("cart.empty");
 
-  const user = useAuth();
   const { cart, setCart } = useCart();
 
   const total = useMemo(() => {
@@ -56,9 +54,6 @@ const Products = () => {
     setCart((prev) => prev.filter((item) => item.id !== id));
   };
 
-  if (!user) {
-    return <div className={styles["products--empty"]}>{notLoggedInText}</div>;
-  }
   if (cart.length === 0) {
     return <div className={styles["products--empty"]}>{emptyText}</div>;
   }
@@ -87,7 +82,7 @@ const Products = () => {
                     <div className={styles["products_table_body_product"]}>
                       <Image
                         className={styles["products_table_body_image"]}
-                        src={item.image}
+                        src={getS3Image(item.image)}
                         width={80}
                         height={80}
                         alt={item.name}

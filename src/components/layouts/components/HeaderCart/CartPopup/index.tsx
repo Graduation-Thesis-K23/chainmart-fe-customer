@@ -9,6 +9,7 @@ import { convertPrice } from "~/helpers";
 import { useAppSelector } from "~/redux";
 import { isEmptyObject } from "~/utils/is-empty-object";
 import Translate from "~/components/commons/Translate";
+import getS3Image from "~/helpers/get-s3-image";
 
 const CartPopup = () => {
   const { data } = useAppSelector((state) => state.user);
@@ -40,7 +41,7 @@ const CartPopup = () => {
             <Link href={`/${product.slug}`} prefetch={false}>
               <div className={styles["cart-item-image"]}>
                 <Image
-                  src={product.image}
+                  src={getS3Image(product.image)}
                   width={40}
                   height={40}
                   style={{ objectFit: "contain" }}

@@ -1,4 +1,4 @@
-import instance from "~/services/axios-instance";
+import instance from "~/apis/axios-instance";
 
 interface ConfirmOtp {
   statusCode: number;

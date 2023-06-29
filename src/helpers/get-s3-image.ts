@@ -3,7 +3,7 @@ const urlRegex =
 
 const getS3Image = (image: string) => {
   if (image.match(urlRegex)) return image;
-  return "https://api.chainmart.site/api/s3/" + image;
+  return "http://localhost:3000/api/s3/" + image;
 };
 
 export default getS3Image;

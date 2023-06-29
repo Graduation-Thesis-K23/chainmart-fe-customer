@@ -14,7 +14,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "~/redux";
-import socket from "~/services/socket.io-instance";
+import socket from "~/apis/socket.io-instance";
 
 import styles from "./Message.module.scss";
 import logoSquare from "~/assets/images/logo-square.png";

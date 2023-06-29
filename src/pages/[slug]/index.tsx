@@ -3,18 +3,19 @@ import { GetStaticPropsContext } from "next";
 import Head from "next/head";
 
 import ProductPage from "~/components/pages/Product";
-
 import { IParams } from "~/interfaces";
 import { NextPageWithLayout } from "../_app";
 import { MAIN_LAYOUT } from "~/constants";
-import instance from "~/services/axios-instance";
+import instance from "~/apis/axios-instance";
 import { setProduct, useAppDispatch } from "~/redux";
 import getS3Image from "~/helpers/get-s3-image";
 import { ProductType } from "~/shared";
 
-const Product: NextPageWithLayout<{
+interface ProductProps {
   product: ProductType;
-}> = ({ product }) => {
+}
+
+const Product: NextPageWithLayout<ProductProps> = ({ product }) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -43,10 +44,13 @@ Product.layout = MAIN_LAYOUT;
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const { slug } = context.params as IParams;
 
-  const product = await instance("/api/products/slug/" + slug);
+  const product = await instance.get("/api/products/slug/" + slug);
 
   return {
-    props: { product },
+    props: {
+      id: slug,
+      product,
+    },
     revalidate: 1,
   };
 };

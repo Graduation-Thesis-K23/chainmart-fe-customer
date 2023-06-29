@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { ASYNC_STATUS } from "../constants";
-import instance from "~/services/axios-instance";
+import instance from "~/apis/axios-instance";
 
 export interface UserInfo {
   name: string;

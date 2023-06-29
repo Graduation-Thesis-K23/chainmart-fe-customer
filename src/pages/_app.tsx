@@ -3,22 +3,21 @@ import Head from "next/head";
 import type { AppProps } from "next/app";
 import type { NextPage } from "next/types";
 import { ToastContainer } from "react-toastify";
+import { Provider } from "react-redux";
 import { Baloo_2 } from "@next/font/google";
+import "react-multi-carousel/lib/styles.css";
+import "react-toastify/dist/ReactToastify.css";
 
+import "~/styles/index.scss";
 import ErrorBoundary from "~/components/ErrorBoundary";
 import MainLayout from "~layouts/MainLayout";
 import SettingLayout from "~layouts/SettingLayout";
-
-import { LocalesProvider } from "../hooks/useLocales";
-import { CartContext } from "~/contexts";
-import "react-multi-carousel/lib/styles.css";
-import { MAIN_LAYOUT, SETTING_LAYOUT } from "~/constants";
-import "react-toastify/dist/ReactToastify.css";
-import "~/styles/index.scss";
+import { LocalesProvider } from "~/hooks/useLocales";
 import { AuthProvider } from "~/hooks/useAuth";
-import { Provider } from "react-redux";
 import { store } from "~/redux";
 import Message from "~/components/Message";
+import { CartContext } from "~/contexts";
+import { MAIN_LAYOUT, SETTING_LAYOUT } from "~/constants";
 
 export const nunito = Baloo_2({
   weight: ["400", "500", "600", "700", "800"],

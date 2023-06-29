@@ -1,0 +1,213 @@
+@import "~/styles/variables";
+
+.message {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  right: 20px;
+  bottom: 20px;
+  background-color: #515154;
+  border-radius: 50%;
+  width: 54px;
+  height: 54px;
+  box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.08),
+    0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  z-index: 99;
+  box-sizing: border-box;
+  animation: move-up 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__icon {
+    font-size: 32px;
+    margin: 0 !important;
+    color: #fff;
+  }
+
+  &__item {
+    font-size: 16px;
+  }
+
+  &__box {
+    position: absolute;
+    bottom: 72px;
+    right: 0;
+    background-color: #fff;
+    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.15);
+    height: 610px;
+    width: 350px;
+    overflow: hidden;
+    border-radius: 18px;
+    display: none;
+    transform-origin: bottom right;
+    cursor: default;
+    transition: all 0.1s forwards;
+    animation: zoom 200ms forwards;
+
+    &--open {
+      display: block;
+    }
+
+    &__header {
+      display: flex;
+      justify-content: space-between;
+      height: 60px;
+      border-bottom: 1px solid #51515439;
+      padding: 0 12px;
+
+      &__left {
+        display: flex;
+        align-items: center;
+        height: 100%;
+
+        &__text {
+          font-size: 18px;
+          font-weight: 600;
+          color: #161823;
+          margin-left: 6px;
+          margin-top: 3px;
+        }
+      }
+
+      &__minimize {
+        display: flex;
+        align-items: center;
+        margin-right: 8px;
+
+        > span {
+          display: block;
+          background-color: rgba(178, 163, 163, 0.416);
+          width: 32px;
+          height: 32px;
+          line-height: 36px;
+          text-align: center;
+          border-radius: 50%;
+          cursor: pointer;
+
+          &:hover {
+            background-color: rgba(178, 163, 163, 0.616);
+          }
+        }
+      }
+    }
+
+    &__body {
+      height: calc(100% - 120px);
+      padding-top: 12px;
+      padding-left: 12px;
+
+      &__list {
+        height: 100%;
+        padding-right: 10px;
+        padding-bottom: 6px;
+        overflow-y: overlay;
+        margin-right: 2px;
+
+        &__chatbot {
+          max-width: 90%;
+          width: fit-content;
+
+          &__text {
+            background-color: rgba(0, 0, 0, 0.06);
+          }
+
+          + .message__box__body__list__anonymous {
+            margin-top: 12px;
+          }
+
+          + .message__box__body__list__chatbot {
+            margin-top: 4px;
+          }
+        }
+
+        &__anonymous {
+          display: flex;
+          justify-content: space-between;
+
+          &__text {
+            background-color: $primary-color;
+            color: #fff;
+            height: 100%;
+            max-width: 90%;
+            width: fit-content;
+            overflow: hidden;
+          }
+
+          + .message__box__body__list__anonymous {
+            margin-top: 4px;
+          }
+
+          + .message__box__body__list__chatbot {
+            margin-top: 12px;
+          }
+        }
+
+        &__chatbot__text,
+        &__anonymous__text {
+          display: block;
+          padding: 8px 12px;
+          border-radius: 12px;
+        }
+      }
+    }
+
+    &__input {
+      display: flex;
+      height: 60px;
+      border-top: 1px solid #51515439;
+      padding: 12px;
+      width: 100%;
+
+      &__element {
+        flex: 1;
+        background-color: #51515421;
+        border-radius: 18px;
+        height: 36px;
+        padding-left: 12px;
+        margin-right: 4px;
+      }
+
+      &__btn {
+        height: 36px !important;
+        width: 36px !important;
+        border: none;
+        font-size: 18px;
+        color: $primary-color;
+
+        &:hover {
+          background-color: #51515421;
+          color: $primary-color !important;
+        }
+      }
+    }
+  }
+}
+
+@keyframes move-up {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes zoom {
+  from {
+    transform: scale(0);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}

@@ -11,6 +11,7 @@ const nextConfig = {
       "picsum.photos",
       "lh3.googleusercontent.com",
       "api.chainmart.site",
+      "localhost",
     ],
   },
 };

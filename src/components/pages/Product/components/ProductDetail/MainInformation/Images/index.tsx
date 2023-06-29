@@ -48,7 +48,15 @@ const Images: React.FC<{
           responsive={{
             desktop: {
               breakpoint: { max: 3000, min: 10 },
-              items: 6,
+              items: 5,
+            },
+            tablet: {
+              breakpoint: { max: 1024, min: 464 },
+              items: 4,
+            },
+            mobile: {
+              breakpoint: { max: 464, min: 0 },
+              items: 4,
             },
           }}
         >
@@ -56,7 +64,7 @@ const Images: React.FC<{
             <ImageSlider
               key={index}
               src={getS3Image(i)}
-              onMouseEnter={() => setImageShow(getS3Image(i))}
+              onMouseEnter={() => setImageShow(i)}
             />
           ))}
         </Carousel>

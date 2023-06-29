@@ -9,12 +9,13 @@ import "react-multi-carousel/lib/styles.css";
 import "react-toastify/dist/ReactToastify.css";
 
 import "~/styles/index.scss";
-import { store } from "~/redux";
 import ErrorBoundary from "~/components/ErrorBoundary";
 import MainLayout from "~layouts/MainLayout";
 import SettingLayout from "~layouts/SettingLayout";
 import { LocalesProvider } from "~/hooks/useLocales";
 import { AuthProvider } from "~/hooks/useAuth";
+import { store } from "~/redux";
+import Message from "~/components/Message";
 import { CartContext } from "~/contexts";
 import { MAIN_LAYOUT, SETTING_LAYOUT } from "~/constants";
 
@@ -107,6 +108,8 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
                       font-family: ${nunito.style.fontFamily} !important;
                     }
                   `}</style>
+                  <Message />
+
                   <Layout>
                     <Component {...pageProps} />
                   </Layout>

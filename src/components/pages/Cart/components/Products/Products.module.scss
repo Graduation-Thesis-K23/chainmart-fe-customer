@@ -2,6 +2,7 @@
 
 .products {
   padding: 50px 15px 15px;
+  background-color: rgba(0, 0, 0, 0.041);
 
   &_table,
   &_table_row {
@@ -135,7 +136,7 @@
     align-items: center;
     margin-top: 12px;
     padding: 22px;
-    background-color: #faf7f2;
+    background-color: #fff;
     border-radius: 6px;
 
     &_text {
@@ -189,9 +190,11 @@
 }
 
 .table_container {
-  padding: 0;
+  padding: 5px;
   min-height: 500px;
   overflow-x: overlay;
+  margin-bottom: 10px;
+  background-color: #fff;
 }
 
 @media (max-width: 576px) {

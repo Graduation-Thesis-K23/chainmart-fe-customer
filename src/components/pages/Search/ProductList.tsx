@@ -91,7 +91,7 @@ const ProductList: FC<{
             className={styles["product-card"]}
           >
             <div className={styles["product-card"]}>
-              {checkCreated(item.created_at) && (
+              {checkCreated(item.created_at.toString()) && (
                 <div className={styles["product-card-label"]}>
                   <span className={styles["product-card-label-text"]}>New</span>
                 </div>
@@ -131,22 +131,24 @@ const ProductList: FC<{
                 </div>
               </div>
               <div className={styles["product-card-footer"]}>
-                {item.rating > 0 ? (
-                  <div className={styles["product-card-footer-star"]}>
-                    <Rate
-                      className={styles["product-card-footer-star-item"]}
-                      disabled
-                      allowHalf
-                      value={item.rating}
-                    />
-                  </div>
-                ) : (
+                {
+                  item.sale > 0 && (
+                    <div className={styles["product-card-footer-star"]}>
+                      <Rate
+                        className={styles["product-card-footer-star-item"]}
+                        disabled
+                        allowHalf
+                        value={item.sale}
+                      />
+                    </div>
+                  ) /* : (
                   <span></span>
-                )}
-                {item.sold > 0 && (
+                ) */
+                }
+                {item.sale > 0 && (
                   <div className={styles["product-card-footer-sold"]}>
                     <span>
-                      {convertNumberToK(item.sold) + " "}
+                      {convertNumberToK(item.sale) + " "}
                       <Translate textKey="products.sold" />
                     </span>
                   </div>

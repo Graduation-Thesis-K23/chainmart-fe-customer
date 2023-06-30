@@ -5,57 +5,49 @@ import Image from "next/image";
 import classNames from "classnames";
 
 import styles from "./Products.module.scss";
-import useTranslate from "~/hooks/useLocales";
-import useCart from "~/contexts/CartContext";
-import { convertPrice, convertClassify } from "~/helpers";
+import { convertPrice } from "~/helpers";
 import { INCREASE, DECREASE } from "~/constants";
 import getS3Image from "~/helpers/get-s3-image";
+import {
+  deleteItemCart,
+  updateItemQuantity,
+  useAppDispatch,
+  useAppSelector,
+} from "~/redux";
+import Translate from "~/components/commons/Translate";
+import { useRouter } from "next/router";
 
 const Products = () => {
-  const productText = useTranslate("cart.product");
-  const unitPriceText = useTranslate("cart.productUnitPrice");
-  const quantityText = useTranslate("cart.productQuantity");
-  const totalText = useTranslate("cart.productTotal");
-  const actionText = useTranslate("cart.productAction");
-  const noteText = useTranslate("cart.note");
-  const cartTotalText = useTranslate("cart.cartTotal");
-  const checkoutText = useTranslate("cart.checkout");
-  const emptyText = useTranslate("cart.empty");
+  const cart = useAppSelector((state) => state.cart.data);
+  const dispatch = useAppDispatch();
 
-  const { cart, setCart } = useCart();
+  const router = useRouter();
 
   const total = useMemo(() => {
     return cart.reduce((prev, curr) => prev + curr.price * curr.quantity, 0);
   }, [cart]);
 
-  const handleChangeQuantity = (id: string, action: string) => {
-    if (action === INCREASE) {
-      setCart((prev) =>
-        prev.map((item) => {
-          if (item.id === id && item.quantity < item.maxQuantity) {
-            return { ...item, quantity: item.quantity + 1 };
-          }
-          return item;
-        })
-      );
-    } else if (action === DECREASE) {
-      setCart((prev) =>
-        prev.map((item) => {
-          if (item.id === id && item.quantity > 1) {
-            return { ...item, quantity: item.quantity - 1 };
-          }
-          return item;
-        })
-      );
-    }
+  const handleChangeQuantity = (
+    id: string,
+    action: "increase" | "decrease"
+  ) => {
+    dispatch(updateItemQuantity({ id, action }));
   };
 
   const handleRemove = (id: string) => {
-    setCart((prev) => prev.filter((item) => item.id !== id));
+    dispatch(deleteItemCart(id));
+  };
+
+  const handleCheckoutBtn = () => {
+    router.push("/checkout");
   };
 
   if (cart.length === 0) {
-    return <div className={styles["products--empty"]}>{emptyText}</div>;
+    return (
+      <div className={styles["products--empty"]}>
+        <Translate textKey="cart.empty" />
+      </div>
+    );
   }
   return (
     <div className={styles["products"]}>
@@ -64,15 +56,21 @@ const Products = () => {
           <table className={styles["products_table"]}>
             <thead>
               <tr>
-                <th className={styles["products_table_head"]}>{productText}</th>
                 <th className={styles["products_table_head"]}>
-                  {unitPriceText}
+                  <Translate textKey="cart.product" />
                 </th>
                 <th className={styles["products_table_head"]}>
-                  {quantityText}
+                  <Translate textKey="cart.productUnitPrice" />
                 </th>
-                <th className={styles["products_table_head"]}>{totalText}</th>
-                <th className={styles["products_table_head"]}>{actionText}</th>
+                <th className={styles["products_table_head"]}>
+                  <Translate textKey="cart.quantityText" />
+                </th>
+                <th className={styles["products_table_head"]}>
+                  <Translate textKey="cart.productTotal" />
+                </th>
+                <th className={styles["products_table_head"]}>
+                  <Translate textKey="cart.productAction" />
+                </th>
               </tr>
             </thead>
             <tbody className={styles["products_table_tbody"]}>
@@ -92,10 +90,7 @@ const Products = () => {
                         className={styles["products_table_body_name"]}
                       >
                         <p className={styles["products_table_body_name_top"]}>
-                          {item.name}
-                        </p>
-                        <p className={styles["products_table_body_name_bot"]}>
-                          {convertClassify(item.select)}
+                          {item.name} <Translate textKey="cart.product" />
                         </p>
                       </Link>
                     </div>
@@ -149,16 +144,21 @@ const Products = () => {
           </table>
         </div>
         <div className={styles["products_checkout"]}>
-          <p className={styles["products_checkout_text"]}>{noteText}</p>
+          <p className={styles["products_checkout_text"]}>
+            <Translate textKey="cart.note" />
+          </p>
           <div className={styles["products_checkout_info"]}>
             <span className={styles["products_checkout_total"]}>
-              {cartTotalText}
+              <Translate textKey="cart.cartTotal" />
             </span>
             <span className={styles["products_checkout_price"]}>
               {convertPrice(total)}
             </span>
-            <button className={styles["products_checkout_button"]}>
-              {checkoutText}
+            <button
+              className={styles["products_checkout_button"]}
+              onClick={handleCheckoutBtn}
+            >
+              <Translate textKey="cart.checkout" />
             </button>
           </div>
         </div>

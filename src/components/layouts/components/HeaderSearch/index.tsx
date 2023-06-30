@@ -1,6 +1,7 @@
 import React, { memo, useEffect, useState } from "react";
 import { SearchOutlined } from "@ant-design/icons";
 import { Dropdown, MenuProps } from "antd";
+import { useRouter } from "next/router";
 
 import HeaderSearchItem from "../HeaderSearchItem";
 
@@ -9,7 +10,6 @@ import styles from "./HeaderSearch.module.scss";
 import useDebounce from "~/hooks/useDebounce";
 import { searchProducts, useAppDispatch, useAppSelector } from "~/redux";
 import getS3Image from "~/helpers/get-s3-image";
-import { useRouter } from "next/router";
 
 const HeaderSearch = () => {
   const searchPlaceholder = useTranslate("search.lookingFor");
@@ -43,11 +43,7 @@ const HeaderSearch = () => {
               <HeaderSearchItem
                 href={item.slug}
                 name={item.name}
-                image={
-                  item.images
-                    ? getS3Image(item.images?.split(",")[0])
-                    : undefined
-                }
+                image={item.images ? getS3Image(item.images[0]) : undefined}
               />
             ),
           };

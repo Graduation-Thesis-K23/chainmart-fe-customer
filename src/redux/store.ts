@@ -10,6 +10,7 @@ import { searchReducer } from "./search";
 import { accountReducer } from "./account";
 import { filterReducer } from "./filter";
 import { messagesReducer } from "./messages";
+import { cartReducer } from "./cart";
 
 const store = configureStore({
   reducer: {
@@ -22,6 +23,7 @@ const store = configureStore({
     account: accountReducer,
     filter: filterReducer,
     messages: messagesReducer,
+    cart: cartReducer,
   },
 });
 

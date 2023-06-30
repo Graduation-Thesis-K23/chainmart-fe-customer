@@ -1,0 +1,65 @@
+@import "~/styles/variables";
+
+.address {
+  background-color: rgba(0, 0, 0, 0.103);
+  padding: 26px 0 12px;
+
+  &__container {
+    background-color: #fff;
+    box-sizing: border-box;
+    padding: 20px;
+    border-top: 2px dashed #bd4f4f;
+  }
+
+  &__title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  &__selected {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &__item {
+      margin-bottom: 12px;
+
+      &__name {
+        display: inline-block;
+        font-weight: 600;
+        font-size: 18px;
+        margin-right: 6px;
+      }
+
+      &__phone {
+        display: inline-block;
+        margin-left: 6px;
+        font-size: 18px;
+      }
+
+      &__street {
+        font-size: 16px;
+      }
+    }
+
+    &__btn {
+      background-color: transparent;
+      color: $primary-color;
+      padding: 6px 12px;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        color: blue;
+      }
+    }
+  }
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}

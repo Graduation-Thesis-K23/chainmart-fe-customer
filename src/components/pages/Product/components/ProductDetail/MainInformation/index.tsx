@@ -1,6 +1,7 @@
 import React, { memo, useState } from "react";
 import { Divider, Col, Row } from "antd";
 import { CheckCircleOutlined } from "@ant-design/icons";
+import { useRouter } from "next/router";
 import classNames from "classnames";
 
 import Images from "./Images";
@@ -10,23 +11,16 @@ import Specifications from "./Specifications";
 import Description from "./Description";
 
 import styles from "./MainInformation.module.scss";
-import useTranslate from "~/hooks/useLocales";
-import useCart from "~/contexts/CartContext";
 import { ICart } from "~/interfaces";
-import { useAppSelector } from "~/redux";
+import { addItemCart, useAppDispatch, useAppSelector } from "~/redux";
+import Translate from "~/components/commons/Translate";
 
 const MainInformation = () => {
-  const { cart, setCart } = useCart();
-
   const { data } = useAppSelector((state) => state.product);
+  const dispatch = useAppDispatch();
 
-  const buyNowText = useTranslate("product.buyNow");
-  const addToCartText = useTranslate("product.addToCart");
-  const productSpecifications = useTranslate("product.specifications");
-  const productDescription = useTranslate("product.description");
-  const addToCartSuccess = useTranslate("product.addToCartSuccess");
+  const router = useRouter();
 
-  const [select, setSelect] = useState<{ [key: string]: string }>({});
   const [quantity, setQuantity] = useState<number>(1);
   const [cartSuccess, setAddCartSuccess] = useState(false);
 
@@ -39,33 +33,32 @@ const MainInformation = () => {
       image: data.images[0],
       maxQuantity: 5,
       quantity,
-      select,
     };
 
-    const temp: ICart[] = [...cart];
-
-    const isExist = temp.find(
-      (product) =>
-        product.id === itemCart.id &&
-        product.maxQuantity >= product.quantity + itemCart.quantity &&
-        Object.entries(product.select).toString() ===
-          Object.entries(itemCart.select).toString()
-    );
-
-    if (isExist) {
-      isExist.quantity += itemCart.quantity;
-    } else {
-      temp.push(itemCart);
-    }
-
-    setCart(temp);
-    setSelect({});
+    dispatch(addItemCart(itemCart));
 
     setAddCartSuccess(true);
 
     setTimeout(() => {
       setAddCartSuccess(false);
     }, 1000);
+  };
+
+  const handleBuyNow = () => {
+    const itemCart: ICart = {
+      id: data.id,
+      name: data.name,
+      slug: data.slug,
+      price: data.price,
+      image: data.images[0],
+      maxQuantity: 5,
+      quantity,
+    };
+
+    dispatch(addItemCart(itemCart));
+
+    // redirect to cart page
+    router.push("/cart");
   };
 
   return (
@@ -94,14 +87,15 @@ const MainInformation = () => {
                 <div className={styles["main_information-right-checkout"]}>
                   <button
                     className={styles["main_information-right-checkout-buy"]}
+                    onClick={handleBuyNow}
                   >
-                    {buyNowText}
+                    <Translate textKey="product.buyNow" />
                   </button>
                   <button
                     className={styles["main_information-right-checkout-cart"]}
                     onClick={handleAddToCart}
                   >
-                    {addToCartText}
+                    <Translate textKey="product.addToCart" />
                   </button>
                 </div>
               </div>
@@ -109,11 +103,11 @@ const MainInformation = () => {
           </Row>
           <div className={styles["description-inner"]}>
             <div className={styles["description-title"]}>
-              {productSpecifications}
+              <Translate textKey="product.specifications" />
             </div>
             <Specifications specifications={JSON.parse(data.specifications)} />
             <div className={styles["description-title"]}>
-              {productDescription}
+              <Translate textKey="product.description" />
             </div>
             <Description description={data.description} />
           </div>
@@ -128,7 +122,7 @@ const MainInformation = () => {
         <div className={styles["cart_modal_content"]}>
           <CheckCircleOutlined className={styles["cart_modal_content_icon"]} />
           <p className={styles["cart_modal_content_text"]}>
-            {addToCartSuccess}
+            <Translate textKey="product.addToCartSuccess" />
           </p>
         </div>
       </div>

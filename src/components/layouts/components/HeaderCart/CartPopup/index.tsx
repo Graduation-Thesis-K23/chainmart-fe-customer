@@ -4,7 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 
 import styles from "./CartPopup.module.scss";
-import useCart from "~/contexts/CartContext";
 import { convertPrice } from "~/helpers";
 import { useAppSelector } from "~/redux";
 import { isEmptyObject } from "~/utils/is-empty-object";
@@ -13,7 +12,7 @@ import getS3Image from "~/helpers/get-s3-image";
 
 const CartPopup = () => {
   const { data } = useAppSelector((state) => state.user);
-  const { cart } = useCart();
+  const cart = useAppSelector((state) => state.cart.data);
 
   if (isEmptyObject(data)) {
     return (
@@ -22,6 +21,7 @@ const CartPopup = () => {
       </div>
     );
   }
+
   if (cart.length === 0) {
     return <Empty description={<Translate textKey="cart.empty" />} />;
   }

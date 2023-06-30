@@ -4,13 +4,11 @@ import Breadcrumb from "./components/Breadcrumb";
 import Products from "./components/Products";
 import withAuth from "~/hocs/withAuth";
 
-const Cart = () => {
-  return (
-    <>
-      <Breadcrumb />
-      <Products />
-    </>
-  );
-};
+const Cart = () => (
+  <>
+    <Breadcrumb />
+    <Products />
+  </>
+);
 
 export default withAuth(Cart);

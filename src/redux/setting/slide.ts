@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { ASYNC_STATUS } from "../constants";
 import instance from "~/apis/axios-instance";
+import { ErrorPayload } from "~/interfaces";
 
 export interface UserInfo {
   name: string;
@@ -103,10 +104,16 @@ export const createAddress = createAsyncThunk(
 
 export const getAllAddress = createAsyncThunk(
   "setting/getAllAddress",
-  async () => {
-    const response = await instance.get<Address[]>("/api/address");
+  async (_, thunkApi) => {
+    const response = await instance.get<Address[], ErrorPayload>(
+      "/api/address"
+    );
 
-    return response as unknown as Address[];
+    if ("message" in response) {
+      return thunkApi.rejectWithValue(response.message);
+    }
+
+    return thunkApi.fulfillWithValue(response as unknown as Address[]);
   }
 );
 

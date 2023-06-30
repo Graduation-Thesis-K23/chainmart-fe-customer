@@ -46,7 +46,12 @@ export interface ICart {
   slug: string;
   maxQuantity: number;
   quantity: number;
-  select: { [key: string]: string };
+}
+
+export interface ErrorPayload {
+  statusCode: number;
+  message: string;
+  error: string;
 }
 
 export interface SignInPayload {

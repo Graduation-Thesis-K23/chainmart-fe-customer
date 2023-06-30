@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from "react";
+import React, { memo, useMemo, useEffect } from "react";
 import { Badge, Popover } from "antd";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,17 +6,23 @@ import Link from "next/link";
 import CartPopup from "./CartPopup";
 
 import styles from "./HeaderCart.module.scss";
-import useCart from "~/contexts/CartContext";
 import cartIcon from "~/assets/icons/cart.svg";
+import { fetchCarts, useAppDispatch, useAppSelector } from "~/redux";
 
 const HeaderCart = () => {
-  const { cart } = useCart();
+  const cart = useAppSelector((state) => state.cart);
 
   const count = useMemo(() => {
-    return cart.reduce((prev, current) => {
+    return cart.data.reduce((prev, current) => {
       return prev + current.quantity;
     }, 0);
   }, [cart]);
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCarts());
+  }, [dispatch]);
 
   return (
     <div className={styles["header_cart"]} id="header-cart">

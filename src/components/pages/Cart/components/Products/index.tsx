@@ -63,7 +63,7 @@ const Products = () => {
                   <Translate textKey="cart.productUnitPrice" />
                 </th>
                 <th className={styles["products_table_head"]}>
-                  <Translate textKey="cart.quantityText" />
+                  <Translate textKey="cart.productQuantity" />
                 </th>
                 <th className={styles["products_table_head"]}>
                   <Translate textKey="cart.productTotal" />
@@ -90,7 +90,7 @@ const Products = () => {
                         className={styles["products_table_body_name"]}
                       >
                         <p className={styles["products_table_body_name_top"]}>
-                          {item.name} <Translate textKey="cart.product" />
+                          {item.name}
                         </p>
                       </Link>
                     </div>

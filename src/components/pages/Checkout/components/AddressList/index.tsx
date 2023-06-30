@@ -25,10 +25,8 @@ import MyAddressDistrict from "~/components/pages/Setting/components/MyAddressDi
 import MyAddressWard from "~/components/pages/Setting/components/MyAddressWard";
 
 const AddressList: FC<{
-  setSelectedAddress: React.Dispatch<React.SetStateAction<Address>>;
-  selectedAddress: Address;
   setChangeAddress: React.Dispatch<React.SetStateAction<boolean>>;
-}> = ({ setSelectedAddress, selectedAddress, setChangeAddress }) => {
+}> = ({ setChangeAddress }) => {
   const { address } = useAppSelector((state) => state.setting.data);
   const [moreAddress, setMoreAddress] = useState<boolean>(false);
   /*
@@ -100,8 +98,6 @@ const AddressList: FC<{
           name={name}
           phone={phone}
           street={street}
-          setSelectedAddress={setSelectedAddress}
-          active={selectedAddress.id !== id}
         />
       ))}
       <div className={styles["btn-group"]}>

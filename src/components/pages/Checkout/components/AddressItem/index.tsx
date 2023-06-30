@@ -1,28 +1,25 @@
 import React, { FC, memo } from "react";
 
 import styles from "./AddressItem.module.scss";
-import { Address } from "~/redux";
+import { Address, setAddress, useAppDispatch, useAppSelector } from "~/redux";
 import Translate from "~/components/commons/Translate";
 
-interface Props extends Address {
-  active: boolean;
-  setSelectedAddress: React.Dispatch<React.SetStateAction<Address>>;
-}
-
-const AddressItem: FC<Props> = ({
+const AddressItem: FC<Address> = ({
   street,
   name,
   city,
   ward,
   district,
   phone,
-  active,
   id,
-  setSelectedAddress,
 }) => {
+  const dispatch = useAppDispatch();
+  const checkoutAddress = useAppSelector((state) => state.checkout.address);
   const handleSelect = () => {
-    setSelectedAddress({ id, street, name, city, ward, district, phone });
+    dispatch(setAddress(id));
   };
+
+  const active = checkoutAddress !== id;
 
   return (
     <div className={styles["address"]}>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import styles from "./Address.module.scss";
 import Translate from "~/components/commons/Translate";
@@ -6,6 +6,7 @@ import {
   ASYNC_STATUS,
   Address,
   getAllAddress,
+  setAddress,
   useAppDispatch,
   useAppSelector,
 } from "~/redux";
@@ -16,16 +17,34 @@ import { isEmptyObject } from "~/utils/is-empty-object";
 const Address = () => {
   const { data, status } = useAppSelector((state) => state.setting);
   const { address } = data;
+  const checkoutData = useAppSelector((state) => state.checkout);
   const dispatch = useAppDispatch();
 
   const [changeAddress, setChangeAddress] = useState<boolean>(false);
-  const [selectedAddress, setSelectedAddress] = useState<Address>(
-    {} as Address
-  );
 
-  const selectedAddressRender = !isEmptyObject(selectedAddress)
-    ? selectedAddress
-    : address[0];
+  const selectedAddressRender: Address = useMemo(() => {
+    if (checkoutData.address !== "") {
+      if (address.length === 0) {
+        return {} as Address;
+      } else {
+        const temp = address.find((item) => item.id === checkoutData.address);
+        if (temp) {
+          dispatch(setAddress(temp.id));
+          return temp;
+        }
+
+        dispatch(setAddress(address[0].id));
+        return address[0];
+      }
+    } else {
+      if (address.length === 0) {
+        return {} as Address;
+      } else {
+        dispatch(setAddress(address[0].id));
+        return address[0];
+      }
+    }
+  }, [address, checkoutData.address, dispatch]);
 
   useEffect(() => {
     if (status === ASYNC_STATUS.IDLE) {
@@ -69,11 +88,7 @@ const Address = () => {
                   </button>
                 </div>
               ) : (
-                <AddressList
-                  setSelectedAddress={setSelectedAddress}
-                  selectedAddress={selectedAddressRender}
-                  setChangeAddress={setChangeAddress}
-                />
+                <AddressList setChangeAddress={setChangeAddress} />
               )}
             </>
           ) : (

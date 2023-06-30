@@ -22,7 +22,11 @@ const initialState: CartState = {
 export const cartSlide = createSlice({
   name: "cart",
   initialState,
-  reducers: {},
+  reducers: {
+    clearCart: (state) => {
+      state.data = [];
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchCarts.fulfilled, (state, action) => {
       state.status = ASYNC_STATUS.SUCCEED;
@@ -163,5 +167,7 @@ export const updateItemQuantity = createAsyncThunk(
     return thunkApi.fulfillWithValue(item);
   }
 );
+
+export const { clearCart } = cartSlide.actions;
 
 export default cartSlide.reducer;

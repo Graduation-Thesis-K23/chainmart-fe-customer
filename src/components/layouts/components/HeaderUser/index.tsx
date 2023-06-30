@@ -20,9 +20,7 @@ const items: MenuProps["items"] = [
   },
   {
     key: "2",
-    label: (
-      <Options href="/me/my-orders" optionKey="header.topRight.myOrders" />
-    ),
+    label: <Options href="/purchase" optionKey="purchase.title" />,
     icon: <ShoppingCartOutlined />,
   },
   {

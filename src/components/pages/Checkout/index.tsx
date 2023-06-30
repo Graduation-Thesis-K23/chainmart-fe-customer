@@ -1,9 +1,10 @@
-import React, { memo } from "react";
+import React from "react";
 
 import Address from "./components/Address";
 import Breadcrumb from "./components/Breadcrumb";
 import Ordered from "./components/Ordered";
 import Payment from "./components/Payment";
+import withAuth from "~/hocs/withAuth";
 
 const Checkout = () => (
   <>
@@ -14,4 +15,4 @@ const Checkout = () => (
   </>
 );
 
-export default memo(Checkout);
+export default withAuth(Checkout);

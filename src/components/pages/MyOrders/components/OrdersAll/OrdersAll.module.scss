@@ -1,3 +1,32 @@
 .orders-all {
   display: block;
+
+  &__search {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ccc;
+    padding: 12px;
+
+    &__icon {
+      font-size: 18px;
+      color: #5f9ea0;
+      cursor: pointer;
+
+      &--active {
+        color: #000;
+      }
+    }
+
+    &__text {
+      width: 100%;
+      padding: 0 8px;
+      font-size: 16px;
+      background-color: transparent;
+    }
+  }
+
+  &__list {
+    margin-top: 10px;
+  }
 }

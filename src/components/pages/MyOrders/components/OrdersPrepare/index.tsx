@@ -1,15 +1,16 @@
 import React, { Fragment, memo, useEffect } from "react";
-import Order from "../Order";
+
 import { fetchOrders, useAppDispatch, useAppSelector } from "~/redux";
+import Order from "../Order";
 import { OrderStatus } from "~/shared";
 import OrdersEmpty from "../OrdersEmpty";
 
-const OrdersShipping = () => {
+const OrdersPrepare = () => {
   const dispatch = useAppDispatch();
   const orders = useAppSelector((state) => state.orders);
 
-  const ordersShipping = orders.data.filter(
-    (order) => order.status === OrderStatus.Shipping
+  const ordersPrepare = orders.data.filter(
+    (order) => order.status === OrderStatus.Approved
   );
 
   useEffect(() => {
@@ -18,9 +19,9 @@ const OrdersShipping = () => {
 
   return (
     <div>
-      {ordersShipping.length > 0 ? (
+      {ordersPrepare.length > 0 ? (
         <ul>
-          {ordersShipping.map((order) => (
+          {ordersPrepare.map((order) => (
             <Fragment key={order.id}>
               <Order {...order} />
             </Fragment>
@@ -33,4 +34,4 @@ const OrdersShipping = () => {
   );
 };
 
-export default memo(OrdersShipping);
+export default memo(OrdersPrepare);

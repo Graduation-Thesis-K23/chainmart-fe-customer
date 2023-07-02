@@ -5,10 +5,13 @@ import styles from "./OrdersAll.module.scss";
 import { fetchOrders, useAppDispatch, useAppSelector } from "~/redux";
 import Order from "../Order";
 import OrdersEmpty from "../OrdersEmpty";
+import useTranslate from "~/hooks/useLocales";
 
 const OrdersAll = () => {
   const dispatch = useAppDispatch();
   const orders = useAppSelector((state) => state.orders);
+
+  const inputPlaceholder = useTranslate("purchase.searchOrderPlaceholder");
 
   useEffect(() => {
     dispatch(fetchOrders());
@@ -20,7 +23,10 @@ const OrdersAll = () => {
         <>
           <div className={styles["orders-all__search"]}>
             <SearchOutlined className={styles["orders-all__search__icon"]} />
-            <input className={styles["orders-all__search__text"]} />
+            <input
+              className={styles["orders-all__search__text"]}
+              placeholder={inputPlaceholder}
+            />
           </div>
           <ul className={styles["orders-all__list"]}>
             {orders.data.map((order) => (

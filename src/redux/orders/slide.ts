@@ -8,10 +8,11 @@ export interface OrderType {
   id: string;
   create_at: Date;
   address: Address;
-  estimated_shipped_date: Date;
-  shipped_date: Date;
-  approved_date: Date;
-  return_date: Date;
+  estimated_shipped_date?: Date;
+  shipped_date?: Date;
+  approved_date?: Date;
+  return_date?: Date;
+  cancelled_date?: Date;
   status: OrderStatus;
   payment: Payment;
   products: OrderProductType[];
@@ -57,6 +58,7 @@ export const orderSlice = createSlice({
     builder.addCase(returnOrder.fulfilled, (state, action) => {
       const index = state.data.findIndex((item) => item.id === action.payload);
       state.data[index].status = OrderStatus.Returned;
+      state.data[index].return_date = new Date();
       state.status = ASYNC_STATUS.SUCCEED;
       state.activeKey = OrderStatus.Returned;
     });
@@ -85,10 +87,6 @@ export const fetchOrders = createAsyncThunk(
           city: "TP. HCM",
           ward: "Phường 123",
         },
-        estimated_shipped_date: new Date(2023, 7, 7),
-        shipped_date: new Date(2023, 7, 7),
-        approved_date: new Date(2023, 7, 7),
-        return_date: new Date(2023, 7, 7),
         status: OrderStatus.Processing,
         payment: Payment.Cash,
         products: [
@@ -122,10 +120,7 @@ export const fetchOrders = createAsyncThunk(
           city: "TP. HCM",
           ward: "Phường 123",
         },
-        estimated_shipped_date: new Date(2023, 7, 7),
-        shipped_date: new Date(2023, 7, 7),
         approved_date: new Date(2023, 7, 7),
-        return_date: new Date(2023, 7, 7),
         status: OrderStatus.Approved,
         payment: Payment.Cash,
         products: [
@@ -159,10 +154,7 @@ export const fetchOrders = createAsyncThunk(
           city: "TP. HCM",
           ward: "Phường 123",
         },
-        estimated_shipped_date: new Date(2023, 7, 7),
-        shipped_date: new Date(2023, 7, 7),
         approved_date: new Date(2023, 7, 7),
-        return_date: new Date(2023, 7, 7),
         status: OrderStatus.Shipping,
         payment: Payment.Cash,
         products: [
@@ -196,10 +188,8 @@ export const fetchOrders = createAsyncThunk(
           city: "TP. HCM",
           ward: "Phường 123",
         },
-        estimated_shipped_date: new Date(2023, 7, 7),
         shipped_date: new Date(2023, 7, 7),
         approved_date: new Date(2023, 7, 7),
-        return_date: new Date(2023, 7, 7),
         status: OrderStatus.Completed,
         payment: Payment.Cash,
         products: [
@@ -233,10 +223,7 @@ export const fetchOrders = createAsyncThunk(
           city: "TP. HCM",
           ward: "Phường 123",
         },
-        estimated_shipped_date: new Date(2023, 7, 7),
-        shipped_date: new Date(2023, 7, 7),
-        approved_date: new Date(2023, 7, 7),
-        return_date: new Date(2023, 7, 7),
+        cancelled_date: new Date(2023, 7, 7),
         status: OrderStatus.Cancelled,
         payment: Payment.Cash,
         products: [
@@ -270,7 +257,6 @@ export const fetchOrders = createAsyncThunk(
           city: "TP. HCM",
           ward: "Phường 123",
         },
-        estimated_shipped_date: new Date(2023, 7, 7),
         shipped_date: new Date(2023, 7, 7),
         approved_date: new Date(2023, 7, 7),
         return_date: new Date(2023, 7, 7),
@@ -365,10 +351,6 @@ export const resellOrder = createAsyncThunk(
         city: "TP. HCM",
         ward: "Phường 123",
       },
-      estimated_shipped_date: new Date(2023, 7, 7),
-      shipped_date: new Date(2023, 7, 7),
-      approved_date: new Date(2023, 7, 7),
-      return_date: new Date(2023, 7, 7),
       status: OrderStatus.Processing,
       payment: Payment.Cash,
       products: [

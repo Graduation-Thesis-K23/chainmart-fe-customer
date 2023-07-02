@@ -9,7 +9,7 @@ const OrdersCancelled = () => {
   const dispatch = useAppDispatch();
   const orders = useAppSelector((state) => state.orders);
 
-  const ordersPrepare = orders.data.filter(
+  const ordersCancelled = orders.data.filter(
     (order) => order.status === OrderStatus.Cancelled
   );
 
@@ -19,9 +19,9 @@ const OrdersCancelled = () => {
 
   return (
     <div>
-      {ordersPrepare.length > 0 ? (
+      {ordersCancelled.length > 0 ? (
         <ul>
-          {ordersPrepare.map((order) => (
+          {ordersCancelled.map((order) => (
             <Fragment key={order.id}>
               <Order {...order} />
             </Fragment>

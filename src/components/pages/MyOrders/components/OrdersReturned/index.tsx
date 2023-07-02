@@ -10,8 +10,8 @@ const OrdersReturned = () => {
   const dispatch = useAppDispatch();
   const orders = useAppSelector((state) => state.orders);
 
-  const ordersPrepare = orders.data.filter(
-    (order) => order.status === OrderStatus.Cancelled
+  const ordersReturned = orders.data.filter(
+    (order) => order.status === OrderStatus.Returned
   );
 
   useEffect(() => {
@@ -20,9 +20,9 @@ const OrdersReturned = () => {
 
   return (
     <div>
-      {ordersPrepare.length > 0 ? (
+      {ordersReturned.length > 0 ? (
         <ul>
-          {ordersPrepare.map((order) => (
+          {ordersReturned.map((order) => (
             <Fragment key={order.id}>
               <Order {...order} />
             </Fragment>

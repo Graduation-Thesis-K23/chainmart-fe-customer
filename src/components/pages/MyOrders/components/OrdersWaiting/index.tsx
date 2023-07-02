@@ -1,4 +1,4 @@
-import React, { FC, Fragment, memo, useEffect } from "react";
+import React, { Fragment, memo, useEffect } from "react";
 
 import { fetchOrders, useAppDispatch, useAppSelector } from "~/redux";
 import Order from "../Order";

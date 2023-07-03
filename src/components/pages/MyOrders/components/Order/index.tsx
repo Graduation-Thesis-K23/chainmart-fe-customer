@@ -22,7 +22,7 @@ import {
   ShoppingCartOutlined,
   SolutionOutlined,
 } from "@ant-design/icons";
-import { Steps } from "antd";
+import { Col, Row, Steps } from "antd";
 import useTranslate from "~/hooks/useLocales";
 
 enum StepStatus {
@@ -206,6 +206,20 @@ const Order: FC<OrderType> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const productsPrice = useMemo(() => {
+    return products.reduce((total, product) => {
+      return total + product.price * product.quantity;
+    }, 0);
+  }, [products]);
+
+  const shippingPrice = useMemo(() => {
+    return productsPrice > 3000000 ? 0 : 30000;
+  }, [productsPrice]);
+
+  const totalPrice = useMemo(() => {
+    return productsPrice + shippingPrice;
+  }, [productsPrice, shippingPrice]);
+
   const renderStatus = (status: string) => {
     switch (status) {
       case OrderStatus.Approved:
@@ -331,6 +345,71 @@ const Order: FC<OrderType> = ({
           </Fragment>
         ))}
       </ul>
+      <div className={styles["order__info"]}>
+        <Row gutter={24}>
+          <Col xs={24} sm={24} md={8} lg={8} xl={8}>
+            <div className={styles["order__info__address"]}>
+              <p className={styles["order__info__address__title"]}>
+                <Translate textKey="purchase.address" />
+              </p>
+              <p className={styles["order__info__address__name"]}>
+                {address.name}
+              </p>
+              <span className={styles["order__info__address__text"]}>
+                {address.phone}
+              </span>
+              <br />
+              <span className={styles["order__info__address__text"]}>
+                {`${address.street}, ${address.ward}, ${address.city}, ${address.district}`}
+              </span>
+            </div>
+          </Col>
+          <Col xs={24} sm={24} md={16} lg={16} xl={16}>
+            <div className={styles["order__info__price"]}>
+              <div className={styles["order__info__price__table"]}>
+                <div className={styles["order__info__price__left"]}>
+                  <Translate textKey="purchase.productsPrice" />
+                </div>
+                <div className={styles["order__info__price__right"]}>
+                  {convertPrice(productsPrice)}
+                </div>
+              </div>
+              <div className={styles["order__info__price__table"]}>
+                <div className={styles["order__info__price__left"]}>
+                  <Translate textKey="purchase.shippingPrice" />
+                </div>
+                <div className={styles["order__info__price__right"]}>
+                  {convertPrice(shippingPrice)}
+                </div>
+              </div>
+              <div className={styles["order__info__price__table"]}>
+                <div className={styles["order__info__price__left"]}>
+                  <Translate textKey="purchase.totalPrice" />
+                </div>
+                <div
+                  className={styles["order__info__price__right"]}
+                  style={{
+                    color: "#ff0000",
+                    fontSize: "24px",
+                    fontWeight: "500",
+                  }}
+                >
+                  {convertPrice(totalPrice)}
+                </div>
+              </div>
+              <div className={styles["order__info__price__table"]}>
+                <div className={styles["order__info__price__left"]}>
+                  <Translate textKey="purchase.paymentMethod" />
+                </div>
+                <div className={styles["order__info__price__right"]}>
+                  <Translate textKey={payment} />
+                </div>
+              </div>
+            </div>
+          </Col>
+        </Row>
+      </div>
+
       <div className={styles["order__footer"]}>{renderStatus(status)}</div>
     </li>
   );

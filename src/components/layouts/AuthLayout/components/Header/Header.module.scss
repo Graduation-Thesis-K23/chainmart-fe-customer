@@ -1,0 +1,60 @@
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  background-color: #fff;
+  height: 64px;
+  z-index: 10;
+
+  &-shadow {
+    box-shadow: rgb(18 38 63 / 20%) 1px 1px 10px !important;
+  }
+
+  &_vertical {
+    width: 1px;
+    height: 28px;
+    margin: 0 10px;
+    background-color: rgba(0, 0, 0, 0.12);
+  }
+
+  &_right {
+    display: flex;
+    align-items: center;
+
+    &_avatar {
+      display: inline-block;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+  }
+}
+
+.menu {
+  text-align: right;
+  width: 200px;
+  background-color: white;
+  box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.08),
+    0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  overflow: hidden;
+
+  &__inner {
+    padding: 4px 14px;
+  }
+
+  &__name {
+    font-size: 18px;
+  }
+
+  &__username {
+    font-size: 12px;
+    color: #666;
+    letter-spacing: 1px;
+  }
+
+  .ant-dropdown-menu {
+    border-radius: 0;
+    box-shadow: none !important;
+  }
+}

@@ -12,12 +12,18 @@ import Description from "./Description";
 
 import styles from "./MainInformation.module.scss";
 import { ICart } from "~/interfaces";
-import { addItemCart, useAppDispatch, useAppSelector } from "~/redux";
+import {
+  ASYNC_STATUS,
+  addItemCart,
+  useAppDispatch,
+  useAppSelector,
+} from "~/redux";
 import Translate from "~/components/commons/Translate";
 
 const MainInformation = () => {
   const { data } = useAppSelector((state) => state.product);
   const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.user);
 
   const router = useRouter();
 
@@ -25,6 +31,11 @@ const MainInformation = () => {
   const [cartSuccess, setAddCartSuccess] = useState(false);
 
   const handleAddToCart = () => {
+    if (user.status !== ASYNC_STATUS.SUCCEED) {
+      router.push("/login");
+      return;
+    }
+
     const itemCart: ICart = {
       id: data.id,
       name: data.name,
@@ -45,6 +56,11 @@ const MainInformation = () => {
   };
 
   const handleBuyNow = () => {
+    if (user.status !== ASYNC_STATUS.SUCCEED) {
+      router.push("/login");
+      return;
+    }
+
     const itemCart: ICart = {
       id: data.id,
       name: data.name,

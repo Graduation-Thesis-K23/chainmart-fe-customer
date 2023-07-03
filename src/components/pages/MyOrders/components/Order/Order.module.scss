@@ -27,6 +27,8 @@
   }
 
   &__list {
+    border-bottom: 2px dashed $primary-color;
+
     &__item {
       display: flex;
       justify-content: space-between;
@@ -77,6 +79,55 @@
           color: #aaa;
           text-decoration: line-through;
         }
+      }
+    }
+  }
+
+  &__info {
+    padding: 20px 10px;
+
+    &__address {
+      &__title {
+        font-size: 24px;
+        font-weight: 500;
+      }
+
+      &__name {
+        max-width: 100%;
+        margin: 14px 0 7px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: rgba(0, 0, 0, 0.8);
+        font-size: 20px;
+      }
+
+      &__text {
+        color: rgba(0, 0, 0, 0.54);
+        font-size: 16px;
+        white-space: pre-line;
+      }
+    }
+
+    &__price {
+      &__table {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        height: 40px;
+      }
+
+      &__left {
+        font-size: 15px;
+        max-width: 220px;
+        color: rgba(0, 0, 0, 0.54);
+      }
+
+      &__right {
+        flex: 1;
+        font-size: 15px;
+        max-width: 220px;
+        text-align: right;
+        color: rgba(0, 0, 0, 0.54);
       }
     }
   }

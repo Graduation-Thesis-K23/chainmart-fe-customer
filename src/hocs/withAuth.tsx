@@ -26,7 +26,7 @@ const withAuth = (Component: FC) => {
     }
 
     if (user.status === ASYNC_STATUS.FAILED) {
-      router.push("/");
+      router.push("/login");
       return null;
     }
 

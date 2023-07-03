@@ -15,7 +15,8 @@ import SettingLayout from "~layouts/SettingLayout";
 import { LocalesProvider } from "~/hooks/useLocales";
 import { store } from "~/redux";
 import Message from "~/components/Message";
-import { MAIN_LAYOUT, SETTING_LAYOUT } from "~/constants";
+import { AUTH_LAYOUT, MAIN_LAYOUT, SETTING_LAYOUT } from "~/constants";
+import AuthLayout from "~/components/layouts/AuthLayout";
 
 export const nunito = Baloo_2({
   weight: ["400", "500", "600", "700", "800"],
@@ -42,6 +43,9 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
       break;
     case SETTING_LAYOUT:
       Layout = SettingLayout;
+      break;
+    case AUTH_LAYOUT:
+      Layout = AuthLayout;
       break;
   }
 

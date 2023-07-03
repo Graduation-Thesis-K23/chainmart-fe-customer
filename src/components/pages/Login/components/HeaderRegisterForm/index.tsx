@@ -8,7 +8,6 @@ import {
   MailOutlined,
 } from "@ant-design/icons";
 
-import { LOGIN_STATE } from "../HeaderLogin";
 import HeaderRegisterInput from "../HeaderRegisterInput";
 
 import styles from "./HeaderRegisterForm.module.scss";
@@ -17,6 +16,7 @@ import { SignUpPayload } from "~/interfaces";
 import { ErrorMessage } from "@hookform/error-message";
 import { signUp, useAppDispatch } from "~/redux";
 import { default as dictionary } from "~/hooks/useLocales";
+import { LOGIN_STATE } from "../..";
 
 const HeaderRegisterForm: React.FC<{
   setFormCode: React.Dispatch<React.SetStateAction<number>>;

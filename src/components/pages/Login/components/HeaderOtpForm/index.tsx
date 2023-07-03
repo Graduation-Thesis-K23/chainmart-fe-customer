@@ -3,12 +3,12 @@ import { LeftOutlined } from "@ant-design/icons";
 import { toast } from "react-toastify";
 
 import styles from "./HeaderOtpForm.module.scss";
-import { FORGOT_STATE, LOGIN_STATE } from "../HeaderLogin";
 import Translate from "~/components/commons/Translate";
 import classNames from "classnames";
 import confirmOtp from "~/apis/confirm-otp";
 import { default as dictionary } from "~/hooks/useLocales";
 import { FieldValues } from "react-hook-form";
+import { FORGOT_STATE, LOGIN_STATE } from "../..";
 
 const HeaderOtpForm: React.FC<{
   setFormCode: React.Dispatch<React.SetStateAction<number>>;
@@ -38,6 +38,9 @@ const HeaderOtpForm: React.FC<{
         setFormCode(LOGIN_STATE);
       } else {
         const errorMessage = messages[result?.message || "account.otpInvalid"];
+        if (inputElement.current !== null) {
+          inputElement.current.value = "";
+        }
         setError(errorMessage);
       }
     }
@@ -54,7 +57,9 @@ const HeaderOtpForm: React.FC<{
     if (inputElement.current !== null) {
       const value = inputElement.current.value;
       if (value.length == 6) {
+        inputElement.current.blur();
         setDisable(false);
+        handleOtpSubmit();
       } else {
         setDisable(true);
       }

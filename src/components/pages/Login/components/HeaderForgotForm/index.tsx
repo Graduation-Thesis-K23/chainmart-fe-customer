@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useRef } from "react";
 import {
   Controller,
   FieldValues,
@@ -9,10 +9,11 @@ import { ErrorMessage } from "@hookform/error-message";
 import { LeftOutlined } from "@ant-design/icons";
 
 import styles from "./HeaderForgotForm.module.scss";
-import { LOGIN_STATE } from "../HeaderLogin";
 import Translate from "~/components/commons/Translate";
 import { default as dictionary } from "~/hooks/useLocales";
 import resetPassword from "~/apis/reset-password";
+import { LOGIN_STATE } from "../..";
+import { Button } from "antd";
 
 interface Account {
   account: string;
@@ -94,13 +95,15 @@ const HeaderForgotForm: React.FC<{
           />
         </form>
         <ErrorMessage errors={errors} name="account" />
-        <button
+        <Button
           disabled={isSubmitting || !isValid}
           className={styles["forget_btn"]}
+          loading={isSubmitting}
+          size="large"
           onClick={handleSubmit(onSubmit)}
         >
           <Translate textKey="login.forgotSend" />
-        </button>
+        </Button>
       </div>
     </div>
   );

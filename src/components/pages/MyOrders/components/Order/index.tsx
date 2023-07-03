@@ -1,4 +1,4 @@
-import React, { FC, Fragment, memo, useMemo } from "react";
+import React, { FC, Fragment, memo, useMemo, useState } from "react";
 import Image from "next/image";
 
 import styles from "./Order.module.scss";
@@ -22,8 +22,9 @@ import {
   ShoppingCartOutlined,
   SolutionOutlined,
 } from "@ant-design/icons";
-import { Col, Row, Steps } from "antd";
+import { Col, Modal, Row, Steps } from "antd";
 import useTranslate from "~/hooks/useLocales";
+import OrderComment from "../OrderComment";
 
 enum StepStatus {
   Wait = "wait",
@@ -69,6 +70,8 @@ const Order: FC<OrderType> = ({
   payment,
   products,
 }) => {
+  const [openComment, setOpenComment] = useState(false);
+
   const dispatch = useAppDispatch();
 
   const handleCancelOrder = () => {
@@ -80,7 +83,7 @@ const Order: FC<OrderType> = ({
   };
 
   const handleComment = () => {
-    console.log("comment");
+    setOpenComment(true);
   };
 
   const handleReturnOrder = () => {
@@ -97,6 +100,7 @@ const Order: FC<OrderType> = ({
   const completedText = useTranslate("purchase.stepsCompletedAt");
   const returnText = useTranslate("purchase.stepsReturnedAt");
   const cancelText = useTranslate("purchase.stepsCancelledAt");
+  const commentTitleText = useTranslate("purchase.commentTitle");
 
   const stepsItem = useMemo(() => {
     const currentStep = calculateCurrentStep(
@@ -288,130 +292,174 @@ const Order: FC<OrderType> = ({
     }
   };
 
+  const handleCancelComment = () => {
+    setOpenComment(false);
+  };
+
   return (
-    <li className={styles["order"]} id={id}>
-      <div className={styles["order__header"]}>
-        <div className={styles["order__header__id"]}>
-          <Translate textKey="purchase.orderId" />:{" "}
-          <span className={styles["order__header__id__text"]}>
-            {id + " | "}
-          </span>
-          <span
-            className={styles["order__header__id__text"]}
-            style={{
-              textTransform: "uppercase",
-            }}
-          >
-            <Translate textKey={status} />
-          </span>
+    <>
+      <li className={styles["order"]} id={id}>
+        <div className={styles["order__header"]}>
+          <div className={styles["order__header__id"]}>
+            <Translate textKey="purchase.orderId" />:{" "}
+            <span className={styles["order__header__id__text"]}>
+              {id + " | "}
+            </span>
+            <span
+              className={styles["order__header__id__text"]}
+              style={{
+                textTransform: "uppercase",
+              }}
+            >
+              <Translate textKey={status} />
+            </span>
+          </div>
         </div>
-      </div>
-      <div className={styles["order__steps"]}>
-        <Steps items={stepsItem} labelPlacement="vertical" />
-      </div>
-      <ul className={styles["order__list"]}>
-        {products.map((product) => (
-          <Fragment key={product.id}>
-            <li className={styles["order__list__item"]}>
-              <div className={styles["order__list__item__image"]}>
-                <Image
-                  src={getS3Image(product.image)}
-                  alt={product.name}
-                  width={90}
-                  height={90}
-                />
-              </div>
-              <div className={styles["order__list__item__nq"]}>
-                <p className={styles["order__list__item__nq__name"]}>
-                  {product.name}
+        <div className={styles["order__steps"]}>
+          <Steps items={stepsItem} labelPlacement="vertical" />
+        </div>
+        <ul className={styles["order__list"]}>
+          {products.map((product) => (
+            <Fragment key={product.id}>
+              <li className={styles["order__list__item"]}>
+                <div className={styles["order__list__item__image"]}>
+                  <Image
+                    src={getS3Image(product.image)}
+                    alt={product.name}
+                    width={90}
+                    height={90}
+                  />
+                </div>
+                <div className={styles["order__list__item__nq"]}>
+                  <p className={styles["order__list__item__nq__name"]}>
+                    {product.name}
+                  </p>
+                  <p className={styles["order__list__item__nq__quantity"]}>
+                    x{product.quantity}
+                  </p>
+                </div>
+                <div className={styles["order__list__item__price"]}>
+                  {product.sale > 0 && (
+                    <>
+                      <span className={styles["order__list__item__price__2"]}>
+                        {convertPrice(discount(product.price, product.sale))}
+                      </span>
+                    </>
+                  )}{" "}
+                  <span className={styles["order__list__item__price__1"]}>
+                    {convertPrice(product.price)}
+                  </span>
+                </div>
+              </li>
+            </Fragment>
+          ))}
+        </ul>
+        <div className={styles["order__info"]}>
+          <Row gutter={24}>
+            <Col xs={24} sm={24} md={8} lg={8} xl={8}>
+              <div className={styles["order__info__address"]}>
+                <p className={styles["order__info__address__title"]}>
+                  <Translate textKey="purchase.address" />
                 </p>
-                <p className={styles["order__list__item__nq__quantity"]}>
-                  x{product.quantity}
+                <p className={styles["order__info__address__name"]}>
+                  {address.name}
                 </p>
-              </div>
-              <div className={styles["order__list__item__price"]}>
-                {product.sale > 0 && (
-                  <>
-                    <span className={styles["order__list__item__price__2"]}>
-                      {convertPrice(discount(product.price, product.sale))}
-                    </span>
-                  </>
-                )}{" "}
-                <span className={styles["order__list__item__price__1"]}>
-                  {convertPrice(product.price)}
+                <span className={styles["order__info__address__text"]}>
+                  {address.phone}
+                </span>
+                <br />
+                <span className={styles["order__info__address__text"]}>
+                  {`${address.street}, ${address.ward}, ${address.city}, ${address.district}`}
                 </span>
               </div>
-            </li>
-          </Fragment>
-        ))}
-      </ul>
-      <div className={styles["order__info"]}>
-        <Row gutter={24}>
-          <Col xs={24} sm={24} md={8} lg={8} xl={8}>
-            <div className={styles["order__info__address"]}>
-              <p className={styles["order__info__address__title"]}>
-                <Translate textKey="purchase.address" />
-              </p>
-              <p className={styles["order__info__address__name"]}>
-                {address.name}
-              </p>
-              <span className={styles["order__info__address__text"]}>
-                {address.phone}
-              </span>
-              <br />
-              <span className={styles["order__info__address__text"]}>
-                {`${address.street}, ${address.ward}, ${address.city}, ${address.district}`}
-              </span>
-            </div>
-          </Col>
-          <Col xs={24} sm={24} md={16} lg={16} xl={16}>
-            <div className={styles["order__info__price"]}>
-              <div className={styles["order__info__price__table"]}>
-                <div className={styles["order__info__price__left"]}>
-                  <Translate textKey="purchase.productsPrice" />
+            </Col>
+            <Col xs={24} sm={24} md={16} lg={16} xl={16}>
+              <div className={styles["order__info__price"]}>
+                <div className={styles["order__info__price__table"]}>
+                  <div className={styles["order__info__price__left"]}>
+                    <Translate textKey="purchase.productsPrice" />
+                  </div>
+                  <div className={styles["order__info__price__right"]}>
+                    {convertPrice(productsPrice)}
+                  </div>
                 </div>
-                <div className={styles["order__info__price__right"]}>
-                  {convertPrice(productsPrice)}
+                <div className={styles["order__info__price__table"]}>
+                  <div className={styles["order__info__price__left"]}>
+                    <Translate textKey="purchase.shippingPrice" />
+                  </div>
+                  <div className={styles["order__info__price__right"]}>
+                    {convertPrice(shippingPrice)}
+                  </div>
                 </div>
-              </div>
-              <div className={styles["order__info__price__table"]}>
-                <div className={styles["order__info__price__left"]}>
-                  <Translate textKey="purchase.shippingPrice" />
+                <div className={styles["order__info__price__table"]}>
+                  <div className={styles["order__info__price__left"]}>
+                    <Translate textKey="purchase.totalPrice" />
+                  </div>
+                  <div
+                    className={styles["order__info__price__right"]}
+                    style={{
+                      color: "#ff0000",
+                      fontSize: "24px",
+                      fontWeight: "500",
+                    }}
+                  >
+                    {convertPrice(totalPrice)}
+                  </div>
                 </div>
-                <div className={styles["order__info__price__right"]}>
-                  {convertPrice(shippingPrice)}
-                </div>
-              </div>
-              <div className={styles["order__info__price__table"]}>
-                <div className={styles["order__info__price__left"]}>
-                  <Translate textKey="purchase.totalPrice" />
-                </div>
-                <div
-                  className={styles["order__info__price__right"]}
-                  style={{
-                    color: "#ff0000",
-                    fontSize: "24px",
-                    fontWeight: "500",
-                  }}
-                >
-                  {convertPrice(totalPrice)}
+                <div className={styles["order__info__price__table"]}>
+                  <div className={styles["order__info__price__left"]}>
+                    <Translate textKey="purchase.paymentMethod" />
+                  </div>
+                  <div className={styles["order__info__price__right"]}>
+                    <Translate textKey={payment} />
+                  </div>
                 </div>
               </div>
-              <div className={styles["order__info__price__table"]}>
-                <div className={styles["order__info__price__left"]}>
-                  <Translate textKey="purchase.paymentMethod" />
-                </div>
-                <div className={styles["order__info__price__right"]}>
-                  <Translate textKey={payment} />
-                </div>
-              </div>
-            </div>
-          </Col>
-        </Row>
-      </div>
+            </Col>
+          </Row>
+        </div>
 
-      <div className={styles["order__footer"]}>{renderStatus(status)}</div>
-    </li>
+        <div className={styles["order__footer"]}>{renderStatus(status)}</div>
+      </li>
+      {status === OrderStatus.Completed && (
+        <Modal
+          open={openComment}
+          onCancel={handleCancelComment}
+          title={commentTitleText}
+          footer={null}
+          width={700}
+        >
+          <div className={styles["comments"]}>
+            <div className={styles["comments__header"]} />
+            <ul className={styles["comments__list"]}>
+              {products.map((product) => (
+                <Fragment key={product.id}>
+                  <OrderComment product={product} />
+                </Fragment>
+              ))}
+            </ul>
+            <div className={styles["comments__footer"]}>
+              <button
+                className={styles["comments__footer__btn"]}
+                onClick={handleCancelComment}
+                style={{
+                  backgroundColor: "transparent",
+                  color: "#000",
+                }}
+              >
+                <Translate textKey="purchase.closeBtn" />
+              </button>
+              <button
+                className={styles["comments__footer__btn"]}
+                onClick={handleComment}
+              >
+                <Translate textKey="purchase.commentBtn" />
+              </button>
+            </div>
+          </div>
+        </Modal>
+      )}
+    </>
   );
 };
 

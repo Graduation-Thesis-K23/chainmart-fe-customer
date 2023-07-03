@@ -163,3 +163,46 @@
     margin-top: 10px;
   }
 }
+
+.comments {
+  height: 660px;
+
+  &__header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 10px;
+    background-color: #fff;
+  }
+
+  &__list {
+    height: 600px;
+    overflow-y: auto;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border-top: 1px solid #ddd;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 60px;
+    background-color: #fff;
+
+    &__btn {
+      background-color: $primary-color;
+      color: #fff;
+      cursor: pointer;
+      margin-right: 25px;
+      padding: 8px 20px;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+}

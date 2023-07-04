@@ -54,6 +54,10 @@ export interface ErrorPayload {
   error: string;
 }
 
+export interface SuccessPayload {
+  status: string;
+}
+
 export interface SignInPayload {
   account: string;
   password: string;
@@ -70,20 +74,12 @@ export interface IParams extends ParsedUrlQuery {
   slug: string;
 }
 
-interface CommentImage {
-  id: number;
-  src: string;
-}
-
 export interface Comment {
-  id: number;
-  productId: number;
+  id: string;
   name: string;
-  timestamp: number;
+  createdAt: number;
   star: number;
   content?: string;
   avatar: string;
-  like: number;
-  classify: string;
-  images?: Array<CommentImage>;
+  images?: string[];
 }

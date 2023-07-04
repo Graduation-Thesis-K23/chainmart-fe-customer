@@ -12,7 +12,7 @@ import {
 } from "~/redux";
 import Translate from "~/components/commons/Translate";
 import getS3Image from "~/helpers/get-s3-image";
-import { convertPrice, discount } from "~/helpers";
+import { convertPrice, convertTimestamp, discount } from "~/helpers";
 import { OrderStatus } from "~/shared";
 import {
   CloseOutlined,
@@ -22,9 +22,9 @@ import {
   ShoppingCartOutlined,
   SolutionOutlined,
 } from "@ant-design/icons";
-import { Col, Modal, Row, Steps } from "antd";
+import { Col, Row, Steps } from "antd";
 import useTranslate from "~/hooks/useLocales";
-import OrderComment from "../OrderComment";
+import OrderCommentModal from "../OrderCommentModal";
 
 enum StepStatus {
   Wait = "wait",
@@ -34,10 +34,10 @@ enum StepStatus {
 }
 
 const calculateCurrentStep = (
-  approve_at: Date | undefined,
-  shipped_date: Date | undefined,
-  cancelled_date: Date | undefined,
-  return_date: Date | undefined
+  approve_at: number | undefined,
+  shipped_date: number | undefined,
+  cancelled_date: number | undefined,
+  return_date: number | undefined
 ) => {
   if (return_date) {
     return 4;
@@ -70,8 +70,6 @@ const Order: FC<OrderType> = ({
   payment,
   products,
 }) => {
-  const [openComment, setOpenComment] = useState(false);
-
   const dispatch = useAppDispatch();
 
   const handleCancelOrder = () => {
@@ -82,9 +80,7 @@ const Order: FC<OrderType> = ({
     dispatch(receivedOrder(id));
   };
 
-  const handleComment = () => {
-    setOpenComment(true);
-  };
+  const [openComment, setOpenComment] = useState(false);
 
   const handleReturnOrder = () => {
     dispatch(returnOrder(id));
@@ -94,13 +90,20 @@ const Order: FC<OrderType> = ({
     dispatch(resellOrder(id));
   };
 
+  const handleCancelComment = () => {
+    setOpenComment(false);
+  };
+
+  const handleComment = () => {
+    setOpenComment(true);
+  };
+
   const createAtText = useTranslate("purchase.stepsCreateAt");
   const approvedText = useTranslate("purchase.stepsApprovedAt");
   const shippingText = useTranslate("purchase.stepsShippingAt");
   const completedText = useTranslate("purchase.stepsCompletedAt");
   const returnText = useTranslate("purchase.stepsReturnedAt");
   const cancelText = useTranslate("purchase.stepsCancelledAt");
-  const commentTitleText = useTranslate("purchase.commentTitle");
 
   const stepsItem = useMemo(() => {
     const currentStep = calculateCurrentStep(
@@ -130,7 +133,7 @@ const Order: FC<OrderType> = ({
             }}
           />
         ),
-        description: create_at.toLocaleString("vi-VN"),
+        description: convertTimestamp(create_at),
       },
       {
         title: approvedText,
@@ -142,9 +145,7 @@ const Order: FC<OrderType> = ({
             }}
           />
         ),
-        description: approved_date
-          ? approved_date.toLocaleString("vi-VN")
-          : null,
+        description: approved_date ? convertTimestamp(approved_date) : null,
       },
       {
         title: shippingText,
@@ -156,9 +157,7 @@ const Order: FC<OrderType> = ({
             }}
           />
         ),
-        description: approved_date
-          ? approved_date.toLocaleString("vi-VN")
-          : null,
+        description: approved_date ? convertTimestamp(approved_date) : null,
       },
       {
         title: completedText,
@@ -170,7 +169,7 @@ const Order: FC<OrderType> = ({
             }}
           />
         ),
-        description: shipped_date ? shipped_date.toLocaleString("vi-VN") : null,
+        description: shipped_date ? convertTimestamp(shipped_date) : null,
       },
     ];
 
@@ -185,9 +184,7 @@ const Order: FC<OrderType> = ({
             }}
           />
         ),
-        description: cancelled_date
-          ? cancelled_date.toLocaleString("vi-VN")
-          : null,
+        description: cancelled_date ? convertTimestamp(cancelled_date) : null,
       });
     }
 
@@ -202,7 +199,7 @@ const Order: FC<OrderType> = ({
             }}
           />
         ),
-        description: return_date.toLocaleString("vi-VN"),
+        description: convertTimestamp(return_date),
       });
     }
 
@@ -290,10 +287,6 @@ const Order: FC<OrderType> = ({
           </div>
         );
     }
-  };
-
-  const handleCancelComment = () => {
-    setOpenComment(false);
   };
 
   return (
@@ -422,42 +415,11 @@ const Order: FC<OrderType> = ({
         <div className={styles["order__footer"]}>{renderStatus(status)}</div>
       </li>
       {status === OrderStatus.Completed && (
-        <Modal
-          open={openComment}
-          onCancel={handleCancelComment}
-          title={commentTitleText}
-          footer={null}
-          width={700}
-        >
-          <div className={styles["comments"]}>
-            <div className={styles["comments__header"]} />
-            <ul className={styles["comments__list"]}>
-              {products.map((product) => (
-                <Fragment key={product.id}>
-                  <OrderComment product={product} />
-                </Fragment>
-              ))}
-            </ul>
-            <div className={styles["comments__footer"]}>
-              <button
-                className={styles["comments__footer__btn"]}
-                onClick={handleCancelComment}
-                style={{
-                  backgroundColor: "transparent",
-                  color: "#000",
-                }}
-              >
-                <Translate textKey="purchase.closeBtn" />
-              </button>
-              <button
-                className={styles["comments__footer__btn"]}
-                onClick={handleComment}
-              >
-                <Translate textKey="purchase.commentBtn" />
-              </button>
-            </div>
-          </div>
-        </Modal>
+        <OrderCommentModal
+          openComment={openComment}
+          handleCancelComment={handleCancelComment}
+          products={products}
+        />
       )}
     </>
   );

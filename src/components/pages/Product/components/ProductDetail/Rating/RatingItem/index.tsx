@@ -4,13 +4,14 @@ import { Rate, Image, Avatar, Divider } from "antd";
 import styles from "./Rating.module.scss";
 import { Comment } from "~/interfaces";
 import { convertTimestamp } from "~/helpers";
+import getS3Image from "~/helpers/get-s3-image";
 
 const RatingItem: React.FC<{
   comment: Comment;
 }> = ({ comment }) => {
   return (
     <li className={styles["rating-item"]}>
-      <Avatar src={comment.avatar} alt="avt" size="large" />
+      <Avatar src={getS3Image(comment.avatar)} alt="avt" size="large" />
 
       <div className={styles["rating-item-info"]}>
         <div className={styles["rating-item-info-top"]}>
@@ -23,11 +24,7 @@ const RatingItem: React.FC<{
         </div>
         <div className={styles["rating-item-info-mid"]}>
           <span className={styles["rating-item-info-mid-time"]}>
-            {convertTimestamp(comment.timestamp)}
-          </span>
-          |
-          <span className={styles["rating-item-info-mid-classify"]}>
-            {comment.classify}
+            {convertTimestamp(comment.createdAt)}
           </span>
         </div>
         {comment.content && (
@@ -40,10 +37,10 @@ const RatingItem: React.FC<{
         {comment.images && (
           <div className={styles["rating-item-info-image"]}>
             <Image.PreviewGroup>
-              {comment.images.map((image) => (
+              {comment.images.map((image, index) => (
                 <Image
-                  key={image.id}
-                  src={image.src}
+                  key={index}
+                  src={getS3Image(image)}
                   alt="comment-image"
                   width={72}
                   height={72}

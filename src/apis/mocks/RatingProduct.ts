@@ -13,11 +13,11 @@ export default [
     images: [
       {
         id: 1,
-        src: "https://picsum.photos/72",
+        src: "2ba48c4c",
       },
       {
         id: 2,
-        src: "https://picsum.photos/73",
+        src: "7200ed7e",
       },
     ],
   },

@@ -13,6 +13,7 @@ import { messagesReducer } from "./messages";
 import { cartReducer } from "./cart";
 import { checkoutReducer } from "./checkout";
 import { ordersReducer } from "./orders";
+import { ratingReducer } from "./rating";
 
 const store = configureStore({
   reducer: {
@@ -28,6 +29,7 @@ const store = configureStore({
     cart: cartReducer,
     checkout: checkoutReducer,
     orders: ordersReducer,
+    rating: ratingReducer,
   },
 });
 

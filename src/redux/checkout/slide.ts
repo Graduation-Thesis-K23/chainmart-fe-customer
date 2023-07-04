@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { ASYNC_STATUS } from "../constants";
-import { ICart } from "~/interfaces";
+import { ErrorPayload, ICart, SuccessPayload } from "~/interfaces";
 
 export interface CheckoutState {
   address: string;
@@ -57,9 +57,13 @@ export const placeOrder = createAsyncThunk(
   "checkout/placeOrder",
   async (checkoutState: PlaceOrder, thunkApi) => {
     console.log(checkoutState);
-    const response = {
-      status: "success",
-    };
+    const response: ErrorPayload | SuccessPayload = await new Promise(
+      (resolve) => {
+        resolve({
+          status: "success",
+        });
+      }
+    );
 
     if ("message" in response) {
       return thunkApi.rejectWithValue(response.message);

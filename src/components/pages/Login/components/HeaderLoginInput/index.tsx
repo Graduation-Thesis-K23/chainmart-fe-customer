@@ -2,7 +2,7 @@ import React, { HTMLInputTypeAttribute, memo } from "react";
 import { Control, Controller, RegisterOptions } from "react-hook-form";
 
 import Input from "~/components/commons/Input";
-import { SignInPayload } from "~/interfaces";
+import { SignInPayload } from "~/shared";
 
 const HeaderLoginInput: React.FC<{
   control: Control<SignInPayload>;

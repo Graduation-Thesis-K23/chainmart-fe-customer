@@ -11,7 +11,7 @@ import Specifications from "./Specifications";
 import Description from "./Description";
 
 import styles from "./MainInformation.module.scss";
-import { ICart } from "~/interfaces";
+import { ICart } from "~/shared";
 import {
   ASYNC_STATUS,
   addItemCart,

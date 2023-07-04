@@ -3,7 +3,7 @@ import { GetStaticPropsContext } from "next";
 import Head from "next/head";
 
 import ProductPage from "~/components/pages/Product";
-import { IParams } from "~/interfaces";
+import { IParams } from "~/shared";
 import { NextPageWithLayout } from "../_app";
 import { MAIN_LAYOUT } from "~/constants";
 import instance from "~/apis/axios-instance";

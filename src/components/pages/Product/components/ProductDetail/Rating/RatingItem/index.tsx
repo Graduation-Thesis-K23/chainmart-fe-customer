@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import { Rate, Image, Avatar, Divider } from "antd";
 
 import styles from "./Rating.module.scss";
-import { Comment } from "~/interfaces";
+import { Comment } from "~/shared";
 import { convertTimestamp } from "~/helpers";
 import getS3Image from "~/helpers/get-s3-image";
 

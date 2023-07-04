@@ -12,7 +12,7 @@ import styles from "./HeaderLoginForm.module.scss";
 import facebookSvg from "~/assets/icons/facebook-color.svg";
 import googleSvg from "~/assets/icons/google-color.svg";
 import { signIn, useAppDispatch, useAppSelector } from "~/redux";
-import { SignInPayload } from "~/interfaces";
+import { SignInPayload } from "~/shared";
 import { ErrorMessage } from "@hookform/error-message";
 import { default as dictionary } from "~/hooks/useLocales";
 import { FORGOT_STATE, REGISTER_STATE } from "../..";

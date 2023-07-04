@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { ASYNC_STATUS } from "../constants";
-import { ErrorPayload, Comment } from "~/interfaces";
+import { ErrorPayload, Comment } from "~/shared";
 
 export interface Rating {
   averageStar: number;

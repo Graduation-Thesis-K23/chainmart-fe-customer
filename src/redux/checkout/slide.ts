@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { ASYNC_STATUS } from "../constants";
-import { ErrorPayload, ICart, SuccessPayload } from "~/interfaces";
+import { ErrorPayload, ICart, SuccessPayload } from "~/shared";
 
 export interface CheckoutState {
   address: string;

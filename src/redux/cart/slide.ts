@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { ASYNC_STATUS } from "../constants";
-import { ErrorPayload, ICart, SuccessPayload } from "~/interfaces";
+import { ErrorPayload, ICart, SuccessPayload } from "~/shared";
 import { INCREASE } from "~/constants";
 
 export interface CartQuantity {

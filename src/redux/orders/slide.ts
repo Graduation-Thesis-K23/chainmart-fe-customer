@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { ASYNC_STATUS } from "../constants";
 import { Address } from "../setting";
 import { OrderProductType, OrderStatus, Payment } from "~/shared";
-import { ErrorPayload, SuccessPayload } from "~/interfaces";
+import { ErrorPayload, SuccessPayload } from "~/shared";
 
 export interface OrderType {
   id: string;

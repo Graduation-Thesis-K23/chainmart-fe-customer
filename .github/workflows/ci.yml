@@ -18,7 +18,7 @@ jobs:
 
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v3
-        id: semantic 
+        id: semantic
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -27,7 +27,7 @@ jobs:
           extra_plugins: |
             @semantic-release/changelog@6.0.0
             @semantic-release/git
-        
+
       - name: Export Git Tag
         id: export
         if: steps.semantic.outputs.new_release_published == 'true'
@@ -43,7 +43,7 @@ jobs:
 
       - name: Check out code
         uses: actions/checkout@v3
-      
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:

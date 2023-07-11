@@ -3,7 +3,7 @@ name: Continuous Deploy
 on:
   push:
     branches:
-      - develop
+      - ok
 
 jobs:
   docker-hub:

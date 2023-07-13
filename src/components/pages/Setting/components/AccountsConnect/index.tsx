@@ -30,7 +30,6 @@ const AccountsConnect: React.FC<{
     if (user.status === ASYNC_STATUS.SUCCEED) {
       dispatch(fetchAccounts(user.data.username));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (status !== ASYNC_STATUS.SUCCEED) {

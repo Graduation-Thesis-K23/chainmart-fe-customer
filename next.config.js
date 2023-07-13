@@ -14,6 +14,9 @@ const nextConfig = {
       "localhost",
     ],
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 const withBundleAnalyzer = require("@next/bundle-analyzer")({

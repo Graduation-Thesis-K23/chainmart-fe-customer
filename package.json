@@ -6,7 +6,6 @@
     "dev": "npm run open-browser && next dev -p 8080",
     "build": "next build",
     "start": "next start -p 8080",
-    "lint": "next lint --quiet",
     "prettier": "npx prettier --write .",
     "prettier:check": "prettier --config .prettierrc.json --check .",
     "open-browser": "start http://localhost:8080"

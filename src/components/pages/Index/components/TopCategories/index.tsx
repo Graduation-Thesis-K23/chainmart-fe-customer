@@ -87,7 +87,6 @@ const TopCategories = () => {
     } else {
       onNext(220);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedAction]);
 
   return (

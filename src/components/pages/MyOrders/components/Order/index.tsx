@@ -204,7 +204,6 @@ const Order: FC<OrderType> = ({
     }
 
     return items;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const productsPrice = useMemo(() => {

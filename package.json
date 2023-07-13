@@ -7,10 +7,8 @@
     "build": "next build",
     "start": "next start -p 8080",
     "lint": "next lint --quiet",
-    "prepare": "husky install",
     "prettier": "npx prettier --write .",
     "prettier:check": "prettier --config .prettierrc.json --check .",
-    "husky install": "husky install",
     "open-browser": "start http://localhost:8080"
   },
   "dependencies": {

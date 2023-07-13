@@ -37,3 +37,6 @@ next-env.d.ts
 /analyze
 
 /docker-db
+
+
+cypress/videos

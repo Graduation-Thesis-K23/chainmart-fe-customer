@@ -134,7 +134,11 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            ./chainmart-fe-customer.sh
+            cd chainmart-fe-customer
+            sudo docker compose stop
+            sudo docker compose rm -f
+            sudo docker compose pull
+            sudo docker compose up -d
         continue-on-error: true
 
       - name: Send mesage to Telegram

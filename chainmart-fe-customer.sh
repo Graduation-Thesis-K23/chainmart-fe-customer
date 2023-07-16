@@ -1,5 +1,5 @@
 cd chainmart-fe-customer
-docker-compose stop
-docker-compose rm -f
-docker-compose pull
-docker-compose up -d
+sudo docker compose stop
+sudo docker compose rm -f
+sudo docker compose pull
+sudo docker compose up -d

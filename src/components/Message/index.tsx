@@ -49,7 +49,7 @@ const Message = () => {
     if (sendMessage.fulfilled.match(result)) {
       const messageBox = document.getElementById("message-list");
 
-      socket.emit("send_message", result.payload.content);
+      socket.emit("send", result.payload.content);
 
       if (messageBox) {
         setTimeout(() => {
@@ -106,19 +106,19 @@ const Message = () => {
   ];
 
   useEffect(() => {
-    socket.on("receive_message", (data) => {
+    socket.on("receive", (data) => {
       dispatch(receiveMessage(data));
     });
 
     return () => {
-      socket.off("receive_message");
+      socket.off("receive");
     };
   }, [dispatch]);
 
   return (
     <div className={styles["message"]}>
       <div className={styles["message__btn"]} onClick={handleOpenChat}>
-        <Badge count={5} offset={[5, -5]} color="#2da85c">
+        <Badge count={1} offset={[5, -5]} color="#2da85c">
           <MessageOutlined className={styles["message__icon"]} />
         </Badge>
       </div>

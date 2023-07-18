@@ -11,7 +11,6 @@ import getS3Image from "~/helpers/get-s3-image";
 const Familiar = () => {
   const familiarText = useTranslate("product.familiar");
 
-  const product = useAppSelector((state) => state.product);
   const { data } = useAppSelector((state) => state.familiar);
 
   const dispatch = useAppDispatch();
@@ -19,8 +18,8 @@ const Familiar = () => {
   const items = data.slice(0, 5);
 
   useEffect(() => {
-    dispatch(fetchFamiliarProduct(product.data.id));
-  }, [dispatch, product.data.id]);
+    dispatch(fetchFamiliarProduct());
+  }, [dispatch]);
 
   return (
     <div className={styles["familiar"]}>

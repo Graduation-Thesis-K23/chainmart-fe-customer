@@ -2,16 +2,23 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { ASYNC_STATUS } from "../constants";
 import instance from "~/apis/axios-instance";
 import { RootState } from "../store";
-import { FamiliarProduct } from "~/shared";
+import {
+  ErrorPayload,
+  FamiliarProduct,
+  PaginationMetadata,
+  PaginationResult,
+} from "~/shared";
 
 export interface FamiliarProductState {
   data: FamiliarProduct[];
   status: typeof ASYNC_STATUS[keyof typeof ASYNC_STATUS];
+  metadata: PaginationMetadata;
 }
 
 const initialState: FamiliarProductState = {
   data: [],
   status: ASYNC_STATUS.IDLE,
+  metadata: {} as PaginationMetadata,
 };
 
 export const familiarSlide = createSlice({
@@ -24,16 +31,30 @@ export const familiarSlide = createSlice({
     });
     builder.addCase(fetchFamiliarProduct.fulfilled, (state, action) => {
       state.status = ASYNC_STATUS.SUCCEED;
-      state.data = action.payload;
+      const { docs, totalDocs, limit, totalPages, page } = action.payload;
+      state.data = docs;
+      state.metadata = {
+        totalDocs,
+        limit,
+        totalPages,
+        page,
+      };
     });
   },
 });
 
 export const fetchFamiliarProduct = createAsyncThunk(
   "familiar/fetchFamiliarProduct",
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async (uuid: string): Promise<FamiliarProduct[]> =>
-    await instance.get("/api/products"),
+  async (_, thunkAPi) => {
+    const result: PaginationResult<FamiliarProduct> | ErrorPayload =
+      await instance.get("/api/products?limit=5");
+
+    if ("message" in result) {
+      return thunkAPi.rejectWithValue(result.message);
+    }
+
+    return thunkAPi.fulfillWithValue(result);
+  },
   {
     condition: (_, { getState }) => {
       const rootState: RootState = getState() as RootState;

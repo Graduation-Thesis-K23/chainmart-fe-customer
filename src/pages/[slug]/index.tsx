@@ -55,18 +55,17 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   };
 };
 
+interface Params {
+  params: {
+    slug: string;
+  };
+}
+
 export const getStaticPaths = async () => {
-  let paths: { params: { slug: string } }[] = [];
+  let paths: Params[] = [];
   // call api later
   try {
-    const productList: ProductType[] = await instance.get("/api/products");
-    paths = productList.map((product) => {
-      return {
-        params: {
-          slug: product.slug,
-        },
-      };
-    });
+    paths = await instance.get("/api/products/static-paths");
   } catch (error) {
     console.log(error);
   }

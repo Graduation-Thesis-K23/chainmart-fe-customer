@@ -52,7 +52,7 @@ export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async (_, thunkAPi) => {
     const result: PaginationResult<ProductListType> | ErrorPayload =
-      await instance.get("/api/products");
+      await instance.get("/api/products?limit=20");
 
     if ("message" in result) {
       return thunkAPi.rejectWithValue(result.message);

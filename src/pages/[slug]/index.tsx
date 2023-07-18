@@ -42,13 +42,13 @@ const Product: NextPageWithLayout<ProductProps> = ({ product }) => {
 Product.layout = MAIN_LAYOUT;
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
-  const { id } = context.params as IParams;
+  const { slug } = context.params as IParams;
 
-  const product = await instance.get("/api/products/slug/" + id);
+  const product = await instance.get("/api/products/slug/" + slug);
 
   return {
     props: {
-      id,
+      id: slug,
       product,
     },
     revalidate: 1,
@@ -57,7 +57,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
 interface Params {
   params: {
-    id: string;
+    slug: string;
   };
 }
 

@@ -109,11 +109,11 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
             `}</style>
             <Message />
 
-            <ErrorBoundary>
-              <Layout>
+            <Layout>
+              <ErrorBoundary>
                 <Component {...pageProps} />
-              </Layout>
-            </ErrorBoundary>
+              </ErrorBoundary>
+            </Layout>
             <ToastContainer />
           </>
         </LocalesProvider>

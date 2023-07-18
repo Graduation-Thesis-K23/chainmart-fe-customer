@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -17,12 +21,29 @@
     "incremental": true,
     "baseUrl": "./",
     "paths": {
-      "~/*": ["./src/*"],
-      "~layouts/*": ["./src/components/layouts/*"],
-      "~pages/*": ["./src/components/pages/*"],
-      "~atomics/*": ["./src/components/atomics/*"]
+      "~/*": [
+        "./src/*"
+      ],
+      "~layouts/*": [
+        "./src/components/layouts/*"
+      ],
+      "~pages/*": [
+        "./src/components/pages/*"
+      ],
+      "~atomics/*": [
+        "./src/components/atomics/*"
+      ]
     },
-    "types": ["node"]
+    "types": [
+      "node"
+    ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

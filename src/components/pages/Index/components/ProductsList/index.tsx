@@ -9,7 +9,6 @@ import useTranslate from "~/hooks/useLocales";
 import { useAppDispatch, useAppSelector } from "~/redux";
 import { fetchProducts } from "~/redux";
 import getS3Image from "~/helpers/get-s3-image";
-import checkCreated from "~/helpers/check-created";
 import convertNumberToK from "~/helpers/convert-to-k";
 
 const ProductsList = () => {
@@ -32,7 +31,7 @@ const ProductsList = () => {
             className={styles["product-card"]}
           >
             <div className={styles["product-card"]}>
-              {checkCreated(item.created_at.toString()) && (
+              {true && (
                 <div className={styles["product-card-label"]}>
                   <span className={styles["product-card-label-text"]}>New</span>
                 </div>

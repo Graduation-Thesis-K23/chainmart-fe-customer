@@ -4,7 +4,6 @@ import { Rate, Spin } from "antd";
 
 import styles from "./ProductList.module.scss";
 import Translate from "~/components/commons/Translate";
-import checkCreated from "~/helpers/check-created";
 import convertNumberToK from "~/helpers/convert-to-k";
 import {
   ASYNC_STATUS,
@@ -91,7 +90,7 @@ const ProductList: FC<{
             className={styles["product-card"]}
           >
             <div className={styles["product-card"]}>
-              {checkCreated(item.created_at.toString()) && (
+              {true && (
                 <div className={styles["product-card-label"]}>
                   <span className={styles["product-card-label-text"]}>New</span>
                 </div>

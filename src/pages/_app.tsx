@@ -99,25 +99,25 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
         />
         <link rel="manifest" href="/site.webmanifest" />
       </Head>
-      <ErrorBoundary>
-        <Provider store={store}>
-          <LocalesProvider>
-            <>
-              <style global jsx>{`
-                body {
-                  font-family: ${nunito.style.fontFamily} !important;
-                }
-              `}</style>
-              <Message />
+      <Provider store={store}>
+        <LocalesProvider>
+          <>
+            <style global jsx>{`
+              body {
+                font-family: ${nunito.style.fontFamily} !important;
+              }
+            `}</style>
+            <Message />
 
+            <ErrorBoundary>
               <Layout>
                 <Component {...pageProps} />
               </Layout>
-              <ToastContainer />
-            </>
-          </LocalesProvider>
-        </Provider>
-      </ErrorBoundary>
+            </ErrorBoundary>
+            <ToastContainer />
+          </>
+        </LocalesProvider>
+      </Provider>
     </>
   );
 };

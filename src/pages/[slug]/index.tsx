@@ -42,13 +42,13 @@ const Product: NextPageWithLayout<ProductProps> = ({ product }) => {
 Product.layout = MAIN_LAYOUT;
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
-  const { slug } = context.params as IParams;
+  const { id } = context.params as IParams;
 
-  const product = await instance.get("/api/products/slug/" + slug);
+  const product = await instance.get("/api/products/slug/" + id);
 
   return {
     props: {
-      id: slug,
+      id,
       product,
     },
     revalidate: 1,
@@ -57,7 +57,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
 interface Params {
   params: {
-    slug: string;
+    id: string;
   };
 }
 
@@ -66,6 +66,7 @@ export const getStaticPaths = async () => {
   // call api later
   try {
     paths = await instance.get("/api/products/static-paths");
+    console.log(paths);
   } catch (error) {
     console.log(error);
   }

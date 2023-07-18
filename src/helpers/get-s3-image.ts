@@ -3,7 +3,8 @@ const urlRegex =
 
 const getS3Image = (image: string) => {
   if (image.match(urlRegex)) return image;
-  return "http://localhost:3000/api/s3/" + image;
+
+  return `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/s3/${image}}`;
 };
 
 export default getS3Image;

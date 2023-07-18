@@ -1,5 +1,12 @@
 import { SitemapStream, streamToPromise } from "sitemap";
 import type { NextApiRequest, NextApiResponse } from "next";
+import instance from "~/apis/axios-instance";
+
+interface Param {
+  params: {
+    slug: string;
+  };
+}
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -8,20 +15,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     });
 
     // List of posts
-    /* const posts = (await getProducts()).map((i) => {
-      return {
-        slug: i.params.slug,
-      };
-    }); */
+    const products: Param[] = await instance.get("/api/products/static-paths");
 
-    // Create each URL row
-    /*  posts.forEach((post) => {
+    products.map((product) => {
       smStream.write({
-        url: `/${post.slug}`,
+        url: `/${product.params.slug}`,
         changefreq: "daily",
         priority: 0.9,
       });
-    }); */
+    });
 
     // End sitemap stream
     smStream.end();

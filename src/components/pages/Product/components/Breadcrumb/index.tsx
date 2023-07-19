@@ -9,6 +9,7 @@ import Translate from "~/components/commons/Translate";
 const ProductBreadcrumb = () => {
   const { data } = useAppSelector((state) => state.product);
 
+
   return (
     <div className={styles["breadcrumb"]}>
       <div className="container">

@@ -66,7 +66,6 @@ export const getStaticPaths = async () => {
   // call api later
   try {
     paths = await instance.get("/api/products/static-paths");
-    console.log(paths);
   } catch (error) {
     console.log(error);
   }

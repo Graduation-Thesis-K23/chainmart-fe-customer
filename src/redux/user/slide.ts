@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { ASYNC_STATUS } from "../constants";
 import instance from "~/apis/axios-instance";
 import { RootState } from "../store";
-import { SignInPayload, SignUpPayload } from "~/shared";
+import { ErrorPayload, SignInPayload, SignUpPayload } from "~/shared";
 
 export interface User {
   name: string;
@@ -59,21 +59,23 @@ export const loginSlide = createSlice({
       state.message = action.error.message as unknown as string;
     });
     builder.addCase(changeAvatar.fulfilled, (state, { payload }) => {
-      state.data.photo = payload;
+      state.data.photo = payload.image;
     });
   },
 });
 
 export const checkCookieToken = createAsyncThunk(
   "user/checkCookie",
-  async (): Promise<User> => {
-    const response = await instance.post("/api/auth/check-token");
+  async (_, thunkApi) => {
+    const response: User | ErrorPayload = await instance.post(
+      "/api/auth/check-token"
+    );
 
     if ("message" in response) {
-      return Promise.reject(response);
+      return thunkApi.rejectWithValue(response);
     }
 
-    return response as unknown as User;
+    return thunkApi.fulfillWithValue(response);
   },
   {
     condition: (_, { getState }) => {
@@ -95,27 +97,33 @@ export const checkCookieToken = createAsyncThunk(
 
 export const signIn = createAsyncThunk(
   "user/signIn",
-  async (account: SignInPayload) => {
-    const response = await instance.post("/api/auth/sign-in", account);
+  async (account: SignInPayload, thunkApi) => {
+    const response: User | ErrorPayload = await instance.post(
+      "/api/auth/sign-in",
+      account
+    );
 
     if ("message" in response) {
-      return await Promise.reject(response);
+      return thunkApi.rejectWithValue(response);
     }
 
-    return response as unknown as User;
+    return thunkApi.fulfillWithValue(response);
   }
 );
 
 export const signUp = createAsyncThunk(
   "user/signUp",
-  async (account: SignUpPayload) => {
-    const response = await instance.post("/api/auth/sign-up", account);
+  async (account: SignUpPayload, thunkApi) => {
+    const response: User | ErrorPayload = await instance.post(
+      "/api/auth/sign-up",
+      account
+    );
 
     if ("message" in response) {
-      return await Promise.reject(response);
+      return thunkApi.rejectWithValue(response);
     }
 
-    return response as unknown as User;
+    return thunkApi.fulfillWithValue(response);
   }
 );
 
@@ -126,14 +134,21 @@ export const logout = createAsyncThunk(
 
 export const changeAvatar = createAsyncThunk(
   "user/changeAvatar",
-  async (formData: FormData) => {
-    const response = await instance.post("/api/users/change-avatar", formData);
+  async (formData: FormData, thunkApi) => {
+    const response:
+      | {
+          image: string;
+        }
+      | ErrorPayload = await instance.post(
+      "/api/users/change-avatar",
+      formData
+    );
 
-    try {
-      return String(response);
-    } catch (error) {
-      return await Promise.reject(response);
+    if ("message" in response) {
+      return thunkApi.rejectWithValue(response);
     }
+
+    return thunkApi.fulfillWithValue(response);
   }
 );
 

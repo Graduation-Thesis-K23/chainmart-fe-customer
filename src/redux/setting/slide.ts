@@ -112,7 +112,7 @@ export const updateUserInfo = createAsyncThunk(
 export const createAddress = createAsyncThunk(
   "setting/createAddress",
   async (data: Address, thunkApi) => {
-    const response: Address | ErrorPayload = await instance.post<Address>(
+    const response: Address | ErrorPayload = await instance.post(
       "/api/address",
       data
     );

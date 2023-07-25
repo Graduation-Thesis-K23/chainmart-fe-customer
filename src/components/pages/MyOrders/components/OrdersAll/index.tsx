@@ -1,21 +1,16 @@
-import React, { memo, useEffect, Fragment } from "react";
+import React, { memo, Fragment } from "react";
 import { SearchOutlined } from "@ant-design/icons";
 
 import styles from "./OrdersAll.module.scss";
-import { fetchOrders, useAppDispatch, useAppSelector } from "~/redux";
+import { useAppSelector } from "~/redux";
 import Order from "../Order";
 import OrdersEmpty from "../OrdersEmpty";
 import useTranslate from "~/hooks/useLocales";
 
 const OrdersAll = () => {
-  const dispatch = useAppDispatch();
   const orders = useAppSelector((state) => state.orders);
 
   const inputPlaceholder = useTranslate("purchase.searchOrderPlaceholder");
-
-  useEffect(() => {
-    dispatch(fetchOrders());
-  }, [dispatch]);
 
   return (
     <div className={styles["orders-all"]}>

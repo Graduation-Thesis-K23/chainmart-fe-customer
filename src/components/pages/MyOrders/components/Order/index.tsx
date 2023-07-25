@@ -22,7 +22,7 @@ import {
   ShoppingCartOutlined,
   SolutionOutlined,
 } from "@ant-design/icons";
-import { Col, Row, Steps } from "antd";
+import { Col, Popconfirm, Row, Steps } from "antd";
 import useTranslate from "~/hooks/useLocales";
 import OrderCommentModal from "../OrderCommentModal";
 
@@ -72,8 +72,10 @@ const Order: FC<OrderType> = ({
 }) => {
   const dispatch = useAppDispatch();
 
-  const handleCancelOrder = () => {
-    dispatch(cancelOrder(id));
+  const cancelOrderText = useTranslate("purchase.cancelOrderText");
+
+  const handleCancelOrder = async () => {
+    await dispatch(cancelOrder(id));
   };
 
   const handleReceivedOrder = () => {
@@ -277,12 +279,17 @@ const Order: FC<OrderType> = ({
       default:
         return (
           <div className={styles["order__footer__waiting"]}>
-            <button
-              className={styles["order__footer__btn"]}
-              onClick={handleCancelOrder}
+            <Popconfirm
+              placement="topLeft"
+              title={cancelOrderText}
+              onConfirm={handleCancelOrder}
+              okText={<Translate textKey="yes" />}
+              cancelText={<Translate textKey="no" />}
             >
-              <Translate textKey="purchase.cancelBtn" />
-            </button>
+              <button className={styles["order__footer__btn"]}>
+                <Translate textKey="purchase.cancelBtn" />
+              </button>
+            </Popconfirm>
           </div>
         );
     }

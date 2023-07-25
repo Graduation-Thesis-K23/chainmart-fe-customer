@@ -41,23 +41,7 @@ export const productSlice = createSlice({
 export const fetchProduct = createAsyncThunk(
   "products/fetchProduct",
   async (uuid: string): Promise<ProductType> =>
-    await instance.get("/api/products/" + uuid),
-  {
-    condition: (_, { getState }) => {
-      const rootState: RootState = getState() as RootState;
-
-      const productsStateStatus = rootState.products.status;
-
-      if (
-        productsStateStatus === ASYNC_STATUS.LOADING ||
-        productsStateStatus === ASYNC_STATUS.SUCCEED
-      ) {
-        return false;
-      } else {
-        return true;
-      }
-    },
-  }
+    await instance.get("/api/products/" + uuid)
 );
 
 export const { setProduct } = productSlice.actions;

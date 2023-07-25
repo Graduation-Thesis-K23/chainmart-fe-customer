@@ -4,6 +4,7 @@ import { ASYNC_STATUS } from "../constants";
 import { Address } from "../setting";
 import { OrderProductType, OrderStatus, Payment } from "~/shared";
 import { ErrorPayload, SuccessPayload } from "~/shared";
+import instance from "~/apis/axios-instance";
 
 export interface OrderType {
   id: string;
@@ -45,8 +46,10 @@ export const orderSlice = createSlice({
       state.data = action.payload;
     });
     builder.addCase(cancelOrder.fulfilled, (state, action) => {
-      const index = state.data.findIndex((item) => item.id === action.payload);
+      const { id, cancelled_date } = action.payload;
+      const index = state.data.findIndex((item) => item.id === id);
       state.data[index].status = OrderStatus.Cancelled;
+      state.data[index].cancelled_date = cancelled_date;
       state.status = ASYNC_STATUS.SUCCEED;
       state.activeKey = OrderStatus.Cancelled;
     });
@@ -74,218 +77,10 @@ export const orderSlice = createSlice({
 
 export const fetchOrders = createAsyncThunk(
   "orders/fetchOrders",
-  async (_, thunkApi) => {
-    const response: OrderType[] | ErrorPayload = await new Promise(
-      (resolve) => {
-        resolve([
-          {
-            id: "1",
-            create_at: Date.now(),
-            address: {
-              id: "1",
-              name: "Nguyễn Văn A",
-              phone: "0123456789",
-              street: "123 Đường ABC",
-              district: "Quận XYZ",
-              city: "TP. HCM",
-              ward: "Phường 123",
-            },
-            status: OrderStatus.Processing,
-            payment: Payment.Cash,
-            products: [
-              {
-                id: "1",
-                name: "Vỏ gối cotton Thắng Lợi chính hãng ( gối nằm - gối ôm ) [ảnh thất 2]",
-                price: 100000,
-                sale: 0,
-                quantity: 1,
-                image: "2ba48c4c",
-              },
-              {
-                id: "2",
-                name: "Vỏ gối cotton Thắng Lợi chính hãng ( gối nằm - gối ôm ) [ảnh thất 2] 21",
-                price: 1000000,
-                sale: 2,
-                quantity: 2,
-                image: "2ba48c4c",
-              },
-            ],
-          },
-          {
-            id: "2",
-            create_at: Date.now(),
-            address: {
-              id: "1",
-              name: "Nguyễn Văn A",
-              phone: "0123456789",
-              street: "123 Đường ABC",
-              district: "Quận XYZ",
-              city: "TP. HCM",
-              ward: "Phường 123",
-            },
-            approved_date: Date.now(),
-            status: OrderStatus.Approved,
-            payment: Payment.Cash,
-            products: [
-              {
-                id: "1",
-                name: "Áo thun nam",
-                price: 100000,
-                sale: 0,
-                quantity: 1,
-                image: "2ba48c4c",
-              },
-              {
-                id: "2",
-                name: "Áo thun nam 1",
-                price: 1000000,
-                sale: 2,
-                quantity: 2,
-                image: "2ba48c4c",
-              },
-            ],
-          },
-          {
-            id: "3",
-            create_at: Date.now(),
-            address: {
-              id: "1",
-              name: "Nguyễn Văn A",
-              phone: "0123456789",
-              street: "123 Đường ABC",
-              district: "Quận XYZ",
-              city: "TP. HCM",
-              ward: "Phường 123",
-            },
-            approved_date: Date.now(),
-            status: OrderStatus.Shipping,
-            payment: Payment.Cash,
-            products: [
-              {
-                id: "1",
-                name: "Áo thun nam",
-                price: 100000,
-                sale: 0,
-                quantity: 1,
-                image: "2ba48c4c",
-              },
-              {
-                id: "2",
-                name: "Áo thun nam 1",
-                price: 1000000,
-                sale: 2,
-                quantity: 2,
-                image: "2ba48c4c",
-              },
-            ],
-          },
-          {
-            id: "4",
-            create_at: Date.now(),
-            address: {
-              id: "1",
-              name: "Nguyễn Văn A",
-              phone: "0123456789",
-              street: "123 Đường ABC",
-              district: "Quận XYZ",
-              city: "TP. HCM",
-              ward: "Phường 123",
-            },
-            shipped_date: Date.now(),
-            approved_date: Date.now(),
-            status: OrderStatus.Completed,
-            payment: Payment.Cash,
-            products: [
-              {
-                id: "1",
-                name: "Áo thun nam",
-                price: 100000,
-                sale: 0,
-                quantity: 1,
-                image: "2ba48c4c",
-              },
-              {
-                id: "2",
-                name: "Áo thun nam 1",
-                price: 1000000,
-                sale: 2,
-                quantity: 2,
-                image: "2ba48c4c",
-              },
-            ],
-          },
-          {
-            id: "5",
-            create_at: Date.now(),
-            address: {
-              id: "1",
-              name: "Nguyễn Văn A",
-              phone: "0123456789",
-              street: "123 Đường ABC",
-              district: "Quận XYZ",
-              city: "TP. HCM",
-              ward: "Phường 123",
-            },
-            cancelled_date: Date.now(),
-            status: OrderStatus.Cancelled,
-            payment: Payment.Cash,
-            products: [
-              {
-                id: "1",
-                name: "Áo thun nam",
-                price: 100000,
-                sale: 0,
-                quantity: 1,
-                image: "2ba48c4c",
-              },
-              {
-                id: "2",
-                name: "Áo thun nam 1",
-                price: 1000000,
-                sale: 2,
-                quantity: 2,
-                image: "2ba48c4c",
-              },
-            ],
-          },
-          {
-            id: "6",
-            create_at: Date.now(),
-            address: {
-              id: "1",
-              name: "Nguyễn Văn A",
-              phone: "0123456789",
-              street: "123 Đường ABC",
-              district: "Quận XYZ",
-              city: "TP. HCM",
-              ward: "Phường 123",
-            },
-            shipped_date: Date.now(),
-            approved_date: Date.now(),
-            return_date: Date.now(),
-            status: OrderStatus.Returned,
-            payment: Payment.Cash,
-            products: [
-              {
-                id: "1",
-                name: "Áo thun nam",
-                price: 100000,
-                sale: 0,
-                quantity: 1,
-                image: "2ba48c4c",
-              },
-              {
-                id: "2",
-                name: "Áo thun nam 1",
-                price: 1000000,
-                sale: 2,
-                quantity: 2,
-                image: "2ba48c4c",
-              },
-            ],
-          },
-        ]);
-      }
+  async (status: OrderStatus | "all", thunkApi) => {
+    console.log(status);
+    const response: OrderType[] | ErrorPayload = await instance.get(
+      "/api/orders?status=" + status
     );
 
     if ("message" in response) {
@@ -299,18 +94,16 @@ export const fetchOrders = createAsyncThunk(
 export const cancelOrder = createAsyncThunk(
   "order/cancelOrder",
   async (id: string, thunkApi) => {
-    const response: ErrorPayload | SuccessPayload = await new Promise(
-      (resolve) => {
-        resolve({
-          status: "success",
-        });
-      }
+    console.log(id);
+    const response: ErrorPayload | OrderType = await instance.patch(
+      "/api/orders/" + id + "/cancel"
     );
+
     if ("message" in response) {
       return thunkApi.rejectWithValue(response.message);
     }
 
-    return thunkApi.fulfillWithValue(id);
+    return thunkApi.fulfillWithValue(response);
   }
 );
 

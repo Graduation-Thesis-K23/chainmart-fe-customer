@@ -1,28 +1,18 @@
-import React, { Fragment, memo, useEffect } from "react";
+import React, { Fragment, memo } from "react";
 
 import Order from "../Order";
-import { fetchOrders, useAppDispatch, useAppSelector } from "~/redux";
-import { OrderStatus } from "~/shared";
+import { useAppSelector } from "~/redux";
 import { Empty } from "antd";
 import Translate from "~/components/commons/Translate";
 
 const OrdersReturned = () => {
-  const dispatch = useAppDispatch();
-  const orders = useAppSelector((state) => state.orders);
-
-  const ordersReturned = orders.data.filter(
-    (order) => order.status === OrderStatus.Returned
-  );
-
-  useEffect(() => {
-    dispatch(fetchOrders());
-  }, [dispatch]);
+  const { data } = useAppSelector((state) => state.orders);
 
   return (
     <div>
-      {ordersReturned.length > 0 ? (
+      {data.length > 0 ? (
         <ul>
-          {ordersReturned.map((order) => (
+          {data.map((order) => (
             <Fragment key={order.id}>
               <Order {...order} />
             </Fragment>

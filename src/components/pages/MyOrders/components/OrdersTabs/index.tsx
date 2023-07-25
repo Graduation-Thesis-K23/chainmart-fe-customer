@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useEffect } from "react";
 import { Tabs } from "antd";
 
 import styles from "./OrdersTabs.module.scss";
@@ -11,7 +11,12 @@ import OrdersCancelled from "../OrdersCancelled";
 import OrdersReturned from "../OrdersReturned";
 import OrdersPrepare from "../OrdersPrepare";
 import { OrderStatus } from "~/shared";
-import { setActiveKey, useAppDispatch, useAppSelector } from "~/redux";
+import {
+  fetchOrders,
+  setActiveKey,
+  useAppDispatch,
+  useAppSelector,
+} from "~/redux";
 
 const OrdersTabs = () => {
   const activeKey = useAppSelector((state) => state.orders.activeKey);
@@ -94,12 +99,16 @@ const OrdersTabs = () => {
     },
   ];
 
+  useEffect(() => {
+    dispatch(fetchOrders(activeKey));
+  }, [dispatch, fetchOrders, activeKey]);
+
   return (
     <section className={styles["payment"]}>
       <div className="container">
         <div className={styles["payment__container"]}>
           <Tabs
-            defaultActiveKey="1"
+            defaultActiveKey="all"
             activeKey={activeKey}
             size="large"
             items={items}

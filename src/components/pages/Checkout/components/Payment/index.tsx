@@ -7,12 +7,21 @@ import { CreditCardOutlined, TrademarkOutlined } from "@ant-design/icons";
 import useTranslate from "~/hooks/useLocales";
 import Link from "next/link";
 import { convertPrice } from "~/helpers";
-import { placeOrder, useAppDispatch, useAppSelector } from "~/redux";
+import {
+  PlaceOrder,
+  clearCart,
+  placeOrder,
+  useAppDispatch,
+  useAppSelector,
+} from "~/redux";
+import { useRouter } from "next/router";
 
 const Payment = () => {
   const codText = useTranslate("checkout.cod");
   const atmText = useTranslate("checkout.atm");
   const ordered = useAppSelector((state) => state.cart);
+
+  const router = useRouter();
 
   const items = [
     {
@@ -53,22 +62,29 @@ const Payment = () => {
   const shippingTotal = total > 200000 ? 0 : 30000;
 
   const dispatch = useAppDispatch();
-  const { address, note, payment } = useAppSelector((state) => state.checkout);
+  const { address_id, note, payment } = useAppSelector(
+    (state) => state.checkout
+  );
   const { data: carts } = useAppSelector((state) => state.cart);
 
   const handlePlaceOrder = () => {
-    const data = {
-      cart: carts.map((item) => ({
-        id: item.id,
+    const data: PlaceOrder = {
+      order_details: carts.map((item) => ({
+        product_id: item.id,
         quantity: item.quantity,
       })),
-      checkoutState: {
-        address,
-        note,
-        payment,
-      },
+      address_id,
+      note,
+      payment,
     };
+
     dispatch(placeOrder(data));
+    dispatch({
+      type: clearCart.type,
+    });
+
+    // redirect to my orders
+    router.push("/purchase");
   };
 
   return (

@@ -1,27 +1,17 @@
-import React, { Fragment, memo, useEffect } from "react";
+import React, { Fragment, memo } from "react";
 
-import { fetchOrders, useAppDispatch, useAppSelector } from "~/redux";
-import { OrderStatus } from "~/shared";
+import { useAppSelector } from "~/redux";
 import Order from "../Order";
 import OrdersEmpty from "../OrdersEmpty";
 
 const OrdersCancelled = () => {
-  const dispatch = useAppDispatch();
-  const orders = useAppSelector((state) => state.orders);
-
-  const ordersCancelled = orders.data.filter(
-    (order) => order.status === OrderStatus.Cancelled
-  );
-
-  useEffect(() => {
-    dispatch(fetchOrders());
-  }, [dispatch]);
+  const { data } = useAppSelector((state) => state.orders);
 
   return (
     <div>
-      {ordersCancelled.length > 0 ? (
+      {data.length > 0 ? (
         <ul>
-          {ordersCancelled.map((order) => (
+          {data.map((order) => (
             <Fragment key={order.id}>
               <Order {...order} />
             </Fragment>

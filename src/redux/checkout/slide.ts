@@ -1,23 +1,28 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { ASYNC_STATUS } from "../constants";
-import { ErrorPayload, ICart, SuccessPayload } from "~/shared";
+import { ErrorPayload, Payment, SuccessPayload } from "~/shared";
+import instance from "~/apis/axios-instance";
 
 export interface CheckoutState {
-  address: string;
+  address_id: string;
   note: string;
-  payment: string;
+  payment: Payment;
   status: typeof ASYNC_STATUS[keyof typeof ASYNC_STATUS];
 }
 
-export interface PlaceOrder {
-  cart: Pick<ICart, "id" | "quantity">[];
-  checkoutState: Omit<CheckoutState, "status">;
+export interface Order {
+  product_id: string;
+  quantity: number;
+}
+
+export interface PlaceOrder extends Omit<CheckoutState, "status"> {
+  order_details: Order[];
 }
 
 const initialState: CheckoutState = {
-  address: "",
+  address_id: "",
   note: "",
-  payment: "CASH",
+  payment: Payment.Cash,
   status: ASYNC_STATUS.IDLE,
 };
 
@@ -26,12 +31,12 @@ export const checkoutSlide = createSlice({
   initialState,
   reducers: {
     clearCheckout: (state) => {
-      state.address = "";
+      state.address_id = "";
       state.note = "";
-      state.payment = "";
+      state.payment = Payment.Cash;
     },
     setAddress: (state, action) => {
-      state.address = action.payload;
+      state.address_id = action.payload;
     },
     setNoteCheckout: (state, action) => {
       state.note = action.payload;
@@ -46,9 +51,9 @@ export const checkoutSlide = createSlice({
     });
     builder.addCase(placeOrder.fulfilled, (state) => {
       state.status = ASYNC_STATUS.SUCCEED;
-      state.address = "";
+      state.address_id = "";
       state.note = "";
-      state.payment = "CASH";
+      state.payment = Payment.Cash;
     });
   },
 });
@@ -56,13 +61,9 @@ export const checkoutSlide = createSlice({
 export const placeOrder = createAsyncThunk(
   "checkout/placeOrder",
   async (checkoutState: PlaceOrder, thunkApi) => {
-    console.log(checkoutState);
-    const response: ErrorPayload | SuccessPayload = await new Promise(
-      (resolve) => {
-        resolve({
-          status: "success",
-        });
-      }
+    const response: ErrorPayload | SuccessPayload = await instance.post(
+      "/api/orders",
+      checkoutState
     );
 
     if ("message" in response) {

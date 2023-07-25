@@ -30,10 +30,8 @@ const SearchScreen = () => {
   const handleCategoryChange = (e: CheckboxChangeEvent, category: string) => {
     if (e.target.checked) {
       if (categories === "") {
-        console.log("set");
         setCategories(category);
       } else {
-        console.log("add");
         setCategories(categories + "," + category);
       }
     } else {

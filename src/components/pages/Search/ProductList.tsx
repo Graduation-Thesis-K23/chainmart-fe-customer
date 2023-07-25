@@ -26,6 +26,8 @@ const ProductList: FC<{
   const filter = useAppSelector((state) => state.filter);
   const dispatch = useAppDispatch();
 
+  console.log("filter", filter);
+
   useEffect(() => {
     // create filter payload and ignore empty fields
     const filterPayload: FilterPayload = {

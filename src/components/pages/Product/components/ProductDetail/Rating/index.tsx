@@ -69,10 +69,8 @@ const Rating = () => {
   }, [ratingData]);
 
   useEffect(() => {
-    if (productId) {
-      dispatch(fetchRating(productId));
-    }
-  }, [dispatch, productId]);
+    dispatch(fetchRating(productId));
+  }, [dispatch]);
 
   if (status !== ASYNC_STATUS.SUCCEED) {
     return (

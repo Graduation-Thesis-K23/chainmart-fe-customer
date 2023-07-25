@@ -54,10 +54,7 @@ const Message = () => {
       if (messageBox) {
         setTimeout(() => {
           messageBox.scrollTop = messageBox.scrollHeight;
-        }, 100);
-        setTimeout(() => {
-          messageBox.scrollTop = messageBox.scrollHeight;
-        }, 200);
+        }, 600);
       }
     }
     setMessage("");

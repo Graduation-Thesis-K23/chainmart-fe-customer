@@ -2,7 +2,11 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { ASYNC_STATUS } from "../constants";
 import instance from "~/apis/axios-instance";
-import { ProductListType } from "~/shared";
+import {
+  PaginationMetadata,
+  PaginationResult,
+  ProductListType,
+} from "~/shared";
 
 interface ErrorPayload {
   statusCode: number;
@@ -21,11 +25,13 @@ export interface FilterPayload {
 export interface FilterState {
   data: ProductListType[];
   status: typeof ASYNC_STATUS[keyof typeof ASYNC_STATUS];
+  metadata: PaginationMetadata;
 }
 
 const initialState: FilterState = {
   data: [],
   status: ASYNC_STATUS.IDLE,
+  metadata: {} as PaginationMetadata,
 };
 
 export const filterSlide = createSlice({
@@ -35,14 +41,22 @@ export const filterSlide = createSlice({
   extraReducers: (builder) => {
     builder.addCase(filterProducts.fulfilled, (state, action) => {
       state.status = ASYNC_STATUS.SUCCEED;
-      state.data = action.payload as unknown as ProductListType[];
+
+      const { docs, totalDocs, limit, totalPages, page } = action.payload;
+
+      state.data = docs;
+      state.metadata = {
+        totalDocs,
+        limit,
+        totalPages,
+        page,
+      };
     });
     builder.addCase(filterProducts.pending, (state) => {
       state.status = ASYNC_STATUS.LOADING;
     });
     builder.addCase(filterProducts.rejected, (state) => {
       state.status = ASYNC_STATUS.FAILED;
-      state.data = [];
     });
   },
 });
@@ -54,12 +68,11 @@ export const filterProducts = createAsyncThunk(
       obj as unknown as Record<string, string>
     ).toString();
 
-    const response = await instance.get<ProductListType[], ErrorPayload>(
-      "api/products/search-and-filter?" + queryParam
-    );
+    const response: PaginationResult<ProductListType> | ErrorPayload =
+      await instance.get("api/products/search-and-filter?" + queryParam);
 
     if ("message" in response) {
-      return thunkApi.rejectWithValue(response?.message as unknown as string);
+      return thunkApi.rejectWithValue(response.message);
     }
 
     return thunkApi.fulfillWithValue(response);

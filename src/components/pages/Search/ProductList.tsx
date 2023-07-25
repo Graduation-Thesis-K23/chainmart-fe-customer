@@ -1,6 +1,6 @@
 import React, { FC, memo, useEffect } from "react";
 import Image from "next/image";
-import { Rate, Spin } from "antd";
+import { Button, Rate, Spin } from "antd";
 
 import styles from "./ProductList.module.scss";
 import Translate from "~/components/commons/Translate";
@@ -9,6 +9,7 @@ import {
   ASYNC_STATUS,
   FilterPayload,
   filterProducts,
+  loadMoreProducts,
   useAppDispatch,
   useAppSelector,
 } from "~/redux";
@@ -26,7 +27,18 @@ const ProductList: FC<{
   const filter = useAppSelector((state) => state.filter);
   const dispatch = useAppDispatch();
 
-  console.log("filter", filter);
+  const handleLoadMoreSearchProducts = () => {
+    dispatch(
+      loadMoreProducts({
+        keyword,
+        ...(categories !== "" && { categories }),
+        ...(minPrice !== "" && { minPrice }),
+        ...(maxPrice !== "" && { maxPrice }),
+        ...(orderBy !== "" && { orderBy }),
+        page: filter.metadata.page + 1,
+      })
+    );
+  };
 
   useEffect(() => {
     // create filter payload and ignore empty fields
@@ -36,6 +48,7 @@ const ProductList: FC<{
       ...(minPrice !== "" && { minPrice }),
       ...(maxPrice !== "" && { maxPrice }),
       ...(orderBy !== "" && { orderBy }),
+      page: 1,
     };
 
     dispatch(filterProducts(filterPayload));
@@ -83,83 +96,96 @@ const ProductList: FC<{
   }
 
   return (
-    <ul className={styles["products-list"]}>
-      {filter.data.map((item) => (
-        <li key={item.id} className={styles["products-list-item"]}>
-          <Link
-            href={"/[slug]"}
-            as={"/" + item.slug}
-            className={styles["product-card"]}
-          >
-            <div className={styles["product-card"]}>
-              {true && (
-                <div className={styles["product-card-label"]}>
-                  <span className={styles["product-card-label-text"]}>New</span>
-                </div>
-              )}
-              {item.sale && (
-                <div className={styles["product-card-discount"]}>
-                  <span className={styles["product-card-discount-percent"]}>
-                    {item.sale}%
-                  </span>
-                  <span className={styles["product-card-discount-text"]}>
-                    off
-                  </span>
-                </div>
-              )}
-              <div className={styles["product-card-image"]}>
-                <Image
-                  src={getS3Image(item.images[0])}
-                  fill
-                  sizes="(max-width: 768px) 40vw, (max-width: 1200px) 45vw, 50vw"
-                  alt={item.slug}
-                  priority
-                />
-              </div>
-              <div className={styles["product-card-body"]}>
-                <span className={styles["product-card-body-name"]}>
-                  {item.name}
-                </span>
-                <div className={styles["product-card-body-prices"]}>
-                  <span className={styles["product-card-body-prices-one"]}>
-                    {convertPrice(item.price)}
-                  </span>
-                  {item.sale && (
-                    <span className={styles["product-card-body-prices-two"]}>
-                      {convertPrice(discount(item.price, item.sale))}
-                    </span>
-                  )}
-                </div>
-              </div>
-              <div className={styles["product-card-footer"]}>
-                {
-                  item.sale > 0 && (
-                    <div className={styles["product-card-footer-star"]}>
-                      <Rate
-                        className={styles["product-card-footer-star-item"]}
-                        disabled
-                        allowHalf
-                        value={item.sale}
-                      />
-                    </div>
-                  ) /* : (
-                  <span></span>
-                ) */
-                }
-                {item.sale > 0 && (
-                  <div className={styles["product-card-footer-sold"]}>
-                    <span>
-                      {convertNumberToK(item.sale) + " "}
-                      <Translate textKey="products.sold" />
+    <>
+      <ul className={styles["products-list"]}>
+        {filter.data.map((item) => (
+          <li key={item.id} className={styles["products-list-item"]}>
+            <Link
+              href={"/[slug]"}
+              as={"/" + item.slug}
+              className={styles["product-card"]}
+            >
+              <div className={styles["product-card"]}>
+                {true && (
+                  <div className={styles["product-card-label"]}>
+                    <span className={styles["product-card-label-text"]}>
+                      New
                     </span>
                   </div>
                 )}
+                {item.sale && (
+                  <div className={styles["product-card-discount"]}>
+                    <span className={styles["product-card-discount-percent"]}>
+                      {item.sale}%
+                    </span>
+                    <span className={styles["product-card-discount-text"]}>
+                      off
+                    </span>
+                  </div>
+                )}
+                <div className={styles["product-card-image"]}>
+                  <Image
+                    src={getS3Image(item.images[0])}
+                    fill
+                    sizes="(max-width: 768px) 40vw, (max-width: 1200px) 45vw, 50vw"
+                    alt={item.slug}
+                    priority
+                  />
+                </div>
+                <div className={styles["product-card-body"]}>
+                  <span className={styles["product-card-body-name"]}>
+                    {item.name}
+                  </span>
+                  <div className={styles["product-card-body-prices"]}>
+                    <span className={styles["product-card-body-prices-one"]}>
+                      {convertPrice(item.price)}
+                    </span>
+                    {item.sale && (
+                      <span className={styles["product-card-body-prices-two"]}>
+                        {convertPrice(discount(item.price, item.sale))}
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <div className={styles["product-card-footer"]}>
+                  {
+                    item.sale > 0 && (
+                      <div className={styles["product-card-footer-star"]}>
+                        <Rate
+                          className={styles["product-card-footer-star-item"]}
+                          disabled
+                          allowHalf
+                          value={item.sale}
+                        />
+                      </div>
+                    ) /* : (
+                  <span></span>
+                  ) */
+                  }
+                  {item.sale > 0 && (
+                    <div className={styles["product-card-footer-sold"]}>
+                      <span>
+                        {convertNumberToK(item.sale) + " "}
+                        <Translate textKey="products.sold" />
+                      </span>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          </Link>
-        </li>
-      ))}
-    </ul>
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <div className={styles["load-more__btn"]}>
+        <Button
+          loading={filter.status === ASYNC_STATUS.LOADING}
+          className={styles["load-more__btn__element"]}
+          onClick={handleLoadMoreSearchProducts}
+        >
+          <Translate textKey="loadMore.btn" />
+        </Button>
+      </div>
+    </>
   );
 };
 

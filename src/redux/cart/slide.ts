@@ -3,6 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { ASYNC_STATUS } from "../constants";
 import { ErrorPayload, ICart, SuccessPayload } from "~/shared";
 import { INCREASE } from "~/constants";
+import instance from "~/apis/axios-instance";
 
 export interface CartQuantity {
   id: string;
@@ -94,19 +95,7 @@ export const fetchCarts = createAsyncThunk(
   "cart/fetchCarts",
   async (_, thunkApi) => {
     // const response = await instance.get("/carts").then((res) => res.data);
-    const response: ICart[] | ErrorPayload = await new Promise((resolve) => {
-      resolve([
-        {
-          id: "1",
-          name: "Áo thun nam",
-          price: 100000,
-          image: "2ba48c4c",
-          slug: "ao-thun-nam",
-          maxQuantity: 10,
-          quantity: 1,
-        },
-      ]);
-    });
+    const response: ICart[] | ErrorPayload = await instance.get("/api/carts");
 
     if ("message" in response) {
       return thunkApi.rejectWithValue(response.message as unknown as string);
@@ -119,15 +108,8 @@ export const fetchCarts = createAsyncThunk(
 export const deleteItemCart = createAsyncThunk(
   "cart/deleteItemCart",
   async (id: string, thunkApi) => {
-    // const response = await instance
-    //   .delete(`/carts/${id}`)
-    //   .then((res) => res.data);
-    const response: ErrorPayload | SuccessPayload = await new Promise(
-      (resolve) => {
-        resolve({
-          status: "success",
-        });
-      }
+    const response: ErrorPayload | SuccessPayload = await instance.delete(
+      `/api/carts/${id}`
     );
 
     if ("message" in response) {
@@ -141,14 +123,11 @@ export const deleteItemCart = createAsyncThunk(
 export const addItemCart = createAsyncThunk(
   "cart/addItemCart",
   async (item: ICart, thunkApi) => {
-    // const response = await instance
-    //   .delete(`/carts/${id}`)
-    //   .then((res) => res.data);
-    const response: ErrorPayload | SuccessPayload = await new Promise(
-      (resolve) => {
-        resolve({
-          status: "success",
-        });
+    const response: ErrorPayload | SuccessPayload = await instance.post(
+      "/api/carts",
+      {
+        product_id: item.id || new Date().getTime().toString(),
+        quantity: item.quantity,
       }
     );
 
@@ -163,16 +142,13 @@ export const addItemCart = createAsyncThunk(
 export const updateItemQuantity = createAsyncThunk(
   "cart/updateItemQuantity",
   async (item: CartQuantity, thunkApi) => {
-    // const response = await instance
-    //   .delete(`/carts/${id}`)
-    //   .then((res) => res.data);
-    const response: ErrorPayload | SuccessPayload = await new Promise(
-      (resolve) => {
-        resolve({
-          status: "success",
-        });
+    const response: ErrorPayload | SuccessPayload = await instance.patch(
+      `/api/carts/${item.id}`,
+      {
+        action: item.action,
       }
     );
+
     if ("message" in response) {
       return thunkApi.rejectWithValue(response?.message as unknown as string);
     }

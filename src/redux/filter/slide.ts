@@ -20,6 +20,7 @@ export interface FilterPayload {
   maxPrice?: string;
   minPrice?: string;
   orderBy?: string;
+  page?: number;
 }
 
 export interface FilterState {
@@ -58,11 +59,45 @@ export const filterSlide = createSlice({
     builder.addCase(filterProducts.rejected, (state) => {
       state.status = ASYNC_STATUS.FAILED;
     });
+    builder.addCase(loadMoreProducts.fulfilled, (state, action) => {
+      state.status = ASYNC_STATUS.SUCCEED;
+
+      const { docs, totalDocs, limit, totalPages, page } = action.payload;
+
+      state.data.push(...docs);
+      state.metadata = {
+        totalDocs,
+        limit,
+        totalPages,
+        page,
+      };
+    });
+    builder.addCase(loadMoreProducts.rejected, (state) => {
+      state.status = ASYNC_STATUS.FAILED;
+    });
   },
 });
 
 export const filterProducts = createAsyncThunk(
   "filter/filterProducts",
+  async (obj: FilterPayload, thunkApi) => {
+    const queryParam = new URLSearchParams(
+      obj as unknown as Record<string, string>
+    ).toString();
+
+    const response: PaginationResult<ProductListType> | ErrorPayload =
+      await instance.get("api/products/search-and-filter?" + queryParam);
+
+    if ("message" in response) {
+      return thunkApi.rejectWithValue(response.message);
+    }
+
+    return thunkApi.fulfillWithValue(response);
+  }
+);
+
+export const loadMoreProducts = createAsyncThunk(
+  "filter/loadMoreProducts",
   async (obj: FilterPayload, thunkApi) => {
     const queryParam = new URLSearchParams(
       obj as unknown as Record<string, string>

@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { ASYNC_STATUS } from "../constants";
 import instance from "~/apis/axios-instance";
-import { ErrorPayload } from "~/shared";
+import { ErrorPayload, SuccessPayload } from "~/shared";
 
 export interface UserInfo {
   name: string;
@@ -78,34 +78,57 @@ export const settingSlide = createSlice({
   },
 });
 
-export const getUserInfo = createAsyncThunk("setting/getUserInfo", async () => {
-  const response = await instance.get("/api/users/setting");
+export const getUserInfo = createAsyncThunk(
+  "setting/getUserInfo",
+  async (_, thunkApi) => {
+    const response: UserInfo | ErrorPayload = await instance.get(
+      "/api/users/setting"
+    );
 
-  return response as unknown as UserInfo;
-});
+    if ("message" in response) {
+      return thunkApi.rejectWithValue(response.message);
+    }
+
+    return thunkApi.fulfillWithValue(response);
+  }
+);
 
 export const updateUserInfo = createAsyncThunk(
   "setting/updateUserInfo",
-  async (data: { [key: string]: string }) => {
-    const response = await instance.post("/api/users/setting", data);
+  async (data: { [key: string]: string }, thunkApi) => {
+    const response: UserInfo | ErrorPayload = await instance.post(
+      "/api/users/setting",
+      data
+    );
 
-    return response as unknown as UserInfo;
+    if ("message" in response) {
+      return thunkApi.rejectWithValue(response.message);
+    }
+
+    return thunkApi.fulfillWithValue(response);
   }
 );
 
 export const createAddress = createAsyncThunk(
   "setting/createAddress",
-  async (data: Address) => {
-    const response = await instance.post<Address>("/api/address", data);
+  async (data: Address, thunkApi) => {
+    const response: Address | ErrorPayload = await instance.post<Address>(
+      "/api/address",
+      data
+    );
 
-    return response as unknown as Address;
+    if ("message" in response) {
+      return thunkApi.rejectWithValue(response.message);
+    }
+
+    return thunkApi.fulfillWithValue(response);
   }
 );
 
 export const getAllAddress = createAsyncThunk(
   "setting/getAllAddress",
   async (_, thunkApi) => {
-    const response = await instance.get<Address[], ErrorPayload>(
+    const response: Address[] | ErrorPayload = await instance.get(
       "/api/address"
     );
 
@@ -119,19 +142,30 @@ export const getAllAddress = createAsyncThunk(
 
 export const deleteAddress = createAsyncThunk(
   "setting/deleteAddress",
-  async (id: string) => {
-    await instance.delete("/api/address/" + id);
+  async (id: string, thunkApi) => {
+    const response: SuccessPayload | ErrorPayload = await instance.delete(
+      "/api/address/" + id
+    );
 
-    return id;
+    if ("message" in response) {
+      return thunkApi.rejectWithValue(response.message);
+    }
+
+    return thunkApi.fulfillWithValue(id);
   }
 );
 
 export const changePassword = createAsyncThunk(
   "setting/changePassword",
-  async (data: ChangePasswordPayload) => {
-    await instance.post("/api/users/change-password", data);
+  async (data: ChangePasswordPayload, thunkApi) => {
+    const response: { messageCode: string } | ErrorPayload =
+      await instance.post("/api/users/change-password", data);
 
-    return "success";
+    if ("message" in response) {
+      return thunkApi.rejectWithValue(response.message);
+    }
+
+    return thunkApi.fulfillWithValue(response);
   }
 );
 

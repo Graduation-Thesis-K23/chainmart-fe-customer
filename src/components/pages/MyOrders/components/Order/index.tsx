@@ -81,6 +81,7 @@ const Order: FC<OrderType> = ({
   const handleReceivedOrder = () => {
     dispatch(receivedOrder(id));
   };
+  console.log("Order", id);
 
   const [openComment, setOpenComment] = useState(false);
 
@@ -425,6 +426,7 @@ const Order: FC<OrderType> = ({
           openComment={openComment}
           handleCancelComment={handleCancelComment}
           products={products}
+          order_id={id}
         />
       )}
     </>

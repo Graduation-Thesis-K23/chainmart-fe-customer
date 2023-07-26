@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { ASYNC_STATUS } from "../constants";
 import { Address } from "../setting";
 import { OrderProductType, OrderStatus, Payment } from "~/shared";
-import { ErrorPayload, SuccessPayload } from "~/shared";
+import { ErrorPayload } from "~/shared";
 import instance from "~/apis/axios-instance";
 
 export interface OrderType {
@@ -54,15 +54,18 @@ export const orderSlice = createSlice({
       state.activeKey = OrderStatus.Cancelled;
     });
     builder.addCase(receivedOrder.fulfilled, (state, action) => {
-      const index = state.data.findIndex((item) => item.id === action.payload);
+      const { id, shipped_date } = action.payload;
+      const index = state.data.findIndex((item) => item.id === id);
       state.data[index].status = OrderStatus.Completed;
+      state.data[index].shipped_date = shipped_date;
       state.status = ASYNC_STATUS.SUCCEED;
       state.activeKey = OrderStatus.Completed;
     });
     builder.addCase(returnOrder.fulfilled, (state, action) => {
-      const index = state.data.findIndex((item) => item.id === action.payload);
+      const { id, return_date } = action.payload;
+      const index = state.data.findIndex((item) => item.id === id);
       state.data[index].status = OrderStatus.Returned;
-      state.data[index].return_date = Date.now();
+      state.data[index].return_date = return_date;
       state.status = ASYNC_STATUS.SUCCEED;
       state.activeKey = OrderStatus.Returned;
     });
@@ -110,38 +113,30 @@ export const cancelOrder = createAsyncThunk(
 export const receivedOrder = createAsyncThunk(
   "order/receivedOrder",
   async (id: string, thunkApi) => {
-    const response: ErrorPayload | SuccessPayload = await new Promise(
-      (resolve) => {
-        resolve({
-          status: "success",
-        });
-      }
+    const response: ErrorPayload | OrderType = await instance.patch(
+      "/api/orders/" + id + "/received"
     );
 
     if ("message" in response) {
       return thunkApi.rejectWithValue(response.message);
     }
 
-    return thunkApi.fulfillWithValue(id);
+    return thunkApi.fulfillWithValue(response);
   }
 );
 
 export const returnOrder = createAsyncThunk(
   "order/returnOrder",
   async (id: string, thunkApi) => {
-    const response: ErrorPayload | SuccessPayload = await new Promise(
-      (resolve) => {
-        resolve({
-          status: "success",
-        });
-      }
+    const response: ErrorPayload | OrderType = await instance.patch(
+      "/api/orders/" + id + "/return"
     );
 
     if ("message" in response) {
       return thunkApi.rejectWithValue(response.message);
     }
 
-    return thunkApi.fulfillWithValue(id);
+    return thunkApi.fulfillWithValue(response);
   }
 );
 
@@ -184,6 +179,22 @@ export const resellOrder = createAsyncThunk(
         ],
       });
     });
+
+    if ("message" in response) {
+      return thunkApi.rejectWithValue(response.message);
+    }
+
+    return thunkApi.fulfillWithValue(response);
+  }
+);
+
+export const commentOrder = createAsyncThunk(
+  "order/commentOrder",
+  async (data: FormData, thunkApi) => {
+    const response: ErrorPayload | OrderType = await instance.post(
+      "/api/orders/comment",
+      data
+    );
 
     if ("message" in response) {
       return thunkApi.rejectWithValue(response.message);

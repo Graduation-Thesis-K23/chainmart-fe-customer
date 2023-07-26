@@ -7,6 +7,7 @@ import OrderComment from "../OrderComment";
 import { OrderProductType } from "~/shared";
 import Translate from "~/components/commons/Translate";
 import { RcFile } from "antd/es/upload";
+import { commentOrder, useAppDispatch } from "~/redux";
 
 export interface RateType {
   id: string;
@@ -19,29 +20,35 @@ const OrderCommentModal: FC<{
   openComment: boolean;
   handleCancelComment: () => void;
   products: OrderProductType[];
-}> = ({ openComment, handleCancelComment, products }) => {
+  order_id: string;
+}> = ({ openComment, handleCancelComment, products, order_id }) => {
   const [rates, setRates] = React.useState<RateType[]>([]);
+
+  const dispatch = useAppDispatch();
 
   const commentTitleText = useTranslate("purchase.commentTitle");
 
-  const handleComment = () => {
+  const handleComment = async () => {
     // create form data from rates
     const formData = new FormData();
+    const temp = rates.map((rate) => ({
+      product_id: rate.id,
+      star: rate.star,
+      comment: rate.comment,
+    }));
     rates.forEach((rate) => {
-      formData.append("product_id[]", rate.id);
-      formData.append("star[]", rate.star.toString());
-      formData.append("comment[]", rate.comment || "");
       if (rate.images) {
         rate.images.forEach((image) => {
-          formData.append("images[]", image);
+          formData.append("images", image);
         });
       }
     });
+    formData.append("order_id", order_id);
+    formData.append("comments", JSON.stringify(temp));
 
-    // print form data key and value
-    formData.forEach((value, key) => {
-      console.log(key, value);
-    });
+    const result = await dispatch(commentOrder(formData));
+
+    console.log(result);
   };
 
   useEffect(() => {

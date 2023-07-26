@@ -23,11 +23,13 @@ const Address = () => {
   const [changeAddress, setChangeAddress] = useState<boolean>(false);
 
   const selectedAddressRender: Address = useMemo(() => {
-    if (checkoutData.address !== "") {
+    if (checkoutData.address_id !== "") {
       if (address.length === 0) {
         return {} as Address;
       } else {
-        const temp = address.find((item) => item.id === checkoutData.address);
+        const temp = address.find(
+          (item) => item.id === checkoutData.address_id
+        );
         if (temp) {
           dispatch(setAddress(temp.id));
           return temp;
@@ -44,7 +46,7 @@ const Address = () => {
         return address[0];
       }
     }
-  }, [address, checkoutData.address, dispatch]);
+  }, [address, checkoutData.address_id, dispatch]);
 
   useEffect(() => {
     if (status === ASYNC_STATUS.IDLE) {

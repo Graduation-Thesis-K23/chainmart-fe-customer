@@ -14,7 +14,7 @@ const AddressItem: FC<Address> = ({
   id,
 }) => {
   const dispatch = useAppDispatch();
-  const checkoutAddress = useAppSelector((state) => state.checkout.address);
+  const checkoutAddress = useAppSelector((state) => state.checkout.address_id);
   const handleSelect = () => {
     dispatch(setAddress(id));
   };

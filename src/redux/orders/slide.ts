@@ -143,42 +143,12 @@ export const returnOrder = createAsyncThunk(
 export const resellOrder = createAsyncThunk(
   "order/resellOrder",
   async (id: string, thunkApi) => {
-    console.log(id);
-    const response: OrderType | ErrorPayload = await new Promise((resolve) => {
-      resolve({
-        id: "11",
-        create_at: Date.now(),
-        address: {
-          id: "1",
-          name: "Nguyễn Văn A",
-          phone: "0123456789",
-          street: "123 Đường ABC",
-          district: "Quận XYZ",
-          city: "TP. HCM",
-          ward: "Phường 123",
-        },
-        status: OrderStatus.Processing,
-        payment: Payment.Cash,
-        products: [
-          {
-            id: "1",
-            name: "Vỏ gối cotton Thắng Lợi chính hãng ( gối nằm - gối ôm ) [ảnh thất 2]",
-            price: 100000,
-            sale: 0,
-            quantity: 1,
-            image: "2ba48c4c",
-          },
-          {
-            id: "2",
-            name: "Vỏ gối cotton Thắng Lợi chính hãng ( gối nằm - gối ôm ) [ảnh thất 2] 21",
-            price: 1000000,
-            sale: 2,
-            quantity: 2,
-            image: "2ba48c4c",
-          },
-        ],
-      });
-    });
+    const response: OrderType | ErrorPayload = await instance.post(
+      "/api/orders/resell",
+      {
+        order_id: id,
+      }
+    );
 
     if ("message" in response) {
       return thunkApi.rejectWithValue(response.message);

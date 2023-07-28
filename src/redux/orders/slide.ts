@@ -8,16 +8,18 @@ import instance from "~/apis/axios-instance";
 
 export interface OrderType {
   id: string;
-  create_at: number;
+  created_at: Date;
   address: Address;
-  estimated_shipped_date?: number;
-  shipped_date?: number;
-  approved_date?: number;
-  return_date?: number;
-  cancelled_date?: number;
+  approved_date?: Date;
+  packaged_date?: Date;
+  started_date?: Date;
+  returned_date?: Date;
+  completed_date?: Date;
+  return_date?: Date;
+  cancelled_date?: Date;
   status: OrderStatus;
   payment: Payment;
-  products: OrderProductType[];
+  order_details: OrderProductType[];
 }
 
 export interface OrdersState {
@@ -54,10 +56,10 @@ export const orderSlice = createSlice({
       state.activeKey = OrderStatus.Cancelled;
     });
     builder.addCase(receivedOrder.fulfilled, (state, action) => {
-      const { id, shipped_date } = action.payload;
+      const { id, completed_date } = action.payload;
       const index = state.data.findIndex((item) => item.id === id);
       state.data[index].status = OrderStatus.Completed;
-      state.data[index].shipped_date = shipped_date;
+      state.data[index].completed_date = completed_date;
       state.status = ASYNC_STATUS.SUCCEED;
       state.activeKey = OrderStatus.Completed;
     });
@@ -72,7 +74,7 @@ export const orderSlice = createSlice({
     builder.addCase(resellOrder.fulfilled, (state, action) => {
       const newOrder = action.payload;
       state.data.push(newOrder);
-      state.activeKey = OrderStatus.Processing;
+      state.activeKey = OrderStatus.Created;
       state.status = ASYNC_STATUS.SUCCEED;
     });
   },

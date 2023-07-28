@@ -1,4 +1,4 @@
-const convertTimestamp = (timestamp: number): string => {
+const convertTimestamp = (timestamp: Date | number): string => {
   return new Date(timestamp).toLocaleString("en-EN", {
     day: "2-digit",
     month: "2-digit",

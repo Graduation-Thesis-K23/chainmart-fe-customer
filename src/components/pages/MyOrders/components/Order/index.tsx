@@ -16,7 +16,7 @@ import { convertPrice, convertTimestamp, discount } from "~/helpers";
 import { OrderStatus } from "~/shared";
 import {
   CloseOutlined,
-  FrownOutlined,
+  GiftOutlined,
   ImportOutlined,
   PartitionOutlined,
   ShoppingCartOutlined,
@@ -34,24 +34,34 @@ enum StepStatus {
 }
 
 const calculateCurrentStep = (
-  approve_at: number | undefined,
-  shipped_date: number | undefined,
-  cancelled_date: number | undefined,
-  return_date: number | undefined
+  approved_date: Date | undefined,
+  packaged_date: Date | undefined,
+  started_date: Date | undefined,
+  completed_date: Date | undefined,
+  cancelled_date: Date | undefined,
+  returned_date: Date | undefined
 ) => {
-  if (return_date) {
-    return 4;
-  }
-
   if (cancelled_date) {
     return 0;
   }
 
-  if (shipped_date) {
+  if (returned_date) {
+    return 6;
+  }
+
+  if (completed_date) {
+    return 5;
+  }
+
+  if (started_date) {
+    return 4;
+  }
+
+  if (packaged_date) {
     return 3;
   }
 
-  if (approve_at) {
+  if (approved_date) {
     return 2;
   }
 
@@ -60,15 +70,17 @@ const calculateCurrentStep = (
 
 const Order: FC<OrderType> = ({
   id,
-  create_at,
+  created_at,
   address,
-  shipped_date,
   approved_date,
-  return_date,
+  returned_date,
+  completed_date,
   cancelled_date,
+  packaged_date,
+  started_date,
   status,
   payment,
-  products,
+  order_details,
 }) => {
   const dispatch = useAppDispatch();
 
@@ -104,6 +116,7 @@ const Order: FC<OrderType> = ({
   const createAtText = useTranslate("purchase.stepsCreateAt");
   const approvedText = useTranslate("purchase.stepsApprovedAt");
   const shippingText = useTranslate("purchase.stepsShippingAt");
+  const packagedText = useTranslate("purchase.stepsPackagedAt");
   const completedText = useTranslate("purchase.stepsCompletedAt");
   const returnText = useTranslate("purchase.stepsReturnedAt");
   const cancelText = useTranslate("purchase.stepsCancelledAt");
@@ -111,18 +124,21 @@ const Order: FC<OrderType> = ({
   const stepsItem = useMemo(() => {
     const currentStep = calculateCurrentStep(
       approved_date,
-      shipped_date,
+      packaged_date,
+      started_date,
+      completed_date,
       cancelled_date,
-      return_date
+      returned_date
     );
 
     /* 
       0. Cancelled
       1. Created
       2. Approved
-      3. Shipping
-      4. Completed
-      5. Returned
+      3: Packaged
+      4. Started
+      5. Completed
+      6. Returned
     */
 
     const items = [
@@ -136,7 +152,7 @@ const Order: FC<OrderType> = ({
             }}
           />
         ),
-        description: convertTimestamp(create_at),
+        description: convertTimestamp(created_at),
       },
       {
         title: approvedText,
@@ -151,8 +167,20 @@ const Order: FC<OrderType> = ({
         description: approved_date ? convertTimestamp(approved_date) : null,
       },
       {
+        title: packagedText,
+        status: currentStep > 2 ? StepStatus.Finish : StepStatus.Wait,
+        icon: (
+          <GiftOutlined
+            style={{
+              fontSize: 36,
+            }}
+          />
+        ),
+        description: packaged_date ? convertTimestamp(packaged_date) : null,
+      },
+      {
         title: shippingText,
-        status: currentStep > 1 ? StepStatus.Finish : StepStatus.Wait,
+        status: currentStep > 3 ? StepStatus.Finish : StepStatus.Wait,
         icon: (
           <PartitionOutlined
             style={{
@@ -160,11 +188,11 @@ const Order: FC<OrderType> = ({
             }}
           />
         ),
-        description: approved_date ? convertTimestamp(approved_date) : null,
+        description: started_date ? convertTimestamp(started_date) : null,
       },
       {
         title: completedText,
-        status: currentStep > 2 ? StepStatus.Finish : StepStatus.Wait,
+        status: currentStep > 4 ? StepStatus.Finish : StepStatus.Wait,
         icon: (
           <ImportOutlined
             style={{
@@ -172,7 +200,7 @@ const Order: FC<OrderType> = ({
             }}
           />
         ),
-        description: shipped_date ? convertTimestamp(shipped_date) : null,
+        description: completed_date ? convertTimestamp(completed_date) : null,
       },
     ];
 
@@ -191,18 +219,18 @@ const Order: FC<OrderType> = ({
       });
     }
 
-    if (return_date) {
+    if (returned_date) {
       items.push({
         title: returnText,
         status: StepStatus.Error,
         icon: (
-          <FrownOutlined
+          <CloseOutlined
             style={{
               fontSize: 36,
             }}
           />
         ),
-        description: convertTimestamp(return_date),
+        description: returned_date ? convertTimestamp(returned_date) : null,
       });
     }
 
@@ -210,10 +238,10 @@ const Order: FC<OrderType> = ({
   }, []);
 
   const productsPrice = useMemo(() => {
-    return products.reduce((total, product) => {
+    return order_details.reduce((total, product) => {
       return total + product.price * product.quantity;
     }, 0);
-  }, [products]);
+  }, [order_details]);
 
   const shippingPrice = useMemo(() => {
     return productsPrice > 3000000 ? 0 : 30000;
@@ -225,7 +253,7 @@ const Order: FC<OrderType> = ({
 
   const renderStatus = (status: string) => {
     switch (status) {
-      case OrderStatus.Approved:
+      /* case OrderStatus.Approved || OrderStatus.Packaged:
         return (
           <div className={styles["order__footer__prepare"]}>
             <button
@@ -235,8 +263,8 @@ const Order: FC<OrderType> = ({
               <Translate textKey="purchase.cancelBtn" />
             </button>
           </div>
-        );
-      case OrderStatus.Shipping:
+        ); */
+      case OrderStatus.Started:
         return (
           <div className={styles["order__footer__shipping"]}>
             <button
@@ -319,7 +347,7 @@ const Order: FC<OrderType> = ({
           <Steps items={stepsItem} labelPlacement="vertical" />
         </div>
         <ul className={styles["order__list"]}>
-          {products.map((product) => (
+          {order_details.map((product) => (
             <Fragment key={product.id}>
               <li className={styles["order__list__item"]}>
                 <div className={styles["order__list__item__image"]}>
@@ -425,7 +453,7 @@ const Order: FC<OrderType> = ({
         <OrderCommentModal
           openComment={openComment}
           handleCancelComment={handleCancelComment}
-          products={products}
+          products={order_details}
           order_id={id}
         />
       )}

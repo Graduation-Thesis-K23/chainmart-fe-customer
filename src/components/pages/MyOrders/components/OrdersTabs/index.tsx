@@ -43,7 +43,7 @@ const OrdersTabs = () => {
           <Translate textKey="purchase.waiting" />
         </span>
       ),
-      key: OrderStatus.Processing,
+      key: OrderStatus.Created,
       children: <OrdersWaiting />,
       style: { minHeight: 200 },
     },
@@ -63,7 +63,7 @@ const OrdersTabs = () => {
           <Translate textKey="purchase.shipping" />
         </span>
       ),
-      key: OrderStatus.Shipping,
+      key: OrderStatus.Packaged,
       children: <OrdersShipping />,
       style: { minHeight: 200 },
     },
@@ -73,7 +73,7 @@ const OrdersTabs = () => {
           <Translate textKey="purchase.delivered" />
         </span>
       ),
-      key: OrderStatus.Completed,
+      key: OrderStatus.Started,
       children: <OrdersDelivered />,
       style: { minHeight: 200 },
     },

@@ -2,7 +2,12 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { ASYNC_STATUS } from "../constants";
 import { Address } from "../setting";
-import { OrderProductType, OrderStatus, Payment } from "~/shared";
+import {
+  OrderProductType,
+  OrderStatus,
+  Payment,
+  SuccessPayload,
+} from "~/shared";
 import { ErrorPayload } from "~/shared";
 import instance from "~/apis/axios-instance";
 
@@ -17,6 +22,8 @@ export interface OrderType {
   completed_date?: Date;
   return_date?: Date;
   cancelled_date?: Date;
+  received_date?: Date;
+  rating_date?: Date;
   status: OrderStatus;
   payment: Payment;
   order_details: OrderProductType[];
@@ -25,7 +32,7 @@ export interface OrderType {
 export interface OrdersState {
   data: OrderType[];
   status: typeof ASYNC_STATUS[keyof typeof ASYNC_STATUS];
-  activeKey: OrderStatus | "all";
+  activeKey: OrderStatus | "all" | "Rated";
 }
 
 const initialState: OrdersState = {
@@ -76,6 +83,13 @@ export const orderSlice = createSlice({
       state.data.push(newOrder);
       state.activeKey = OrderStatus.Created;
       state.status = ASYNC_STATUS.SUCCEED;
+    });
+    builder.addCase(commentOrder.fulfilled, (state) => {
+      state.activeKey = OrderStatus.Completed;
+      state.status = ASYNC_STATUS.SUCCEED;
+    });
+    builder.addCase(commentOrder.pending, (state) => {
+      state.status = ASYNC_STATUS.LOADING;
     });
   },
 });
@@ -163,7 +177,7 @@ export const resellOrder = createAsyncThunk(
 export const commentOrder = createAsyncThunk(
   "order/commentOrder",
   async (data: FormData, thunkApi) => {
-    const response: ErrorPayload | OrderType = await instance.post(
+    const response: ErrorPayload | SuccessPayload = await instance.post(
       "/api/orders/comment",
       data
     );

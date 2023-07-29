@@ -17,6 +17,8 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "~/redux";
+import OrdersPackaged from "../OrdersPackaged";
+import OrdersRated from "../OrdersRated";
 
 const OrdersTabs = () => {
   const activeKey = useAppSelector((state) => state.orders.activeKey);
@@ -60,10 +62,20 @@ const OrdersTabs = () => {
     {
       label: (
         <span>
-          <Translate textKey="purchase.shipping" />
+          <Translate textKey="purchase.packaged" />
         </span>
       ),
       key: OrderStatus.Packaged,
+      children: <OrdersPackaged />,
+      style: { minHeight: 200 },
+    },
+    {
+      label: (
+        <span>
+          <Translate textKey="purchase.shipping" />
+        </span>
+      ),
+      key: OrderStatus.Started,
       children: <OrdersShipping />,
       style: { minHeight: 200 },
     },
@@ -73,7 +85,7 @@ const OrdersTabs = () => {
           <Translate textKey="purchase.delivered" />
         </span>
       ),
-      key: OrderStatus.Started,
+      key: OrderStatus.Completed,
       children: <OrdersDelivered />,
       style: { minHeight: 200 },
     },
@@ -97,9 +109,22 @@ const OrdersTabs = () => {
       children: <OrdersReturned />,
       style: { minHeight: 200 },
     },
+    {
+      label: (
+        <span>
+          <Translate textKey="purchase.rated" />
+        </span>
+      ),
+      key: "Rated",
+      children: <OrdersRated />,
+      style: { minHeight: 200 },
+    },
   ];
 
   useEffect(() => {
+    if (activeKey === "Rated") {
+      return;
+    }
     dispatch(fetchOrders(activeKey));
   }, [dispatch, fetchOrders, activeKey]);
 

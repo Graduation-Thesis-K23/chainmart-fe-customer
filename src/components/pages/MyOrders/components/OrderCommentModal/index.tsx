@@ -30,25 +30,28 @@ const OrderCommentModal: FC<{
 
   const handleComment = async () => {
     // create form data from rates
-    const formData = new FormData();
-    const temp = rates.map((rate) => ({
-      product_id: rate.id,
-      star: rate.star,
-      comment: rate.comment,
-    }));
-    rates.forEach((rate) => {
+    const commentsPromise = rates.map((rate) => {
+      const formData = new FormData();
+
       if (rate.images) {
         rate.images.forEach((image) => {
           formData.append("images", image);
         });
       }
+
+      if (rate.comment) {
+        formData.append("comment", rate.comment);
+      }
+
+      formData.append("product_id", rate.id);
+      formData.append("star", rate.star.toString());
+      formData.append("order_id", order_id);
+      return dispatch(commentOrder(formData));
     });
-    formData.append("order_id", order_id);
-    formData.append("comments", JSON.stringify(temp));
 
-    const result = await dispatch(commentOrder(formData));
+    await Promise.all(commentsPromise);
 
-    console.log(result);
+    handleCancelComment();
   };
 
   useEffect(() => {

@@ -38,13 +38,8 @@ const calculateCurrentStep = (
   packaged_date: Date | undefined,
   started_date: Date | undefined,
   completed_date: Date | undefined,
-  cancelled_date: Date | undefined,
   returned_date: Date | undefined
 ) => {
-  if (cancelled_date) {
-    return 0;
-  }
-
   if (returned_date) {
     return 6;
   }
@@ -80,7 +75,9 @@ const Order: FC<OrderType> = ({
   started_date,
   status,
   payment,
+  received_date,
   order_details,
+  rating_date,
 }) => {
   const dispatch = useAppDispatch();
 
@@ -127,7 +124,6 @@ const Order: FC<OrderType> = ({
       packaged_date,
       started_date,
       completed_date,
-      cancelled_date,
       returned_date
     );
 
@@ -266,31 +262,39 @@ const Order: FC<OrderType> = ({
         ); */
       case OrderStatus.Started:
         return (
-          <div className={styles["order__footer__shipping"]}>
-            <button
-              className={styles["order__footer__btn"]}
-              onClick={handleReceivedOrder}
-            >
-              <Translate textKey="purchase.shippingBtn" />
-            </button>
-          </div>
+          <>
+            {received_date && (
+              <div className={styles["order__footer__shipping"]}>
+                <button
+                  className={styles["order__footer__btn"]}
+                  onClick={handleReceivedOrder}
+                >
+                  <Translate textKey="purchase.shippingBtn" />
+                </button>
+              </div>
+            )}
+          </>
         );
       case OrderStatus.Completed:
         return (
-          <div className={styles["order__footer__delivered"]}>
-            <button
-              className={styles["order__footer__btn"]}
-              onClick={handleComment}
-            >
-              <Translate textKey="purchase.deliveredBtn" />
-            </button>
-            <button
-              className={styles["order__footer__btn"]}
-              onClick={handleReturnOrder}
-            >
-              <Translate textKey="purchase.returnedBtn" />
-            </button>
-          </div>
+          <>
+            {!rating_date && (
+              <div className={styles["order__footer__delivered"]}>
+                <button
+                  className={styles["order__footer__btn"]}
+                  onClick={handleComment}
+                >
+                  <Translate textKey="purchase.deliveredBtn" />
+                </button>
+                <button
+                  className={styles["order__footer__btn"]}
+                  onClick={handleReturnOrder}
+                >
+                  <Translate textKey="purchase.returnedBtn" />
+                </button>
+              </div>
+            )}
+          </>
         );
       case OrderStatus.Cancelled:
         return (
@@ -346,6 +350,7 @@ const Order: FC<OrderType> = ({
         <div className={styles["order__steps"]}>
           <Steps items={stepsItem} labelPlacement="vertical" />
         </div>
+
         <ul className={styles["order__list"]}>
           {order_details.map((product) => (
             <Fragment key={product.id}>
@@ -382,6 +387,7 @@ const Order: FC<OrderType> = ({
             </Fragment>
           ))}
         </ul>
+
         <div className={styles["order__info"]}>
           <Row gutter={24}>
             <Col xs={24} sm={24} md={8} lg={8} xl={8}>

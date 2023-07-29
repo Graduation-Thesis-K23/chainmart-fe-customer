@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { ASYNC_STATUS } from "../constants";
 import { ErrorPayload, Comment } from "~/shared";
+import instance from "~/apis/axios-instance";
 
 export interface Rating {
   averageStar: number;
@@ -43,65 +44,15 @@ export const ratingReducer = createSlice({
 export const fetchRating = createAsyncThunk(
   "rating/fetchRating",
   async (productId: string, thunkApi) => {
-    console.log(productId);
-    const response: Rating | ErrorPayload = {
-      averageStar: 4.5,
-      star: 2,
-      numberOfComment: 12,
-      numberOfOneStar: 1,
-      numberOfTwoStar: 2,
-      numberOfThreeStar: 3,
-      numberOfFourStar: 4,
-      numberOfFiveStar: 12,
-      comments: [
-        {
-          id: "1",
-          name: "Nguyen Van Manh 1",
-          createdAt: Date.now(),
-          star: 4,
-          content:
-            "Chainmart - ứng dụng mua sắm trực tuyến thú vị, Chainmart - ứng dụng mua sắm trực tuyến thú vị, Chainmart - ứng dụng mua sắm trực tuyến thú vị,",
-          avatar: "7200ed7e",
-          images: ["7200ed7e", "2ba48c4c"],
-        },
-        {
-          id: "2",
-          name: "Nguyen Van Manh 2",
-          createdAt: Date.now(),
-          star: 3,
-          content:
-            "Chainmart - ứng dụng mua sắm trực tuyến thú vị, Chainmart - ứng dụng mua sắm trực tuyến thú vị, Chainmart - ứng dụng mua sắm trực tuyến thú vị,",
-          avatar: "7200ed7e",
-          images: ["7200ed7e", "2ba48c4c"],
-        },
-        {
-          id: "3",
-          name: "Nguyen Van Manh 3",
-          createdAt: Date.now(),
-          star: 2,
-          content:
-            "Chainmart - ứng dụng mua sắm trực tuyến thú vị, Chainmart - ứng dụng mua sắm trực tuyến thú vị, Chainmart - ứng dụng mua sắm trực tuyến thú vị,",
-          avatar: "7200ed7e",
-          images: ["7200ed7e", "2ba48c4c"],
-        },
-        {
-          id: "4",
-          name: "Nguyen Van Manh 4",
-          createdAt: Date.now(),
-          star: 1,
-          content:
-            "Chainmart - ứng dụng mua sắm trực tuyến thú vị, Chainmart - ứng dụng mua sắm trực tuyến thú vị, Chainmart - ứng dụng mua sắm trực tuyến thú vị,",
-          avatar: "7200ed7e",
-          images: ["7200ed7e", "2ba48c4c"],
-        },
-      ],
-    };
+    const response: Rating | ErrorPayload = await instance.get(
+      `/api/comments/${productId}/product`
+    );
 
     if ("message" in response) {
-      return thunkApi.rejectWithValue(response);
+      return thunkApi.rejectWithValue(response.message);
     }
 
-    return response;
+    return thunkApi.fulfillWithValue(response);
   }
 );
 

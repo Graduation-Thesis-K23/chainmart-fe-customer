@@ -100,7 +100,7 @@ const Rating = () => {
               {ratingData.averageStar}
             </p>
             <div>
-              <Rate disabled value={ratingData.star} />
+              <Rate disabled value={ratingData.averageStar} allowHalf />
               <p className={styles["rating-filter-top-text"]}>
                 {ratingData.numberOfComment}{" "}
                 <Translate textKey="product.numberOfComment" />

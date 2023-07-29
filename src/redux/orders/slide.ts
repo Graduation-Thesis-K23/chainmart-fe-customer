@@ -85,7 +85,7 @@ export const orderSlice = createSlice({
       state.status = ASYNC_STATUS.SUCCEED;
     });
     builder.addCase(commentOrder.fulfilled, (state) => {
-      state.activeKey = OrderStatus.Completed;
+      state.activeKey = "Rated";
       state.status = ASYNC_STATUS.SUCCEED;
     });
     builder.addCase(commentOrder.pending, (state) => {

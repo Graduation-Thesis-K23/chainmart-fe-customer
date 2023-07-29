@@ -36,7 +36,7 @@ const ProductsList = () => {
                   <span className={styles["product-card-label-text"]}>New</span>
                 </div>
               )}
-              {item.sale && (
+              {item.sale ? (
                 <div className={styles["product-card-discount"]}>
                   <span className={styles["product-card-discount-percent"]}>
                     {item.sale}%
@@ -45,6 +45,8 @@ const ProductsList = () => {
                     off
                   </span>
                 </div>
+              ) : (
+                <></>
               )}
               <div className={styles["product-card-image"]}>
                 <Image

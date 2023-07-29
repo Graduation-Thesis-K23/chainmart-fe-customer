@@ -5,15 +5,11 @@ import { Rate } from "antd";
 
 import styles from "./ProductsList.module.scss";
 import { convertPrice, discount } from "~/helpers";
-import useTranslate from "~/hooks/useLocales";
 import { useAppDispatch, useAppSelector } from "~/redux";
 import { fetchProducts } from "~/redux";
 import getS3Image from "~/helpers/get-s3-image";
-import convertNumberToK from "~/helpers/convert-to-k";
 
 const ProductsList = () => {
-  const soldText = useTranslate("products.sold");
-
   const { data } = useAppSelector((state) => state.products);
   const dispatch = useAppDispatch();
 
@@ -62,39 +58,41 @@ const ProductsList = () => {
                   {item.name}
                 </span>
                 <div className={styles["product-card-body-prices"]}>
-                  <span className={styles["product-card-body-prices-one"]}>
-                    {convertPrice(item.price)}
-                  </span>
-                  {item.sale && (
-                    <span className={styles["product-card-body-prices-two"]}>
-                      {convertPrice(discount(item.price, item.sale))}
+                  <span
+                    style={{
+                      marginRight: 10,
+                    }}
+                  >
+                    <span className={styles["product-card-body-prices-one"]}>
+                      {convertPrice(item.price)}
                     </span>
-                  )}
-                </div>
-              </div>
-              <div className={styles["product-card-footer"]}>
-                {
-                  4 > 0 && (
-                    <div className={styles["product-card-footer-star"]}>
+                    {item.sale ? (
+                      <span className={styles["product-card-body-prices-two"]}>
+                        {convertPrice(discount(item.price, item.sale))}
+                      </span>
+                    ) : (
+                      <></>
+                    )}
+                  </span>
+                  {item.star > 0 ? (
+                    <div
+                      className={styles["product-card-footer-star"]}
+                      style={{
+                        display: "inline-block",
+                        minWidth: 100,
+                      }}
+                    >
                       <Rate
                         className={styles["product-card-footer-star-item"]}
                         disabled
                         allowHalf
-                        value={4}
+                        value={item.star}
                       />
                     </div>
-                  ) /* : (
-                  <span></span>
-                ) */
-                }
-                {3 > 0 && (
-                  <div className={styles["product-card-footer-sold"]}>
-                    <span>
-                      {convertNumberToK(3000) + " "}
-                      {soldText}
-                    </span>
-                  </div>
-                )}
+                  ) : (
+                    <></>
+                  )}
+                </div>
               </div>
             </div>
           </Link>

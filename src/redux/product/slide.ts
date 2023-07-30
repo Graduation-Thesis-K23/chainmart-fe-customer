@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 
 import { ASYNC_STATUS } from "../constants";
 import instance from "~/apis/axios-instance";
-import { RootState } from "../store";
 import { ProductType } from "~/shared";
 
 export interface ProductState {

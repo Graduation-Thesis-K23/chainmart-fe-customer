@@ -8,13 +8,19 @@ import styles from "./Products.module.scss";
 import { convertPrice } from "~/helpers";
 import { INCREASE, DECREASE } from "~/constants";
 import getS3Image from "~/helpers/get-s3-image";
-import { updateCarts, useAppDispatch, useAppSelector } from "~/redux";
+import {
+  ASYNC_STATUS,
+  updateCarts,
+  useAppDispatch,
+  useAppSelector,
+} from "~/redux";
 import Translate from "~/components/commons/Translate";
 import { useRouter } from "next/router";
 import { ICart } from "~/shared";
+import { Spin } from "antd";
 
 const Products = () => {
-  const { data: carts } = useAppSelector((state) => state.cart);
+  const { data: carts, status } = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
 
   const router = useRouter();
@@ -58,6 +64,21 @@ const Products = () => {
     router.push("/checkout");
   };
 
+  if (status !== ASYNC_STATUS.SUCCEED) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "300px",
+        }}
+      >
+        <Spin />
+      </div>
+    );
+  }
   if (carts.length === 0) {
     return (
       <div className={styles["products--empty"]}>

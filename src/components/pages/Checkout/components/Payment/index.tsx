@@ -11,14 +11,15 @@ import {
   PlaceOrder,
   clearCart,
   placeOrder,
+  setPayment,
   useAppDispatch,
   useAppSelector,
 } from "~/redux";
 import { useRouter } from "next/router";
+import { Payment } from "~/shared";
 
-const Payment = () => {
+const PaymentComponent = () => {
   const codText = useTranslate("checkout.cod");
-  const atmText = useTranslate("checkout.atm");
   const ordered = useAppSelector((state) => state.cart);
 
   const router = useRouter();
@@ -31,7 +32,7 @@ const Payment = () => {
           {codText}
         </span>
       ),
-      key: "1",
+      key: Payment.Cash,
     },
     {
       label: (
@@ -40,18 +41,7 @@ const Payment = () => {
           Momo/ZaloPay/VNPay
         </span>
       ),
-      key: "2",
-      disabled: true,
-    },
-    {
-      label: (
-        <span>
-          <CreditCardOutlined />
-          {atmText}
-        </span>
-      ),
-      key: "3",
-      disabled: true,
+      key: Payment.Banking,
     },
   ];
 
@@ -66,6 +56,11 @@ const Payment = () => {
     (state) => state.checkout
   );
   const { data: carts } = useAppSelector((state) => state.cart);
+
+  const handleChangePaymentMethod = (key: string) => {
+    dispatch(setPayment(key as Payment));
+    console.log(key);
+  };
 
   const handlePlaceOrder = () => {
     const data: PlaceOrder = {
@@ -95,7 +90,11 @@ const Payment = () => {
             <Translate textKey="checkout.payment" />
           </p>
           <div>
-            <Tabs defaultActiveKey="1" items={items} />
+            <Tabs
+              defaultActiveKey={Payment.Cash}
+              items={items}
+              onChange={handleChangePaymentMethod}
+            />
           </div>
           <div className={styles["payment__items"]}>
             <div className={styles["payment__item"]}>
@@ -155,4 +154,4 @@ const Payment = () => {
   );
 };
 
-export default memo(Payment);
+export default memo(PaymentComponent);

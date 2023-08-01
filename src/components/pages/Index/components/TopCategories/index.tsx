@@ -1,19 +1,24 @@
 import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Button } from "antd";
+import { Button, Skeleton } from "antd";
 import { RightOutlined, LeftOutlined } from "@ant-design/icons";
 
 import styles from "./TopCategories.module.scss";
 import topCategories from "~/sub-categories/categories";
 import useDebounce from "~/hooks/useDebounce";
 import Translate from "~/components/commons/Translate";
+import { ASYNC_STATUS, useAppSelector } from "~/redux";
 
 const TopCategories = () => {
   const [translateX, setTranslateX] = useState(0);
   const [XY, setXY] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [action, setAction] = useState<number>(0); // 1 ->, -1 <-
   const debouncedAction = useDebounce<number>(action, 200);
+
+  const { status: userStatus } = useAppSelector((state) => state.user);
+  const isLoading =
+    userStatus === ASYNC_STATUS.LOADING || userStatus === ASYNC_STATUS.IDLE;
 
   const data = useMemo(() => {
     const size = topCategories.length;
@@ -92,80 +97,115 @@ const TopCategories = () => {
   return (
     <section className={styles["top_categories"]}>
       <div className="container">
-        <div className={styles["title"]}>
-          <div className={styles["title_text"]}>
-            <Translate textKey="categories.header" />
+        {isLoading ? (
+          <Skeleton.Input active size="large" block />
+        ) : (
+          <div className={styles["title"]}>
+            <div className={styles["title_text"]}>
+              <Translate textKey="categories.header" />
+            </div>
+            <div className={styles["title_controller"]}>
+              <Button
+                className={styles["btn"]}
+                shape="circle"
+                size="small"
+                icon={
+                  <LeftOutlined
+                    style={{
+                      fontSize: "8px",
+                    }}
+                  />
+                }
+                onClick={() => onPrev()}
+              />
+              <Button
+                className={styles["btn"]}
+                shape="circle"
+                size="small"
+                icon={
+                  <RightOutlined
+                    style={{
+                      fontSize: "8px",
+                    }}
+                  />
+                }
+                onClick={() => onNext()}
+              />
+            </div>
           </div>
-          <div className={styles["title_controller"]}>
-            <Button
-              className={styles["btn"]}
-              shape="circle"
-              size="small"
-              icon={
-                <LeftOutlined
-                  style={{
-                    fontSize: "8px",
-                  }}
-                />
-              }
-              onClick={() => onPrev()}
-            />
-            <Button
-              className={styles["btn"]}
-              shape="circle"
-              size="small"
-              icon={
-                <RightOutlined
-                  style={{
-                    fontSize: "8px",
-                  }}
-                />
-              }
-              onClick={() => onNext()}
-            />
-          </div>
-        </div>
+        )}
         <div
           className={styles["top_categories_list"]}
           id="list-categories"
           onTouchStart={(e) => handleTouchStart(e)}
           onTouchMove={(e) => handleTouchMove(e)}
         >
-          <ul
-            className={styles["top_categories_list_inner"]}
-            style={{
-              width: data.listWidth,
-              transform: `translateX(${-translateX}px)`,
-            }}
-          >
-            {topCategories.map((item) => (
-              <li
-                key={item.id}
-                className={styles["top_categories_list_item"]}
-                style={{
-                  width: data.itemWidth,
-                }}
-              >
-                <Link
-                  href={item.href}
-                  prefetch={false}
-                  aria-label={item.textKey}
-                  className={styles["top_categories_list_item_link"]}
+          {isLoading ? (
+            <div
+              style={{
+                width: "1200px",
+                height: "210px",
+                overflow: "hidden",
+              }}
+            >
+              {[1, 2, 3, 4, 5, 6, 7, 8].map((_, index) => (
+                <div
+                  key={index}
+                  style={{
+                    width: "145px",
+                    height: "210px",
+                    overflow: "hidden",
+                    marginRight: "24px",
+                    display: "inline-block",
+                  }}
                 >
-                  <Image
-                    className={styles["top_categories_list_item_image"]}
-                    src={item.src}
-                    alt={item.textKey}
-                    width={90}
-                    height={90}
-                  />
-                  <span className={styles["top_categories_list_item_text"]}>
-                    <Translate textKey={item.textKey} />
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
+                  <Skeleton.Input size="large" />
+                  <Skeleton.Input size="large" />
+                  <Skeleton.Input size="large" />
+                  <Skeleton.Input size="large" />
+                  <Skeleton.Input size="large" />
+                  <Skeleton.Input size="large" />
+                  <Skeleton.Input size="large" />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <ul
+              className={styles["top_categories_list_inner"]}
+              style={{
+                width: data.listWidth,
+                transform: `translateX(${-translateX}px)`,
+              }}
+            >
+              {topCategories.map((item) => (
+                <li
+                  key={item.id}
+                  className={styles["top_categories_list_item"]}
+                  style={{
+                    width: data.itemWidth,
+                  }}
+                >
+                  <Link
+                    href={item.href}
+                    prefetch={false}
+                    aria-label={item.textKey}
+                    className={styles["top_categories_list_item_link"]}
+                  >
+                    <Image
+                      className={styles["top_categories_list_item_image"]}
+                      src={item.src}
+                      alt={item.textKey}
+                      width={90}
+                      height={90}
+                    />
+                    <span className={styles["top_categories_list_item_text"]}>
+                      <Translate textKey={item.textKey} />
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
     </section>

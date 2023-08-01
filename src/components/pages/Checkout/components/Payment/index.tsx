@@ -2,7 +2,7 @@ import React, { memo } from "react";
 
 import styles from "./Payment.module.scss";
 import Translate from "~/components/commons/Translate";
-import { Col, Divider, Row, Tabs } from "antd";
+import { Button, Col, Divider, Row, Tabs } from "antd";
 import { CreditCardOutlined, TrademarkOutlined } from "@ant-design/icons";
 import useTranslate from "~/hooks/useLocales";
 import Link from "next/link";
@@ -59,7 +59,7 @@ const Payment = () => {
     (prev, item) => prev + item.price * item.quantity,
     0
   );
-  const shippingTotal = total > 200000 ? 0 : 30000;
+  const shippingTotal = total > 300000 ? 0 : 30000;
 
   const dispatch = useAppDispatch();
   const { address_id, note, payment } = useAppSelector(
@@ -139,12 +139,13 @@ const Payment = () => {
             </Col>
             <Col xs={24} sm={12} md={12} lg={12} xl={12}>
               <div className={styles["payment__order__bt"]}>
-                <button
+                <Button
+                  disabled={!address_id || !payment}
                   className={styles["payment__order__btn"]}
                   onClick={() => handlePlaceOrder()}
                 >
                   <Translate textKey="checkout.orderBtn" />
-                </button>
+                </Button>
               </div>
             </Col>
           </Row>

@@ -14,14 +14,38 @@ import styles from "./MainInformation.module.scss";
 import { ICart } from "~/shared";
 import {
   ASYNC_STATUS,
-  addItemCart,
+  updateCarts,
   useAppDispatch,
   useAppSelector,
 } from "~/redux";
 import Translate from "~/components/commons/Translate";
 
+const processAddToCart = (carts: ICart[], itemCart: ICart) => {
+  const newCarts = [
+    ...(JSON.parse(JSON.stringify(carts)) as ICart[]),
+    itemCart,
+  ];
+
+  const result: ICart[] = newCarts.reduce((acc, cur) => {
+    const found = acc.find((item) => item.id === cur.id);
+
+    if (found) {
+      found.quantity += cur.quantity;
+    } else {
+      acc.push(cur);
+    }
+
+    return acc;
+  }, [] as ICart[]);
+
+  console.log(result);
+
+  return JSON.stringify(result);
+};
+
 const MainInformation = () => {
   const { data } = useAppSelector((state) => state.product);
+  const { data: carts } = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
 
@@ -46,7 +70,9 @@ const MainInformation = () => {
       quantity,
     };
 
-    dispatch(addItemCart(itemCart));
+    const newCarts = processAddToCart(carts, itemCart);
+
+    dispatch(updateCarts(newCarts));
 
     setAddCartSuccess(true);
 
@@ -71,7 +97,9 @@ const MainInformation = () => {
       quantity,
     };
 
-    dispatch(addItemCart(itemCart));
+    const newCarts = processAddToCart(carts, itemCart);
+
+    dispatch(updateCarts(newCarts));
 
     // redirect to cart page
     router.push("/cart");

@@ -2,7 +2,7 @@
 
 .payment {
   background-color: rgba(0, 0, 0, 0.103);
-  padding: 12px 0;
+  padding: 12px 0 !important;
 
   &__container {
     background-color: #fff;
@@ -71,10 +71,14 @@
     }
 
     &__btn {
+      display: inline-block;
       padding: 10px 36px;
       background-color: $primary-color;
+      height: 45px;
       color: #fff;
       font-size: 16px;
+      border-radius: 0;
+      border: none;
       cursor: pointer;
 
       &:hover {

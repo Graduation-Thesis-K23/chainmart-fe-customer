@@ -8,41 +8,57 @@ import styles from "./Products.module.scss";
 import { convertPrice } from "~/helpers";
 import { INCREASE, DECREASE } from "~/constants";
 import getS3Image from "~/helpers/get-s3-image";
-import {
-  deleteItemCart,
-  updateItemQuantity,
-  useAppDispatch,
-  useAppSelector,
-} from "~/redux";
+import { updateCarts, useAppDispatch, useAppSelector } from "~/redux";
 import Translate from "~/components/commons/Translate";
 import { useRouter } from "next/router";
+import { ICart } from "~/shared";
 
 const Products = () => {
-  const cart = useAppSelector((state) => state.cart.data);
+  const { data: carts } = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
 
   const router = useRouter();
 
   const total = useMemo(() => {
-    return cart.reduce((prev, curr) => prev + curr.price * curr.quantity, 0);
-  }, [cart]);
+    return carts.reduce((prev, curr) => prev + curr.price * curr.quantity, 0);
+  }, [carts]);
 
   const handleChangeQuantity = (
     id: string,
     action: "increase" | "decrease"
   ) => {
-    dispatch(updateItemQuantity({ id, action }));
+    const cloneCarts = JSON.parse(JSON.stringify(carts)) as ICart[];
+
+    const index = cloneCarts.findIndex((item) => item.id === id);
+
+    if (action === INCREASE) {
+      cloneCarts[index].quantity += 1;
+      if (cloneCarts[index].quantity > cloneCarts[index].maxQuantity) return;
+    } else if (action === DECREASE) {
+      if (cloneCarts[index].quantity === 1) return;
+      cloneCarts[index].quantity -= 1;
+    }
+
+    dispatch(updateCarts(JSON.stringify(cloneCarts)));
   };
 
   const handleRemove = (id: string) => {
-    dispatch(deleteItemCart(id));
+    const cloneCarts = JSON.parse(JSON.stringify(carts)) as ICart[];
+
+    const index = cloneCarts.findIndex((item) => item.id === id);
+
+    cloneCarts.splice(index, 1);
+
+    console.log(cloneCarts);
+
+    dispatch(updateCarts(JSON.stringify(cloneCarts)));
   };
 
   const handleCheckoutBtn = () => {
     router.push("/checkout");
   };
 
-  if (cart.length === 0) {
+  if (carts.length === 0) {
     return (
       <div className={styles["products--empty"]}>
         <Translate textKey="cart.empty" />
@@ -74,7 +90,7 @@ const Products = () => {
               </tr>
             </thead>
             <tbody className={styles["products_table_tbody"]}>
-              {cart.map((item, index) => (
+              {carts.map((item, index) => (
                 <tr key={index} className={styles["products_table_row"]}>
                   <td className={styles["products_table_body"]}>
                     <div className={styles["products_table_body_product"]}>

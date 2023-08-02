@@ -17,7 +17,8 @@ import { Skeleton } from "antd";
 
 const Header = () => {
   const { status: userStatus } = useAppSelector((state) => state.user);
-  const isLoading = userStatus !== ASYNC_STATUS.SUCCEED;
+  const isLoading =
+    userStatus === ASYNC_STATUS.LOADING || userStatus === ASYNC_STATUS.IDLE;
 
   const [shadow, setShadow] = useState(false);
 

@@ -7,9 +7,15 @@ import CartPopup from "./CartPopup";
 
 import styles from "./HeaderCart.module.scss";
 import cartIcon from "~/assets/icons/cart.svg";
-import { fetchCarts, useAppDispatch, useAppSelector } from "~/redux";
+import {
+  ASYNC_STATUS,
+  fetchCarts,
+  useAppDispatch,
+  useAppSelector,
+} from "~/redux";
 
 const HeaderCart = () => {
+  const status = useAppSelector((state) => state.user.status);
   const cart = useAppSelector((state) => state.cart);
 
   const count = useMemo(() => {
@@ -21,6 +27,9 @@ const HeaderCart = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    if (status !== ASYNC_STATUS.SUCCEED) {
+      return;
+    }
     dispatch(fetchCarts());
   }, [dispatch]);
 

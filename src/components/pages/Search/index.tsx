@@ -1,6 +1,6 @@
 import React, { memo, useState } from "react";
 import { useRouter } from "next/router";
-import { Checkbox, Col, Divider, Row, Select, Space } from "antd";
+import { Checkbox, Col, Divider, Row, Select, Skeleton } from "antd";
 
 import categoryList from "~/shared/categories";
 import styles from "./Search.module.scss";
@@ -9,6 +9,7 @@ import ProductList from "./ProductList";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 import classNames from "classnames";
 import useTranslate from "~/hooks/useLocales";
+import { ASYNC_STATUS, useAppSelector } from "~/redux";
 
 const SearchScreen = () => {
   const router = useRouter();
@@ -16,6 +17,10 @@ const SearchScreen = () => {
   const maxPriceRef = React.useRef<HTMLInputElement>(null);
 
   const priceText = useTranslate("search.price");
+
+  const { status } = useAppSelector((state) => state.user);
+  const isLoading =
+    ASYNC_STATUS.LOADING === status || ASYNC_STATUS.IDLE === status;
 
   const [categories, setCategories] = useState<string>(
     (router.query.categories as string) || ""
@@ -69,102 +74,171 @@ const SearchScreen = () => {
     <div className={styles["search"]}>
       <Row gutter={[12, 12]}>
         <Col xs={0} sm={5} md={6} lg={4} xl={4}>
-          <div className={styles["search__filter"]}>
-            <div className={styles["search__filter__title"]}>
-              <Translate textKey="search.filter" />
-            </div>
-            <div className={styles["search__filter__item"]}>
-              <div className={styles["search__filter__item__title"]}>
-                <Translate textKey="search.byCategory" />
+          {isLoading ? (
+            <div
+              style={{
+                height: 500,
+                overflow: "hidden",
+              }}
+            >
+              <div
+                style={{
+                  height: 27,
+                  marginBottom: 12,
+                  width: "70%",
+                  overflow: "hidden",
+                }}
+              >
+                <Skeleton.Input active size="large" block />
               </div>
-              <div className={styles["search__filter__item__content"]}>
-                {categoryList.map((item) => (
-                  <Checkbox
-                    key={item.id}
-                    className={styles["search__filter__item__content__item"]}
-                    defaultChecked={categories.includes(item.textKey)}
-                    onChange={(e) => handleCategoryChange(e, item.textKey)}
+              <div
+                style={{
+                  height: 20,
+                  width: "50%",
+                  marginBottom: 12,
+                  overflow: "hidden",
+                }}
+              >
+                <Skeleton.Input active block />
+              </div>
+              <div>
+                {Array.from({ length: 10 }).map((_, index) => (
+                  <div
+                    key={index}
+                    style={{
+                      height: 20,
+                      width: "35%",
+                      marginBottom: 8,
+                      overflow: "hidden",
+                    }}
                   >
-                    <span>
-                      <Translate textKey={item.textKey} />
-                    </span>
-                  </Checkbox>
+                    <Skeleton.Input active block />
+                  </div>
                 ))}
               </div>
-            </div>
-            <Divider />
-            <div className={styles["search__filter__item"]}>
-              <div className={styles["search__filter__item__title"]}>
-                <Translate textKey="search.byPrice" />
+              <Divider />
+              <div
+                style={{
+                  height: 100,
+                  marginTop: 8,
+                  overflow: "hidden",
+                }}
+              >
+                <Skeleton.Input active size="large" block />
+                <Skeleton.Input active size="large" block />
+                <Skeleton.Input active size="large" block />
               </div>
-              <div className={styles["search__filter__item__content"]}>
-                <div className={styles["search__filter__price"]}>
-                  <input
-                    className={styles["search__filter__price__input"]}
-                    type="number"
-                    ref={minPriceRef}
-                  />
-                  -
-                  <input
-                    className={styles["search__filter__price__input"]}
-                    type="number"
-                    ref={maxPriceRef}
-                  />
+            </div>
+          ) : (
+            <div className={styles["search__filter"]}>
+              <div className={styles["search__filter__title"]}>
+                <Translate textKey="search.filter" />
+              </div>
+              <div className={styles["search__filter__item"]}>
+                <div className={styles["search__filter__item__title"]}>
+                  <Translate textKey="search.byCategory" />
                 </div>
-                <button
-                  className={styles["search__filter__price__btn"]}
-                  onClick={() => handleApplyPrice()}
-                >
-                  <Translate textKey="search.apply" />
-                </button>
+                <div className={styles["search__filter__item__content"]}>
+                  {categoryList.map((item) => (
+                    <Checkbox
+                      key={item.id}
+                      className={styles["search__filter__item__content__item"]}
+                      defaultChecked={categories.includes(item.textKey)}
+                      onChange={(e) => handleCategoryChange(e, item.textKey)}
+                    >
+                      <span>
+                        <Translate textKey={item.textKey} />
+                      </span>
+                    </Checkbox>
+                  ))}
+                </div>
               </div>
+              <Divider />
+              <div className={styles["search__filter__item"]}>
+                <div className={styles["search__filter__item__title"]}>
+                  <Translate textKey="search.byPrice" />
+                </div>
+                <div className={styles["search__filter__item__content"]}>
+                  <div className={styles["search__filter__price"]}>
+                    <input
+                      className={styles["search__filter__price__input"]}
+                      type="number"
+                      ref={minPriceRef}
+                    />
+                    -
+                    <input
+                      className={styles["search__filter__price__input"]}
+                      type="number"
+                      ref={maxPriceRef}
+                    />
+                  </div>
+                  <button
+                    className={styles["search__filter__price__btn"]}
+                    onClick={() => handleApplyPrice()}
+                  >
+                    <Translate textKey="search.apply" />
+                  </button>
+                </div>
+              </div>
+              <Divider />
             </div>
-            <Divider />
-          </div>
+          )}
         </Col>
         <Col xs={24} sm={19} md={18} lg={20} xl={20}>
-          <Space></Space>
-          <div className={styles["search__order__group"]}>
-            <span>
-              <Translate textKey="search.sortBy" />
-            </span>
+          {isLoading ? (
             <div
-              className={classNames(styles["search__order__item"], {
-                [styles["search__order__item--active"]]: order === "latest",
-              })}
+              style={{
+                height: 54,
+                overflow: "hidden",
+              }}
             >
-              <button onClick={() => handleOrderChange("latest")}>
-                <Translate textKey="search.latest" />
-              </button>
+              <Skeleton.Input active size="large" block />
+              <Skeleton.Input active size="large" block />
             </div>
-            <div
-              className={classNames(styles["search__order__item"], {
-                [styles["search__order__item--active"]]: order === "sales",
-              })}
-            >
-              <button onClick={() => handleOrderChange("sales")}>
-                <Translate textKey="search.topSales" />
-              </button>
+          ) : (
+            <div className={styles["search__order__group"]}>
+              <span>
+                <Translate textKey="search.sortBy" />
+              </span>
+              <div
+                className={classNames(styles["search__order__item"], {
+                  [styles["search__order__item--active"]]: order === "latest",
+                })}
+              >
+                <button onClick={() => handleOrderChange("latest")}>
+                  <Translate textKey="search.latest" />
+                </button>
+              </div>
+              <div
+                className={classNames(styles["search__order__item"], {
+                  [styles["search__order__item--active"]]: order === "sales",
+                })}
+              >
+                <button onClick={() => handleOrderChange("sales")}>
+                  <Translate textKey="search.topSales" />
+                </button>
+              </div>
+              <div className={styles["search__order__item"]}>
+                <Select
+                  className={styles["search__order__item__price"]}
+                  defaultValue={priceText}
+                  options={[
+                    {
+                      value: "desc",
+                      label: <Translate textKey="search.priceHighToLow" />,
+                    },
+                    {
+                      value: "asc",
+                      label: <Translate textKey="search.priceLowToHigh" />,
+                    },
+                  ]}
+                  bordered={false}
+                  onChange={(value) => handleOrderChange(value)}
+                />
+              </div>
             </div>
-            <div className={styles["search__order__item"]}>
-              <Select
-                className={styles["search__order__item__price"]}
-                defaultValue={priceText}
-                options={[
-                  {
-                    value: "desc",
-                    label: <Translate textKey="search.priceHighToLow" />,
-                  },
-                  {
-                    value: "asc",
-                    label: <Translate textKey="search.priceLowToHigh" />,
-                  },
-                ]}
-                bordered={false}
-                onChange={(value) => handleOrderChange(value)}
-              />
-            </div>
-          </div>
+          )}
+
           <ProductList
             keyword={keyword}
             categories={categories}

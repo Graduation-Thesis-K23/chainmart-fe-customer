@@ -1,5 +1,5 @@
 import React, { memo, useEffect } from "react";
-import { Tabs } from "antd";
+import { Skeleton, Tabs } from "antd";
 
 import styles from "./OrdersTabs.module.scss";
 import Translate from "~/components/commons/Translate";
@@ -8,10 +8,11 @@ import OrdersWaiting from "../OrdersWaiting";
 import OrdersDelivered from "../OrdersDelivered";
 import OrdersShipping from "../OrdersShipping";
 import OrdersCancelled from "../OrdersCancelled";
-import OrdersReturned from "../OrdersReturned";
+// import OrdersReturned from "../OrdersReturned";
 import OrdersPrepare from "../OrdersPrepare";
 import { OrderStatus } from "~/shared";
 import {
+  ASYNC_STATUS,
   fetchOrders,
   setActiveKey,
   useAppDispatch,
@@ -21,6 +22,10 @@ import OrdersPackaged from "../OrdersPackaged";
 import OrdersRated from "../OrdersRated";
 
 const OrdersTabs = () => {
+  const { status: loading } = useAppSelector((state) => state.user);
+  const isLoading =
+    loading === ASYNC_STATUS.LOADING || loading === ASYNC_STATUS.IDLE;
+
   const activeKey = useAppSelector((state) => state.orders.activeKey);
   const dispatch = useAppDispatch();
 
@@ -99,7 +104,7 @@ const OrdersTabs = () => {
       children: <OrdersCancelled />,
       style: { minHeight: 200 },
     },
-    {
+    /*   {
       label: (
         <span>
           <Translate textKey="purchase.returned" />
@@ -108,7 +113,7 @@ const OrdersTabs = () => {
       key: OrderStatus.Returned,
       children: <OrdersReturned />,
       style: { minHeight: 200 },
-    },
+    }, */
     {
       label: (
         <span>
@@ -131,19 +136,62 @@ const OrdersTabs = () => {
   return (
     <section className={styles["payment"]}>
       <div className="container">
-        <div className={styles["payment__container"]}>
-          <Tabs
-            defaultActiveKey="all"
-            activeKey={activeKey}
-            size="large"
-            items={items}
-            onChange={(key) => handleSetActiveKey(key)}
-            tabBarStyle={{
-              backgroundColor: "#fff",
-              padding: "0 20px",
+        {isLoading ? (
+          <div
+            style={{
+              height: 590,
+              width: 1200,
+              marginTop: 12,
+              overflow: "hidden",
             }}
-          />
-        </div>
+          >
+            <div
+              style={{
+                height: 60,
+                overflow: "hidden",
+              }}
+            >
+              <Skeleton.Input active size="large" block />
+              <Skeleton.Input active size="large" block />
+            </div>
+            <div
+              style={{
+                height: 500,
+                marginTop: 12,
+                overflow: "hidden",
+              }}
+            >
+              <Skeleton.Input active size="large" block />
+              <Skeleton.Input active size="large" block />
+              <Skeleton.Input active size="large" block />
+              <Skeleton.Input active size="large" block />
+              <Skeleton.Input active size="large" block />
+              <Skeleton.Input active size="large" block />
+              <Skeleton.Input active size="large" block />
+              <Skeleton.Input active size="large" block />
+              <Skeleton.Input active size="large" block />
+              <Skeleton.Input active size="large" block />
+              <Skeleton.Input active size="large" block />
+              <Skeleton.Input active size="large" block />
+              <Skeleton.Input active size="large" block />
+              <Skeleton.Input active size="large" block />
+            </div>
+          </div>
+        ) : (
+          <div className={styles["payment__container"]}>
+            <Tabs
+              defaultActiveKey="all"
+              activeKey={activeKey}
+              size="large"
+              items={items}
+              onChange={(key) => handleSetActiveKey(key)}
+              tabBarStyle={{
+                backgroundColor: "#fff",
+                padding: "0 20px",
+              }}
+            />
+          </div>
+        )}
       </div>
     </section>
   );

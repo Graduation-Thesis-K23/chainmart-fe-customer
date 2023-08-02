@@ -29,8 +29,8 @@ export const cartSlide = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCarts.fulfilled, (state, action) => {
-      state.status = ASYNC_STATUS.SUCCEED;
       state.data = action.payload;
+      state.status = ASYNC_STATUS.SUCCEED;
     });
     builder.addCase(fetchCarts.pending, (state) => {
       state.status = ASYNC_STATUS.LOADING;
@@ -40,11 +40,8 @@ export const cartSlide = createSlice({
       state.data = [];
     });
     builder.addCase(updateCarts.fulfilled, (state, action) => {
-      state.status = ASYNC_STATUS.SUCCEED;
       state.data = action.payload;
-    });
-    builder.addCase(updateCarts.pending, (state) => {
-      state.status = ASYNC_STATUS.LOADING;
+      state.status = ASYNC_STATUS.SUCCEED;
     });
     builder.addCase(updateCarts.rejected, (state) => {
       state.status = ASYNC_STATUS.FAILED;

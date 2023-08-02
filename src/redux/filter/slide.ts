@@ -86,7 +86,7 @@ export const filterProducts = createAsyncThunk(
     ).toString();
 
     const response: PaginationResult<ProductListType> | ErrorPayload =
-      await instance.get("api/products/search-and-filter?" + queryParam);
+      await instance.get("api/products?" + queryParam);
 
     if ("message" in response) {
       return thunkApi.rejectWithValue(response.message);
@@ -104,7 +104,7 @@ export const loadMoreProducts = createAsyncThunk(
     ).toString();
 
     const response: PaginationResult<ProductListType> | ErrorPayload =
-      await instance.get("api/products/search-and-filter?" + queryParam);
+      await instance.get("api/products?" + queryParam);
 
     if ("message" in response) {
       return thunkApi.rejectWithValue(response.message);

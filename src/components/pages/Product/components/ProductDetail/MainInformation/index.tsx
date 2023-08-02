@@ -1,5 +1,5 @@
 import React, { memo, useState } from "react";
-import { Divider, Col, Row } from "antd";
+import { Divider, Col, Row, Skeleton } from "antd";
 import { CheckCircleOutlined } from "@ant-design/icons";
 import { useRouter } from "next/router";
 import classNames from "classnames";
@@ -44,6 +44,12 @@ const processAddToCart = (carts: ICart[], itemCart: ICart) => {
 };
 
 const MainInformation = () => {
+  const { status: loading } = useAppSelector((state) => state.user);
+  const isLoading =
+    loading === ASYNC_STATUS.LOADING || loading === ASYNC_STATUS.IDLE;
+  /* {
+     isLoading ? <></> : <></>;
+   } */
   const { data } = useAppSelector((state) => state.product);
   const { data: carts } = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
@@ -128,33 +134,75 @@ const MainInformation = () => {
                   quantity={quantity}
                   setQuantity={setQuantity}
                 />
-                <div className={styles["main_information-right-checkout"]}>
-                  <button
-                    className={styles["main_information-right-checkout-buy"]}
-                    onClick={handleBuyNow}
+                {isLoading ? (
+                  <div
+                    style={{
+                      marginTop: 20,
+                      width: "100%",
+                    }}
                   >
-                    <Translate textKey="product.buyNow" />
-                  </button>
-                  <button
-                    className={styles["main_information-right-checkout-cart"]}
-                    onClick={handleAddToCart}
-                  >
-                    <Translate textKey="product.addToCart" />
-                  </button>
-                </div>
+                    <div
+                      style={{
+                        display: "inline-block",
+                        width: 260,
+                      }}
+                    >
+                      <Skeleton.Input active block style={{ height: 44 }} />
+                    </div>
+                    <div
+                      style={{
+                        display: "inline-block",
+                        marginLeft: 20,
+                        width: 260,
+                      }}
+                    >
+                      <Skeleton.Input active block style={{ height: 44 }} />
+                    </div>
+                  </div>
+                ) : (
+                  <div className={styles["main_information-right-checkout"]}>
+                    <button
+                      className={styles["main_information-right-checkout-buy"]}
+                      onClick={handleBuyNow}
+                    >
+                      <Translate textKey="product.buyNow" />
+                    </button>
+                    <button
+                      className={styles["main_information-right-checkout-cart"]}
+                      onClick={handleAddToCart}
+                    >
+                      <Translate textKey="product.addToCart" />
+                    </button>
+                  </div>
+                )}
               </div>
             </Col>
           </Row>
-          <div className={styles["description-inner"]}>
-            <div className={styles["description-title"]}>
-              <Translate textKey="product.specifications" />
+          {isLoading ? (
+            <div className={styles["description-inner"]}>
+              <div className={styles["description-title"]}>
+                <Skeleton.Input active />
+              </div>
+              <Skeleton active />
+              <div className={styles["description-title"]}>
+                <Skeleton.Input active />
+              </div>
+              <Skeleton active />
             </div>
-            <Specifications specifications={JSON.parse(data.specifications)} />
-            <div className={styles["description-title"]}>
-              <Translate textKey="product.description" />
+          ) : (
+            <div className={styles["description-inner"]}>
+              <div className={styles["description-title"]}>
+                <Translate textKey="product.specifications" />
+              </div>
+              <Specifications
+                specifications={JSON.parse(data.specifications)}
+              />
+              <div className={styles["description-title"]}>
+                <Translate textKey="product.description" />
+              </div>
+              <Description description={data.description} />
             </div>
-            <Description description={data.description} />
-          </div>
+          )}
         </div>
       </div>
 

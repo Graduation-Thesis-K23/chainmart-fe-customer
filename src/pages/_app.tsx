@@ -107,6 +107,7 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
                 font-family: ${nunito.style.fontFamily} !important;
               }
             `}</style>
+
             <Message />
 
             <Layout>

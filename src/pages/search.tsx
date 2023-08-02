@@ -1,11 +1,10 @@
 import React from "react";
 import Head from "next/head";
 import { NextPageWithLayout } from "./_app";
-import dynamic from "next/dynamic";
 
 import { MAIN_LAYOUT } from "~/constants";
-const SearchScreen = dynamic(() => import("~pages/Search"), { ssr: false });
 import useTranslate from "~/hooks/useLocales";
+import SearchScreen from "~/components/pages/Search";
 
 const Search: NextPageWithLayout = () => (
   <>

@@ -10,12 +10,16 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "~/redux";
-import { Spin } from "antd";
+import { Skeleton, Spin } from "antd";
 import AddressList from "../AddressList";
 import { isEmptyObject } from "~/utils/is-empty-object";
 
 const Address = () => {
+  const { status: loading } = useAppSelector((state) => state.user);
+  const isLoading =
+    loading === ASYNC_STATUS.LOADING || loading === ASYNC_STATUS.IDLE;
   const { data, status } = useAppSelector((state) => state.setting);
+
   const { address } = data;
   const checkoutData = useAppSelector((state) => state.checkout);
   const dispatch = useAppDispatch();
@@ -57,48 +61,63 @@ const Address = () => {
   return (
     <section className={styles["address"]}>
       <div className="container">
-        <div className={styles["address__container"]}>
-          {status === ASYNC_STATUS.SUCCEED ? (
-            <>
-              <p className={styles["address__title"]}>
-                <Translate textKey="checkout.deliveryAddress" />
-              </p>
-              {!changeAddress && !isEmptyObject(selectedAddressRender) ? (
-                <div className={styles["address__selected"]}>
-                  <div className={styles["address__selected__item"]}>
-                    <p className={styles["address__selected__item__name"]}>
-                      {selectedAddressRender.name}
-                    </p>
-                    |
-                    <p className={styles["address__selected__item__phone"]}>
-                      {selectedAddressRender.phone}
-                    </p>
-                    <p className={styles["address__selected__item__street"]}>
-                      {`
+        {isLoading ? (
+          <div
+            style={{
+              height: 160,
+              width: 1200,
+              overflow: "hidden",
+            }}
+          >
+            <Skeleton.Input active size="large" block />
+            <Skeleton.Input active size="large" block />
+            <Skeleton.Input active size="large" block />
+            <Skeleton.Input active size="large" block />
+          </div>
+        ) : (
+          <div className={styles["address__container"]}>
+            {status === ASYNC_STATUS.SUCCEED ? (
+              <>
+                <p className={styles["address__title"]}>
+                  <Translate textKey="checkout.deliveryAddress" />
+                </p>
+                {!changeAddress && !isEmptyObject(selectedAddressRender) ? (
+                  <div className={styles["address__selected"]}>
+                    <div className={styles["address__selected__item"]}>
+                      <p className={styles["address__selected__item__name"]}>
+                        {selectedAddressRender.name}
+                      </p>
+                      |
+                      <p className={styles["address__selected__item__phone"]}>
+                        {selectedAddressRender.phone}
+                      </p>
+                      <p className={styles["address__selected__item__street"]}>
+                        {`
                     ${selectedAddressRender.street}, 
                     ${selectedAddressRender.ward}, 
                     ${selectedAddressRender.city} 
                     ${selectedAddressRender.district}
                   `}
-                    </p>
+                      </p>
+                    </div>
+                    <button
+                      className={styles["address__selected__btn"]}
+                      onClick={() => setChangeAddress(true)}
+                    >
+                      <Translate textKey="checkout.changeAddress" />
+                    </button>
                   </div>
-                  <button
-                    className={styles["address__selected__btn"]}
-                    onClick={() => setChangeAddress(true)}
-                  >
-                    <Translate textKey="checkout.changeAddress" />
-                  </button>
-                </div>
-              ) : (
-                <AddressList setChangeAddress={setChangeAddress} />
-              )}
-            </>
-          ) : (
-            <div className={styles["loading"]}>
-              <Spin />
-            </div>
-          )}
-        </div>
+                ) : (
+                  <AddressList setChangeAddress={setChangeAddress} />
+                )}
+              </>
+            ) : (
+              <div className={styles["loading"]}>
+                <Spin />
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </section>
   );

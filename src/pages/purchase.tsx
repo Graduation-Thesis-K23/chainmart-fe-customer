@@ -1,10 +1,9 @@
 import React from "react";
 import Head from "next/head";
 import { NextPageWithLayout } from "./_app";
-import dynamic from "next/dynamic";
 
 import { MAIN_LAYOUT } from "~/constants";
-const PurchaseScreen = dynamic(() => import("~pages/MyOrders"), { ssr: false });
+import PurchaseScreen from "~/components/pages/MyOrders";
 import useTranslate from "~/hooks/useLocales";
 
 const Purchase: NextPageWithLayout = () => (

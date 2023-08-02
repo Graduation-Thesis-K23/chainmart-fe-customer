@@ -1,16 +1,19 @@
 import React from "react";
 import Head from "next/head";
 import { NextPageWithLayout } from "./_app";
-import dynamic from "next/dynamic";
 
 import { MAIN_LAYOUT } from "~/constants";
-const CheckoutScreen = dynamic(() => import("~pages/Checkout"), { ssr: false });
 import useTranslate from "~/hooks/useLocales";
+import CheckoutScreen from "~/components/pages/Checkout";
 
 const Checkout: NextPageWithLayout = () => (
   <>
     <Head>
-      <title>{useTranslate("search.title")}</title>
+      <title>{useTranslate("cart")}</title>
+      <meta name="title" content={useTranslate("cart")} />
+      <meta name="description" content="Giỏ hàng" />
+      <meta property="og:title" content="Giỏ hàng" />
+      <meta property="og:description" content="Giỏ hàng" />
     </Head>
     <CheckoutScreen />
   </>

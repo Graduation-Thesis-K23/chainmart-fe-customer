@@ -17,7 +17,7 @@ import {
 import Translate from "~/components/commons/Translate";
 import { useRouter } from "next/router";
 import { ICart } from "~/shared";
-import { Spin } from "antd";
+import { Skeleton } from "antd";
 
 const Products = () => {
   const { data: carts, status } = useAppSelector((state) => state.cart);
@@ -55,8 +55,6 @@ const Products = () => {
 
     cloneCarts.splice(index, 1);
 
-    console.log(cloneCarts);
-
     dispatch(updateCarts(JSON.stringify(cloneCarts)));
   };
 
@@ -64,28 +62,55 @@ const Products = () => {
     router.push("/checkout");
   };
 
-  if (status !== ASYNC_STATUS.SUCCEED) {
+  if (status === ASYNC_STATUS.LOADING || status === ASYNC_STATUS.IDLE) {
     return (
       <div
         style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "300px",
+          width: "100%",
         }}
       >
-        <Spin />
+        <div
+          style={{
+            width: "100%",
+            maxWidth: 1200,
+            height: 500,
+            paddingTop: 50,
+            paddingBottom: 5,
+            margin: "auto",
+            overflow: "hidden",
+          }}
+        >
+          <Skeleton.Input active size="large" block />
+          <Skeleton.Input active size="large" block />
+          <Skeleton.Input active size="large" block />
+          <Skeleton.Input active size="large" block />
+          <Skeleton.Input active size="large" block />
+          <Skeleton.Input active size="large" block />
+          <Skeleton.Input active size="large" block />
+          <Skeleton.Input active size="large" block />
+          <Skeleton.Input active size="large" block />
+          <Skeleton.Input active size="large" block />
+          <Skeleton.Input active size="large" block />
+        </div>
+        <div
+          style={{
+            width: "100%",
+            maxWidth: 1200,
+            height: 90,
+            margin: "auto",
+            marginBottom: 15,
+            overflow: "hidden",
+          }}
+        >
+          <Skeleton.Input active size="large" block />
+          <Skeleton.Input active size="large" block />
+          <Skeleton.Input active size="large" block />
+          <Skeleton.Input active size="large" block />
+        </div>
       </div>
     );
   }
-  if (carts.length === 0) {
-    return (
-      <div className={styles["products--empty"]}>
-        <Translate textKey="cart.empty" />
-      </div>
-    );
-  }
+
   return (
     <div className={styles["products"]}>
       <div className="container">
@@ -111,6 +136,14 @@ const Products = () => {
               </tr>
             </thead>
             <tbody className={styles["products_table_tbody"]}>
+              {status === ASYNC_STATUS.SUCCEED && carts.length === 0 ? (
+                <div className={styles["products--empty"]}>
+                  <Translate textKey="cart.empty" />
+                </div>
+              ) : (
+                <></>
+              )}
+
               {carts.map((item, index) => (
                 <tr key={index} className={styles["products_table_row"]}>
                   <td className={styles["products_table_body"]}>

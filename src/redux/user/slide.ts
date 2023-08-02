@@ -31,6 +31,7 @@ export const loginSlide = createSlice({
   extraReducers: (builder) => {
     builder.addCase(checkCookieToken.fulfilled, (state, { payload }) => {
       state.data = payload;
+      debugger;
       state.status = ASYNC_STATUS.SUCCEED;
     });
     builder.addCase(checkCookieToken.pending, (state) => {
@@ -41,8 +42,8 @@ export const loginSlide = createSlice({
       state.data = {} as unknown as User;
     });
     builder.addCase(signIn.fulfilled, (state, { payload }) => {
-      state.status = ASYNC_STATUS.SUCCEED;
       state.data = payload;
+      state.status = ASYNC_STATUS.SUCCEED;
     });
     builder.addCase(signIn.rejected, (state, action) => {
       state.status = ASYNC_STATUS.FAILED;

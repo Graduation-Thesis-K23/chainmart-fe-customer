@@ -50,10 +50,17 @@ const Header = () => {
         [styles["header-shadow"]]: shadow,
       })}
     >
-      <div className={styles["header_top"]}>
-        {isLoading ? (
+      {isLoading ? (
+        <div
+          style={{
+            height: 40,
+            overflow: "hidden",
+          }}
+        >
           <Skeleton.Button active size="large" shape="square" block />
-        ) : (
+        </div>
+      ) : (
+        <div className={styles["header_top"]}>
           <div className={styles["container"]}>
             <ul className={styles["header_top_left"]}>
               {headerTopLeft.map((item) => (
@@ -74,8 +81,8 @@ const Header = () => {
               <HeaderAuth />
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
       <div className={styles["header_bot"]}>
         <div className={styles["container"]}>
           <div className={styles["header_bot_inner"]}>

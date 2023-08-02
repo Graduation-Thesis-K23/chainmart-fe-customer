@@ -10,18 +10,20 @@ interface Specification {
 
 const Specifications: React.FC<{
   specifications: Array<Specification>;
-}> = ({ specifications }) => (
-  <ul className={styles["specifications-list"]}>
-    {specifications.map((item) => (
-      <li key={item.id} className={styles["specifications-list-item"]}>
-        <span className={styles["specifications-list-item-key"]}>
-          {item.key}
-        </span>
-        <span className={styles["specifications-list-item-value"]}>
-          {item.value}
-        </span>
-      </li>
-    ))}
-  </ul>
-);
+}> = ({ specifications }) => {
+  return (
+    <ul className={styles["specifications-list"]}>
+      {specifications.map((item) => (
+        <li key={item.id} className={styles["specifications-list-item"]}>
+          <span className={styles["specifications-list-item-key"]}>
+            {item.key}
+          </span>
+          <span className={styles["specifications-list-item-value"]}>
+            {item.value}
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
+};
 export default memo(Specifications);

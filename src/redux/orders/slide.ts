@@ -54,6 +54,9 @@ export const orderSlice = createSlice({
       state.status = ASYNC_STATUS.SUCCEED;
       state.data = action.payload;
     });
+    builder.addCase(fetchOrders.pending, (state) => {
+      state.status = ASYNC_STATUS.LOADING;
+    });
     builder.addCase(cancelOrder.fulfilled, (state, action) => {
       const { id, cancelled_date } = action.payload;
       const index = state.data.findIndex((item) => item.id === id);

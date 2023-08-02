@@ -7,7 +7,6 @@ import {
   cancelOrder,
   receivedOrder,
   resellOrder,
-  returnOrder,
   useAppDispatch,
 } from "~/redux";
 import Translate from "~/components/commons/Translate";
@@ -93,9 +92,9 @@ const Order: FC<OrderType> = ({
 
   const [openComment, setOpenComment] = useState(false);
 
-  const handleReturnOrder = () => {
+  /*  const handleReturnOrder = () => {
     dispatch(returnOrder(id));
-  };
+  }; */
 
   const handleResell = () => {
     console.log("resell");
@@ -286,12 +285,12 @@ const Order: FC<OrderType> = ({
                 >
                   <Translate textKey="purchase.deliveredBtn" />
                 </button>
-                <button
+                {/*                 <button
                   className={styles["order__footer__btn"]}
                   onClick={handleReturnOrder}
                 >
                   <Translate textKey="purchase.returnedBtn" />
-                </button>
+                </button> */}
               </div>
             )}
           </>

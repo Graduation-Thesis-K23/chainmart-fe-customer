@@ -2,14 +2,23 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { ASYNC_STATUS } from "../constants";
 import { Address } from "../setting";
-import {
-  OrderProductType,
-  OrderStatus,
-  Payment,
-  SuccessPayload,
-} from "~/shared";
+import { OrderStatus, Payment, SuccessPayload } from "~/shared";
 import { ErrorPayload } from "~/shared";
 import instance from "~/apis/axios-instance";
+
+export interface ProductDetailOrders {
+  order_id: string;
+  product_id: string;
+  quantity: number;
+  product: {
+    name: string;
+    price: number;
+    image: string;
+    slug: string;
+    id: string;
+    sale: number;
+  };
+}
 
 export interface OrderType {
   id: string;
@@ -26,7 +35,7 @@ export interface OrderType {
   rating_date?: Date;
   status: OrderStatus;
   payment: Payment;
-  order_details: OrderProductType[];
+  order_details: ProductDetailOrders[];
 }
 
 export interface OrdersState {

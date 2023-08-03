@@ -3,11 +3,9 @@ import React, { FC, Fragment, memo, useEffect } from "react";
 
 import styles from "./OrderCommentModal.module.scss";
 import useTranslate from "~/hooks/useLocales";
-import OrderComment from "../OrderComment";
-import { OrderProductType } from "~/shared";
 import Translate from "~/components/commons/Translate";
 import { RcFile } from "antd/es/upload";
-import { commentOrder, useAppDispatch } from "~/redux";
+import { ProductDetailOrders, commentOrder, useAppDispatch } from "~/redux";
 
 export interface RateType {
   id: string;
@@ -19,7 +17,7 @@ export interface RateType {
 const OrderCommentModal: FC<{
   openComment: boolean;
   handleCancelComment: () => void;
-  products: OrderProductType[];
+  products: ProductDetailOrders[];
   order_id: string;
 }> = ({ openComment, handleCancelComment, products, order_id }) => {
   const [rates, setRates] = React.useState<RateType[]>([]);
@@ -56,7 +54,7 @@ const OrderCommentModal: FC<{
 
   useEffect(() => {
     const newRates = products.map((product) => ({
-      id: product.id,
+      id: product.product.id,
       star: 5,
     }));
     setRates(newRates);
@@ -74,12 +72,13 @@ const OrderCommentModal: FC<{
         <div className={styles["comments__header"]} />
         <ul className={styles["comments__list"]}>
           {products.map((product) => (
-            <Fragment key={product.id}>
-              <OrderComment
+            <Fragment key={product.product_id}>
+              {/* <OrderComment
                 product={product}
                 setRates={setRates}
                 rates={rates}
-              />
+              /> */}
+              <>comment</>
             </Fragment>
           ))}
         </ul>

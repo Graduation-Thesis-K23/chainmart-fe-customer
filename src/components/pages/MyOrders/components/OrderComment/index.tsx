@@ -7,14 +7,14 @@ import {
   Image as ImageAntd,
 } from "antd";
 import React, { FC, memo, useMemo, useState } from "react";
-import Image from "next/image";
+// import Image from "next/image";
 import ImgCrop from "antd-img-crop";
 
 import Translate from "~/components/commons/Translate";
 import styles from "./OrderComment.module.scss";
 import useTranslate from "~/hooks/useLocales";
 import { OrderProductType } from "~/shared";
-import getS3Image from "~/helpers/get-s3-image";
+// import getS3Image from "~/helpers/get-s3-image";
 import { RcFile } from "antd/es/upload";
 
 import { RateType } from "../OrderCommentModal";
@@ -89,12 +89,12 @@ const OrderComment: FC<{
     <li className={styles["item"]} key={product.id}>
       <div className={styles["item__product"]}>
         <div className={styles["item__product__image"]}>
-          <Image
+          {/*  <Image
             src={getS3Image(product.image)}
             alt={product.name}
             width={72}
             height={72}
-          />
+          /> */}
         </div>
         <p className={styles["item__product__name"]}>{product.name}</p>
       </div>

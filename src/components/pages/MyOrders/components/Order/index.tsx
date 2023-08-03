@@ -2,13 +2,7 @@ import React, { FC, Fragment, memo, useMemo, useState } from "react";
 import Image from "next/image";
 
 import styles from "./Order.module.scss";
-import {
-  OrderType,
-  cancelOrder,
-  receivedOrder,
-  resellOrder,
-  useAppDispatch,
-} from "~/redux";
+import { OrderType, cancelOrder, receivedOrder, useAppDispatch } from "~/redux";
 import Translate from "~/components/commons/Translate";
 import getS3Image from "~/helpers/get-s3-image";
 import { convertPrice, convertTimestamp, discount } from "~/helpers";
@@ -96,11 +90,11 @@ const Order: FC<OrderType> = ({
     dispatch(returnOrder(id));
   }; */
 
-  const handleResell = () => {
+  /* const handleResell = () => {
     console.log("resell");
     dispatch(resellOrder(id));
   };
-
+ */
   const handleCancelComment = () => {
     setOpenComment(false);
   };
@@ -296,7 +290,7 @@ const Order: FC<OrderType> = ({
           </>
         );
       case OrderStatus.Cancelled:
-        return (
+        return null /* (
           <div className={styles["order__footer__cancelled"]}>
             <button
               className={styles["order__footer__btn"]}
@@ -305,7 +299,7 @@ const Order: FC<OrderType> = ({
               <Translate textKey="purchase.cancelledBtn" />
             </button>
           </div>
-        );
+        ) */;
       case OrderStatus.Returned:
         return null;
       default:

@@ -6,6 +6,7 @@ import useTranslate from "~/hooks/useLocales";
 import Translate from "~/components/commons/Translate";
 import { RcFile } from "antd/es/upload";
 import { ProductDetailOrders, commentOrder, useAppDispatch } from "~/redux";
+import OrderComment from "../OrderComment";
 
 export interface RateType {
   id: string;
@@ -73,12 +74,11 @@ const OrderCommentModal: FC<{
         <ul className={styles["comments__list"]}>
           {products.map((product) => (
             <Fragment key={product.product_id}>
-              {/* <OrderComment
+              <OrderComment
                 product={product}
                 setRates={setRates}
                 rates={rates}
-              /> */}
-              <>comment</>
+              />
             </Fragment>
           ))}
         </ul>

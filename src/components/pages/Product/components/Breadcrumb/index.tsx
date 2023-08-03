@@ -39,7 +39,7 @@ const ProductBreadcrumb = () => {
                 </Link>
               </Breadcrumb.Item>
               <Breadcrumb.Item>
-                <Link href="/">
+                <Link href={"/search?keyword=&categories=" + data.category}>
                   <Translate textKey={data.category} />
                 </Link>
               </Breadcrumb.Item>

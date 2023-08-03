@@ -138,7 +138,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd chainmart-fe-customer
+            cd cd-scripts/chainmart-fe-customer
             ./deploy.sh
         continue-on-error: true
 

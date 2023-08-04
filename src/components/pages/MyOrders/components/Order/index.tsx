@@ -233,7 +233,7 @@ const Order: FC<OrderType> = ({
   }, [order_details]);
 
   const shippingPrice = useMemo(() => {
-    return productsPrice > 3000000 ? 0 : 30000;
+    return productsPrice > 300000 ? 0 : 30000;
   }, [productsPrice]);
 
   const totalPrice = useMemo(() => {

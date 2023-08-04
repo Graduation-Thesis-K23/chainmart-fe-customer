@@ -13,11 +13,11 @@ import ImgCrop from "antd-img-crop";
 import Translate from "~/components/commons/Translate";
 import styles from "./OrderComment.module.scss";
 import useTranslate from "~/hooks/useLocales";
-import { OrderProductType } from "~/shared";
 import getS3Image from "~/helpers/get-s3-image";
 import { RcFile } from "antd/es/upload";
 
 import { RateType } from "../OrderCommentModal";
+import { ProductDetailOrders } from "~/redux";
 
 const getBase64 = (file: RcFile): Promise<string> =>
   new Promise((resolve, reject) => {
@@ -28,7 +28,7 @@ const getBase64 = (file: RcFile): Promise<string> =>
   });
 
 const OrderComment: FC<{
-  product: OrderProductType;
+  product: ProductDetailOrders;
   setRates: React.Dispatch<React.SetStateAction<RateType[]>>;
   rates: RateType[];
 }> = ({ product, setRates, rates }) => {
@@ -50,7 +50,7 @@ const OrderComment: FC<{
   const onChange: UploadProps["onChange"] = ({ fileList: newFileList }) => {
     setFileList(newFileList);
 
-    const rate = rates.find((rate) => rate.id === product.id);
+    const rate = rates.find((rate) => rate.id === product.product_id);
     if (rate) {
       rate.images = newFileList.map((file) => file.originFileObj as RcFile);
       setRates([...rates]);
@@ -70,7 +70,7 @@ const OrderComment: FC<{
 
   const handleSetStar = (star: number) => {
     setStar(star);
-    const rate = rates.find((rate) => rate.id === product.id);
+    const rate = rates.find((rate) => rate.id === product.product_id);
     if (rate) {
       rate.star = star;
       setRates([...rates]);
@@ -78,7 +78,7 @@ const OrderComment: FC<{
   };
 
   const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const rate = rates.find((rate) => rate.id === product.id);
+    const rate = rates.find((rate) => rate.id === product.product_id);
     if (rate) {
       rate.comment = e.target.value;
       setRates([...rates]);
@@ -86,17 +86,17 @@ const OrderComment: FC<{
   };
 
   return (
-    <li className={styles["item"]} key={product.id}>
+    <li className={styles["item"]} key={product.product_id}>
       <div className={styles["item__product"]}>
         <div className={styles["item__product__image"]}>
           <Image
-            src={getS3Image(product.image)}
-            alt={product.name}
+            src={getS3Image(product.product.image)}
+            alt={product.product.name}
             width={72}
             height={72}
           />
         </div>
-        <p className={styles["item__product__name"]}>{product.name}</p>
+        <p className={styles["item__product__name"]}>{product.product.name}</p>
       </div>
       <div className={styles["item__star"]}>
         <div className={styles["item__star__title"]}>

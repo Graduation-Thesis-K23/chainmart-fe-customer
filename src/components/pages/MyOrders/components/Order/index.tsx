@@ -2,13 +2,7 @@ import React, { FC, Fragment, memo, useMemo, useState } from "react";
 import Image from "next/image";
 
 import styles from "./Order.module.scss";
-import {
-  OrderType,
-  cancelOrder,
-  receivedOrder,
-  resellOrder,
-  useAppDispatch,
-} from "~/redux";
+import { OrderType, cancelOrder, receivedOrder, useAppDispatch } from "~/redux";
 import Translate from "~/components/commons/Translate";
 import getS3Image from "~/helpers/get-s3-image";
 import { convertPrice, convertTimestamp, discount } from "~/helpers";
@@ -96,11 +90,11 @@ const Order: FC<OrderType> = ({
     dispatch(returnOrder(id));
   }; */
 
-  const handleResell = () => {
+  /* const handleResell = () => {
     console.log("resell");
     dispatch(resellOrder(id));
   };
-
+ */
   const handleCancelComment = () => {
     setOpenComment(false);
   };
@@ -234,7 +228,7 @@ const Order: FC<OrderType> = ({
 
   const productsPrice = useMemo(() => {
     return order_details.reduce((total, product) => {
-      return total + product.price * product.quantity;
+      return total + product.product.price * product.quantity;
     }, 0);
   }, [order_details]);
 
@@ -296,7 +290,7 @@ const Order: FC<OrderType> = ({
           </>
         );
       case OrderStatus.Cancelled:
-        return (
+        return null /* (
           <div className={styles["order__footer__cancelled"]}>
             <button
               className={styles["order__footer__btn"]}
@@ -305,7 +299,7 @@ const Order: FC<OrderType> = ({
               <Translate textKey="purchase.cancelledBtn" />
             </button>
           </div>
-        );
+        ) */;
       case OrderStatus.Returned:
         return null;
       default:
@@ -352,34 +346,38 @@ const Order: FC<OrderType> = ({
 
         <ul className={styles["order__list"]}>
           {order_details.map((product) => (
-            <Fragment key={product.id}>
+            <Fragment key={product.product_id}>
               <li className={styles["order__list__item"]}>
                 <div className={styles["order__list__item__image"]}>
                   <Image
-                    src={getS3Image(product.image)}
-                    alt={product.name}
+                    src={getS3Image(product.product.image)}
+                    alt={product.product.name}
                     width={90}
                     height={90}
                   />
                 </div>
                 <div className={styles["order__list__item__nq"]}>
                   <p className={styles["order__list__item__nq__name"]}>
-                    {product.name}
+                    {product.product.name}
                   </p>
                   <p className={styles["order__list__item__nq__quantity"]}>
                     x{product.quantity}
                   </p>
                 </div>
                 <div className={styles["order__list__item__price"]}>
-                  {product.sale > 0 && (
+                  {product.product.sale > 0 ? (
                     <>
                       <span className={styles["order__list__item__price__2"]}>
-                        {convertPrice(discount(product.price, product.sale))}
+                        {convertPrice(
+                          discount(product.product.price, product.product.sale)
+                        )}
                       </span>
                     </>
+                  ) : (
+                    <></>
                   )}{" "}
                   <span className={styles["order__list__item__price__1"]}>
-                    {convertPrice(product.price)}
+                    {convertPrice(product.product.price)}
                   </span>
                 </div>
               </li>

@@ -10,7 +10,6 @@ export interface RateType {
   star: number;
   comment?: string;
   product: {
-    image: string;
     name: string;
     price: number;
     slug: string;

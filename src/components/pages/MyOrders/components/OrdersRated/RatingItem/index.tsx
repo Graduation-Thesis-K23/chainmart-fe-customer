@@ -9,17 +9,22 @@ import { RateType } from "..";
 const RatingItem: React.FC<{
   comment: RateType;
 }> = ({ comment }) => {
+  console.log("RatingItem", comment.images);
   return (
     <li className={styles["rating-item"]}>
       <div className={styles["order__list__item"]}>
-        <div className={styles["order__list__item__image"]}>
-          <Image
-            src={getS3Image(comment.product.image)}
-            alt={comment.product.name}
-            width={90}
-            height={90}
-          />
-        </div>
+        {comment.images ? (
+          <div className={styles["order__list__item__image"]}>
+            <Image
+              src={getS3Image(comment.images[0])}
+              alt={comment.product.name}
+              width={90}
+              height={90}
+            />
+          </div>
+        ) : (
+          <></>
+        )}
         <div className={styles["order__list__item__nq"]}>
           <p className={styles["order__list__item__nq__name"]}>
             {comment.product.name}
@@ -51,7 +56,7 @@ const RatingItem: React.FC<{
             </p>
           </div>
         )}
-        {comment.images.length > 0 && (
+        {comment.images ? (
           <div className={styles["rating-item-info-image"]}>
             <Image.PreviewGroup>
               {comment.images.map((image, index) => (
@@ -65,6 +70,8 @@ const RatingItem: React.FC<{
               ))}
             </Image.PreviewGroup>
           </div>
+        ) : (
+          <></>
         )}
       </div>
     </li>

@@ -30,7 +30,10 @@ const Product: NextPageWithLayout<ProductProps> = ({ product }) => {
         <meta name="description" content={product.description} />
         <meta property="og:title" content={product.name} />
         <meta property="og:description" content={product.description} />
-        <meta property="og:image" content={getS3Image(product.images[0])} />
+        <meta
+          property="og:image"
+          content={getS3Image((product.images || [])[0])}
+        />
         <meta property="og:image:width" content="400" />
         <meta property="og:image:height" content="400" />
       </Head>

@@ -81,12 +81,10 @@ export const filterSlide = createSlice({
 export const filterProducts = createAsyncThunk(
   "filter/filterProducts",
   async (obj: FilterPayload, thunkApi) => {
-    const queryParam = new URLSearchParams(
-      obj as unknown as Record<string, string>
-    ).toString();
-
     const response: PaginationResult<ProductListType> | ErrorPayload =
-      await instance.get("api/products?" + queryParam);
+      await instance.get("/api/products/search-and-filter", {
+        params: obj,
+      });
 
     if ("message" in response) {
       return thunkApi.rejectWithValue(response.message);

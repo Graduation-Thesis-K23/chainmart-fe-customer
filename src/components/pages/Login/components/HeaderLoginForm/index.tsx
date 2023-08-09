@@ -43,7 +43,9 @@ const HeaderLoginForm: React.FC<{
   const onSubmit: SubmitHandler<SignInPayload> = async (account) => {
     const response = await dispatch(signIn(account));
 
-    if ("error" in response) {
+    if (signIn.fulfilled.match(response)) {
+      return;
+    } else {
       setShowError(true);
     }
   };

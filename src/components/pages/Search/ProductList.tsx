@@ -1,10 +1,9 @@
 import React, { FC, Fragment, memo, useEffect } from "react";
 import Image from "next/image";
-import { Button, Rate, Skeleton } from "antd";
+import { Button, Skeleton } from "antd";
 
 import styles from "./ProductList.module.scss";
 import Translate from "~/components/commons/Translate";
-import convertNumberToK from "~/helpers/convert-to-k";
 import {
   ASYNC_STATUS,
   FilterPayload,
@@ -165,40 +164,16 @@ const ProductList: FC<{
                         >
                           {convertPrice(item.price)}
                         </span>
-                        {item.sale && (
+                        {item.sale ? (
                           <span
                             className={styles["product-card-body-prices-two"]}
                           >
                             {convertPrice(discount(item.price, item.sale))}
                           </span>
+                        ) : (
+                          <></>
                         )}
                       </div>
-                    </div>
-                    <div className={styles["product-card-footer"]}>
-                      {
-                        item.sale > 0 && (
-                          <div className={styles["product-card-footer-star"]}>
-                            <Rate
-                              className={
-                                styles["product-card-footer-star-item"]
-                              }
-                              disabled
-                              allowHalf
-                              value={item.sale}
-                            />
-                          </div>
-                        ) /* : (
-                  <span></span>
-                  ) */
-                      }
-                      {item.sale > 0 && (
-                        <div className={styles["product-card-footer-sold"]}>
-                          <span>
-                            {convertNumberToK(item.sale) + " "}
-                            <Translate textKey="products.sold" />
-                          </span>
-                        </div>
-                      )}
                     </div>
                   </div>
                 </Link>

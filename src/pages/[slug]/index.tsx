@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { GetStaticPropsContext } from "next";
 import Head from "next/head";
+import { notFound } from "next/navigation";
 
 import ProductPage from "~/components/pages/Product";
 import { IParams } from "~/shared";
@@ -50,9 +51,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   const product = await instance.get("/api/products/slug/" + slug);
 
   if (!product) {
-    return {
-      notFound: true,
-    };
+    notFound();
   }
 
   return {
@@ -81,7 +80,7 @@ export const getStaticPaths = async () => {
 
   return {
     paths,
-    fallback: true,
+    fallback: false,
   };
 };
 

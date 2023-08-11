@@ -95,7 +95,7 @@ const HeaderSearch = () => {
             onClick={() => {
               router.push({
                 pathname: "/search",
-                query: { keyword: searchValue },
+                query: { keyword: searchValue || "" },
               });
             }}
           >

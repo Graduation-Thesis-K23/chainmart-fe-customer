@@ -45,18 +45,20 @@ export const loginSlide = createSlice({
       state.status = ASYNC_STATUS.SUCCEED;
     });
     builder.addCase(signIn.rejected, (state, action) => {
+      const { message } = action.payload as ErrorPayload;
       state.status = ASYNC_STATUS.FAILED;
       state.data = {} as unknown as User;
-      state.message = action.error.message as unknown as string;
+      state.message = message;
     });
     builder.addCase(signUp.fulfilled, (state, { payload }) => {
       state.status = ASYNC_STATUS.SUCCEED;
       state.data = payload;
     });
     builder.addCase(signUp.rejected, (state, action) => {
+      const { message } = action.payload as ErrorPayload;
       state.status = ASYNC_STATUS.FAILED;
       state.data = {} as unknown as User;
-      state.message = action.error.message as unknown as string;
+      state.message = message;
     });
     builder.addCase(changeAvatar.fulfilled, (state, { payload }) => {
       state.data.photo = payload.image;

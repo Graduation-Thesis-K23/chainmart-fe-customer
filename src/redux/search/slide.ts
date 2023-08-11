@@ -17,19 +17,19 @@ export interface SearchState {
 const initialState: SearchState = {
   data: [
     {
-      slug: "search?categories=softDrinks",
+      slug: "search?categories=softDrinks&keyword=",
       name: "softDrinks",
     },
     {
-      slug: "search?categories=noodles",
+      slug: "search?categories=noodles&keyword=",
       name: "noodles",
     },
     {
-      slug: "search?categories=vegetables",
+      slug: "search?categories=vegetables&keyword=",
       name: "vegetables",
     },
     {
-      slug: "search?categories=fishSauce",
+      slug: "search?categories=fishSauce&keyword=",
       name: "fishSauce",
     },
   ],

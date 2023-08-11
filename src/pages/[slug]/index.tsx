@@ -49,6 +49,12 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   const product = await instance.get("/api/products/slug/" + slug);
 
+  if (!product) {
+    return {
+      notFound: true,
+    };
+  }
+
   return {
     props: {
       id: slug,
@@ -75,7 +81,7 @@ export const getStaticPaths = async () => {
 
   return {
     paths,
-    fallback: "blocking",
+    fallback: true,
   };
 };
 

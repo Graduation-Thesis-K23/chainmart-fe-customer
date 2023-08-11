@@ -70,7 +70,7 @@ const Rating = () => {
 
   useEffect(() => {
     dispatch(fetchRating(productId));
-  }, [dispatch]);
+  }, [productId]);
 
   if (status !== ASYNC_STATUS.SUCCEED) {
     return (

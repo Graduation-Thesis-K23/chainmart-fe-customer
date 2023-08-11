@@ -225,11 +225,11 @@ const SearchScreen = () => {
                   options={[
                     {
                       value: "desc",
-                      label: <Translate textKey="search.priceHighToLow" />,
+                      label: <Translate textKey="search.priceLowToHigh" />,
                     },
                     {
                       value: "asc",
-                      label: <Translate textKey="search.priceLowToHigh" />,
+                      label: <Translate textKey="search.priceHighToLow" />,
                     },
                   ]}
                   bordered={false}

@@ -3,6 +3,7 @@ import classNames from "classnames";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { Col, Row } from "antd";
 
 import HeaderLoginForm from "./components/HeaderLoginForm";
 import HeaderForgotForm from "./components/HeaderForgotForm";
@@ -10,7 +11,6 @@ import HeaderRegisterForm from "./components/HeaderRegisterForm";
 import HeaderOtpForm from "./components/HeaderOtpForm";
 
 import styles from "./HeaderLogin.module.scss";
-import { Col, Row } from "antd";
 import { nunito } from "~/pages/_app";
 import Translate from "~/components/commons/Translate";
 import banner from "~/assets/login/banner.jpg";

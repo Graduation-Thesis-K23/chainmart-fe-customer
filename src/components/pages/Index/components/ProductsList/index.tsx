@@ -48,9 +48,12 @@ const ProductsList = () => {
                 <Image
                   src={getS3Image(item.images[0])}
                   fill
-                  sizes="(max-width: 768px) 40vw, (max-width: 1200px) 45vw, 50vw"
                   alt={item.slug}
                   priority
+                  sizes="(max-width: 360px) 100vw"
+                  style={{
+                    objectFit: "contain",
+                  }}
                 />
               </div>
               <div className={styles["product-card-body"]}>

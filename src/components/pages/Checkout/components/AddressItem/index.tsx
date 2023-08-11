@@ -19,10 +19,14 @@ const AddressItem: FC<Address> = ({
     dispatch(setAddress(id));
   };
 
-  const active = checkoutAddress !== id;
+  const active = checkoutAddress === id;
 
   return (
-    <div className={styles["address"]}>
+    <div
+      className={`${styles["address"]} ${
+        active ? styles["address--active"] : ""
+      }`}
+    >
       <div className={styles["address-left"]}>
         <div className={styles["name-phone"]}>
           <div className={styles["name"]}>{name}</div>
@@ -34,7 +38,7 @@ const AddressItem: FC<Address> = ({
         </div>
       </div>
       <div className={styles["address-right"]}>
-        {active && (
+        {!active && (
           <button className={styles["select-btn"]} onClick={handleSelect}>
             <Translate textKey="checkout.selectBtn" />
           </button>

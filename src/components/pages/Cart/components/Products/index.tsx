@@ -1,5 +1,6 @@
 import React, { memo, useMemo } from "react";
 import { DeleteOutlined } from "@ant-design/icons";
+import { Empty, Skeleton } from "antd";
 import Link from "next/link";
 import Image from "next/image";
 import classNames from "classnames";
@@ -17,7 +18,6 @@ import {
 import Translate from "~/components/commons/Translate";
 import { useRouter } from "next/router";
 import { ICart } from "~/shared";
-import { Skeleton } from "antd";
 
 const Products = () => {
   const { data: carts, status } = useAppSelector((state) => state.cart);
@@ -136,14 +136,15 @@ const Products = () => {
               </tr>
             </thead>
             <tbody className={styles["products_table_tbody"]}>
-              {status === ASYNC_STATUS.SUCCEED && carts.length === 0 ? (
-                <div className={styles["products--empty"]}>
-                  <Translate textKey="cart.empty" />
-                </div>
-              ) : (
-                <></>
+              {status === ASYNC_STATUS.SUCCEED && carts.length === 0 && (
+                <tr>
+                  <td colSpan={5}>
+                    <div className={styles["products--empty"]}>
+                      <Empty description={<Translate textKey="cart.empty" />} />
+                    </div>
+                  </td>
+                </tr>
               )}
-
               {carts.map((item, index) => (
                 <tr key={index} className={styles["products_table_row"]}>
                   <td className={styles["products_table_body"]}>

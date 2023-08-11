@@ -184,14 +184,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 500px;
-    padding-top: 10px;
+    flex-direction: column;
+    min-height: 100px;
+    width: 100%;
+    padding: 50px;
   }
 }
 
 .table_container {
   padding: 5px;
-  min-height: 500px;
   overflow-x: overlay;
   margin-bottom: 10px;
   background-color: #fff;

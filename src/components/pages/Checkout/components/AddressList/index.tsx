@@ -87,7 +87,7 @@ const AddressList: FC<{
   }, [setFocus, step]);
 
   return (
-    <div className={styles["address-list"]}>
+    <div>
       {address.map(({ name, phone, street, city, district, ward, id }) => (
         <AddressItem
           id={id}

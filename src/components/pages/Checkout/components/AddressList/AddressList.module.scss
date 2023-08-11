@@ -1,14 +1,11 @@
 @import "~/styles/variables";
 
-.address-list {
-  padding: 16px 24px;
-}
-
 .btn-group {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   height: 40px;
+  margin-top: 20px;
 
   &__item {
     background-color: $primary-color;

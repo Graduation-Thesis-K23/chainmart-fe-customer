@@ -13,7 +13,7 @@ const Specifications: React.FC<{
 }> = ({ specifications }) => {
   return (
     <ul className={styles["specifications-list"]}>
-      {specifications.map((item) => (
+      {specifications?.map((item) => (
         <li key={item.id} className={styles["specifications-list-item"]}>
           <span className={styles["specifications-list-item-key"]}>
             {item.key}

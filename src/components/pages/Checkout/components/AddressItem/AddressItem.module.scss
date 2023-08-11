@@ -4,14 +4,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  + .address {
-    border-top: 1px solid rgba(0, 0, 0, 0.09);
-    padding-top: 20px;
-  }
+  padding: 10px;
 
   &:not(:last-child) {
-    padding-bottom: 20px;
+    padding-bottom: 10px;
   }
 
   &-left {
@@ -61,5 +57,11 @@
         opacity: 0.7;
       }
     }
+  }
+
+  &--active {
+    border: 2px solid #2da85c;
+    border-radius: 4px;
+    background-color: #fafafa;
   }
 }

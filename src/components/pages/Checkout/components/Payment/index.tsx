@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useEffect, useState } from "react";
 
 import styles from "./Payment.module.scss";
 import Translate from "~/components/commons/Translate";
@@ -12,22 +12,34 @@ import {
   PlaceOrder,
   clearCart,
   placeOrder,
+  setCurrentBankingOrder,
   setPayment,
   useAppDispatch,
   useAppSelector,
 } from "~/redux";
 import { useRouter } from "next/router";
 import { Payment } from "~/shared";
+import BankingTab from "./BankingTab";
+import { toast } from "react-toastify";
 
 const PaymentComponent = () => {
-  const { status: loading } = useAppSelector((state) => state.user);
-  const isLoading =
-    loading === ASYNC_STATUS.LOADING || loading === ASYNC_STATUS.IDLE;
+  const router = useRouter();
+  const dispatch = useAppDispatch();
 
-  const codText = useTranslate("checkout.cod");
+  const { status: loading } = useAppSelector((state) => state.user);
+  const { address_id, note, payment } = useAppSelector(
+    (state) => state.checkout
+  );
+  const { data: carts } = useAppSelector((state) => state.cart);
   const ordered = useAppSelector((state) => state.cart);
 
-  const router = useRouter();
+  const codText = useTranslate("checkout.cod");
+  const cashDescription = useTranslate("checkout.cashDescription");
+
+  const [isCheckoutDisabled, setIsCheckoutDisabled] = useState(true);
+
+  const isLoading =
+    loading === ASYNC_STATUS.LOADING || loading === ASYNC_STATUS.IDLE;
 
   const items = [
     {
@@ -38,6 +50,7 @@ const PaymentComponent = () => {
         </span>
       ),
       key: Payment.Cash,
+      children: cashDescription,
     },
     {
       label: (
@@ -47,6 +60,7 @@ const PaymentComponent = () => {
         </span>
       ),
       key: Payment.Banking,
+      children: <BankingTab setIsCheckoutDisabled={setIsCheckoutDisabled} />,
     },
   ];
 
@@ -56,36 +70,63 @@ const PaymentComponent = () => {
   );
   const shippingTotal = total > 300000 ? 0 : 30000;
 
-  const dispatch = useAppDispatch();
-  const { address_id, note, payment } = useAppSelector(
-    (state) => state.checkout
-  );
-  const { data: carts } = useAppSelector((state) => state.cart);
-
   const handleChangePaymentMethod = (key: string) => {
     dispatch(setPayment(key as Payment));
-    console.log(key);
+    if (key === Payment.Banking) {
+      setIsCheckoutDisabled(true);
+    } else {
+      setIsCheckoutDisabled(false);
+    }
   };
 
-  const handlePlaceOrder = () => {
-    const data: PlaceOrder = {
-      order_details: carts.map((item) => ({
-        product_id: item.id,
-        quantity: item.quantity,
-      })),
-      address_id,
-      note,
-      payment,
-    };
+  const handlePlaceOrder = async () => {
+    try {
+      const data: PlaceOrder = {
+        order_details: carts.map((item) => ({
+          product_id: item.id,
+          quantity: item.quantity,
+        })),
+        address_id,
+        note,
+        payment,
+      };
 
-    dispatch(placeOrder(data));
-    dispatch({
-      type: clearCart.type,
-    });
+      const orderResponse = dispatch(placeOrder(data));
 
-    // redirect to my orders
-    router.push("/purchase");
+      if (payment === Payment.Banking) {
+        const order = await orderResponse;
+        console.log(order);
+
+        if ("error" in order) {
+          toast.error("Failed to checkout by Banking");
+          return;
+        }
+
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const { qrcode, created_at, id } = order.payload as any;
+        dispatch(
+          setCurrentBankingOrder({
+            qrcode,
+            created_at,
+            id,
+          })
+        );
+        router.push("/checkout/momo");
+      } else {
+        router.push("/purchase");
+      }
+
+      dispatch({
+        type: clearCart.type,
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
+
+  useEffect(() => {
+    setIsCheckoutDisabled(!address_id || !payment);
+  }, [address_id]);
 
   return (
     <section className={styles["payment"]}>
@@ -166,7 +207,7 @@ const PaymentComponent = () => {
               <Col xs={24} sm={12} md={12} lg={12} xl={12}>
                 <div className={styles["payment__order__bt"]}>
                   <Button
-                    disabled={!address_id || !payment}
+                    disabled={isCheckoutDisabled}
                     className={styles["payment__order__btn"]}
                     onClick={() => handlePlaceOrder()}
                   >

@@ -1,5 +1,5 @@
 import React, { memo, useEffect } from "react";
-// import { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import Image from "next/image";
 
 import styles from "./Ordered.module.scss";
@@ -24,7 +24,7 @@ const Ordered = () => {
   const note = useAppSelector((state) => state.checkout.note);
   const dispatch = useAppDispatch();
 
-  // const router = useRouter();
+  const router = useRouter();
 
   const total = ordered.data.reduce(
     (prev, item) => prev + item.price * item.quantity,
@@ -38,12 +38,12 @@ const Ordered = () => {
   useEffect(() => {
     if (ordered.status === ASYNC_STATUS.IDLE) {
       dispatch(fetchCarts());
+    } else if (ordered.status === ASYNC_STATUS.SUCCEED) {
+      if (!ordered.data || ordered.data.length === 0) {
+        router.push("/");
+      }
     }
   }, [dispatch, ordered.status]);
-
-  /* if (ordered.data.length === 0) {
-    router.push("/");
-  } */
 
   return (
     <section className={styles["ordered"]}>
@@ -100,13 +100,13 @@ const Ordered = () => {
                             height={48}
                             alt={item.name}
                           />
-                          <p className={styles["checkout_table_body_name"]}>
+                          <div className={styles["checkout_table_body_name"]}>
                             <p
                               className={styles["checkout_table_body_name_top"]}
                             >
                               {item.name}
                             </p>
-                          </p>
+                          </div>
                         </div>
                       </td>
                       <td className={styles["checkout_table_body"]}>

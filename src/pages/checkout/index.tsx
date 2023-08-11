@@ -1,12 +1,12 @@
 import React from "react";
 import Head from "next/head";
-import { NextPageWithLayout } from "./_app";
+import { NextPageWithLayout } from "../_app";
 
 import { MAIN_LAYOUT } from "~/constants";
 import useTranslate from "~/hooks/useLocales";
 import CheckoutScreen from "~/components/pages/Checkout";
 
-const Checkout: NextPageWithLayout = () => (
+const CheckoutPage: NextPageWithLayout = () => (
   <>
     <Head>
       <title>{useTranslate("cart")}</title>
@@ -18,6 +18,6 @@ const Checkout: NextPageWithLayout = () => (
     <CheckoutScreen />
   </>
 );
-Checkout.layout = MAIN_LAYOUT;
+CheckoutPage.layout = MAIN_LAYOUT;
 
-export default Checkout;
+export default CheckoutPage;

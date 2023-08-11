@@ -1,13 +1,20 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { ASYNC_STATUS } from "../constants";
-import { ErrorPayload, Payment, SuccessPayload } from "~/shared";
+import { Payment } from "~/shared";
 import instance from "~/apis/axios-instance";
 
 export interface CheckoutState {
   address_id: string;
   note: string;
   payment: Payment;
+  currentBankingOrder: CurrentBankingOrder | null;
   status: typeof ASYNC_STATUS[keyof typeof ASYNC_STATUS];
+}
+
+export interface CurrentBankingOrder {
+  id: string;
+  expiration_timestamp: string;
+  user_id: string;
 }
 
 export interface Order {
@@ -15,7 +22,8 @@ export interface Order {
   quantity: number;
 }
 
-export interface PlaceOrder extends Omit<CheckoutState, "status"> {
+export interface PlaceOrder
+  extends Omit<CheckoutState, "status" | "currentBankingOrder"> {
   order_details: Order[];
 }
 
@@ -23,6 +31,7 @@ const initialState: CheckoutState = {
   address_id: "",
   note: "",
   payment: Payment.Cash,
+  currentBankingOrder: null,
   status: ASYNC_STATUS.IDLE,
 };
 
@@ -44,6 +53,9 @@ export const checkoutSlide = createSlice({
     setPayment: (state, action) => {
       state.payment = action.payload;
     },
+    setCurrentBankingOrder: (state, action) => {
+      state.currentBankingOrder = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(placeOrder.pending, (state) => {
@@ -55,16 +67,18 @@ export const checkoutSlide = createSlice({
       state.note = "";
       state.payment = Payment.Cash;
     });
+
+    builder.addCase(findBankingOrder.fulfilled, (state, action) => {
+      state.currentBankingOrder =
+        action.payload as unknown as CurrentBankingOrder;
+    });
   },
 });
 
 export const placeOrder = createAsyncThunk(
   "checkout/placeOrder",
   async (checkoutState: PlaceOrder, thunkApi) => {
-    const response: ErrorPayload | SuccessPayload = await instance.post(
-      "/api/orders",
-      checkoutState
-    );
+    const response = await instance.post("/api/orders", checkoutState);
 
     if ("message" in response) {
       return thunkApi.rejectWithValue(response.message);
@@ -74,7 +88,34 @@ export const placeOrder = createAsyncThunk(
   }
 );
 
-export const { clearCheckout, setAddress, setNoteCheckout, setPayment } =
-  checkoutSlide.actions;
+export const findBankingOrder = createAsyncThunk(
+  "checkout/banking",
+  async (checkoutState, thunkApi) => {
+    const response = await instance.get("/api/orders/banking");
+    if ("message" in response) {
+      return thunkApi.rejectWithValue(response.message);
+    }
+    return thunkApi.fulfillWithValue(response);
+  }
+);
+
+export const cancelBankingOrder = createAsyncThunk(
+  "checkout/cancel-banking",
+  async (orderId: string, thunkApi) => {
+    const response = await instance.post("/api/orders/banking/cancel", orderId);
+    if ("message" in response) {
+      return thunkApi.rejectWithValue(response.message);
+    }
+    return thunkApi.fulfillWithValue(response);
+  }
+);
+
+export const {
+  clearCheckout,
+  setAddress,
+  setNoteCheckout,
+  setPayment,
+  setCurrentBankingOrder,
+} = checkoutSlide.actions;
 
 export default checkoutSlide.reducer;

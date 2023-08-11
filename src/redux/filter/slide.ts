@@ -27,12 +27,14 @@ export interface FilterState {
   data: ProductListType[];
   status: typeof ASYNC_STATUS[keyof typeof ASYNC_STATUS];
   metadata: PaginationMetadata;
+  maxPage: boolean;
 }
 
 const initialState: FilterState = {
   data: [],
   status: ASYNC_STATUS.IDLE,
   metadata: {} as PaginationMetadata,
+  maxPage: false,
 };
 
 export const filterSlide = createSlice({
@@ -44,13 +46,19 @@ export const filterSlide = createSlice({
       state.status = ASYNC_STATUS.SUCCEED;
 
       const { docs, totalDocs, limit, totalPages, page } = action.payload;
+      let newPage = 1;
+      if (page === totalPages) state.maxPage = true;
+      if (page < totalPages) {
+        state.maxPage = false;
+        newPage = page > totalPages ? totalPages : page;
+      }
 
       state.data = docs;
       state.metadata = {
         totalDocs,
         limit,
         totalPages,
-        page,
+        page: newPage,
       };
     });
     builder.addCase(filterProducts.pending, (state) => {
@@ -61,15 +69,21 @@ export const filterSlide = createSlice({
     });
     builder.addCase(loadMoreProducts.fulfilled, (state, action) => {
       state.status = ASYNC_STATUS.SUCCEED;
-
+      let newPage = 1;
       const { docs, totalDocs, limit, totalPages, page } = action.payload;
+
+      if (page === totalPages) state.maxPage = true;
+      if (page < totalPages) {
+        state.maxPage = false;
+        newPage = page > totalPages ? totalPages : page;
+      }
 
       state.data.push(...docs);
       state.metadata = {
         totalDocs,
         limit,
         totalPages,
-        page,
+        page: newPage,
       };
     });
     builder.addCase(loadMoreProducts.rejected, (state) => {
@@ -97,12 +111,10 @@ export const filterProducts = createAsyncThunk(
 export const loadMoreProducts = createAsyncThunk(
   "filter/loadMoreProducts",
   async (obj: FilterPayload, thunkApi) => {
-    const queryParam = new URLSearchParams(
-      obj as unknown as Record<string, string>
-    ).toString();
-
     const response: PaginationResult<ProductListType> | ErrorPayload =
-      await instance.get("api/products?" + queryParam);
+      await instance.get("/api/products/search-and-filter", {
+        params: obj,
+      });
 
     if ("message" in response) {
       return thunkApi.rejectWithValue(response.message);

@@ -180,15 +180,19 @@ const ProductList: FC<{
               </li>
             ))}
           </ul>
-          <div className={styles["load-more__btn"]}>
-            <Button
-              loading={filter.status === ASYNC_STATUS.LOADING}
-              className={styles["load-more__btn__element"]}
-              onClick={handleLoadMoreSearchProducts}
-            >
-              <Translate textKey="loadMore.btn" />
-            </Button>
-          </div>
+          {!filter.maxPage ? (
+            <div className={styles["load-more__btn"]}>
+              <Button
+                loading={filter.status === ASYNC_STATUS.LOADING}
+                className={styles["load-more__btn__element"]}
+                onClick={handleLoadMoreSearchProducts}
+              >
+                <Translate textKey="loadMore.btn" />
+              </Button>
+            </div>
+          ) : (
+            <> </>
+          )}
         </>
       )}
     </>

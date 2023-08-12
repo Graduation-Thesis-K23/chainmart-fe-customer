@@ -8,6 +8,7 @@ import { convertPrice, discount } from "~/helpers";
 import { useAppDispatch, useAppSelector } from "~/redux";
 import { fetchProducts } from "~/redux";
 import getS3Image from "~/helpers/get-s3-image";
+import Translate from "~/components/commons/Translate";
 
 const ProductsList = () => {
   const { data } = useAppSelector((state) => state.products);
@@ -77,24 +78,36 @@ const ProductsList = () => {
                       <></>
                     )}
                   </span>
-                  {item.star > 0 ? (
-                    <div
-                      className={styles["product-card-footer-star"]}
-                      style={{
-                        display: "inline-block",
-                        minWidth: 100,
-                      }}
-                    >
-                      <Rate
-                        className={styles["product-card-footer-star-item"]}
-                        disabled
-                        allowHalf
-                        value={item.star}
-                      />
-                    </div>
-                  ) : (
-                    <></>
-                  )}
+                  <div className={styles["product-card-footer"]}>
+                    {item.star > 0 ? (
+                      <div
+                        className={styles["product-card-footer-star"]}
+                        style={{
+                          display: "inline-block",
+                          minWidth: 100,
+                        }}
+                      >
+                        <Rate
+                          className={styles["product-card-footer-star-item"]}
+                          disabled
+                          allowHalf
+                          value={item.star}
+                        />
+                      </div>
+                    ) : (
+                      <></>
+                    )}
+                    {item.sold > 0 ? (
+                      <div className={styles["product-card-footer-sold"]}>
+                        <span>
+                          {item.sold + " "}
+                          <Translate textKey="products.sold" />
+                        </span>
+                      </div>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

@@ -47,12 +47,20 @@ Product.layout = MAIN_LAYOUT;
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const { slug } = context.params as IParams;
 
-  const product = await instance.get("/api/products/slug/" + slug);
+  const product: ProductType = await instance.get("/api/products/slug/" + slug);
+  const asNumber: {
+    available: number;
+    sold: number;
+  } = await instance.get("/api/batches/remaining-quantity/" + product.id);
 
   return {
     props: {
       id: slug,
-      product,
+      product: {
+        ...product,
+        availableQuantity: asNumber.available ? asNumber.available : 0,
+        sold: asNumber.sold ? asNumber.sold : 0,
+      },
     },
     revalidate: 1,
   };

@@ -1,7 +1,7 @@
 import React, { memo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Divider } from "antd";
+import { Alert, Divider } from "antd";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IdcardOutlined, LockOutlined } from "@ant-design/icons";
 
@@ -79,13 +79,34 @@ const HeaderLoginForm: React.FC<{
             name="password"
             rules={{
               required: dictionary("password.empty"),
+              minLength: {
+                value: 8,
+                message: dictionary("settings.passwordErrorMinLength"),
+              },
+              maxLength: {
+                value: 32,
+                message: dictionary("settings.passwordErrorMaxLength"),
+              },
+              pattern: {
+                value: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
+                message: dictionary("settings.passwordErrorStrong"),
+              },
             }}
             icon={<LockOutlined />}
             labelKey="settings.password"
             type="password"
           />
           <ErrorMessage errors={errors} name="password" />
-          {showError && <p>{messageText}</p>}
+
+          {showError && (
+            <Alert
+              style={{
+                marginTop: 8,
+              }}
+              type="error"
+              message={<p>{messageText}</p>}
+            />
+          )}
           <button
             type="submit"
             disabled={isSubmitting || !isValid}

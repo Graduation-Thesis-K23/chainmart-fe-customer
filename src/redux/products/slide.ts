@@ -3,23 +3,16 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { ASYNC_STATUS } from "../constants";
 import instance from "~/apis/axios-instance";
 import { RootState } from "../store";
-import {
-  ErrorPayload,
-  PaginationMetadata,
-  PaginationResult,
-  ProductListType,
-} from "~/shared";
+import { ErrorPayload, ProductListType } from "~/shared";
 
 export interface ProductsState {
   data: ProductListType[];
   status: typeof ASYNC_STATUS[keyof typeof ASYNC_STATUS];
-  metadata: PaginationMetadata;
 }
 
 const initialState: ProductsState = {
   data: [],
   status: ASYNC_STATUS.IDLE,
-  metadata: {} as PaginationMetadata,
 };
 
 export const productsSlice = createSlice({
@@ -35,15 +28,7 @@ export const productsSlice = createSlice({
     });
     builder.addCase(fetchProducts.fulfilled, (state, action) => {
       state.status = ASYNC_STATUS.SUCCEED;
-      const { docs, totalDocs, limit, totalPages, page } = action.payload;
-
-      state.data = docs;
-      state.metadata = {
-        totalDocs,
-        limit,
-        totalPages,
-        page,
-      };
+      state.data = action.payload;
     });
   },
 });
@@ -51,8 +36,9 @@ export const productsSlice = createSlice({
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async (_, thunkAPi) => {
-    const result: PaginationResult<ProductListType> | ErrorPayload =
-      await instance.get("/api/products?limit=20");
+    const result: ProductListType[] | ErrorPayload = await instance.get(
+      "/api/products/main"
+    );
 
     if ("message" in result) {
       return thunkAPi.rejectWithValue(result.message);

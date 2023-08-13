@@ -1,14 +1,33 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { ASYNC_STATUS } from "../constants";
-export interface Message {
-  id: string;
-  content: string;
-  createdAt: string;
-  sender: string;
-  receiver?: string;
-  status?: string;
-}
+
+export type MessageOrder = {
+  type: "search_orders";
+  orders: {
+    status: string;
+    total: number;
+    address: string;
+  }[];
+};
+
+export type MessageProduct = {
+  type: "search_product";
+  products: {
+    name: string;
+    price: number;
+    slug: string;
+    image: string;
+    sale: number;
+  }[];
+};
+
+export type MessageText = {
+  type: "text";
+  text: string;
+};
+
+export type Message = MessageOrder | MessageProduct | MessageText | string;
 
 export interface MessageState {
   data: Message[];
@@ -27,11 +46,11 @@ export const messagesSlide = createSlice({
   extraReducers: (builder) => {
     builder.addCase(sendMessage.fulfilled, (state, action) => {
       state.status = ASYNC_STATUS.SUCCEED;
-      state.data.push(action.payload as unknown as Message);
+      state.data.push(action.payload);
     });
     builder.addCase(receiveMessage.fulfilled, (state, action) => {
       state.status = ASYNC_STATUS.SUCCEED;
-      state.data.push(action.payload as unknown as Message);
+      state.data.push(action.payload);
     });
   },
 });
@@ -39,24 +58,15 @@ export const messagesSlide = createSlice({
 export const sendMessage = createAsyncThunk(
   "message/sendMessage",
   async (message: string) => {
-    return Promise.resolve({
-      id: Date.now().toString(),
-      content: message,
-      createdAt: Date.now().toString(),
-      sender: "anonymous",
-    });
+    return Promise.resolve<string>(message);
   }
 );
 
 export const receiveMessage = createAsyncThunk(
   "message/receiveMessage",
-  async (message: string) => {
-    return Promise.resolve({
-      id: Date.now().toString(),
-      content: message,
-      createdAt: Date.now().toString(),
-      sender: "chatbot",
-    });
+  async (message: Message) => {
+    console.log(message);
+    return Promise.resolve(message);
   }
 );
 

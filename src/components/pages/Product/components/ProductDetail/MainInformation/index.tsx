@@ -87,7 +87,7 @@ const MainInformation = () => {
     }, 1000);
   };
 
-  const handleBuyNow = () => {
+  const handleBuyNow = async () => {
     if (user.status !== ASYNC_STATUS.SUCCEED) {
       router.push("/login");
       return;
@@ -105,7 +105,7 @@ const MainInformation = () => {
 
     const newCarts = processAddToCart(carts, itemCart);
 
-    dispatch(updateCarts(newCarts));
+    await dispatch(updateCarts(newCarts));
 
     // redirect to cart page
     router.push("/cart");
@@ -123,17 +123,12 @@ const MainInformation = () => {
               <div className={styles["main_information-right"]}>
                 <Parameter
                   name={data.name}
-                  star={3}
-                  sold={3}
+                  sold={data.sold}
                   price={data.price}
                   sale={data.sale}
                 />
                 <Divider />
-                <Quantity
-                  maxQuantity={5}
-                  quantity={quantity}
-                  setQuantity={setQuantity}
-                />
+
                 {isLoading ? (
                   <div
                     style={{
@@ -160,20 +155,41 @@ const MainInformation = () => {
                     </div>
                   </div>
                 ) : (
-                  <div className={styles["main_information-right-checkout"]}>
-                    <button
-                      className={styles["main_information-right-checkout-buy"]}
-                      onClick={handleBuyNow}
-                    >
-                      <Translate textKey="product.buyNow" />
-                    </button>
-                    <button
-                      className={styles["main_information-right-checkout-cart"]}
-                      onClick={handleAddToCart}
-                    >
-                      <Translate textKey="product.addToCart" />
-                    </button>
-                  </div>
+                  <>
+                    {data.availableQuantity && data.availableQuantity > 0 ? (
+                      <>
+                        <Quantity
+                          maxQuantity={5}
+                          quantity={quantity}
+                          setQuantity={setQuantity}
+                        />
+                        <div
+                          className={styles["main_information-right-checkout"]}
+                        >
+                          <button
+                            className={
+                              styles["main_information-right-checkout-buy"]
+                            }
+                            onClick={handleBuyNow}
+                          >
+                            <Translate textKey="product.buyNow" />
+                          </button>
+                          <button
+                            className={
+                              styles["main_information-right-checkout-cart"]
+                            }
+                            onClick={handleAddToCart}
+                          >
+                            <Translate textKey="product.addToCart" />
+                          </button>
+                        </div>
+                      </>
+                    ) : (
+                      <div className={styles["main_information-out-of-stock"]}>
+                        <Translate textKey="product.outOfStock" />
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
             </Col>

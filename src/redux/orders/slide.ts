@@ -36,6 +36,7 @@ export interface OrderType {
   status: OrderStatus;
   payment: Payment;
   order_details: ProductDetailOrders[];
+  order_code: string;
 }
 
 export interface OrdersState {
@@ -102,6 +103,17 @@ export const orderSlice = createSlice({
     });
     builder.addCase(commentOrder.pending, (state) => {
       state.status = ASYNC_STATUS.LOADING;
+    });
+    builder.addCase(searchOrders.fulfilled, (state, action) => {
+      state.data = action.payload;
+      state.status = ASYNC_STATUS.SUCCEED;
+    });
+    builder.addCase(searchOrders.pending, (state) => {
+      state.status = ASYNC_STATUS.LOADING;
+    });
+    builder.addCase(searchOrders.rejected, (state) => {
+      state.status = ASYNC_STATUS.FAILED;
+      state.data = [];
     });
   },
 });
@@ -196,6 +208,26 @@ export const commentOrder = createAsyncThunk(
 
     if ("message" in response) {
       return thunkApi.rejectWithValue(response.message);
+    }
+
+    return thunkApi.fulfillWithValue(response);
+  }
+);
+
+export const searchOrders = createAsyncThunk(
+  "order/searchOrders",
+  async (keyword: string, thunkApi) => {
+    const response: OrderType[] | ErrorPayload = await instance.get(
+      "/api/search/orders",
+      {
+        params: {
+          keyword,
+        },
+      }
+    );
+
+    if ("message" in response) {
+      return thunkApi.rejectWithValue(response);
     }
 
     return thunkApi.fulfillWithValue(response);

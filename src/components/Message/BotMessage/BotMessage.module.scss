@@ -1,0 +1,110 @@
+@import "~/styles/variables";
+
+.chatbot {
+  max-width: 90%;
+  width: fit-content;
+  margin-top: 6px;
+
+  &__text {
+    background-color: rgba(0, 0, 0, 0.06);
+    display: block;
+    padding: 8px 12px;
+    border-radius: 12px;
+  }
+
+  &__order {
+    width: 325px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.06);
+    margin-top: 6px;
+    border-radius: 12px;
+
+    &__status {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}
+
+.familiar {
+  &_list {
+    display: inline-block;
+    margin-top: 6px;
+    width: 250px;
+    list-style: none;
+  }
+
+  &_item {
+    position: relative;
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(58, 53, 53, 0.15);
+    transition: transform 0.2s linear;
+    border: 2px solid #e5e5e5;
+    overflow: hidden;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+
+    &_link {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &_image {
+      position: relative;
+      height: 220px;
+
+      img {
+        padding: 2px 2px 0;
+        object-fit: cover;
+      }
+    }
+
+    &_body {
+      display: flex;
+      flex-direction: column;
+      padding: 6px 10px;
+      overflow: hidden;
+
+      &_name {
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-box;
+        font-size: 15px;
+        font-weight: 500;
+        line-height: 20px;
+        word-wrap: break-word;
+        white-space: normal;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        -moz-box-orient: vertical;
+        -moz-line-clamp: 2;
+        -ms-box-orient: vertical;
+        -ms-line-clamp: 2;
+      }
+
+      &_prices {
+        display: flex;
+        align-items: baseline;
+        width: -moz-fit-content;
+        width: -webkit-fit-content;
+        width: -ms-fit-content;
+
+        &_one {
+          color: red;
+          font-size: 14px;
+          font-weight: 600;
+          line-height: 2rem;
+        }
+
+        &_two {
+          font-size: 1.1rem;
+          color: #929292;
+          margin-left: 4px;
+          text-decoration: line-through;
+        }
+      }
+    }
+  }
+}

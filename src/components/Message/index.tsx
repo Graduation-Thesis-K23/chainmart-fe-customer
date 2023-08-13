@@ -4,7 +4,7 @@ import {
   MessageOutlined,
   SendOutlined,
 } from "@ant-design/icons";
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Badge, Button, Dropdown, MenuProps } from "antd";
 import classNames from "classnames";
 import Image from "next/image";
@@ -19,17 +19,18 @@ import socket from "~/apis/socket.io-instance";
 import styles from "./Message.module.scss";
 import logoSquare from "~/assets/images/logo-square.png";
 import useTranslate from "~/hooks/useLocales";
+import BotMessage from "./BotMessage";
 
 const Message = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState("");
+  const [hide, setHide] = useState(true);
 
   const messages = useAppSelector((state) => state.messages);
   const dispatch = useAppDispatch();
 
   const messagePlaceholder = useTranslate("message.placeholder");
   const messageLookupOrder = useTranslate("message.lookupOrder");
-  const messageBuyingGuide = useTranslate("message.buyingGuide");
   const messageSeekingProduct = useTranslate("message.seekingProduct");
   const startMessage = useTranslate("message.startMessage");
 
@@ -47,15 +48,7 @@ const Message = () => {
     const result = await dispatch(sendMessage(mess));
 
     if (sendMessage.fulfilled.match(result)) {
-      const messageBox = document.getElementById("message-list");
-
-      socket.emit("send", result.payload.content);
-
-      if (messageBox) {
-        setTimeout(() => {
-          messageBox.scrollTop = messageBox.scrollHeight;
-        }, 600);
-      }
+      socket.emit("send", result.payload);
     }
     setMessage("");
   };
@@ -78,17 +71,7 @@ const Message = () => {
         </p>
       ),
     },
-    {
-      key: "2",
-      label: (
-        <p
-          className={styles["message__item"]}
-          onClick={() => handleSendMessage(messageBuyingGuide)}
-        >
-          {messageBuyingGuide}
-        </p>
-      ),
-    },
+
     {
       key: "3",
       label: (
@@ -111,6 +94,28 @@ const Message = () => {
       socket.off("receive");
     };
   }, [dispatch]);
+
+  useEffect(() => {
+    const messageBox = document.getElementById("message-list");
+
+    if (messageBox) {
+      setTimeout(() => {
+        messageBox.scrollTop = messageBox.scrollHeight;
+      }, 600);
+    }
+  }, [messages]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setHide(false);
+    }, 1);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (hide) {
+    return <></>;
+  }
 
   return (
     <div className={styles["message"]}>
@@ -152,20 +157,11 @@ const Message = () => {
               </span>
             </div>
             {messages.data.map((message, index) => {
-              if (message.sender === "chatbot") {
+              if (typeof message !== "string") {
                 return (
-                  <div
-                    key={index}
-                    className={styles["message__box__body__list__chatbot"]}
-                  >
-                    <span
-                      className={
-                        styles["message__box__body__list__chatbot__text"]
-                      }
-                    >
-                      {message.content}
-                    </span>
-                  </div>
+                  <Fragment key={index}>
+                    <BotMessage message={message} />
+                  </Fragment>
                 );
               } else {
                 return (
@@ -179,7 +175,7 @@ const Message = () => {
                         styles["message__box__body__list__anonymous__text"]
                       }
                     >
-                      {message.content}
+                      {message}
                     </span>
                   </div>
                 );

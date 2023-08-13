@@ -14,7 +14,7 @@
   box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.08),
     0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
   cursor: pointer;
-  z-index: 99;
+  z-index: 99999;
   box-sizing: border-box;
   animation: move-up 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
@@ -119,19 +119,12 @@
           &__text {
             background-color: rgba(0, 0, 0, 0.06);
           }
-
-          + .message__box__body__list__anonymous {
-            margin-top: 12px;
-          }
-
-          + .message__box__body__list__chatbot {
-            margin-top: 4px;
-          }
         }
 
         &__anonymous {
           display: flex;
           justify-content: space-between;
+          margin-top: 6px;
 
           &__text {
             background-color: $primary-color;
@@ -140,14 +133,6 @@
             max-width: 90%;
             width: fit-content;
             overflow: hidden;
-          }
-
-          + .message__box__body__list__anonymous {
-            margin-top: 4px;
-          }
-
-          + .message__box__body__list__chatbot {
-            margin-top: 12px;
           }
         }
 

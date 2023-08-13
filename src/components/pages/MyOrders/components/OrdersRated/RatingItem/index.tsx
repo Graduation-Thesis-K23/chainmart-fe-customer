@@ -5,6 +5,7 @@ import styles from "./Rating.module.scss";
 import { convertPrice, convertTimestamp } from "~/helpers";
 import getS3Image from "~/helpers/get-s3-image";
 import { RateType } from "..";
+import Link from "next/link";
 
 const RatingItem: React.FC<{
   comment: RateType;
@@ -26,9 +27,13 @@ const RatingItem: React.FC<{
           <></>
         )}
         <div className={styles["order__list__item__nq"]}>
-          <p className={styles["order__list__item__nq__name"]}>
+          <Link
+            href={comment.product.slug}
+            className={styles["order__list__item__nq__name"]}
+            as={`/san-pham/${comment.product.slug}`}
+          >
             {comment.product.name}
-          </p>
+          </Link>
         </div>
         <div className={styles["order__list__item__price"]}>
           <span className={styles["order__list__item__price__1"]}>

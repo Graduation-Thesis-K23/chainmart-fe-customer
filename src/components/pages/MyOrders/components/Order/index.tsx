@@ -18,6 +18,7 @@ import {
 import { Alert, Col, Popconfirm, Row, Steps } from "antd";
 import useTranslate from "~/hooks/useLocales";
 import OrderCommentModal from "../OrderCommentModal";
+import Link from "next/link";
 
 enum StepStatus {
   Wait = "wait",
@@ -361,9 +362,13 @@ const Order: FC<OrderType> = ({
                   />
                 </div>
                 <div className={styles["order__list__item__nq"]}>
-                  <p className={styles["order__list__item__nq__name"]}>
+                  <Link
+                    href={`/${product.product.slug}`}
+                    className={styles["order__list__item__nq__name"]}
+                    as={`/${product.product.slug}`}
+                  >
                     {product.product.name}
-                  </p>
+                  </Link>
                   <p className={styles["order__list__item__nq__quantity"]}>
                     x{product.quantity}
                   </p>

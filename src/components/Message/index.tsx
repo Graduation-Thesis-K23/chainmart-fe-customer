@@ -14,7 +14,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "~/redux";
-import socket from "~/apis/socket.io-instance";
+import { chatbotSocket } from "~/apis/socket.io-instance";
 
 import styles from "./Message.module.scss";
 import logoSquare from "~/assets/images/logo-square.png";
@@ -49,7 +49,7 @@ const Message = () => {
     if (sendMessage.fulfilled.match(result)) {
       const messageBox = document.getElementById("message-list");
 
-      socket.emit("send", result.payload.content);
+      chatbotSocket.emit("send", result.payload.content);
 
       if (messageBox) {
         setTimeout(() => {
@@ -103,12 +103,12 @@ const Message = () => {
   ];
 
   useEffect(() => {
-    socket.on("receive", (data) => {
+    chatbotSocket.on("receive", (data) => {
       dispatch(receiveMessage(data));
     });
 
     return () => {
-      socket.off("receive");
+      chatbotSocket.off("receive");
     };
   }, [dispatch]);
 

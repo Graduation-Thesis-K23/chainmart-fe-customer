@@ -14,7 +14,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "~/redux";
-import socket from "~/apis/socket.io-instance";
+import { chatbotSocket } from "~/apis/socket.io-instance";
 
 import styles from "./Message.module.scss";
 import logoSquare from "~/assets/images/logo-square.png";
@@ -48,7 +48,7 @@ const Message = () => {
     const result = await dispatch(sendMessage(mess));
 
     if (sendMessage.fulfilled.match(result)) {
-      socket.emit("send", result.payload);
+      chatbotSocket.emit("send", result.payload);
     }
     setMessage("");
   };
@@ -86,12 +86,12 @@ const Message = () => {
   ];
 
   useEffect(() => {
-    socket.on("receive", (data) => {
+    chatbotSocket.on("receive", (data) => {
       dispatch(receiveMessage(data));
     });
 
     return () => {
-      socket.off("receive");
+      chatbotSocket.off("receive");
     };
   }, [dispatch]);
 

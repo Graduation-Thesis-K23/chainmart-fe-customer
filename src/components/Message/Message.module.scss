@@ -43,7 +43,9 @@
     right: 0;
     background-color: #fff;
     box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.15);
-    height: 610px;
+    height: 80vh;
+    min-height: 300px;
+    max-height: 500px;
     width: 350px;
     overflow: hidden;
     border-radius: 18px;

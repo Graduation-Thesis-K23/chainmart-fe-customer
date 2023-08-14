@@ -87,10 +87,6 @@ const HeaderLoginForm: React.FC<{
                 value: 32,
                 message: dictionary("settings.passwordErrorMaxLength"),
               },
-              pattern: {
-                value: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
-                message: dictionary("settings.passwordErrorStrong"),
-              },
             }}
             icon={<LockOutlined />}
             labelKey="settings.password"

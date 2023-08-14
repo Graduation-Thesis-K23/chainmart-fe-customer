@@ -98,7 +98,9 @@ const PaymentComponent = () => {
         console.log(order);
 
         if ("error" in order) {
-          toast.error("Failed to checkout by Banking");
+          toast.error(
+            (order.payload as string) ?? "Failed to checkout by Banking"
+          );
           return;
         }
 

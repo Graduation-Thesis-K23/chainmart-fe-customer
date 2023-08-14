@@ -32,8 +32,6 @@ const MomoScreen = () => {
     : null;
   console.log("expirationTime:", expirationTime);
 
-  console.log(user);
-
   const qrcodeValue =
     (global.window &&
       currentBankingOrder?.user_id &&

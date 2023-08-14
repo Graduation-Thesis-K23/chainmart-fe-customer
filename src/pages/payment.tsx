@@ -27,6 +27,7 @@ const PaymentPage = () => {
         );
       } catch (error) {
         console.error(error);
+        console.error("Failed to make payment");
       }
     }
     makePayment();

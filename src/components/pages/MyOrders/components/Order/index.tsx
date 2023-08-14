@@ -323,6 +323,18 @@ const Order: FC<OrderType> = ({
     }
   };
 
+  const statusType: {
+    [key: string]: "success" | "error" | "warning" | "info";
+  } = {
+    [OrderStatus.Approved]: "success",
+    [OrderStatus.Completed]: "success",
+    [OrderStatus.Cancelled]: "error",
+    [OrderStatus.Returned]: "error",
+    [OrderStatus.Packaged]: "warning",
+    [OrderStatus.Created]: "info",
+    [OrderStatus.Started]: "info",
+  };
+
   return (
     <>
       <li className={styles["order"]} id={id}>
@@ -330,20 +342,23 @@ const Order: FC<OrderType> = ({
           <div className={styles["order__header__id"]}>
             <Translate textKey="purchase.orderId" />:{" "}
             <span className={styles["order__header__id__text"]}>
-              {order_code + " | "}
-            </span>
-            <span
-              className={styles["order__header__id__text"]}
-              style={{
-                display: "inline-block",
-                textTransform: "uppercase",
-                fontWeight: 600,
-                fontSize: "13px",
-              }}
-            >
-              <Alert message={<Translate textKey={status} />} type="info" />
+              {order_code}
             </span>
           </div>
+          <span
+            className={styles["order__header__id__text"]}
+            style={{
+              display: "inline-block",
+              textTransform: "uppercase",
+              fontWeight: 600,
+              fontSize: "13px",
+            }}
+          >
+            <Alert
+              message={<Translate textKey={status} />}
+              type={statusType[status]}
+            />
+          </span>
         </div>
         <div className={styles["order__steps"]}>
           <Steps items={stepsItem} labelPlacement="vertical" />

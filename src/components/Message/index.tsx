@@ -108,7 +108,7 @@ const Message = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setHide(false);
-    }, 1);
+    }, 5000);
 
     return () => clearTimeout(timer);
   }, []);

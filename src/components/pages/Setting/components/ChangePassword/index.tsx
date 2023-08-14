@@ -103,10 +103,6 @@ const ChangePassword: React.FC<{
                 value: 32,
                 message: dictionary("settings.passwordErrorMaxLength"),
               },
-              pattern: {
-                value: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
-                message: dictionary("settings.passwordErrorStrong"),
-              },
             }}
           />
           <ErrorMessage errors={errors} name="currentPassword" />

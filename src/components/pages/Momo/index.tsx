@@ -36,6 +36,8 @@ const MomoScreen = () => {
   const [currentBankingOrder, setCurrentBankingOrder] =
     useState<CurrentBankingOrder | null>(null);
 
+  console.log("currentBankingOrder:", isConnected);
+
   const { id } = router.query;
 
   useEffect(() => {

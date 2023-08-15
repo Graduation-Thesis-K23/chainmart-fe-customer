@@ -1,14 +1,18 @@
 import React, { memo, useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { Button, Col, Divider, Row, Skeleton, Tabs } from "antd";
+import { CreditCardOutlined, TrademarkOutlined } from "@ant-design/icons";
+import { toast } from "react-toastify";
 
 import styles from "./Payment.module.scss";
 import Translate from "~/components/commons/Translate";
-import { Button, Col, Divider, Row, Skeleton, Tabs } from "antd";
-import { CreditCardOutlined, TrademarkOutlined } from "@ant-design/icons";
+
 import useTranslate from "~/hooks/useLocales";
 import Link from "next/link";
 import { convertPrice } from "~/helpers";
 import {
   ASYNC_STATUS,
+  OrderType,
   PlaceOrder,
   clearCart,
   placeOrder,
@@ -17,10 +21,8 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "~/redux";
-import { useRouter } from "next/router";
 import { Payment } from "~/shared";
 import BankingTab from "./BankingTab";
-import { toast } from "react-toastify";
 
 const PaymentComponent = () => {
   const router = useRouter();
@@ -98,20 +100,21 @@ const PaymentComponent = () => {
         console.log(order);
 
         if ("error" in order) {
-          toast.error("Failed to checkout by Banking");
+          toast.error(
+            (order.payload as string) ?? "Failed to checkout by Banking"
+          );
           return;
         }
 
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const { qrcode, created_at, id } = order.payload as any;
+        const { id, expiration_timestamp } =
+          order.payload as unknown as OrderType;
         dispatch(
           setCurrentBankingOrder({
-            qrcode,
-            created_at,
             id,
+            expiration_timestamp,
           })
         );
-        router.push("/checkout/momo");
+        router.push(`/checkout/momo?id=${id}`);
       } else {
         router.push("/purchase");
       }

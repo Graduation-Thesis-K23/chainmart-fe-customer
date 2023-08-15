@@ -1,4 +1,5 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
 import { ASYNC_STATUS } from "../constants";
 import { Payment } from "~/shared";
 import instance from "~/apis/axios-instance";
@@ -14,7 +15,6 @@ export interface CheckoutState {
 export interface CurrentBankingOrder {
   id: string;
   expiration_timestamp: string;
-  user_id: string;
 }
 
 export interface Order {
@@ -53,7 +53,10 @@ export const checkoutSlide = createSlice({
     setPayment: (state, action) => {
       state.payment = action.payload;
     },
-    setCurrentBankingOrder: (state, action) => {
+    setCurrentBankingOrder: (
+      state,
+      action: PayloadAction<CurrentBankingOrder | null>
+    ) => {
       state.currentBankingOrder = action.payload;
     },
   },
@@ -68,7 +71,7 @@ export const checkoutSlide = createSlice({
       state.payment = Payment.Cash;
     });
 
-    builder.addCase(findBankingOrder.fulfilled, (state, action) => {
+    builder.addCase(findBankingOrderById.fulfilled, (state, action) => {
       state.currentBankingOrder =
         action.payload as unknown as CurrentBankingOrder;
     });
@@ -88,10 +91,15 @@ export const placeOrder = createAsyncThunk(
   }
 );
 
-export const findBankingOrder = createAsyncThunk(
+export const findBankingOrderById = createAsyncThunk(
   "checkout/banking",
-  async (checkoutState, thunkApi) => {
-    const response = await instance.get("/api/orders/banking");
+  async (id: string, thunkApi) => {
+    const response = await instance.get("/api/orders/banking", {
+      params: {
+        order_id: id,
+      },
+      withCredentials: true,
+    });
     if ("message" in response) {
       return thunkApi.rejectWithValue(response.message);
     }
@@ -101,8 +109,10 @@ export const findBankingOrder = createAsyncThunk(
 
 export const cancelBankingOrder = createAsyncThunk(
   "checkout/cancel-banking",
-  async (orderId: string, thunkApi) => {
-    const response = await instance.post("/api/orders/banking/cancel", orderId);
+  async (order_id: string, thunkApi) => {
+    const response = await instance.post("/api/orders/banking/cancel", {
+      order_id,
+    });
     if ("message" in response) {
       return thunkApi.rejectWithValue(response.message);
     }

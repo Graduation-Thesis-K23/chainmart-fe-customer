@@ -56,7 +56,7 @@ const Address = () => {
     if (status === ASYNC_STATUS.IDLE) {
       dispatch(getAllAddress());
     }
-  }, [address, dispatch, status]);
+  }, [dispatch, status]);
 
   return (
     <section className={styles["address"]}>

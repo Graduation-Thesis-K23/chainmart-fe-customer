@@ -10,8 +10,8 @@ const { Title } = Typography;
 interface TimerProps {
   expiryTimestamp: Date;
   orderId: string;
-  isFinished: boolean;
-  setIsFailed: React.Dispatch<React.SetStateAction<boolean>>;
+  isFinished?: boolean;
+  setIsFailed?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const zeroPad = (num: number, places: number) =>
@@ -30,7 +30,9 @@ const Timer: FC<TimerProps> = ({
     onExpire: async () => {
       toast.error("Sorry! Out of time to make the payment");
       await dispatch(cancelBankingOrder(orderId));
-      setIsFailed(true);
+      if (setIsFailed) {
+        setIsFailed(true);
+      }
     },
   });
 

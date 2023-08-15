@@ -34,7 +34,7 @@ export const FailedBanking = () => {
 
       <Button
         type="link"
-        onClick={() => Router.push("/")}
+        onClick={() => Router.push("/purchase")}
         icon={<ArrowRightOutlined />}
       >
         {momoReturnText}

@@ -12,14 +12,15 @@ const Familiar = () => {
   const familiarText = useTranslate("product.familiar");
 
   const { data } = useAppSelector((state) => state.familiar);
+  const { category } = useAppSelector((state) => state.product.data);
 
   const dispatch = useAppDispatch();
 
   const items = data.slice(0, 5);
 
   useEffect(() => {
-    dispatch(fetchFamiliarProduct());
-  }, [dispatch]);
+    dispatch(fetchFamiliarProduct(category));
+  }, [category]);
 
   return (
     <div className={styles["familiar"]}>

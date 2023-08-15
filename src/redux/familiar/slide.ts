@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { ASYNC_STATUS } from "../constants";
 import instance from "~/apis/axios-instance";
-import { RootState } from "../store";
 import {
   ErrorPayload,
   FamiliarProduct,
@@ -31,6 +30,7 @@ export const familiarSlide = createSlice({
     });
     builder.addCase(fetchFamiliarProduct.fulfilled, (state, action) => {
       state.status = ASYNC_STATUS.SUCCEED;
+      console.log(action.payload);
       const { docs, totalDocs, limit, totalPages, page } = action.payload;
       state.data = docs;
       state.metadata = {
@@ -45,31 +45,21 @@ export const familiarSlide = createSlice({
 
 export const fetchFamiliarProduct = createAsyncThunk(
   "familiar/fetchFamiliarProduct",
-  async (_, thunkAPi) => {
+  async (category: string, thunkAPi) => {
     const result: PaginationResult<FamiliarProduct> | ErrorPayload =
-      await instance.get("/api/products?limit=5");
+      await instance.get("/api/products/search-and-filter", {
+        params: {
+          categories: category,
+          keyword: "",
+          page: 1,
+        },
+      });
 
     if ("message" in result) {
       return thunkAPi.rejectWithValue(result.message);
     }
 
     return thunkAPi.fulfillWithValue(result);
-  },
-  {
-    condition: (_, { getState }) => {
-      const rootState: RootState = getState() as RootState;
-
-      const familiarStateStatus = rootState.familiar.status;
-
-      if (
-        familiarStateStatus === ASYNC_STATUS.LOADING ||
-        familiarStateStatus === ASYNC_STATUS.SUCCEED
-      ) {
-        return false;
-      } else {
-        return true;
-      }
-    },
   }
 );
 

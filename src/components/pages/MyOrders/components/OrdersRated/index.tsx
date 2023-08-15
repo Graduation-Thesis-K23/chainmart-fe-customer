@@ -13,6 +13,7 @@ export interface RateType {
     name: string;
     price: number;
     slug: string;
+    image: string;
   };
 }
 

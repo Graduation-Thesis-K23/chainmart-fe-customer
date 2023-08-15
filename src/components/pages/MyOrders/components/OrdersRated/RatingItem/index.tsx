@@ -17,7 +17,7 @@ const RatingItem: React.FC<{
         {comment.images ? (
           <div className={styles["order__list__item__image"]}>
             <Image
-              src={getS3Image(comment.images[0])}
+              src={getS3Image(comment.product.image)}
               alt={comment.product.name}
               width={90}
               height={90}
@@ -30,7 +30,7 @@ const RatingItem: React.FC<{
           <Link
             href={comment.product.slug}
             className={styles["order__list__item__nq__name"]}
-            as={`/san-pham/${comment.product.slug}`}
+            as={`/${comment.product.slug}`}
           >
             {comment.product.name}
           </Link>

@@ -32,6 +32,8 @@ const MomoScreen = () => {
     : null;
   console.log("expirationTime:", expirationTime);
 
+  console.log("isConnected:", isConnected);
+
   console.log(user);
 
   const qrcodeValue =

@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import { Card, Divider, Space, Typography } from "antd";
 import { toast } from "react-toastify";
 
 import styles from "./Momo.module.scss";
 import { ordersSocket } from "~/apis/socket.io-instance";
-import { findBankingOrder, useAppDispatch, useAppSelector } from "~/redux";
+import {
+  CurrentBankingOrder,
+  findBankingOrderById,
+  useAppDispatch,
+  useAppSelector,
+} from "~/redux";
 import useTranslate from "~/hooks/useLocales";
 import Timer from "./components/Timer";
 import { QRBanking } from "./components/QRBanking";
@@ -16,9 +21,11 @@ import withAuth from "~/hocs/withAuth";
 const { Text } = Typography;
 
 const MomoScreen = () => {
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
-  const { currentBankingOrder } = useAppSelector((state) => state.checkout);
+
+  // const { currentBankingOrder } = useAppSelector((state) => state.checkout);
 
   const momoRemainText = useTranslate("momo.remain");
 
@@ -26,6 +33,40 @@ const MomoScreen = () => {
   const [isConnected, setIsConnected] = useState(ordersSocket.connected);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isFailed, setIsFailed] = useState(false);
+  const [currentBankingOrder, setCurrentBankingOrder] =
+    useState<CurrentBankingOrder | null>(null);
+
+  const { id } = router.query;
+
+  useEffect(() => {
+    if (!id) {
+      if (calledPush) {
+        return; // no need to call router.push() again
+      }
+      Router.push("/");
+      setCalledPush(true);
+      return;
+    }
+
+    async function fetchBankingOrder() {
+      try {
+        const response = await dispatch(findBankingOrderById(id as string));
+        if ("error" in response) {
+          if (calledPush) {
+            return; // no need to call router.push() again
+          }
+          Router.push("/");
+          setCalledPush(true);
+        } else {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          setCurrentBankingOrder(response.payload as any);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchBankingOrder();
+  }, [id]);
 
   const expirationTime = currentBankingOrder?.expiration_timestamp
     ? new Date(currentBankingOrder?.expiration_timestamp)
@@ -34,35 +75,9 @@ const MomoScreen = () => {
 
   const qrcodeValue =
     (global.window &&
-      currentBankingOrder?.user_id &&
-      window?.location.host +
-        `/payment?user_id=${currentBankingOrder?.user_id}`) ||
+      currentBankingOrder?.id &&
+      window?.location.host + `/payment?order_id=${currentBankingOrder?.id}`) ||
     "";
-
-  useEffect(() => {
-    async function fetchBankingOrder() {
-      try {
-        const response = await dispatch(findBankingOrder());
-        if ("error" in response) {
-          if (calledPush) {
-            return; // no need to call router.push() again
-          }
-          Router.push("/");
-          setCalledPush(true);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    fetchBankingOrder();
-  }, []);
-
-  useEffect(() => {
-    if (expirationTime && expirationTime < new Date()) {
-      Router.push("/");
-      setCalledPush(true);
-    }
-  }, [expirationTime]);
 
   useEffect(() => {
     function onConnect() {

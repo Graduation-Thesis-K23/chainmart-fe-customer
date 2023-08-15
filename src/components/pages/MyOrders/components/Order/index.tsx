@@ -1,24 +1,45 @@
 import React, { FC, Fragment, memo, useMemo, useState } from "react";
 import Image from "next/image";
-
-import styles from "./Order.module.scss";
-import { OrderType, cancelOrder, receivedOrder, useAppDispatch } from "~/redux";
-import Translate from "~/components/commons/Translate";
-import getS3Image from "~/helpers/get-s3-image";
-import { convertPrice, convertTimestamp, discount } from "~/helpers";
-import { OrderStatus } from "~/shared";
+import Link from "next/link";
+import Router from "next/router";
+import {
+  Alert,
+  Button,
+  Col,
+  Grid,
+  Popconfirm,
+  Row,
+  Space,
+  Steps,
+  Typography,
+} from "antd";
 import {
   CloseOutlined,
   GiftOutlined,
   ImportOutlined,
+  LoadingOutlined,
   PartitionOutlined,
   ShoppingCartOutlined,
   SolutionOutlined,
 } from "@ant-design/icons";
-import { Alert, Col, Popconfirm, Row, Steps } from "antd";
+
+import styles from "./Order.module.scss";
+import {
+  OrderType,
+  cancelBankingOrder,
+  cancelOrder,
+  receivedOrder,
+  useAppDispatch,
+} from "~/redux";
+import Translate from "~/components/commons/Translate";
+import getS3Image from "~/helpers/get-s3-image";
+import { convertPrice, convertTimestamp, discount } from "~/helpers";
+import { OrderStatus, Payment, PaymentStatus } from "~/shared";
 import useTranslate from "~/hooks/useLocales";
 import OrderCommentModal from "../OrderCommentModal";
-import Link from "next/link";
+import Timer from "~/components/pages/Momo/components/Timer";
+
+const { useBreakpoint } = Grid;
 
 enum StepStatus {
   Wait = "wait",
@@ -34,26 +55,11 @@ const calculateCurrentStep = (
   completed_date: Date | undefined,
   returned_date: Date | undefined
 ) => {
-  if (returned_date) {
-    return 6;
-  }
-
-  if (completed_date) {
-    return 5;
-  }
-
-  if (started_date) {
-    return 4;
-  }
-
-  if (packaged_date) {
-    return 3;
-  }
-
-  if (approved_date) {
-    return 2;
-  }
-
+  if (returned_date) return 6;
+  if (completed_date) return 5;
+  if (started_date) return 4;
+  if (packaged_date) return 3;
+  if (approved_date) return 2;
   return 1;
 };
 
@@ -73,17 +79,51 @@ const Order: FC<OrderType> = ({
   order_details,
   rating_date,
   order_code,
+  payment_status,
+  expiration_timestamp,
 }) => {
+  const screens = useBreakpoint();
   const dispatch = useAppDispatch();
 
   const cancelOrderText = useTranslate("purchase.cancelOrderText");
+  const createAtText = useTranslate("purchase.stepsCreateAt");
+  const payText = useTranslate("purchase.stepsPay");
+  const approvedText = useTranslate("purchase.stepsApprovedAt");
+  const shippingText = useTranslate("purchase.stepsShippingAt");
+  const packagedText = useTranslate("purchase.stepsPackagedAt");
+  const completedText = useTranslate("purchase.stepsCompletedAt");
+  const returnText = useTranslate("purchase.stepsReturnedAt");
+  const cancelText = useTranslate("purchase.stepsCancelledAt");
+  const orderStatusText = useTranslate("purchase.orderStatus");
+  const paymentStatusText = useTranslate("purchase.paymentStatus");
+  const cancelBtnText = useTranslate("purchase.cancelBtn");
+  const payBtnText = useTranslate("purchase.payBtn");
+  const paymentText = useTranslate(payment);
+
+  const [isFinished, setIsFinished] = useState(false);
+
+  const expiryTimestamp = new Date(expiration_timestamp);
+  const isBankingOrder = payment === Payment.Banking;
+  const isOrderInProcessing =
+    isBankingOrder &&
+    status === OrderStatus.Created &&
+    payment_status === PaymentStatus.Unpaid &&
+    expiryTimestamp > new Date();
 
   const handleCancelOrder = async () => {
-    await dispatch(cancelOrder(id));
+    if (isBankingOrder) {
+      await dispatch(cancelBankingOrder(id));
+    } else {
+      await dispatch(cancelOrder(id));
+    }
   };
 
   const handleReceivedOrder = () => {
     dispatch(receivedOrder(id));
+  };
+
+  const moveToMomoPage = () => {
+    Router.push(`/checkout/momo?id=${id}`);
   };
 
   const [openComment, setOpenComment] = useState(false);
@@ -105,14 +145,6 @@ const Order: FC<OrderType> = ({
     setOpenComment(true);
   };
 
-  const createAtText = useTranslate("purchase.stepsCreateAt");
-  const approvedText = useTranslate("purchase.stepsApprovedAt");
-  const shippingText = useTranslate("purchase.stepsShippingAt");
-  const packagedText = useTranslate("purchase.stepsPackagedAt");
-  const completedText = useTranslate("purchase.stepsCompletedAt");
-  const returnText = useTranslate("purchase.stepsReturnedAt");
-  const cancelText = useTranslate("purchase.stepsCancelledAt");
-
   const stepsItem = useMemo(() => {
     const currentStep = calculateCurrentStep(
       approved_date,
@@ -132,14 +164,19 @@ const Order: FC<OrderType> = ({
       6. Returned
     */
 
-    const items = [
+    const items: {
+      title: string;
+      status: "wait" | "process" | "finish" | "error" | undefined;
+      icon: React.ReactNode;
+      description: React.ReactNode | string | null;
+    }[] = [
       {
         title: createAtText,
         status: StepStatus.Finish,
         icon: (
           <ShoppingCartOutlined
             style={{
-              fontSize: 36,
+              fontSize: 30,
             }}
           />
         ),
@@ -151,7 +188,7 @@ const Order: FC<OrderType> = ({
         icon: (
           <SolutionOutlined
             style={{
-              fontSize: 36,
+              fontSize: 30,
             }}
           />
         ),
@@ -163,7 +200,7 @@ const Order: FC<OrderType> = ({
         icon: (
           <GiftOutlined
             style={{
-              fontSize: 36,
+              fontSize: 30,
             }}
           />
         ),
@@ -175,7 +212,7 @@ const Order: FC<OrderType> = ({
         icon: (
           <PartitionOutlined
             style={{
-              fontSize: 36,
+              fontSize: 30,
             }}
           />
         ),
@@ -187,7 +224,7 @@ const Order: FC<OrderType> = ({
         icon: (
           <ImportOutlined
             style={{
-              fontSize: 36,
+              fontSize: 30,
             }}
           />
         ),
@@ -202,7 +239,7 @@ const Order: FC<OrderType> = ({
         icon: (
           <CloseOutlined
             style={{
-              fontSize: 36,
+              fontSize: 30,
             }}
           />
         ),
@@ -217,7 +254,7 @@ const Order: FC<OrderType> = ({
         icon: (
           <CloseOutlined
             style={{
-              fontSize: 36,
+              fontSize: 30,
             }}
           />
         ),
@@ -225,8 +262,29 @@ const Order: FC<OrderType> = ({
       });
     }
 
+    if (isOrderInProcessing) {
+      items.splice(1, 0, {
+        title: payText,
+        status: currentStep > 1 ? StepStatus.Finish : StepStatus.Process,
+        icon: (
+          <LoadingOutlined
+            style={{
+              fontSize: 30,
+            }}
+          />
+        ),
+        description: (
+          <Timer
+            expiryTimestamp={expiryTimestamp}
+            orderId={id}
+            setIsFailed={setIsFinished}
+          />
+        ),
+      });
+    }
+
     return items;
-  }, []);
+  }, [isOrderInProcessing]);
 
   const productsPrice = useMemo(() => {
     return order_details.reduce((total, product) => {
@@ -314,16 +372,26 @@ const Order: FC<OrderType> = ({
               okText={<Translate textKey="yes" />}
               cancelText={<Translate textKey="no" />}
             >
-              <button className={styles["order__footer__btn"]}>
-                <Translate textKey="purchase.cancelBtn" />
-              </button>
+              <Button danger>{cancelBtnText}</Button>
             </Popconfirm>
+            {isOrderInProcessing && (
+              <Button
+                type="primary"
+                onClick={moveToMomoPage}
+                style={{
+                  marginLeft: 10,
+                  backgroundColor: "#2da85c",
+                }}
+              >
+                {payBtnText}
+              </Button>
+            )}
           </div>
         );
     }
   };
 
-  const statusType: {
+  const orderStatusType: {
     [key: string]: "success" | "error" | "warning" | "info";
   } = {
     [OrderStatus.Approved]: "success",
@@ -335,33 +403,74 @@ const Order: FC<OrderType> = ({
     [OrderStatus.Started]: "info",
   };
 
+  const paymentStatusType: {
+    [key: string]: "success" | "error" | "warning" | "info";
+  } = {
+    [PaymentStatus.Unpaid]: "info",
+    [PaymentStatus.Failed]: "error",
+    [PaymentStatus.Paid]: "success",
+    [PaymentStatus.Processing]: "warning",
+  };
+
   return (
     <>
-      <li className={styles["order"]} id={id}>
+      <li
+        className={`${styles["order"]} ${
+          isOrderInProcessing ? styles["order--is-processing"] : ""
+        }`}
+        id={id}
+      >
         <div className={styles["order__header"]}>
-          <div className={styles["order__header__id"]}>
-            <Translate textKey="purchase.orderId" />:{" "}
-            <span className={styles["order__header__id__text"]}>
-              {order_code}
-            </span>
-          </div>
-          <span
-            className={styles["order__header__id__text"]}
-            style={{
-              display: "inline-block",
-              textTransform: "uppercase",
-              fontWeight: 600,
-              fontSize: "13px",
-            }}
+          <Space direction="vertical">
+            <div className={styles["order__header__id"]}>
+              <Translate textKey="purchase.orderId" />:{" "}
+              <span className={styles["order__header__id__text"]}>
+                {order_code}
+              </span>
+            </div>
+            <div className={styles["order__header__id"]}>
+              <Translate textKey="purchase.paymentMethod" />:{" "}
+              <span className={styles["order__header__id__text"]}>
+                {paymentText}
+              </span>
+            </div>
+          </Space>
+          <Space
+            direction="vertical"
+            align={screens.sm ? "end" : "start"}
+            style={{ rowGap: 10, columnGap: 10 }}
           >
-            <Alert
-              message={<Translate textKey={status} />}
-              type={statusType[status]}
-            />
-          </span>
+            <Space direction="horizontal">
+              <Typography.Text>{orderStatusText}</Typography.Text>
+              <Alert
+                message={<Translate textKey={status} />}
+                type={orderStatusType[status]}
+                style={{
+                  textTransform: "uppercase",
+                  fontWeight: 600,
+                  width: "fit-content",
+                }}
+              />
+            </Space>
+            {isBankingOrder && (
+              <Space direction="horizontal">
+                <Typography.Text>{paymentStatusText}</Typography.Text>
+                <Alert
+                  message={<Translate textKey={payment_status} />}
+                  type={paymentStatusType[payment_status]}
+                  style={{
+                    textTransform: "uppercase",
+                    fontWeight: 600,
+                    width: "fit-content",
+                  }}
+                />
+              </Space>
+            )}
+          </Space>
         </div>
+
         <div className={styles["order__steps"]}>
-          <Steps items={stepsItem} labelPlacement="vertical" />
+          <Steps items={stepsItem} labelPlacement="vertical" size="small" />
         </div>
 
         <ul className={styles["order__list"]}>

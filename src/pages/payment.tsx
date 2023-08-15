@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
@@ -10,7 +11,7 @@ const PaymentPage = () => {
 
   const paymentSuccessText = useTranslate("payment.success");
 
-  const { user_id } = router.query;
+  const { order_id } = router.query;
 
   useEffect(() => {
     async function makePayment() {
@@ -22,7 +23,7 @@ const PaymentPage = () => {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ user_id }),
+            body: JSON.stringify({ order_id }),
           }
         );
       } catch (error) {
@@ -31,23 +32,28 @@ const PaymentPage = () => {
       }
     }
     makePayment();
-  }, [user_id]);
+  }, [order_id]);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "100vh",
-        gap: 50,
-        color: "#28A745",
-      }}
-    >
-      <Image src={CreditCardImg} width={400} alt={"Credit Card"} />
-      <h3>{paymentSuccessText}!</h3>
-    </div>
+    <>
+      <Head>
+        <title>Payment</title>
+      </Head>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "100vh",
+          gap: 50,
+          color: "#28A745",
+        }}
+      >
+        <Image src={CreditCardImg} width={400} alt={"Credit Card"} />
+        <h3>{paymentSuccessText}!</h3>
+      </div>
+    </>
   );
 };
 

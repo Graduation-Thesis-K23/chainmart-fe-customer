@@ -2,9 +2,10 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { ASYNC_STATUS } from "../constants";
 import { Address } from "../setting";
-import { OrderStatus, Payment, SuccessPayload } from "~/shared";
+import { OrderStatus, Payment, PaymentStatus, SuccessPayload } from "~/shared";
 import { ErrorPayload } from "~/shared";
 import instance from "~/apis/axios-instance";
+import { cancelBankingOrder } from "../checkout/slide";
 
 export interface ProductDetailOrders {
   order_id: string;
@@ -37,6 +38,9 @@ export interface OrderType {
   payment: Payment;
   order_details: ProductDetailOrders[];
   order_code: string;
+  user_id: string;
+  payment_status: PaymentStatus;
+  expiration_timestamp: string;
 }
 
 export interface OrdersState {
@@ -69,6 +73,16 @@ export const orderSlice = createSlice({
     });
     builder.addCase(cancelOrder.fulfilled, (state, action) => {
       const { id, cancelled_date } = action.payload;
+      const index = state.data.findIndex((item) => item.id === id);
+      state.data[index].status = OrderStatus.Cancelled;
+      state.data[index].cancelled_date = cancelled_date;
+      state.status = ASYNC_STATUS.SUCCEED;
+      state.activeKey = OrderStatus.Cancelled;
+    });
+    builder.addCase(cancelBankingOrder.fulfilled, (state, action) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { id, cancelled_date } = action.payload as any;
+      console.log("builder cancel banking order", id);
       const index = state.data.findIndex((item) => item.id === id);
       state.data[index].status = OrderStatus.Cancelled;
       state.data[index].cancelled_date = cancelled_date;

@@ -111,6 +111,8 @@ const MainInformation = () => {
     router.push("/cart");
   };
 
+  console.log("render MainInformation", data);
+
   return (
     <>
       <div className={styles["main_information"]}>
@@ -156,7 +158,9 @@ const MainInformation = () => {
                   </div>
                 ) : (
                   <>
-                    {data.availableQuantity && data.availableQuantity > 0 ? (
+                    {data.show &&
+                    data.availableQuantity &&
+                    data.availableQuantity > 0 ? (
                       <>
                         <Quantity
                           maxQuantity={5}

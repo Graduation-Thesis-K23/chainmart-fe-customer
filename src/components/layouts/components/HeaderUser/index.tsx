@@ -5,6 +5,7 @@ import {
   LogoutOutlined,
   UserOutlined,
   ShoppingCartOutlined,
+  CaretDownOutlined,
 } from "@ant-design/icons";
 
 import styles from "./HeaderUser.module.scss";
@@ -41,7 +42,6 @@ const HeaderUser: FC<{ user: User }> = ({ user }) => {
         }
       >
         <div className={styles["header-user"]}>
-          <span className={styles["header-user_name"]}>{user.name}</span>
           {user.photo ? (
             <Image
               className={styles["header-user_image"]}
@@ -55,6 +55,10 @@ const HeaderUser: FC<{ user: User }> = ({ user }) => {
               {user.name[0]}
             </Avatar>
           )}
+          <span className={styles["header-user_name"]}>{user.name}</span>
+          <CaretDownOutlined
+            style={{ marginLeft: 4, marginTop: 2, fontSize: 13 }}
+          />
         </div>
       </Dropdown>
     </div>

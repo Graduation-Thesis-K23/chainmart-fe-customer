@@ -3,6 +3,7 @@
   align-items: center;
   height: 100%;
   cursor: pointer;
+  color: #fff;
 
   &_image {
     display: inline-block;
@@ -14,8 +15,7 @@
     display: inline-block;
     font-size: 18px;
     margin-top: 4px;
-    margin-right: 4px;
-    color: #fff;
+    margin-left: 8px;
   }
 }
 

@@ -8,13 +8,15 @@ import React, {
 import Image from "next/image";
 
 import styles from "./Payment.module.scss";
-import MomoLogo from "~/assets/images/momo_square_pinkbg.svg";
+import QRBankingLogo from "~/assets/images/banking-icon.png";
+import useTranslate from "~/hooks/useLocales";
 
 interface BankingTabProps {
   setIsCheckoutDisabled: Dispatch<SetStateAction<boolean>>;
 }
 
 const BankingTab: FC<BankingTabProps> = ({ setIsCheckoutDisabled }) => {
+  const payWithQrCodeText = useTranslate("checkout.qr");
   const [isMomoSelected, setIsMomoSelected] = useState(false);
 
   useEffect(() => {
@@ -36,8 +38,13 @@ const BankingTab: FC<BankingTabProps> = ({ setIsCheckoutDisabled }) => {
         }`}
         onClick={handleMomoClick}
       >
-        <Image src={MomoLogo} width={60} height={60} alt={"MoMo Logo"} />
-        <p>MoMo (Mock)</p>
+        <Image
+          src={QRBankingLogo}
+          width={60}
+          height={60}
+          alt={"QR Chainmart Logo"}
+        />
+        <p>{payWithQrCodeText}</p>
       </div>
     </div>
   );

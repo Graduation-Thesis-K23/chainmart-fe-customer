@@ -45,7 +45,7 @@ const MomoScreen = () => {
       if (calledPush) {
         return; // no need to call router.push() again
       }
-      Router.push("/");
+      // Router.push("/");
       setCalledPush(true);
       return;
     }

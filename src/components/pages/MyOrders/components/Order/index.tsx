@@ -123,7 +123,7 @@ const Order: FC<OrderType> = ({
   };
 
   const moveToMomoPage = () => {
-    Router.push(`/checkout/momo?id=${id}`);
+    Router.push(`/checkout/banking?id=${id}`);
   };
 
   const [openComment, setOpenComment] = useState(false);

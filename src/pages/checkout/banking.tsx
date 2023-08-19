@@ -9,7 +9,9 @@ import MomoScreen from "~/components/pages/Momo";
 const MomoPage: NextPageWithLayout = () => (
   <>
     <Head>
-      <title>{`${useTranslate("checkout")} | MoMo`}</title>
+      <title>{`${useTranslate("checkout")} | ${useTranslate(
+        "checkout.atm"
+      )}`}</title>
     </Head>
     <MomoScreen />
   </>

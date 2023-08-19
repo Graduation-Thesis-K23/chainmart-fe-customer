@@ -36,6 +36,7 @@ const PaymentComponent = () => {
   const ordered = useAppSelector((state) => state.cart);
 
   const codText = useTranslate("checkout.cod");
+  const paymentInAdvanceText = useTranslate("checkout.atm");
   const cashDescription = useTranslate("checkout.cashDescription");
 
   const [isCheckoutDisabled, setIsCheckoutDisabled] = useState(true);
@@ -58,7 +59,7 @@ const PaymentComponent = () => {
       label: (
         <span>
           <CreditCardOutlined />
-          Momo/ZaloPay/VNPay
+          {paymentInAdvanceText}
         </span>
       ),
       key: Payment.Banking,
@@ -114,7 +115,7 @@ const PaymentComponent = () => {
             expiration_timestamp,
           })
         );
-        router.push(`/checkout/momo?id=${id}`);
+        router.push(`/checkout/banking?id=${id}`);
       } else {
         router.push("/purchase");
       }

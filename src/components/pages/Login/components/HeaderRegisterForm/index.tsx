@@ -44,8 +44,13 @@ const HeaderRegisterForm: React.FC<{
 
   const onSubmit: SubmitHandler<SignUpPayload> = async (account) => {
     const response = await dispatch(signUp(account));
-    if ("error" in response) {
-      switch (response.error.message) {
+
+    if ("error" in response && "payload" in response) {
+      const payload = response.payload as {
+        message: string;
+      };
+
+      switch (payload.message as string) {
         case "username.existed":
           setError(
             "username",

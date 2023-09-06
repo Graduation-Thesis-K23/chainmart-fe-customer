@@ -1,6 +1,8 @@
+import Link from "next/link";
 import React, { Component, ErrorInfo, ReactNode } from "react";
 
-import MainLayout from "~layouts/MainLayout";
+import styles from "./ErrorBoundary.module.scss";
+import Translate from "../commons/Translate";
 
 interface Props {
   children?: ReactNode;
@@ -25,15 +27,33 @@ class ErrorBoundary extends Component<Props, State> {
   render() {
     if (this.state.hasError) {
       return (
-        <MainLayout>
-          <p
-            style={{
-              textAlign: "center",
-            }}
-          >
-            Sorry, something went wrong!
-          </p>
-        </MainLayout>
+        <div className={styles["center"]}>
+          <div className={styles["error"]}>
+            <div className={styles["number"]}>4</div>
+            <div className={styles["illustration"]}>
+              <div className={styles["circle"]}></div>
+              <div className={styles["clip"]}>
+                <div className={styles["paper"]}>
+                  <div className={styles["face"]}>
+                    <div className={styles["eyes"]}>
+                      <div className={styles["eye eye-left"]}></div>
+                      <div className={styles["eye eye-right"]}></div>
+                    </div>
+                    <div className={styles["rosyCheeks rosyCheeks-left"]}></div>
+                    <div
+                      className={styles["rosyCheeks rosyCheeks-right"]}
+                    ></div>
+                    <div className={styles["mouth"]}></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className={styles["number"]}>5</div>
+          </div>
+          <Link href="/" prefetch={false} className={styles["button"]}>
+            <Translate textKey="home" />
+          </Link>
+        </div>
       );
     }
 

@@ -33,7 +33,20 @@ const AccountsConnect: React.FC<{
   }, []);
 
   if (status !== ASYNC_STATUS.SUCCEED) {
-    return <Spin tip="Loading" size="large" />;
+    return (
+      <div
+        id={id}
+        className={styles["account"]}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: 500,
+        }}
+      >
+        <Spin tip="Loading" size="large" />;
+      </div>
+    );
   }
 
   return (

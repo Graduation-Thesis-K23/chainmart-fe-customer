@@ -63,13 +63,16 @@ const ChangePassword: React.FC<{
 
     const result = await dispatch(changePassword(data));
 
-    if (!changePassword.fulfilled.match(result)) {
-      toast.error(<Translate textKey="settings.currentPasswordIncorrect" />, {
+    const payload = result.payload as { messageCode: string };
+    console.log(payload.messageCode);
+
+    if (payload.messageCode === "settings.changePasswordSuccess") {
+      toast.success(<Translate textKey="settings.changePasswordSuccess" />, {
         autoClose: 1000,
       });
-      return;
+      window.location.reload();
     } else {
-      toast.success(<Translate textKey="settings.changePasswordSuccess" />, {
+      toast.info(<Translate textKey={payload.messageCode} />, {
         autoClose: 1000,
       });
     }

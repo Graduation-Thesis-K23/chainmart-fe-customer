@@ -117,6 +117,8 @@ const PaymentComponent = () => {
         );
         router.push(`/checkout/banking?id=${id}`);
       } else {
+        // sleep 1s to wait for order to be created
+        await new Promise((resolve) => setTimeout(resolve, 1000));
         router.push("/purchase");
       }
 

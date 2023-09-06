@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import classNames from "classnames";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -14,6 +14,8 @@ import styles from "./HeaderLogin.module.scss";
 import { nunito } from "~/pages/_app";
 import Translate from "~/components/commons/Translate";
 import banner from "~/assets/login/banner.jpg";
+import withAuth from "~/hocs/withAuth";
+import { ASYNC_STATUS, useAppSelector } from "~/redux";
 
 export const LOGIN_STATE = 1;
 export const FORGOT_STATE = 2;
@@ -44,12 +46,20 @@ const Login = () => {
       break;
   }
 
+  const { status } = useAppSelector((state) => state.user);
+  const isLoading =
+    status === ASYNC_STATUS.LOADING || status === ASYNC_STATUS.IDLE;
+
   useEffect(() => {
     const { mode } = router.query;
     if (mode) {
       setFormCode(parseInt(mode as string));
     }
   }, [router.query]);
+
+  if (isLoading) {
+    return null;
+  }
 
   return (
     <div className={classNames(styles["login_container"], nunito.className)}>
@@ -87,4 +97,4 @@ const Login = () => {
   );
 };
 
-export default memo(Login);
+export default withAuth(Login);

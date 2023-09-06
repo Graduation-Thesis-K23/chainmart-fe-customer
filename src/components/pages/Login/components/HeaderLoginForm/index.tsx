@@ -4,12 +4,12 @@ import Image from "next/image";
 import { Alert, Divider } from "antd";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IdcardOutlined, LockOutlined } from "@ant-design/icons";
+import router from "next/router";
 
 import HeaderLoginInput from "../HeaderLoginInput";
 import Translate from "~/components/commons/Translate";
 
 import styles from "./HeaderLoginForm.module.scss";
-import facebookSvg from "~/assets/icons/facebook-color.svg";
 import googleSvg from "~/assets/icons/google-color.svg";
 import { signIn, useAppDispatch, useAppSelector } from "~/redux";
 import { SignInPayload } from "~/shared";
@@ -44,6 +44,8 @@ const HeaderLoginForm: React.FC<{
     const response = await dispatch(signIn(account));
 
     if (signIn.fulfilled.match(response)) {
+      // go to previous page in case of login success
+      router.back();
       return;
     } else {
       setShowError(true);
@@ -127,18 +129,6 @@ const HeaderLoginForm: React.FC<{
             prefetch={false}
           >
             <Image src={googleSvg} alt="facebook-logo" width={48} height={48} />
-          </Link>
-          <Link
-            href={`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/facebook`}
-            className={styles["oauth-btn"]}
-            prefetch={false}
-          >
-            <Image
-              src={facebookSvg}
-              alt="facebook-logo"
-              width={48}
-              height={48}
-            />
           </Link>
         </div>
         <div className={styles["register"]}>

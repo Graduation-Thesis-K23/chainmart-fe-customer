@@ -14,7 +14,12 @@ import styles from "./HeaderLogin.module.scss";
 import { nunito } from "~/pages/_app";
 import Translate from "~/components/commons/Translate";
 import banner from "~/assets/login/banner.jpg";
-import { ASYNC_STATUS, useAppSelector } from "~/redux";
+import {
+  ASYNC_STATUS,
+  checkCookieToken,
+  useAppDispatch,
+  useAppSelector,
+} from "~/redux";
 
 export const LOGIN_STATE = 1;
 export const FORGOT_STATE = 2;
@@ -25,6 +30,8 @@ const Login = () => {
   const [formCode, setFormCode] = useState(LOGIN_STATE);
   const [account, setAccount] = useState<string>("");
   const router = useRouter();
+
+  const dispatch = useAppDispatch();
 
   let Form = <HeaderLoginForm setFormCode={setFormCode} />;
 
@@ -46,10 +53,12 @@ const Login = () => {
   }
 
   const { status } = useAppSelector((state) => state.user);
-  const isLoading =
-    status === ASYNC_STATUS.SUCCEED || status === ASYNC_STATUS.LOADING;
+  const isLoading = status === ASYNC_STATUS.SUCCEED;
 
   useEffect(() => {
+    if (status === ASYNC_STATUS.IDLE) {
+      dispatch(checkCookieToken());
+    }
     const { mode } = router.query;
     if (mode) {
       setFormCode(parseInt(mode as string));

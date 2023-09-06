@@ -14,7 +14,6 @@ import styles from "./HeaderLogin.module.scss";
 import { nunito } from "~/pages/_app";
 import Translate from "~/components/commons/Translate";
 import banner from "~/assets/login/banner.jpg";
-import withAuth from "~/hocs/withAuth";
 import { ASYNC_STATUS, useAppSelector } from "~/redux";
 
 export const LOGIN_STATE = 1;
@@ -48,7 +47,7 @@ const Login = () => {
 
   const { status } = useAppSelector((state) => state.user);
   const isLoading =
-    status === ASYNC_STATUS.LOADING || status === ASYNC_STATUS.IDLE;
+    status === ASYNC_STATUS.SUCCEED || status === ASYNC_STATUS.LOADING;
 
   useEffect(() => {
     const { mode } = router.query;
@@ -58,7 +57,7 @@ const Login = () => {
   }, [router.query]);
 
   if (isLoading) {
-    return null;
+    router.push("/");
   }
 
   return (
@@ -97,4 +96,4 @@ const Login = () => {
   );
 };
 
-export default withAuth(Login);
+export default Login;

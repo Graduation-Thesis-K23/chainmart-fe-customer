@@ -92,7 +92,7 @@ const MomoScreen = () => {
 
     function onDisconnect() {
       setIsConnected(false);
-      toast.error("Oh no! Socket disconnected");
+      toast.error("Socket disconnected!");
     }
 
     function onOrderUpdated(status: string) {
@@ -102,6 +102,7 @@ const MomoScreen = () => {
       } else {
         setIsFailed(true);
       }
+      ordersSocket.disconnect();
     }
 
     if (isMounted()) {
@@ -116,7 +117,7 @@ const MomoScreen = () => {
       ordersSocket.off(user.data.username, onOrderUpdated);
       ordersSocket.disconnect();
     };
-  }, []);
+  }, [isMounted]);
 
   return (
     <div className={styles["momo"]}>

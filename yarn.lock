@@ -6368,6 +6368,11 @@ react-hook-form@^7.43.2:
   resolved "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.43.2.tgz"
   integrity sha512-NvD3Oe2Y9hhqo2R4I4iJigDzSLpdMnzUpNMxlnzTbdiT7NT3BW0GxWCzEtwPudZMUPbZhNcSy1EcGAygyhDORg==
 
+react-is-mounted-hook@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/react-is-mounted-hook/-/react-is-mounted-hook-1.1.2.tgz#0e57d237c0ed60f6a8dc0520634608a80ae864ff"
+  integrity sha512-yjq3Tj34CiFcdVOS/h6JerWLOLdJqEGKMNpTHc4kWebzz2YtIpgqMRrqxdmQhewM1KJREojdAV2tsNvBsUWyhA==
+
 react-is@^16.12.0, react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"

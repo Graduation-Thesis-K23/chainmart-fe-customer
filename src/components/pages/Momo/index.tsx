@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Router, { useRouter } from "next/router";
 import { Card, Divider, Space, Typography } from "antd";
 import { toast } from "react-toastify";
+import useIsMounted from "react-is-mounted-hook";
 
 import styles from "./Momo.module.scss";
 import { ordersSocket } from "~/apis/socket.io-instance";
@@ -23,6 +24,7 @@ const { Text } = Typography;
 const MomoScreen = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const isMounted = useIsMounted();
   const user = useAppSelector((state) => state.user);
 
   // const { currentBankingOrder } = useAppSelector((state) => state.checkout);
@@ -100,16 +102,18 @@ const MomoScreen = () => {
       }
     }
 
-    ordersSocket.on("connect", onConnect);
-    ordersSocket.on("disconnect", onDisconnect);
-    ordersSocket.on(user.data.username, onOrderUpdated);
+    if (isMounted()) {
+      ordersSocket.on("connect", onConnect);
+      ordersSocket.on("disconnect", onDisconnect);
+      ordersSocket.on(user.data.username, onOrderUpdated);
+    }
 
     return () => {
       ordersSocket.off("connect", onConnect);
       ordersSocket.off("disconnect", onDisconnect);
       ordersSocket.off(user.data.username, onOrderUpdated);
     };
-  }, [user]);
+  }, []);
 
   return (
     <div className={styles["momo"]}>

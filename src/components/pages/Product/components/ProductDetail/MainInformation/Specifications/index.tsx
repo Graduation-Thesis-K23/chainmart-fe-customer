@@ -2,7 +2,7 @@ import React, { memo } from "react";
 
 import styles from "./Specifications.module.scss";
 
-interface Specification {
+export interface Specification {
   id: string;
   key: string;
   value: string;

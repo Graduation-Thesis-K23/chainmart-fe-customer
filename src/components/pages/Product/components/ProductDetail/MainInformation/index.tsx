@@ -7,7 +7,7 @@ import classNames from "classnames";
 import Images from "./Images";
 import Parameter from "./Parameter";
 import Quantity from "./Quantity";
-import Specifications from "./Specifications";
+import Specifications, { Specification } from "./Specifications";
 import Description from "./Description";
 
 import styles from "./MainInformation.module.scss";
@@ -215,7 +215,9 @@ const MainInformation = () => {
                 <Translate textKey="product.specifications" />
               </div>
               <Specifications
-                specifications={JSON.parse(data?.specifications || "[]")}
+                specifications={
+                  data?.specifications as unknown as Specification[]
+                }
               />
               <div className={styles["description-title"]}>
                 <Translate textKey="product.description" />

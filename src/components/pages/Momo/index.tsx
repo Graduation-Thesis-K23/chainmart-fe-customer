@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Router, { useRouter } from "next/router";
+import Head from "next/head";
 import { Card, Divider, Space, Typography } from "antd";
 import { toast } from "react-toastify";
 
@@ -119,30 +120,38 @@ const MomoScreen = () => {
   }, [user]);
 
   return (
-    <div className={styles["momo"]}>
-      <Card className={styles["momo__card"]}>
-        <Space direction="horizontal" align="end">
-          <Text type="secondary">{momoRemainText + ":"}</Text>
-          {expirationTime && (
-            <Timer
-              expiryTimestamp={expirationTime}
-              orderId={currentBankingOrder?.id || ""}
-              isFinished={isSuccess || isFailed}
-              setIsFailed={setIsFailed}
-            />
-          )}
-        </Space>
-        <Divider style={{ marginTop: 10 }} />
+    <>
+      <Head>
+        <meta
+          httpEquiv="Content-Security-Policy"
+          content="upgrade-insecure-requests"
+        />
+      </Head>
+      <div className={styles["momo"]}>
+        <Card className={styles["momo__card"]}>
+          <Space direction="horizontal" align="end">
+            <Text type="secondary">{momoRemainText + ":"}</Text>
+            {expirationTime && (
+              <Timer
+                expiryTimestamp={expirationTime}
+                orderId={currentBankingOrder?.id || ""}
+                isFinished={isSuccess || isFailed}
+                setIsFailed={setIsFailed}
+              />
+            )}
+          </Space>
+          <Divider style={{ marginTop: 10 }} />
 
-        {isSuccess ? (
-          <SuccessBanking />
-        ) : isFailed ? (
-          <FailedBanking />
-        ) : (
-          <QRBanking qrcodeValue={qrcodeValue} />
-        )}
-      </Card>
-    </div>
+          {isSuccess ? (
+            <SuccessBanking />
+          ) : isFailed ? (
+            <FailedBanking />
+          ) : (
+            <QRBanking qrcodeValue={qrcodeValue} />
+          )}
+        </Card>
+      </div>
+    </>
   );
 };
 

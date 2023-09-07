@@ -84,6 +84,8 @@ const MomoScreen = () => {
     "";
 
   useEffect(() => {
+    ordersSocket.connect();
+
     function onConnect() {
       setIsConnected(true);
     }
@@ -112,6 +114,7 @@ const MomoScreen = () => {
       ordersSocket.off("connect", onConnect);
       ordersSocket.off("disconnect", onDisconnect);
       ordersSocket.off(user.data.username, onOrderUpdated);
+      ordersSocket.disconnect();
     };
   }, []);
 

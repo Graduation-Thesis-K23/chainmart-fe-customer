@@ -215,10 +215,9 @@ const MainInformation = () => {
                 <Translate textKey="product.specifications" />
               </div>
               <Specifications
-                specifications={
-                  data?.specifications as unknown as Specification[]
-                }
+                specifications={JSON.parse(data?.specifications || "[]")}
               />
+
               <div className={styles["description-title"]}>
                 <Translate textKey="product.description" />
               </div>
